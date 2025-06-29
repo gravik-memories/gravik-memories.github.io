@@ -256,7 +256,7 @@
             background-color: #cccccc; /* Не менять цвет при наведении */
         }
 
-        /* --- Стили для адаптивных социальных кнопок (ОБНОВЛЕНО) --- */
+        /* Стили для новых социальных кнопок */
         .social-buttons {
             display: flex;
             flex-wrap: wrap; /* Для переноса на новую строку на маленьких экранах */
@@ -265,7 +265,6 @@
             width: 100%;
             max-width: 400px; /* Ограничим ширину блока кнопок */
             margin-top: 20px; /* Отступ от предыдущего элемента */
-            min-width: 280px; /* Добавляем минимальную ширину для блока кнопок */
         }
 
         .social-button {
@@ -279,10 +278,8 @@
             font-weight: bold;
             color: var(--light-text-color);
             transition: background-color 0.3s ease, transform 0.2s ease;
-            /* flex-grow: 1;  Убрано, чтобы кнопки не растягивались на всю ширину на мобильных */
+            flex-grow: 1; /* Чтобы кнопки занимали доступное место */
             justify-content: center; /* Центрируем содержимое кнопки */
-            flex-basis: calc(50% - 7.5px); /* 50% минус половина gap */
-            max-width: calc(50% - 7.5px); /* Ограничиваем максимальную ширину */
         }
 
         .social-button i {
@@ -437,6 +434,14 @@
                 padding: 15px 25px;
                 font-size: 1.1em;
             }
+            /* Адаптивность для социальных кнопок */
+            .social-buttons {
+                flex-direction: column; /* Кнопки в столбик на очень маленьких экранах */
+                gap: 10px;
+            }
+            .social-button {
+                /* width: 100%; <-- ИЗМЕНЕНИЕ ЗДЕСЬ: Эта строка удалена, чтобы кнопки не растягивались */
+            }
             /* Circular gallery responsive */
             .gallery-item img {
                 width: 150px;
@@ -463,17 +468,6 @@
             .gallery-item img {
                 width: 120px;
                 height: 120px;
-            }
-            /* --- Адаптивность для социальных кнопок на очень маленьких экранах (ОБНОВЛЕНО) --- */
-            .social-buttons {
-                flex-direction: column; /* Кнопки в столбик на очень маленьких экранах */
-                gap: 10px;
-                min-width: unset; /* Сбрасываем минимальную ширину, чтобы они могли занимать 100% */
-            }
-            .social-button {
-                width: 100%; /* Полная ширина для кнопок в столбик */
-                flex-basis: 100%; /* Занимают 100% ширины родителя */
-                max-width: 100%;
             }
         }
     </style>
