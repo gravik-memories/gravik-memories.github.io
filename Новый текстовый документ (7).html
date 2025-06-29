@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Простой Адаптивный Лендинг</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* --- Общие стили --- */
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #f8f9fa;
+            --text-color: #333;
+            --light-text-color: #fff;
+            --container-padding: 20px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #fff;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 var(--container-padding);
+        }
+
+        h1, h2 {
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        section {
+            padding: 60px 0;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* --- Шапка (Header) --- */
+        .header {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav a:hover {
+            color: var(--primary-color);
+        }
+        
+        /* Гамбургер-меню для мобильных */
+        .menu-toggle {
+            display: none; /* Скрыто по умолчанию */
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        /* --- Секция Hero --- */
+        .hero {
+            background-color: var(--secondary-color);
+            text-align: center;
+            padding: 80px var(--container-padding);
+        }
+
+        .hero h1 {
+            font-size: 2.8em;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--light-text-color);
+            padding: 15px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* --- Секция "О нас" --- */
+        #about .container {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        
+        .about-content {
+           flex: 1;
+        }
+        
+        .about-image {
+           flex: 1;
+           text-align: center;
+        }
+        
+        .about-image img {
+            border-radius: 10px;
+        }
+
+        /* --- Секция "Услуги" --- */
+        #services {
+            background-color: var(--secondary-color);
+        }
+
+        #services .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .service-card {
+            background-color: #fff;
+            padding: 30px;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        .service-card .icon {
+            font-size: 3em;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            margin-bottom: 15px;
+        }
+
+        /* --- Секция Карточки Товара --- */
+        .product-card-section {
+            background-color: #f0f2f5; /* Легкий фон для выделения */
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .product-card {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            padding: 40px;
+            max-width: 600px; /* Шире для большой карточки */
+            margin: 0 auto; /* Центрирование карточки */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px; /* Отступ между элементами */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+        }
+
+        .product-card img {
+            max-width: 90%; /* Шире изображение */
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+
+        .product-card h2 {
+            font-size: 2.5em;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .product-card p {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 25px;
+            line-height: 1.7;
+        }
+
+        .product-card .price {
+            font-size: 2.2em;
+            font-weight: bold;
+            color: #28a745; /* Зеленый цвет для цены */
+            margin-bottom: 30px;
+        }
+
+        /* Кнопка купить, переиспользуем существующий класс cta-button */
+        .product-card .cta-button {
+            width: 80%; /* Кнопка шире */
+            max-width: 300px;
+            padding: 18px 35px;
+            font-size: 1.2em;
+        }
+
+        /* Стили для неактивной кнопки */
+        .inactive-button {
+            background-color: #cccccc; /* Серый цвет для неактивной кнопки */
+            cursor: not-allowed; /* Курсор "запрещено" */
+            opacity: 0.8;
+            pointer-events: none; /* Отключает клики */
+        }
+
+        .inactive-button:hover {
+            background-color: #cccccc; /* Не менять цвет при наведении */
+        }
+
+        /* Стили для новых социальных кнопок */
+        .social-buttons {
+            display: flex;
+            flex-wrap: wrap; /* Для переноса на новую строку на маленьких экранах */
+            justify-content: center;
+            gap: 15px; /* Отступ между кнопками */
+            width: 100%;
+            max-width: 400px; /* Ограничим ширину блока кнопок */
+            margin-top: 20px; /* Отступ от предыдущего элемента */
+        }
+
+        .social-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px; /* Отступ между иконкой и текстом */
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: var(--light-text-color);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            flex-grow: 1; /* Чтобы кнопки занимали доступное место */
+            justify-content: center; /* Центрируем содержимое кнопки */
+        }
+
+        .social-button i {
+            font-size: 1.2em; /* Размер иконки */
+        }
+
+        .social-button.viber {
+            background-color: #7360F2; /* Цвет Viber */
+        }
+
+        .social-button.viber:hover {
+            background-color: #604ED9;
+            transform: translateY(-2px);
+        }
+
+        .social-button.telegram {
+            background-color: #0088CC; /* Цвет Telegram */
+        }
+
+        .social-button.telegram:hover {
+            background-color: #006FB3;
+            transform: translateY(-2px);
+        }
+
+        /* --- Адаптивность (Responsive) --- */
+
+        /* Планшеты и маленькие десктопы */
+        @media (max-width: 992px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            #about .container {
+                flex-direction: column;
+            }
+        }
+
+        /* Мобильные устройства */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2em; }
+            .hero h1 { font-size: 2.5em; }
+
+            .nav {
+                display: none; /* Скрываем навигацию */
+                flex-direction: column;
+                position: absolute;
+                top: 60px; /* Высота шапки */
+                right: 0;
+                background-color: white;
+                width: 100%;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            
+            .nav.active {
+                display: flex; /* Показываем при клике */
+            }
+
+            .nav a {
+                margin: 0;
+                padding: 15px;
+                text-align: center;
+                border-bottom: 1px solid #eee;
+            }
+            
+            .menu-toggle {
+                display: block; /* Показываем гамбургер */
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            /* Адаптивность для карточки товара */
+            .product-card {
+                padding: 30px;
+                max-width: 90%;
+            }
+            .product-card h2 {
+                font-size: 2em;
+            }
+            .product-card .price {
+                font-size: 1.8em;
+            }
+            .product-card .cta-button {
+                width: 100%;
+                padding: 15px 25px;
+                font-size: 1.1em;
+            }
+            /* Адаптивность для социальных кнопок */
+            .social-buttons {
+                flex-direction: column; /* Кнопки в столбик на очень маленьких экранах */
+                gap: 10px;
+            }
+            .social-button {
+                width: 100%; /* Полная ширина для кнопок в столбик */
+            }
+        }
+        @media (max-width: 480px) {
+            .product-card {
+                padding: 20px;
+            }
+            .product-card h2 {
+                font-size: 1.8em;
+            }
+            .product-card p {
+                font-size: 1em;
+            }
+            .product-card .price {
+                font-size: 1.6em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <a href="#" class="logo">Логотип</a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span>&#9776;</span> </div>
+            <nav class="nav" id="nav-menu">
+                <a href="#about">О нас</a>
+                <a href="#services">Услуги</a>
+                <a href="#contact">Контакты</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Инновационные Решения для Вашего Бизнеса</h1>
+                <p>Мы создаем современные и эффективные решения, которые помогают нашим клиентам достигать новых высот.</p>
+                <a href="https://t.me/fifa_laser" class="cta-button" target="_blank">Связаться с нами</a>
+            </div>
+        </section>
+
+        <section id="about">
+            <div class="container">
+                <div class="about-content">
+                    <h2>Кто мы такие?</h2>
+                    <p>Мы — команда профессионалов, увлеченных своим делом. Наша миссия — предоставлять качественные услуги и продукты, которые превосходят ожидания. Мы верим в долгосрочное партнерство и индивидуальный подход к каждому проекту.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://via.placeholder.com/450x300" alt="Наша команда работает">
+                </div>
+            </div>
+        </section>
+
+        <section id="services">
+            <div class="container">
+                <h2 class="section-title">Наши Услуги</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="icon">🚀</div>
+                        <h3>Стратегия</h3>
+                        <p>Разработка выигрышной стратегии для вашего продукта на рынке.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="icon">🎨</div>
+                        <h3>Дизайн</h3>
+                        <p>Создание привлекательного и удобного дизайна для пользователей.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="icon">💻</div>
+                        <h3>Разработка</h3>
+                        <p>Качественная и быстрая разработка сайтов и приложений.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="product-card-section">
+            <div class="container">
+                <div class="product-card">
+                    <img src="https://via.placeholder.com/500x350" alt="Изображение товара">
+                    <h2>Удивительный Продукт X</h2>
+                    <p>Откройте для себя невероятные возможности с Продуктом X. Этот продукт разработан для того, чтобы упростить вашу жизнь и повысить вашу продуктивность. Не упустите шанс улучшить свой опыт!</p>
+                    <div class="price">49.99 $</div>
+                    <a href="javascript:void(0);" class="cta-button inactive-button">Купить сейчас (неактивно)</a>
+                    
+                    <div class="social-buttons">
+                        <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" class="social-button viber">
+                            <i class="fab fa-viber"></i> Viber
+                        </a>
+                        <a href="https://t.me/your_telegram_username" target="_blank" class="social-button telegram">
+                            <i class="fab fa-telegram-plane"></i> Telegram
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer" id="contact">
+        <div class="container">
+            <p>&copy; 2025 Логотип. Все права защищены.</p>
+            <p>Email: contact@example.com</p>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript для мобильного меню
+        const menuToggle = document.getElementById('mobile-menu');
+        const navMenu = document.getElementById('nav-menu');
+
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Плавная прокрутка к якорям
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                
+                // Закрываем меню после клика на ссылку на мобильных устройствах
+                if (navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
