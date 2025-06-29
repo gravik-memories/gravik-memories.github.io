@@ -3,31 +3,334 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Жетоны для гравировки</title>
+    <title>Простой Адаптивный Лендинг</title>
     <style>
-        body {
-            display: flex;
-            justify-content: center; /* Выравнивание по горизонтали */
-            align-items: center;     /* Выравнивание по вертикали */
-            min-height: 100vh;       /* Минимальная высота вьюпорта (чтобы текст был по центру экрана) */
-            margin: 0;
-            font-family: Arial, sans-serif; /* Пример шрифта */
-            background-color: #f0f0f0; /* Легкий серый фон */
+        /* --- Общие стили --- */
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #f8f9fa;
+            --text-color: #333;
+            --light-text-color: #fff;
+            --container-padding: 20px;
         }
 
-        h1 {
-            font-size: 4em; /* Очень большой размер шрифта */
-            color: #333;   /* Темно-серый цвет текста */
-            text-align: center; /* Центрирование текста внутри h1 */
-            padding: 20px; /* Отступы вокруг текста */
-            border: 2px solid #555; /* Рамка вокруг текста */
-            border-radius: 10px; /* Скругленные углы рамки */
-            background-color: #fff; /* Белый фон для блока с текстом */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Легкая тень */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #fff;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 var(--container-padding);
+        }
+
+        h1, h2 {
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        section {
+            padding: 60px 0;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* --- Шапка (Header) --- */
+        .header {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav a:hover {
+            color: var(--primary-color);
+        }
+        
+        /* Гамбургер-меню для мобильных */
+        .menu-toggle {
+            display: none; /* Скрыто по умолчанию */
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        /* --- Секция Hero --- */
+        .hero {
+            background-color: var(--secondary-color);
+            text-align: center;
+            padding: 80px var(--container-padding);
+        }
+
+        .hero h1 {
+            font-size: 2.8em;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--light-text-color);
+            padding: 15px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* --- Секция "О нас" --- */
+        #about .container {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        
+        .about-content {
+           flex: 1;
+        }
+        
+        .about-image {
+           flex: 1;
+           text-align: center;
+        }
+        
+        .about-image img {
+            border-radius: 10px;
+        }
+
+        /* --- Секция "Услуги" --- */
+        #services {
+            background-color: var(--secondary-color);
+        }
+
+        #services .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .service-card {
+            background-color: #fff;
+            padding: 30px;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        .service-card .icon {
+            font-size: 3em;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            margin-bottom: 15px;
+        }
+
+        /* --- Подвал (Footer) --- */
+        .footer {
+            background-color: #333;
+            color: var(--light-text-color);
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        /* --- Адаптивность (Responsive) --- */
+
+        /* Планшеты и маленькие десктопы */
+        @media (max-width: 992px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            #about .container {
+                flex-direction: column;
+            }
+        }
+
+        /* Мобильные устройства */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2em; }
+            .hero h1 { font-size: 2.5em; }
+
+            .nav {
+                display: none; /* Скрываем навигацию */
+                flex-direction: column;
+                position: absolute;
+                top: 60px; /* Высота шапки */
+                right: 0;
+                background-color: white;
+                width: 100%;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            
+            .nav.active {
+                display: flex; /* Показываем при клике */
+            }
+
+            .nav a {
+                margin: 0;
+                padding: 15px;
+                text-align: center;
+                border-bottom: 1px solid #eee;
+            }
+            
+            .menu-toggle {
+                display: block; /* Показываем гамбургер */
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Жетоны для гравировки</h1>
+
+    <header class="header">
+        <div class="container">
+            <a href="#" class="logo">Логотип</a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span>&#9776;</span> </div>
+            <nav class="nav" id="nav-menu">
+                <a href="#about">О нас</a>
+                <a href="#services">Услуги</a>
+                <a href="#contact">Контакты</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Инновационные Решения для Вашего Бизнеса</h1>
+                <p>Мы создаем современные и эффективные решения, которые помогают нашим клиентам достигать новых высот.</p>
+                <a href="#contact" class="cta-button">Связаться с нами</a>
+            </div>
+        </section>
+
+        <section id="about">
+            <div class="container">
+                <div class="about-content">
+                    <h2>Кто мы такие?</h2>
+                    <p>Мы — команда профессионалов, увлеченных своим делом. Наша миссия — предоставлять качественные услуги и продукты, которые превосходят ожидания. Мы верим в долгосрочное партнерство и индивидуальный подход к каждому проекту.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://via.placeholder.com/450x300" alt="Наша команда работает">
+                </div>
+            </div>
+        </section>
+
+        <section id="services">
+            <div class="container">
+                <h2 class="section-title">Наши Услуги</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="icon">🚀</div>
+                        <h3>Стратегия</h3>
+                        <p>Разработка выигрышной стратегии для вашего продукта на рынке.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="icon">🎨</div>
+                        <h3>Дизайн</h3>
+                        <p>Создание привлекательного и удобного дизайна для пользователей.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="icon">💻</div>
+                        <h3>Разработка</h3>
+                        <p>Качественная и быстрая разработка сайтов и приложений.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+
+    <footer class="footer" id="contact">
+        <div class="container">
+            <p>&copy; 2025 Логотип. Все права защищены.</p>
+            <p>Email: contact@example.com</p>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript для мобильного меню
+        const menuToggle = document.getElementById('mobile-menu');
+        const navMenu = document.getElementById('nav-menu');
+
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Плавная прокрутка к якорям
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                
+                // Закрываем меню после клика на ссылку на мобильных устройствах
+                if (navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                }
+            });
+        });
+    </script>
+
 </body>
 </html>
