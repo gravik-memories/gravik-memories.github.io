@@ -304,6 +304,70 @@
             transform: translateY(-2px);
         }
 
+        /* --- Circular Gallery Styles --- */
+        .circular-gallery-section {
+            background-color: var(--secondary-color);
+            text-align: center;
+        }
+
+        .circular-gallery {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            overflow: hidden;
+            padding: 30px 0;
+        }
+
+        .gallery-container {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .gallery-item {
+            min-width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .gallery-item img {
+            width: 250px; /* Fixed width for circular images */
+            height: 250px; /* Fixed height for circular images */
+            border-radius: 50%; /* Makes the image circular */
+            object-fit: cover; /* Ensures the image covers the area */
+            border: 5px solid var(--primary-color);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .gallery-nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 15px 10px;
+            cursor: pointer;
+            font-size: 1.5em;
+            z-index: 10;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .gallery-nav-button:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .gallery-nav-button.prev {
+            left: 10px;
+        }
+
+        .gallery-nav-button.next {
+            right: 10px;
+        }
+        
         /* --- Адаптивность (Responsive) --- */
 
         /* Планшеты и маленькие десктопы */
@@ -313,6 +377,10 @@
             }
             #about .container {
                 flex-direction: column;
+            }
+            .gallery-item img {
+                width: 200px;
+                height: 200px;
             }
         }
 
@@ -374,6 +442,15 @@
             .social-button {
                 width: 100%; /* Полная ширина для кнопок в столбик */
             }
+            /* Circular gallery responsive */
+            .gallery-item img {
+                width: 150px;
+                height: 150px;
+            }
+            .gallery-nav-button {
+                padding: 10px 5px;
+                font-size: 1.2em;
+            }
         }
         @media (max-width: 480px) {
             .product-card {
@@ -388,6 +465,10 @@
             .product-card .price {
                 font-size: 1.6em;
             }
+            .gallery-item img {
+                width: 120px;
+                height: 120px;
+            }
         }
     </style>
 </head>
@@ -401,6 +482,7 @@
             <nav class="nav" id="nav-menu">
                 <a href="#about">О нас</a>
                 <a href="#services">Услуги</a>
+                <a href="#circular-gallery-section">Галерея</a>
                 <a href="#contact">Контакты</a>
             </nav>
         </div>
@@ -470,7 +552,24 @@
                 </div>
             </div>
         </section>
-    </main>
+
+        <section id="circular-gallery-section" class="circular-gallery-section">
+            <div class="container">
+                <h2 class="section-title">Наша Фотогалерея</h2>
+                <div class="circular-gallery">
+                    <div class="gallery-container" id="galleryContainer">
+                        <div class="gallery-item"><img src="https://via.placeholder.com/250/FF5733/FFFFFF?text=Image+1" alt="Circular Image 1"></div>
+                        <div class="gallery-item"><img src="https://via.placeholder.com/250/33FF57/FFFFFF?text=Image+2" alt="Circular Image 2"></div>
+                        <div class="gallery-item"><img src="https://via.placeholder.com/250/3357FF/FFFFFF?text=Image+3" alt="Circular Image 3"></div>
+                        <div class="gallery-item"><img src="https://via.placeholder.com/250/FF33E9/FFFFFF?text=Image+4" alt="Circular Image 4"></div>
+                        <div class="gallery-item"><img src="https://via.placeholder.com/250/E9FF33/FFFFFF?text=Image+5" alt="Circular Image 5"></div>
+                    </div>
+                    <button class="gallery-nav-button prev" onclick="moveGallery(-1)">&#10094;</button>
+                    <button class="gallery-nav-button next" onclick="moveGallery(1)">&#10095;</button>
+                </div>
+            </div>
+        </section>
+        </main>
 
     <footer class="footer" id="contact">
         <div class="container">
@@ -503,6 +602,17 @@
                 }
             });
         });
+
+        // JavaScript for Circular Gallery
+        let currentSlide = 0;
+        const galleryContainer = document.getElementById('galleryContainer');
+        const totalSlides = galleryContainer.children.length;
+
+        function moveGallery(direction) {
+            currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+            const offset = -currentSlide * 100;
+            galleryContainer.style.transform = `translateX(${offset}%)`;
+        }
     </script>
 
 </body>
