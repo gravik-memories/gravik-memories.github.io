@@ -252,7 +252,7 @@
 
         .product-card img {
             width: 100%; /* Изображение будет подстраиваться под ширину родителя */
-            height: 200px; /* Увеличено на ~35% (было 150px) */
+            height: 300px; /* Увеличено на 50% (было 200px) */
             object-fit: cover; /* ОБРЕЗАЕТ ИЗОБРАЖЕНИЕ, ЧТОБЫ ОНО ПОЛНОСТЬЮ ЗАПОЛНИЛО КОНТЕЙНЕР, СОХРАНЯЯ ПРОПОРЦИИ */
             border-radius: 8px;
             margin-bottom: 5px; /* Уменьшаем отступ снизу от картинки */
@@ -298,6 +298,7 @@
             color: var(--light-text-color);
             transition: background-color 0.3s ease, transform 0.2s ease;
             flex-grow: 1;
+            white-space: nowrap; /* Текст не переносится на новую строку */
         }
 
         .product-card .social-button i {
@@ -440,7 +441,7 @@
                 padding: 15px;
             }
             .product-card img {
-                height: 160px; /* Увеличено пропорционально (было 120px) */
+                height: 240px; /* Увеличено на 50% (было 160px) */
                 margin-bottom: 5px;
             }
             .product-card h2 {
@@ -493,7 +494,8 @@
             /* Адаптивность для карточки товара */
             .product-cards-grid {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
+                gap: 10px 10px; /* Горизонтальный отступ 10px, вертикальный 10px */
+                row-gap: 30px; /* Увеличенный отступ между рядами (в 3 раза больше) */
                 padding: 0 10px;
             }
             .product-card {
@@ -505,7 +507,7 @@
                 margin-bottom: 3px;
             }
             .product-card img {
-                height: 135px; /* Увеличено пропорционально (было 100px) */
+                height: 200px; /* Увеличено на ~50% (было 135px) */
                 margin-bottom: 3px;
             }
             .product-card .price {
@@ -519,6 +521,7 @@
             .product-card .social-button {
                 font-size: 0.8em;
                 padding: 6px 10px;
+                white-space: nowrap; /* Текст не переносится на новую строку */
             }
 
             .gallery-item img {
@@ -568,12 +571,13 @@
             .product-card .price {
                 font-size: 1.2em;
             }
+            .product-card img {
+                height: 180px; /* Увеличено на 50% (было 120px) */
+            }
             .product-card .social-button {
                 font-size: 0.75em;
                 padding: 5px 8px;
-            }
-            .product-card img {
-                height: 120px; /* Увеличено пропорционально (было 90px) */
+                white-space: nowrap; /* Текст не переносится на новую строку */
             }
             .gallery-item img {
                 width: 120px;
