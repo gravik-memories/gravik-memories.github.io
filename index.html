@@ -500,36 +500,41 @@
                 display: block;
             }
 
-            /* Изменения для верхнего блока */
+            /* Ключевое исправление для мобильной версии */
             .innovative-solutions .container {
-                flex-direction: row;
-                align-items: flex-start;
+                display: grid;
+                grid-template-columns: 120px 1fr;
+                grid-template-areas: "image content";
+                gap: 15px;
+                align-items: start;
             }
             
             .innovative-solutions-image {
-                order: -1;
-                width: 45%;
-                margin-right: 15px;
+                grid-area: image;
+                width: 100%;
+                max-width: 100%;
+                margin-right: 0;
             }
             
             .innovative-solutions-content {
-                width: 55%;
+                grid-area: content;
+                width: 100%;
                 padding-top: 0;
             }
             
             .innovative-solutions-content h1 {
-                font-size: 1.5em;
+                font-size: 1.3em;
                 margin-bottom: 10px;
             }
             
             .innovative-solutions-content p {
-                font-size: 0.9em;
+                font-size: 0.8em;
                 margin-bottom: 15px;
             }
             
             .cta-button {
-                padding: 10px 15px;
-                font-size: 0.9em;
+                padding: 8px 12px;
+                font-size: 0.8em;
             }
 
             .services-grid {
@@ -574,17 +579,11 @@
 
         @media (max-width: 480px) {
             .innovative-solutions .container {
-                flex-wrap: wrap;
+                grid-template-columns: 100px 1fr;
             }
             
-            .innovative-solutions-image,
-            .innovative-solutions-content {
-                width: 100%;
-            }
-            
-            .innovative-solutions-image {
-                margin-right: 0;
-                margin-bottom: 15px;
+            .innovative-solutions-content h1 {
+                font-size: 1.1em;
             }
             
             .product-card {
@@ -604,10 +603,6 @@
             .gallery-item img {
                 width: 120px;
                 height: 120px;
-            }
-
-            .innovative-solutions-image {
-                width: 100%;
             }
         }
     </style>
@@ -801,7 +796,7 @@
             galleryContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
         }
 
-        // Автопрокрутка галереи (опционально)
+        // Автопрокрутка галереи
         setInterval(() => moveGallery(1), 5000);
     </script>
 </body>
