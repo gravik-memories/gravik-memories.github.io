@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Простой Адаптивный Лендинг</title>
+    <title>Инновационные решения для бизнеса | Профессиональные услуги и товары</title>
+    <meta name="description" content="Инновационные решения для вашего бизнеса. Качественные товары с гравировкой и профессиональные услуги. Заказывайте в Viber и Telegram.">
+    <meta name="keywords" content="жетоны, гравировка, бизнес-решения, заказать, Viber, Telegram">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <style>
-        /* --- Общие стили --- */
         :root {
             --primary-color: #007bff;
             --secondary-color: #f8f9fa;
@@ -30,7 +33,7 @@
             padding: 0 var(--container-padding);
         }
 
-        h1, h2 {
+        h1, h2, h3 {
             font-weight: 700;
             line-height: 1.2;
         }
@@ -42,9 +45,10 @@
         img {
             max-width: 100%;
             height: auto;
+            display: block;
         }
 
-        /* --- Шапка (Header) --- */
+        /* Header */
         .header {
             background-color: #fff;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -67,6 +71,10 @@
             text-decoration: none;
         }
 
+        .nav {
+            display: flex;
+        }
+
         .nav a {
             color: var(--text-color);
             text-decoration: none;
@@ -78,65 +86,53 @@
         .nav a:hover {
             color: var(--primary-color);
         }
-        
-        /* Гамбургер-меню для мобильных */
+
         .menu-toggle {
-            display: none; /* Скрыто по умолчанию */
+            display: none;
             cursor: pointer;
             font-size: 24px;
         }
 
-        /* --- НОВЫЙ БЛОК "ИННОВАЦИОННЫЕ РЕШЕНИЯ" (замена Hero) --- */
+        /* Hero Section */
         .innovative-solutions {
             background-color: var(--secondary-color);
             padding: 80px var(--container-padding);
-            display: flex; /* Используем Flexbox */
-            align-items: center; /* Выравнивание по центру по вертикали */
-            justify-content: center; /* Центрирование содержимого */
-            gap: 40px; /* Отступ между изображением и текстом */
-            flex-wrap: nowrap; /* Важно: предотвращает перенос элементов на новую строку */
         }
 
         .innovative-solutions .container {
             display: flex;
             align-items: center;
-            justify-content: center;
             gap: 40px;
-            flex-wrap: nowrap; /* Гарантируем, что не будет переноса на новую строку */
-            max-width: 1100px; /* Максимальная ширина, как у других контейнеров */
-            width: 100%;
+            flex-wrap: nowrap;
         }
 
         .innovative-solutions-image {
-            flex: 0 0 auto; /* Не растягиваться, не сжиматься, базовый размер auto */
-            width: 450px; /* Фиксированная ширина для изображения на десктопе */
-            max-width: 50%; /* Ограничение, чтобы не занимало больше половины */
+            flex: 0 0 auto;
+            width: 450px;
+            max-width: 50%;
         }
-        
+
         .innovative-solutions-image img {
-            width: 100%;
-            height: auto;
-            border-radius: 10px; /* Закругленные углы для изображения */
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1); /* Легкая тень */
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            loading: lazy;
         }
 
         .innovative-solutions-content {
-            flex: 1; /* Занимает оставшееся пространство */
-            text-align: left; /* Текст слева */
-            min-width: 300px; /* Минимальная ширина для контента, чтобы не сжимался сильно */
+            flex: 1;
+            text-align: left;
         }
 
         .innovative-solutions-content h1 {
             font-size: 2.8em;
             margin-bottom: 20px;
-            color: var(--text-color); /* Цвет заголовка */
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Пример шрифта из скриншота */
+            color: var(--text-color);
         }
 
         .innovative-solutions-content p {
             font-size: 1.2em;
             margin-bottom: 30px;
-            color: #555;
+            color: #333; /* Улучшенная читаемость */
         }
 
         .cta-button {
@@ -148,39 +144,41 @@
             text-decoration: none;
             font-size: 1.1em;
             font-weight: bold;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .cta-button:hover {
             background-color: #0056b3;
+            transform: translateY(-2px);
         }
 
-        /* --- Секция "О нас" --- */
+        /* About Section */
         #about .container {
             display: flex;
             align-items: center;
             gap: 40px;
         }
-        
+
         .about-content {
             flex: 1;
         }
-        
+
         .about-image {
             flex: 1;
             text-align: center;
         }
-        
+
         .about-image img {
             border-radius: 10px;
+            loading: lazy;
         }
 
-        /* --- Секция "Услуги" --- */
+        /* Services Section */
         #services {
             background-color: var(--secondary-color);
         }
 
-        #services .section-title {
+        .section-title {
             text-align: center;
             margin-bottom: 40px;
         }
@@ -197,7 +195,7 @@
             text-align: center;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .service-card:hover {
@@ -211,24 +209,19 @@
             margin-bottom: 20px;
         }
 
-        .service-card h3 {
-            margin-bottom: 15px;
-        }
-
-        /* --- Секция Карточки Товара --- */
+        /* Products Section */
         .product-card-section {
-            background-color: #f0f2f5; /* Легкий фон для выделения */
+            background-color: #f0f2f5;
             text-align: center;
             padding: 80px 0;
         }
 
-        /* Новый контейнер для сетки товаров */
         .product-cards-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr); /* 4 колонки для ПК версии */
-            gap: 30px; /* Отступ между карточками */
-            max-width: 1200px; /* Шире для 4х товаров */
-            margin: 0 auto; /* Центрирование сетки */
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
             padding: 0 var(--container-padding);
         }
 
@@ -236,13 +229,12 @@
             background-color: #fff;
             border-radius: 12px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-            padding: 20px; /* Уменьшаем общий паддинг карточки */
+            padding: 25px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px; /* Уменьшаем отступ между элементами в карточке */
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            text-align: center; /* Центрируем текст внутри карточки */
+            gap: 15px;
+            transition: all 0.3s ease;
         }
 
         .product-card:hover {
@@ -251,41 +243,33 @@
         }
 
         .product-card img {
-            max-width: 100%;
-            height: auto;
+            width: 100%;
+            height: 190px; /* Увеличенная высота */
+            object-fit: cover;
             border-radius: 8px;
-            margin-bottom: 5px; /* Уменьшаем отступ снизу от картинки */
+            margin-bottom: 10px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.08);
         }
 
         .product-card h2 {
-            font-size: 1.7em; /* Немного уменьшим заголовок */
+            font-size: 1.7em;
             color: var(--primary-color);
-            margin-bottom: 5px; /* Уменьшаем отступ снизу от заголовка */
-        }
-
-        .product-card p {
-            /* font-size: 0.95em; */ /* Описание товара скрыто */
-            /* color: #555; */
-            /* margin-bottom: 15px; */
-            /* line-height: 1.5; */
-            display: none; /* Скрываем описание товара */
+            margin-bottom: 10px;
         }
 
         .product-card .price {
-            font-size: 1.7em; /* Немного уменьшим размер цены */
+            font-size: 1.7em;
             font-weight: bold;
-            color: #28a745; /* Зеленый цвет для цены */
-            margin-bottom: 10px; /* Уменьшаем отступ снизу от цены */
+            color: #28a745;
+            margin: 10px 0;
         }
 
-        /* --- Измененные стили для социальных кнопок внутри карточек --- */
         .product-card .social-buttons {
             display: flex;
             flex-direction: column;
-            gap: 8px; /* Уменьшаем отступ между кнопками */
+            gap: 12px;
             width: 100%;
-            margin-top: 5px; /* Уменьшаем отступ сверху от кнопок */
+            margin-top: 10px;
         }
 
         .product-card .social-button {
@@ -293,51 +277,36 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            padding: 8px 12px; /* Уменьшаем паддинг кнопок */
+            padding: 10px 15px;
             border-radius: 5px;
             text-decoration: none;
-            font-size: 0.9em; /* Немного уменьшаем шрифт кнопок */
+            font-size: 0.95em;
             font-weight: bold;
             color: var(--light-text-color);
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            flex-grow: 1;
+            transition: all 0.3s ease;
         }
 
-        .product-card .social-button i {
-            font-size: 1.0em; /* Немного уменьшаем размер иконки */
+        .product-card .social-button:hover {
+            transform: translateY(-2px);
         }
 
-        .product-card .social-button.viber {
+        .social-button.viber {
             background-color: #7360F2;
         }
 
-        .product-card .social-button.viber:hover {
+        .social-button.viber:hover {
             background-color: #604ED9;
-            transform: translateY(-2px);
         }
 
-        .product-card .social-button.telegram {
+        .social-button.telegram {
             background-color: #0088CC;
         }
 
-        .product-card .social-button.telegram:hover {
+        .social-button.telegram:hover {
             background-color: #006FB3;
-            transform: translateY(-2px);
         }
 
-        /* Стили для неактивной кнопки (если понадобится) */
-        .inactive-button {
-            background-color: #cccccc;
-            cursor: not-allowed;
-            opacity: 0.8;
-            pointer-events: none;
-        }
-
-        .inactive-button:hover {
-            background-color: #cccccc;
-        }
-
-        /* --- Circular Gallery Styles --- */
+        /* Gallery Section */
         .circular-gallery-section {
             background-color: var(--secondary-color);
             text-align: center;
@@ -366,12 +335,13 @@
         }
 
         .gallery-item img {
-            width: 250px; /* Fixed width for circular images */
-            height: 250px; /* Fixed height for circular images */
-            border-radius: 50%; /* Makes the image circular */
-            object-fit: cover; /* Ensures the image covers the area */
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            object-fit: cover;
             border: 5px solid var(--primary-color);
             box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            loading: lazy;
         }
 
         .gallery-nav-button {
@@ -386,7 +356,7 @@
             font-size: 1.5em;
             z-index: 10;
             border-radius: 5px;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .gallery-nav-button:hover {
@@ -400,10 +370,22 @@
         .gallery-nav-button.next {
             right: 10px;
         }
-        
-        /* --- Адаптивность (Responsive) --- */
 
-        /* Планшеты и маленькие десктопы */
+        /* Footer */
+        .footer {
+            background-color: #343a40;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer .container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Responsive */
         @media (max-width: 992px) {
             .services-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -411,200 +393,75 @@
             #about .container {
                 flex-direction: column;
             }
-            .innovative-solutions .container {
-                flex-direction: row;
-                gap: 20px;
-                padding: 0 15px;
-            }
-            .innovative-solutions-image {
-                width: 40%;
-                max-width: 300px;
-            }
-            .innovative-solutions-content {
-                min-width: unset;
-            }
-            .innovative-solutions-content h1 {
-                font-size: 2.2em;
-            }
-            .innovative-solutions-content p {
-                font-size: 1em;
-            }
-            .gallery-item img {
-                width: 200px;
-                height: 200px;
-            }
-
             .product-cards-grid {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 20px;
-            }
-            /* Специфические изменения для планшетов */
-            .product-card {
-                padding: 15px; /* Уменьшаем паддинг на планшетах */
             }
             .product-card img {
-                margin-bottom: 5px;
-            }
-            .product-card h2 {
-                font-size: 1.6em;
-                margin-bottom: 5px;
-            }
-            .product-card .price {
-                font-size: 1.6em;
-                margin-bottom: 8px;
-            }
-            .product-card .social-button {
-                padding: 7px 10px; /* Уменьшаем паддинг кнопок */
-                font-size: 0.85em;
+                height: 150px;
             }
         }
 
-        /* Мобильные устройства */
         @media (max-width: 768px) {
-            h1 { font-size: 2.2em; }
-
             .nav {
                 display: none;
-                flex-direction: column;
                 position: absolute;
                 top: 60px;
+                left: 0;
                 right: 0;
                 background-color: white;
-                width: 100%;
-                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                transform: translateY(-20px);
+                opacity: 0;
+                transition: all 0.3s ease;
             }
-            
             .nav.active {
                 display: flex;
+                transform: translateY(0);
+                opacity: 1;
             }
-
             .nav a {
                 margin: 0;
-                padding: 15px;
-                text-align: center;
+                padding: 12px 0;
                 border-bottom: 1px solid #eee;
             }
-            
             .menu-toggle {
                 display: block;
             }
-
-            .services-grid {
-                grid-template-columns: 1fr;
+            .innovative-solutions .container {
+                flex-direction: column;
             }
-            /* Адаптивность для карточки товара */
-            .product-cards-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 10px; /* Ещё уменьшаем отступы */
-                padding: 0 10px;
-            }
-            .product-card {
-                padding: 10px; /* Уменьшаем общий паддинг */
-                gap: 8px; /* Уменьшаем отступ между элементами */
-            }
-            .product-card h2 {
-                font-size: 1.4em; /* Уменьшаем заголовок */
-                margin-bottom: 3px;
+            .innovative-solutions-image {
+                width: 100%;
+                max-width: 100%;
             }
             .product-card img {
-                margin-bottom: 3px;
-            }
-            .product-card .price {
-                font-size: 1.4em;
-                margin-bottom: 5px;
-            }
-            .product-card .social-buttons {
-                gap: 5px; /* Уменьшаем отступ между кнопками */
-                margin-top: 3px;
-            }
-            .product-card .social-button {
-                font-size: 0.8em; /* Еще уменьшим размер шрифта кнопок */
-                padding: 6px 10px; /* Еще уменьшим паддинг */
-            }
-
-            .gallery-item img {
-                width: 150px;
-                height: 150px;
-            }
-            .gallery-nav-button {
-                padding: 10px 5px;
-                font-size: 1.2em;
-            }
-
-            .innovative-solutions {
-                padding: 40px var(--container-padding);
-            }
-            .innovative-solutions .container {
-                flex-direction: row;
-                flex-wrap: nowrap;
-                align-items: center;
-                justify-content: center;
-                gap: 15px;
-            }
-            .innovative-solutions-image {
-                width: 40%;
-                max-width: 150px;
-            }
-            .innovative-solutions-content h1 {
-                font-size: 1.6em;
-                margin-bottom: 10px;
-            }
-            .innovative-solutions-content p {
-                font-size: 0.9em;
-                margin-bottom: 15px;
-            }
-            .cta-button {
-                padding: 12px 20px;
-                font-size: 1em;
+                height: 130px;
             }
         }
-        @media (max-width: 480px) {
-            .product-card {
-                padding: 8px; /* Максимально уменьшаем паддинг */
-                gap: 5px;
-            }
-            .product-card h2 {
-                font-size: 1.2em;
-            }
-            .product-card .price {
-                font-size: 1.2em;
-            }
-            .product-card .social-button {
-                font-size: 0.75em;
-                padding: 5px 8px;
-            }
-            .gallery-item img {
-                width: 120px;
-                height: 120px;
-            }
 
-            .innovative-solutions-image {
-                width: 35%;
-                max-width: 120px;
+        @media (max-width: 480px) {
+            .services-grid, .product-cards-grid {
+                grid-template-columns: 1fr;
             }
-            .innovative-solutions-content h1 {
-                font-size: 1.4em;
-            }
-            .innovative-solutions-content p {
-                font-size: 0.85em;
-            }
-            .cta-button {
-                font-size: 0.9em;
-                padding: 10px 15px;
+            .product-card img {
+                height: 160px;
             }
         }
     </style>
 </head>
 <body>
-
     <header class="header">
         <div class="container">
             <a href="#" class="logo">Логотип</a>
             <div class="menu-toggle" id="mobile-menu">
-                <span>&#9776;</span> </div>
+                <span>&#9776;</span>
+            </div>
             <nav class="nav" id="nav-menu">
                 <a href="#about">О нас</a>
                 <a href="#services">Услуги</a>
+                <a href="#product-card-section">Товары</a>
                 <a href="#circular-gallery-section">Галерея</a>
                 <a href="#contact">Контакты</a>
             </nav>
@@ -615,7 +472,7 @@
         <section class="innovative-solutions" id="innovative-solutions">
             <div class="container">
                 <div class="innovative-solutions-image">
-                    <img src="images/IMG_20240407_134317.jpg" alt="Инновационные Решения">
+                    <img src="images/IMG_20240407_134317.jpg" alt="Инновационные бизнес-решения" loading="lazy">
                 </div>
                 <div class="innovative-solutions-content">
                     <h1>Инновационные Решения для Вашего Бизнеса</h1>
@@ -632,7 +489,7 @@
                     <p>Мы — команда профессионалов, увлеченных своим делом. Наша миссия — предоставлять качественные услуги и продукты, которые превосходят ожидания. Мы верим в долгосрочное партнерство и индивидуальный подход к каждому проекту.</p>
                 </div>
                 <div class="about-image">
-                    <img src="https://via.placeholder.com/450x300" alt="Наша команда работает">
+                    <img src="https://via.placeholder.com/450x300" alt="Наша команда" loading="lazy">
                 </div>
             </div>
         </section>
@@ -660,61 +517,73 @@
             </div>
         </section>
         
-        <section class="product-card-section">
+        <section class="product-card-section" id="product-card-section">
             <div class="container">
                 <h2 class="section-title">Наши Товары</h2>
                 <div class="product-cards-grid">
-                    <div class="product-card">
-                        <img src="images/IMG_20240407_134316.jpg" alt="Жетон з гравіюванням">
-                        <h2>Жетон з гравіюванням</h2>
-                        <div class="price">49.99 $</div>
+                    <div class="product-card" itemscope itemtype="http://schema.org/Product">
+                        <img src="images/IMG_20240407_134316.jpg" alt="Жетон з гравіюванням" loading="lazy" itemprop="image">
+                        <h2 itemprop="name">Жетон з гравіюванням</h2>
+                        <div class="price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                            <span itemprop="priceCurrency" content="USD">$</span>
+                            <span itemprop="price">49.99</span>
+                        </div>
                         <div class="social-buttons">
-                            <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" class="social-button viber">
+                            <a href="viber://chat?number=+380XXXXXXXXX" class="social-button viber" target="_blank">
                                 <i class="fab fa-viber"></i> Замовити в Viber
                             </a>
-                            <a href="https://t.me/your_telegram_username" target="_blank" class="social-button telegram">
+                            <a href="https://t.me/fifa_laser" class="social-button telegram" target="_blank">
                                 <i class="fab fa-telegram-plane"></i> Замовити в Telegram
                             </a>
                         </div>
                     </div>
 
-                    <div class="product-card">
-                        <img src="https://via.placeholder.com/300x200?text=Product+2" alt="Уникальный товар 2">
-                        <h2>Уникальный товар 2</h2>
-                        <div class="price">29.99 $</div>
+                    <div class="product-card" itemscope itemtype="http://schema.org/Product">
+                        <img src="https://via.placeholder.com/300x200?text=Product+2" alt="Уникальный товар 2" loading="lazy" itemprop="image">
+                        <h2 itemprop="name">Уникальный товар 2</h2>
+                        <div class="price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                            <span itemprop="priceCurrency" content="USD">$</span>
+                            <span itemprop="price">29.99</span>
+                        </div>
                         <div class="social-buttons">
-                            <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" class="social-button viber">
+                            <a href="viber://chat?number=+380XXXXXXXXX" class="social-button viber" target="_blank">
                                 <i class="fab fa-viber"></i> Замовити в Viber
                             </a>
-                            <a href="https://t.me/your_telegram_username" target="_blank" class="social-button telegram">
+                            <a href="https://t.me/fifa_laser" class="social-button telegram" target="_blank">
                                 <i class="fab fa-telegram-plane"></i> Замовити в Telegram
                             </a>
                         </div>
                     </div>
 
-                    <div class="product-card">
-                        <img src="https://via.placeholder.com/300x200?text=Product+3" alt="Премиум гаджет">
-                        <h2>Премиум гаджет</h2>
-                        <div class="price">99.99 $</div>
+                    <div class="product-card" itemscope itemtype="http://schema.org/Product">
+                        <img src="https://via.placeholder.com/300x200?text=Product+3" alt="Премиум гаджет" loading="lazy" itemprop="image">
+                        <h2 itemprop="name">Премиум гаджет</h2>
+                        <div class="price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                            <span itemprop="priceCurrency" content="USD">$</span>
+                            <span itemprop="price">99.99</span>
+                        </div>
                         <div class="social-buttons">
-                            <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" class="social-button viber">
+                            <a href="viber://chat?number=+380XXXXXXXXX" class="social-button viber" target="_blank">
                                 <i class="fab fa-viber"></i> Замовити в Viber
                             </a>
-                            <a href="https://t.me/your_telegram_username" target="_blank" class="social-button telegram">
+                            <a href="https://t.me/fifa_laser" class="social-button telegram" target="_blank">
                                 <i class="fab fa-telegram-plane"></i> Замовити в Telegram
                             </a>
                         </div>
                     </div>
 
-                    <div class="product-card">
-                        <img src="https://via.placeholder.com/300x200?text=Product+4" alt="Аксессуар для дома">
-                        <h2>Аксессуар для дома</h2>
-                        <div class="price">19.99 $</div>
+                    <div class="product-card" itemscope itemtype="http://schema.org/Product">
+                        <img src="https://via.placeholder.com/300x200?text=Product+4" alt="Аксессуар для дома" loading="lazy" itemprop="image">
+                        <h2 itemprop="name">Аксессуар для дома</h2>
+                        <div class="price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                            <span itemprop="priceCurrency" content="USD">$</span>
+                            <span itemprop="price">19.99</span>
+                        </div>
                         <div class="social-buttons">
-                            <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" class="social-button viber">
+                            <a href="viber://chat?number=+380XXXXXXXXX" class="social-button viber" target="_blank">
                                 <i class="fab fa-viber"></i> Замовити в Viber
                             </a>
-                            <a href="https://t.me/your_telegram_username" target="_blank" class="social-button telegram">
+                            <a href="https://t.me/fifa_laser" class="social-button telegram" target="_blank">
                                 <i class="fab fa-telegram-plane"></i> Замовити в Telegram
                             </a>
                         </div>
@@ -728,11 +597,9 @@
                 <h2 class="section-title">Наша Фотогалерея</h2>
                 <div class="circular-gallery">
                     <div class="gallery-container" id="galleryContainer">
-                        <div class="gallery-item"><img src="https://via.placeholder.com/250/FF5733/FFFFFF?text=Image+1" alt="Circular Image 1"></div>
-                        <div class="gallery-item"><img src="https://via.placeholder.com/250/33FF57/FFFFFF?text=Image+2" alt="Circular Image 2"></div>
-                        <div class="gallery-item"><img src="https://via.placeholder.com/250/3357FF/FFFFFF?text=Image+3" alt="Circular Image 3"></div>
-                        <div class="gallery-item"><img src="https://via.placeholder.com/250/FF33E9/FFFFFF?text=Image+4" alt="Circular Image 4"></div>
-                        <div class="gallery-item"><img src="https://via.placeholder.com/250/E9FF33/FFFFFF?text=Image+5" alt="Circular Image 5"></div>
+                        <div class="gallery-item"><img src="https://via.placeholder.com/250/FF5733/FFFFFF?text=Image+1" alt="Пример работы 1" loading="lazy"></div>
+                        <div class="gallery-item"><img src="https://via.placeholder.com/250/33FF57/FFFFFF?text=Image+2" alt="Пример работы 2" loading="lazy"></div>
+                        <div class="gallery-item"><img src="https://via.placeholder.com/250/3357FF/FFFFFF?text=Image+3" alt="Пример работы 3" loading="lazy"></div>
                     </div>
                     <button class="gallery-nav-button prev" onclick="moveGallery(-1)">&#10094;</button>
                     <button class="gallery-nav-button next" onclick="moveGallery(1)">&#10095;</button>
@@ -743,13 +610,17 @@
 
     <footer class="footer" id="contact">
         <div class="container">
-            <p>&copy; 2025 Логотип. Все права защищены.</p>
-            <p>Email: contact@example.com</p>
+            <p>&copy; 2024 Логотип. Все права защищены.</p>
+            <p>Email: contact@example.com | Телефон: +380 (XX) XXX-XX-XX</p>
+            <div class="social-links">
+                <a href="https://t.me/fifa_laser" target="_blank"><i class="fab fa-telegram"></i></a>
+                <a href="viber://chat?number=+380XXXXXXXXX" target="_blank"><i class="fab fa-viber"></i></a>
+            </div>
         </div>
     </footer>
 
     <script>
-        // JavaScript для мобильного меню
+        // Мобильное меню
         const menuToggle = document.getElementById('mobile-menu');
         const navMenu = document.getElementById('nav-menu');
 
@@ -757,33 +628,31 @@
             navMenu.classList.toggle('active');
         });
 
-        // Плавная прокрутка к якорям
+        // Плавная прокрутка
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+            anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-
                 document.querySelector(this.getAttribute('href')).scrollIntoView({
                     behavior: 'smooth'
                 });
-                
-                // Закрываем меню после клика на ссылку на мобильных устройствах
                 if (navMenu.classList.contains('active')) {
                     navMenu.classList.remove('active');
                 }
             });
         });
 
-        // JavaScript for Circular Gallery
+        // Галерея
         let currentSlide = 0;
         const galleryContainer = document.getElementById('galleryContainer');
         const totalSlides = galleryContainer.children.length;
 
         function moveGallery(direction) {
             currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
-            const offset = -currentSlide * 100;
-            galleryContainer.style.transform = `translateX(${offset}%)`;
+            galleryContainer.style.transform = `translateX(${-currentSlide * 100}%)`;
         }
-    </script>
 
+        // Автопрокрутка галереи
+        setInterval(() => moveGallery(1), 5000);
+    </script>
 </body>
 </html>
