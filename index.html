@@ -3,20 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Простой Адаптивный Лендинг</title>
+    <title>Premium Laser Engraving | Гравировка на жетонах</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&family=Oswald:wght@500&display=swap" rel="stylesheet">
     <style>
         /* --- Общие стили --- */
         :root {
-            --primary-color: #007bff;
+            --primary-color: #2c3e50;
             --secondary-color: #f8f9fa;
+            --accent-color: #c19a6b;
             --text-color: #333;
             --light-text-color: #fff;
             --container-padding: 20px;
+            
+            --font-heading: 'Playfair Display', serif;
+            --font-main: 'Roboto', sans-serif;
+            --font-accent: 'Oswald', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-family: var(--font-main);
             margin: 0;
             padding: 0;
             line-height: 1.6;
@@ -30,9 +40,12 @@
             padding: 0 var(--container-padding);
         }
 
-        h1, h2 {
+        h1, h2, h3 {
+            font-family: var(--font-heading);
             font-weight: 700;
             line-height: 1.2;
+            letter-spacing: 0.5px;
+            color: var(--primary-color);
         }
 
         section {
@@ -47,7 +60,7 @@
         /* --- Шапка (Header) --- */
         .header {
             background-color: #fff;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(44, 62, 80, 0.1);
             padding: 15px 0;
             position: sticky;
             top: 0;
@@ -61,13 +74,17 @@
         }
 
         .logo {
+            font-family: var(--font-accent);
             font-size: 1.5em;
             font-weight: bold;
+            letter-spacing: 1px;
             color: var(--primary-color);
             text-decoration: none;
+            text-transform: uppercase;
         }
 
         .nav a {
+            font-family: var(--font-main);
             color: var(--text-color);
             text-decoration: none;
             margin-left: 20px;
@@ -76,25 +93,25 @@
         }
 
         .nav a:hover {
-            color: var(--primary-color);
+            color: var(--accent-color);
         }
         
         /* Гамбургер-меню для мобильных */
         .menu-toggle {
-            display: none; /* Скрыто по умолчанию */
+            display: none;
             cursor: pointer;
             font-size: 24px;
         }
 
-        /* --- НОВЫЙ БЛОК "ИННОВАЦИОННЫЕ РЕШЕНИЯ" (замена Hero) --- */
+        /* --- Hero-блок --- */
         .innovative-solutions {
             background-color: var(--secondary-color);
             padding: 80px var(--container-padding);
-            display: flex; /* Используем Flexbox */
-            align-items: center; /* Выравнивание по центру по вертикали */
-            justify-content: center; /* Центрирование содержимого */
-            gap: 40px; /* Отступ между изображением и текстом */
-            flex-wrap: nowrap; /* Важно: предотвращает перенос элементов на новую строку */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: nowrap;
         }
 
         .innovative-solutions .container {
@@ -102,35 +119,34 @@
             align-items: center;
             justify-content: center;
             gap: 40px;
-            flex-wrap: nowrap; /* Гарантируем, что не будет переноса на новую строку */
-            max-width: 1100px; /* Максимальная ширина, как у других контейнеров */
+            flex-wrap: nowrap;
+            max-width: 1100px;
             width: 100%;
         }
 
         .innovative-solutions-image {
-            flex: 0 0 auto; /* Не растягиваться, не сжиматься, базовый размер auto */
-            width: 450px; /* Фиксированная ширина для изображения на десктопе */
-            max-width: 50%; /* Ограничение, чтобы не занимало больше половины */
+            flex: 0 0 auto;
+            width: 450px;
+            max-width: 50%;
         }
         
         .innovative-solutions-image img {
             width: 100%;
             height: auto;
-            border-radius: 10px; /* Закругленные углы для изображения */
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1); /* Легкая тень */
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
         }
 
         .innovative-solutions-content {
-            flex: 1; /* Занимает оставшееся пространство */
-            text-align: left; /* Текст слева */
-            min-width: 300px; /* Минимальная ширина для контента, чтобы не сжимался сильно */
+            flex: 1;
+            text-align: left;
+            min-width: 300px;
         }
 
         .innovative-solutions-content h1 {
             font-size: 2.8em;
             margin-bottom: 20px;
-            color: var(--text-color); /* Цвет заголовка */
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Пример шрифта из скриншота */
+            line-height: 1.3;
         }
 
         .innovative-solutions-content p {
@@ -146,13 +162,16 @@
             padding: 15px 30px;
             border-radius: 5px;
             text-decoration: none;
+            font-family: var(--font-accent);
             font-size: 1.1em;
             font-weight: bold;
-            transition: background-color 0.3s ease;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
         }
 
         .cta-button:hover {
-            background-color: #0056b3;
+            background-color: #1a252f;
+            transform: translateY(-2px);
         }
 
         /* --- Секция "О нас" --- */
@@ -173,6 +192,7 @@
         
         .about-image img {
             border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         /* --- Секция "Услуги" --- */
@@ -197,7 +217,7 @@
             text-align: center;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .service-card:hover {
@@ -207,28 +227,28 @@
 
         .service-card .icon {
             font-size: 3em;
-            color: var(--primary-color);
+            color: var(--accent-color);
             margin-bottom: 20px;
         }
 
         .service-card h3 {
             margin-bottom: 15px;
+            font-family: var(--font-heading);
         }
 
         /* --- Секция Карточки Товара --- */
         .product-card-section {
-            background-color: #f0f2f5; /* Легкий фон для выделения */
+            background-color: #f0f2f5;
             text-align: center;
             padding: 80px 0;
         }
 
-        /* Новый контейнер для сетки товаров */
         .product-cards-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr); /* 4 колонки для ПК версии */
-            gap: 30px; /* Отступ между карточками */
-            max-width: 1200px; /* Шире для 4х товаров */
-            margin: 0 auto; /* Центрирование сетки */
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
             padding: 0 var(--container-padding);
         }
 
@@ -236,13 +256,12 @@
             background-color: #fff;
             border-radius: 12px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-            padding: 20px; /* Уменьшаем общий паддинг карточки */
+            padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px; /* Уменьшаем отступ между элементами в карточке */
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            text-align: center; /* Центрируем текст внутри карточки */
+            gap: 10px;
+            transition: all 0.3s ease;
         }
 
         .product-card:hover {
@@ -251,38 +270,39 @@
         }
 
         .product-card img {
-            width: 100%; /* Изображение будет подстраиваться под ширину родителя */
-            height: 300px; /* Увеличено на 50% (было 200px) */
-            object-fit: cover; /* ОБРЕЗАЕТ ИЗОБРАЖЕНИЕ, ЧТОБЫ ОНО ПОЛНОСТЬЮ ЗАПОЛНИЛО КОНТЕЙНЕР, СОХРАНЯЯ ПРОПОРЦИИ */
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
             border-radius: 8px;
-            margin-bottom: 5px; /* Уменьшаем отступ снизу от картинки */
+            margin-bottom: 5px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.08);
         }
 
         .product-card h2 {
-            font-size: 1.7em; /* Немного уменьшим заголовок */
-            color: var(--primary-color);
-            margin-bottom: 5px; /* Уменьшаем отступ снизу от заголовка */
+            font-size: 1.7em;
+            color: var(--accent-color);
+            margin-bottom: 5px;
+            font-family: var(--font-heading);
         }
 
         .product-card p {
-            display: none; /* Скрываем описание товара */
+            display: none;
         }
 
         .product-card .price {
-            font-size: 1.7em; /* Немного уменьшим размер цены */
+            font-size: 1.7em;
             font-weight: bold;
-            color: #28a745; /* Зеленый цвет для цены */
-            margin-bottom: 10px; /* Уменьшаем отступ снизу от цены */
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-family: var(--font-accent);
         }
 
-        /* --- Измененные стили для социальных кнопок внутри карточек --- */
         .product-card .social-buttons {
             display: flex;
             flex-direction: column;
-            gap: 8px; /* Уменьшаем отступ между кнопками */
+            gap: 8px;
             width: 100%;
-            margin-top: 5px; /* Уменьшаем отступ сверху от кнопок */
+            margin-top: 5px;
         }
 
         .product-card .social-button {
@@ -290,19 +310,20 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            padding: 8px 12px; /* Уменьшаем паддинг кнопок */
+            padding: 8px 12px;
             border-radius: 5px;
             text-decoration: none;
-            font-size: 0.9em; /* Немного уменьшаем шрифт кнопок */
+            font-size: 0.9em;
             font-weight: bold;
             color: var(--light-text-color);
-            transition: background-color 0.3s ease, transform 0.2s ease;
+            transition: all 0.3s ease;
             flex-grow: 1;
-            white-space: nowrap; /* Текст не переносится на новую строку */
+            white-space: nowrap;
+            font-family: var(--font-accent);
         }
 
         .product-card .social-button i {
-            font-size: 1.0em; /* Немного уменьшаем размер иконки */
+            font-size: 1.0em;
         }
 
         .product-card .social-button.viber {
@@ -323,19 +344,7 @@
             transform: translateY(-2px);
         }
 
-        /* Стили для неактивной кнопки (если понадобится) */
-        .inactive-button {
-            background-color: #cccccc;
-            cursor: not-allowed;
-            opacity: 0.8;
-            pointer-events: none;
-        }
-
-        .inactive-button:hover {
-            background-color: #cccccc;
-        }
-
-        /* --- Circular Gallery Styles --- */
+        /* --- Галерея --- */
         .circular-gallery-section {
             background-color: var(--secondary-color);
             text-align: center;
@@ -364,11 +373,11 @@
         }
 
         .gallery-item img {
-            width: 250px; /* Fixed width for circular images */
-            height: 250px; /* Fixed height for circular images */
-            border-radius: 50%; /* Makes the image circular */
-            object-fit: cover; /* Ensures the image covers the area */
-            border: 5px solid var(--primary-color);
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--accent-color);
             box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
 
@@ -376,7 +385,7 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(44, 62, 80, 0.5);
             color: white;
             border: none;
             padding: 15px 10px;
@@ -388,7 +397,7 @@
         }
 
         .gallery-nav-button:hover {
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(44, 62, 80, 0.7);
         }
 
         .gallery-nav-button.prev {
@@ -398,35 +407,58 @@
         .gallery-nav-button.next {
             right: 10px;
         }
-        
-        /* --- Адаптивность (Responsive) --- */
 
-        /* Планшеты и маленькие десктопы */
+        /* --- Футер --- */
+        .footer {
+            background-color: var(--primary-color);
+            color: var(--light-text-color);
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer .container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .footer p {
+            margin: 0;
+        }
+
+        /* --- Адаптивность --- */
         @media (max-width: 992px) {
             .services-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
+            
             #about .container {
                 flex-direction: column;
             }
+            
             .innovative-solutions .container {
                 flex-direction: row;
                 gap: 20px;
                 padding: 0 15px;
             }
+            
             .innovative-solutions-image {
                 width: 40%;
                 max-width: 300px;
             }
+            
             .innovative-solutions-content {
                 min-width: unset;
             }
+            
             .innovative-solutions-content h1 {
                 font-size: 2.2em;
             }
+            
             .innovative-solutions-content p {
                 font-size: 1em;
             }
+            
             .gallery-item img {
                 width: 200px;
                 height: 200px;
@@ -436,29 +468,16 @@
                 grid-template-columns: repeat(2, 1fr);
                 gap: 20px;
             }
-            /* Специфические изменения для планшетов */
+            
             .product-card {
                 padding: 15px;
             }
+            
             .product-card img {
-                height: 240px; /* Увеличено на 50% (было 160px) */
-                margin-bottom: 5px;
-            }
-            .product-card h2 {
-                font-size: 1.6em;
-                margin-bottom: 5px;
-            }
-            .product-card .price {
-                font-size: 1.6em;
-                margin-bottom: 8px;
-            }
-            .product-card .social-button {
-                padding: 7px 10px;
-                font-size: 0.85em;
+                height: 240px;
             }
         }
 
-        /* Мобильные устройства */
         @media (max-width: 768px) {
             h1 { font-size: 2.2em; }
 
@@ -491,43 +510,33 @@
             .services-grid {
                 grid-template-columns: 1fr;
             }
-            /* Адаптивность для карточки товара */
+            
             .product-cards-grid {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 10px 10px; /* Горизонтальный отступ 10px, вертикальный 10px */
-                row-gap: 30px; /* Увеличенный отступ между рядами (в 3 раза больше) */
+                gap: 10px 10px;
+                row-gap: 30px;
                 padding: 0 10px;
             }
+            
             .product-card {
                 padding: 10px;
                 gap: 8px;
             }
-            .product-card h2 {
-                font-size: 1.4em;
-                margin-bottom: 3px;
-            }
+            
             .product-card img {
-                height: 200px; /* Увеличено на ~50% (было 135px) */
-                margin-bottom: 3px;
+                height: 200px;
             }
-            .product-card .price {
-                font-size: 1.4em;
-                margin-bottom: 5px;
-            }
-            .product-card .social-buttons {
-                gap: 5px;
-                margin-top: 3px;
-            }
+            
             .product-card .social-button {
                 font-size: 0.8em;
                 padding: 6px 10px;
-                white-space: nowrap; /* Текст не переносится на новую строку */
             }
 
             .gallery-item img {
                 width: 150px;
                 height: 150px;
             }
+            
             .gallery-nav-button {
                 padding: 10px 5px;
                 font-size: 1.2em;
@@ -536,82 +545,56 @@
             .innovative-solutions {
                 padding: 40px var(--container-padding);
             }
+            
             .innovative-solutions .container {
-                flex-direction: row;
-                flex-wrap: nowrap;
-                align-items: center;
-                justify-content: center;
-                gap: 15px;
+                flex-direction: column;
+                gap: 30px;
             }
+            
             .innovative-solutions-image {
-                width: 40%;
-                max-width: 150px;
-            }
-            .innovative-solutions-content h1 {
-                font-size: 1.6em;
-                margin-bottom: 10px;
-            }
-            .innovative-solutions-content p {
-                font-size: 0.9em;
-                margin-bottom: 15px;
-            }
-            .cta-button {
-                padding: 12px 20px;
-                font-size: 1em;
+                width: 100%;
+                max-width: 100%;
             }
         }
+
         @media (max-width: 480px) {
             .product-card {
                 padding: 8px;
                 gap: 5px;
             }
-            .product-card h2 {
-                font-size: 1.2em;
-            }
-            .product-card .price {
-                font-size: 1.2em;
-            }
+            
             .product-card img {
-                height: 180px; /* Увеличено на 50% (было 120px) */
+                height: 180px;
             }
+            
             .product-card .social-button {
                 font-size: 0.75em;
                 padding: 5px 8px;
-                white-space: nowrap; /* Текст не переносится на новую строку */
             }
+            
             .gallery-item img {
                 width: 120px;
                 height: 120px;
             }
 
             .innovative-solutions-image {
-                width: 35%;
-                max-width: 120px;
-            }
-            .innovative-solutions-content h1 {
-                font-size: 1.4em;
-            }
-            .innovative-solutions-content p {
-                font-size: 0.85em;
-            }
-            .cta-button {
-                font-size: 0.9em;
-                padding: 10px 15px;
+                width: 100%;
             }
         }
     </style>
 </head>
 <body>
-
     <header class="header">
         <div class="container">
-            <a href="#" class="logo">Логотип</a>
+            <a href="#" class="logo">LaserGrav</a>
             <div class="menu-toggle" id="mobile-menu">
-                <span>&#9776;</span> </div>
+                <span>&#9776;</span>
+            </div>
             <nav class="nav" id="nav-menu">
                 <a href="#about">О нас</a>
                 <a href="#services">Услуги</a>
-                <a href="#circular-gallery-section">Галерея</a>
+                <a href="#products">Товары</a>
+                <a href="#gallery">Галерея</a>
                 <a href="#contact">Контакты</a>
             </nav>
         </div>
@@ -621,12 +604,12 @@
         <section class="innovative-solutions" id="innovative-solutions">
             <div class="container">
                 <div class="innovative-solutions-image">
-                    <img src="images/IMG_20240407_134317.jpg" alt="Инновационные Решения">
+                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Лазерная гравировка">
                 </div>
                 <div class="innovative-solutions-content">
-                    <h1>Инновационные Решения для Вашего Бизнеса</h1>
-                    <p>Мы создаем современные и эффективные решения, которые помогают нашим клиентам достигать новых высот.</p>
-                    <a href="https://t.me/fifa_laser" class="cta-button" target="_blank">Связаться с нами</a>
+                    <h1>Премиальная гравировка на металле</h1>
+                    <p>Создаем уникальные изделия с точностью до микрона. Индивидуальный подход к каждому заказу и гарантия качества.</p>
+                    <a href="https://t.me/fifa_laser" class="cta-button" target="_blank">Заказать консультацию</a>
                 </div>
             </div>
         </section>
@@ -634,11 +617,12 @@
         <section id="about">
             <div class="container">
                 <div class="about-content">
-                    <h2>Кто мы такие?</h2>
-                    <p>Мы — команда профессионалов, увлеченных своим делом. Наша миссия — предоставлять качественные услуги и продукты, которые превосходят ожидания. Мы верим в долгосрочное партнерство и индивидуальный подход к каждому проекту.</p>
+                    <h2>О нашей мастерской</h2>
+                    <p>Мы специализируемся на лазерной гравировке с 2015 года. Наше оборудование позволяет создавать четкие и долговечные изображения на металле, дереве и других материалах. Каждое изделие проходит многоступенчатый контроль качества.</p>
+                    <p>Используем только сертифицированные материалы и современные технологии гравировки.</p>
                 </div>
                 <div class="about-image">
-                    <img src="https://via.placeholder.com/450x300" alt="Наша команда работает">
+                    <img src="https://images.unsplash.com/photo-1581093057305-406aab8cfa3d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Наша мастерская">
                 </div>
             </div>
         </section>
@@ -648,80 +632,80 @@
                 <h2 class="section-title">Наши Услуги</h2>
                 <div class="services-grid">
                     <div class="service-card">
-                        <div class="icon">🚀</div>
-                        <h3>Стратегия</h3>
-                        <p>Разработка выигрышной стратегии для вашего продукта на рынке.</p>
+                        <div class="icon"><i class="fas fa-gem"></i></div>
+                        <h3>Гравировка жетонов</h3>
+                        <p>Точная гравировка на металлических жетонах любой формы и размера.</p>
                     </div>
                     <div class="service-card">
-                        <div class="icon">🎨</div>
-                        <h3>Дизайн</h3>
-                        <p>Создание привлекательного и удобного дизайна для пользователей.</p>
+                        <div class="icon"><i class="fas fa-ring"></i></div>
+                        <h3>Ювелирные изделия</h3>
+                        <p>Персонализация колец, подвесок и других украшений.</p>
                     </div>
                     <div class="service-card">
-                        <div class="icon">💻</div>
-                        <h3>Разработка</h3>
-                        <p>Качественная и быстрая разработка сайтов и приложений.</p>
+                        <div class="icon"><i class="fas fa-award"></i></div>
+                        <h3>Корпоративные награды</h3>
+                        <p>Изготовление премиальных табличек и наградных досок.</p>
                     </div>
                 </div>
             </div>
         </section>
         
-        <section class="product-card-section">
+        <section class="product-card-section" id="products">
             <div class="container">
-                <h2 class="section-title">Наши Товары</h2>
+                <h2 class="section-title">Популярные товары</h2>
                 <div class="product-cards-grid">
                     <div class="product-card">
-                        <img src="images/IMG_20240407_134316.jpg" alt="Жетон з гравіюванням">
-                        <h2>Жетон з гравіюванням</h2>
+                        <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Жетон с гравировкой">
+                        <h2>Жетон круглый</h2>
                         <div class="price">49.99 $</div>
                         <div class="social-buttons">
                             <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" class="social-button viber">
-                                <i class="fab fa-viber"></i> Замовити в Viber
+                                <i class="fab fa-viber"></i> Заказать в Viber
                             </a>
-                            <a href="https://t.me/your_telegram_username" target="_blank" class="social-button telegram">
-                                <i class="fab fa-telegram-plane"></i> Замовити в Telegram
+                            <a href="https://t.me/fifa_laser" target="_blank" class="social-button telegram">
+                                <i class="fab fa-telegram-plane"></i> Заказать в Telegram
                             </a>
                         </div>
                     </div>
 
                     <div class="product-card">
-                        <img src="https://via.placeholder.com/300x200?text=Product+2" alt="Уникальный товар 2">
-                        <h2>Уникальный товар 2</h2>
+                        <img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Металлическая табличка">
+                        <h2>Табличка</h2>
                         <div class="price">29.99 $</div>
                         <div class="social-buttons">
                             <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" class="social-button viber">
-                                <i class="fab fa-viber"></i> Замовити в Viber
+                                <i class="fab fa-viber"></i> Заказать в Viber
                             </a>
-                            <a href="https://t.me/your_telegram_username" target="_blank" class="social-button telegram">
-                                <i class="fab fa-telegram-plane"></i> Замовити в Telegram
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="product-card">
-                        <img src="https://via.placeholder.com/300x200?text=Product+3" alt="Премиум гаджет">
-                        <h2>Премиум гаджет</h2>
-                        <div class="price">99.99 $</div>
-                        <div class="social-buttons">
-                            <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" class="social-button viber">
-                                <i class="fab fa-viber"></i> Замовити в Viber
-                            </a>
-                            <a href="https://t.me/your_telegram_username" target="_blank" class="social-button telegram">
-                                <i class="fab fa-telegram-plane"></i> Замовити в Telegram
+                            <a href="https://t.me/fifa_laser" target="_blank" class="social-button telegram">
+                                <i class="fab fa-telegram-plane"></i> Заказать в Telegram
                             </a>
                         </div>
                     </div>
 
                     <div class="product-card">
-                        <img src="https://via.placeholder.com/300x200?text=Product+4" alt="Аксессуар для дома">
-                        <h2>Аксессуар для дома</h2>
+                        <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Брелок с гравировкой">
+                        <h2>Брелок</h2>
                         <div class="price">19.99 $</div>
                         <div class="social-buttons">
                             <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" class="social-button viber">
-                                <i class="fab fa-viber"></i> Замовити в Viber
+                                <i class="fab fa-viber"></i> Заказать в Viber
                             </a>
-                            <a href="https://t.me/your_telegram_username" target="_blank" class="social-button telegram">
-                                <i class="fab fa-telegram-plane"></i> Замовити в Telegram
+                            <a href="https://t.me/fifa_laser" target="_blank" class="social-button telegram">
+                                <i class="fab fa-telegram-plane"></i> Заказать в Telegram
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Кулон с гравировкой">
+                        <h2>Кулон</h2>
+                        <div class="price">39.99 $</div>
+                        <div class="social-buttons">
+                            <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" class="social-button viber">
+                                <i class="fab fa-viber"></i> Заказать в Viber
+                            </a>
+                            <a href="https://t.me/fifa_laser" target="_blank" class="social-button telegram">
+                                <i class="fab fa-telegram-plane"></i> Заказать в Telegram
                             </a>
                         </div>
                     </div>
@@ -729,16 +713,15 @@
             </div>
         </section>
 
-        <section id="circular-gallery-section" class="circular-gallery-section">
+        <section id="gallery" class="circular-gallery-section">
             <div class="container">
-                <h2 class="section-title">Наша Фотогалерея</h2>
+                <h2 class="section-title">Примеры работ</h2>
                 <div class="circular-gallery">
                     <div class="gallery-container" id="galleryContainer">
-                        <div class="gallery-item"><img src="https://via.placeholder.com/250/FF5733/FFFFFF?text=Image+1" alt="Circular Image 1"></div>
-                        <div class="gallery-item"><img src="https://via.placeholder.com/250/33FF57/FFFFFF?text=Image+2" alt="Circular Image 2"></div>
-                        <div class="gallery-item"><img src="https://via.placeholder.com/250/3357FF/FFFFFF?text=Image+3" alt="Circular Image 3"></div>
-                        <div class="gallery-item"><img src="https://via.placeholder.com/250/FF33E9/FFFFFF?text=Image+4" alt="Circular Image 4"></div>
-                        <div class="gallery-item"><img src="https://via.placeholder.com/250/E9FF33/FFFFFF?text=Image+5" alt="Circular Image 5"></div>
+                        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Пример гравировки 1"></div>
+                        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Пример гравировки 2"></div>
+                        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Пример гравировки 3"></div>
+                        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Пример гравировки 4"></div>
                     </div>
                     <button class="gallery-nav-button prev" onclick="moveGallery(-1)">&#10094;</button>
                     <button class="gallery-nav-button next" onclick="moveGallery(1)">&#10095;</button>
@@ -749,13 +732,16 @@
 
     <footer class="footer" id="contact">
         <div class="container">
-            <p>&copy; 2025 Логотип. Все права защищены.</p>
-            <p>Email: contact@example.com</p>
+            <h2>Контакты</h2>
+            <p>Email: info@lasergrav.com</p>
+            <p>Телефон: +380 (XX) XXX-XX-XX</p>
+            <p>Работаем: Пн-Пт 9:00-18:00</p>
+            <p>&copy; 2023 LaserGrav. Все права защищены.</p>
         </div>
     </footer>
 
     <script>
-        // JavaScript для мобильного меню
+        // Мобильное меню
         const menuToggle = document.getElementById('mobile-menu');
         const navMenu = document.getElementById('nav-menu');
 
@@ -763,33 +749,31 @@
             navMenu.classList.toggle('active');
         });
 
-        // Плавная прокрутка к якорям
+        // Плавная прокрутка
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-
                 document.querySelector(this.getAttribute('href')).scrollIntoView({
                     behavior: 'smooth'
                 });
-                
-                // Закрываем меню после клика на ссылку на мобильных устройствах
                 if (navMenu.classList.contains('active')) {
                     navMenu.classList.remove('active');
                 }
             });
         });
 
-        // JavaScript for Circular Gallery
+        // Галерея
         let currentSlide = 0;
         const galleryContainer = document.getElementById('galleryContainer');
         const totalSlides = galleryContainer.children.length;
 
         function moveGallery(direction) {
             currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
-            const offset = -currentSlide * 100;
-            galleryContainer.style.transform = `translateX(${offset}%)`;
+            galleryContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
         }
-    </script>
 
+        // Автопрокрутка галереи (опционально)
+        setInterval(() => moveGallery(1), 5000);
+    </script>
 </body>
 </html>
