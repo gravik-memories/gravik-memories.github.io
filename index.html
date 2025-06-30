@@ -42,6 +42,7 @@
         img {
             max-width: 100%;
             height: auto;
+            display: block; /* Для лучшего контроля над отступами */
         }
 
         /* --- Шапка (Header) --- */
@@ -86,15 +87,10 @@
             font-size: 24px;
         }
 
-        /* --- НОВЫЙ БЛОК "ИННОВАЦИОННЫЕ РЕШЕНИЯ" (замена Hero) --- */
+        /* --- БЛОК "ИННОВАЦИОННЫЕ РЕШЕНИЯ" --- */
         .innovative-solutions {
             background-color: var(--secondary-color);
             padding: 80px var(--container-padding);
-            display: flex; /* Используем Flexbox */
-            align-items: center; /* Выравнивание по центру по вертикали */
-            justify-content: center; /* Центрирование содержимого */
-            gap: 40px; /* Отступ между изображением и текстом */
-            flex-wrap: nowrap; /* Важно: предотвращает перенос элементов на новую строку */
         }
 
         .innovative-solutions .container {
@@ -102,35 +98,25 @@
             align-items: center;
             justify-content: center;
             gap: 40px;
-            flex-wrap: nowrap; /* Гарантируем, что не будет переноса на новую строку */
-            max-width: 1100px; /* Максимальная ширина, как у других контейнеров */
-            width: 100%;
         }
 
         .innovative-solutions-image {
-            flex: 0 0 auto; /* Не растягиваться, не сжиматься, базовый размер auto */
-            width: 450px; /* Фиксированная ширина для изображения на десктопе */
-            max-width: 50%; /* Ограничение, чтобы не занимало больше половины */
+             flex: 0 0 450px;
         }
         
         .innovative-solutions-image img {
-            width: 100%;
-            height: auto;
-            border-radius: 10px; /* Закругленные углы для изображения */
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1); /* Легкая тень */
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
         }
 
         .innovative-solutions-content {
-            flex: 1; /* Занимает оставшееся пространство */
-            text-align: left; /* Текст слева */
-            min-width: 300px; /* Минимальная ширина для контента, чтобы не сжимался сильно */
+            flex: 1;
+            text-align: left;
         }
 
         .innovative-solutions-content h1 {
             font-size: 2.8em;
             margin-bottom: 20px;
-            color: var(--text-color); /* Цвет заголовка */
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Пример шрифта из скриншота */
         }
 
         .innovative-solutions-content p {
@@ -242,10 +228,10 @@
         }
 
         .product-card img {
-            max-width: 90%; /* Шире изображение */
+            max-width: 90%;
             height: auto;
             border-radius: 8px;
-            margin-bottom: 20px;
+            margin: 0 auto 20px auto;
             box-shadow: 0 4px 10px rgba(0,0,0,0.08);
         }
 
@@ -269,26 +255,13 @@
             margin-bottom: 30px;
         }
 
-        /* Кнопка купить, переиспользуем существующий класс cta-button */
         .product-card .cta-button {
             width: 80%; /* Кнопка шире */
             max-width: 300px;
             padding: 18px 35px;
             font-size: 1.2em;
         }
-
-        /* Стили для неактивной кнопки */
-        .inactive-button {
-            background-color: #cccccc; /* Серый цвет для неактивной кнопки */
-            cursor: not-allowed; /* Курсор "запрещено" */
-            opacity: 0.8;
-            pointer-events: none; /* Отключает клики */
-        }
-
-        .inactive-button:hover {
-            background-color: #cccccc; /* Не менять цвет при наведении */
-        }
-
+        
         /* Стили для новых социальных кнопок */
         .social-buttons {
             display: flex;
@@ -403,33 +376,28 @@
         
         /* --- Адаптивность (Responsive) --- */
 
-        /* Планшеты и маленькие десктопы */
+        /* Планшеты */
         @media (max-width: 992px) {
+            .innovative-solutions .container,
+            #about .container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .innovative-solutions-content {
+                text-align: center;
+            }
+            
+            .innovative-solutions-image {
+                flex-basis: auto; /* Сбрасываем фиксированную ширину */
+                width: 70%;
+                margin-bottom: 20px;
+            }
+
             .services-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
-            #about .container {
-                flex-direction: column;
-            }
-            /* Для нового блока innovative-solutions */
-            .innovative-solutions .container {
-                flex-direction: row; /* Остается в ряд */
-                gap: 20px; /* Уменьшаем отступ */
-                padding: 0 15px; /* Уменьшаем внутренние отступы */
-            }
-            .innovative-solutions-image {
-                width: 40%; /* Процентная ширина для гибкости */
-                max-width: 300px; /* Но максимальная ширина */
-            }
-            .innovative-solutions-content {
-                min-width: unset; /* Сбросить мин. ширину, чтобы контент мог сжиматься */
-            }
-            .innovative-solutions-content h1 {
-                font-size: 2.2em; /* Уменьшаем размер шрифта */
-            }
-            .innovative-solutions-content p {
-                font-size: 1em; /* Уменьшаем размер шрифта */
-            }
+
             .gallery-item img {
                 width: 200px;
                 height: 200px;
@@ -438,13 +406,20 @@
 
         /* Мобильные устройства */
         @media (max-width: 768px) {
-            h1 { font-size: 2.2em; }
+            section {
+                padding: 40px 0;
+            }
 
+            h1 { font-size: 2em; }
+            h2 { font-size: 1.8em; }
+
+            /* Меню */
             .nav {
-                display: none; /* Скрываем навигацию */
+                display: none;
                 flex-direction: column;
                 position: absolute;
-                top: 60px; /* Высота шапки */
+                top: 100%; 
+                left: 0;
                 right: 0;
                 background-color: white;
                 width: 100%;
@@ -452,7 +427,7 @@
             }
             
             .nav.active {
-                display: flex; /* Показываем при клике */
+                display: flex;
             }
 
             .nav a {
@@ -463,106 +438,107 @@
             }
             
             .menu-toggle {
-                display: block; /* Показываем гамбургер */
+                display: block;
             }
 
+            /* Сетка услуг */
             .services-grid {
                 grid-template-columns: 1fr;
             }
-            /* Адаптивность для карточки товара */
+
+            /* === ИЗМЕНЕНИЯ ЗДЕСЬ (Изображения и текст) === */
+
+            /* Блок "Инновационные решения" */
+            .innovative-solutions-image {
+                width: 50%;
+                max-width: 180px; 
+            }
+
+            .innovative-solutions-content h1 {
+                font-size: 1.6em; 
+                margin-bottom: 10px;
+            }
+            .innovative-solutions-content p {
+                font-size: 0.9em;
+                margin-bottom: 20px;
+            }
+
+            /* Блок "О нас" */
+            .about-image img {
+                max-width: 80%; /* Уменьшаем изображение */
+                margin: 0 auto;
+            }
+
+            /* Карточка товара */
             .product-card {
-                padding: 30px;
+                padding: 25px;
                 max-width: 90%;
             }
+            .product-card img {
+                max-width: 75%; /* Уменьшаем изображение с 90% до 75% */
+            }
             .product-card h2 {
-                font-size: 2em;
+                font-size: 1.8em;
             }
             .product-card .price {
-                font-size: 1.8em;
+                font-size: 1.6em;
             }
             .product-card .cta-button {
                 width: 100%;
-                padding: 15px 25px;
-                font-size: 1.1em;
+                padding: 15px;
+                font-size: 1em;
             }
-            /* Адаптивность для социальных кнопок */
+
+            /* Социальные кнопки */
             .social-buttons {
-                flex-direction: column; /* Кнопки в столбик на очень маленьких экранах */
+                flex-direction: column;
                 gap: 10px;
             }
-            /* Circular gallery responsive */
+            
+            /* Галерея */
             .gallery-item img {
-                width: 150px;
-                height: 150px;
+                width: 120px;  /* Уменьшено на 20% с 150px */
+                height: 120px; /* Уменьшено на 20% с 150px */
             }
             .gallery-nav-button {
                 padding: 10px 5px;
                 font-size: 1.2em;
             }
 
-            /* НОВЫЙ БЛОК: Специальные стили для инновационных решений на мобильных */
-            .innovative-solutions {
-                padding: 40px var(--container-padding); /* Уменьшаем отступ */
-            }
-            .innovative-solutions .container {
-                flex-direction: row; /* Остается в ряд даже на мобильных */
-                flex-wrap: nowrap; /* Гарантируем, что не будет переноса */
-                align-items: center; /* Центрирование по вертикали */
-                justify-content: center;
-                gap: 15px; /* Уменьшаем отступ между элементами */
-            }
-            .innovative-solutions-image {
-                width: 40%; /* Остается процентной шириной */
-                /* УВЕЛИЧЕНО НА ~20% */
-                max-width: 180px; /* Максимальный размер для мобильных, было 150px */
-            }
-            .innovative-solutions-content h1 {
-                /* НЕМНОГО УМЕНЬШЕНО */
-                font-size: 1.5em; /* Было 1.6em */
-                margin-bottom: 10px;
-            }
-            .innovative-solutions-content p {
-                /* НЕМНОГО УМЕНЬШЕНО */
-                font-size: 0.85em; /* Было 0.9em */
-                margin-bottom: 15px;
-            }
             .cta-button {
-                padding: 12px 20px; /* Уменьшаем кнопку */
+                padding: 12px 20px;
                 font-size: 1em;
             }
         }
+
+        /* Совсем маленькие экраны */
         @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .innovative-solutions-content h1 {
+                font-size: 1.4em;
+            }
+            .innovative-solutions-content p {
+                font-size: 0.85em;
+            }
+
             .product-card {
                 padding: 20px;
             }
             .product-card h2 {
-                font-size: 1.8em;
-            }
-            .product-card p {
-                font-size: 1em;
-            }
-            .product-card .price {
                 font-size: 1.6em;
             }
-            .gallery-item img {
-                width: 120px;
-                height: 120px;
+            .product-card .price {
+                font-size: 1.5em;
             }
 
-            /* Еще более тонкие настройки для самого маленького мобильного разрешения */
-            .innovative-solutions-image {
-                width: 35%; /* Чуть меньше для очень маленьких экранов */
-                /* УВЕЛИЧЕНО НА ~20% */
-                max-width: 145px; /* Было 120px */
+            .gallery-item img {
+                width: 100px; /* Дальнейшее уменьшение для самых маленьких экранов */
+                height: 100px;
             }
-            .innovative-solutions-content h1 {
-                /* НЕМНОГО УМЕНЬШЕНО */
-                font-size: 1.3em; /* Было 1.4em */
-            }
-            .innovative-solutions-content p {
-                /* НЕМНОГО УМЕНЬШЕНО */
-                font-size: 0.8em; /* Было 0.85em */
-            }
+
             .cta-button {
                 font-size: 0.9em;
                 padding: 10px 15px;
