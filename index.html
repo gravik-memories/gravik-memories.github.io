@@ -203,7 +203,7 @@
 
         /* --- Секция Карточки Товара --- */
         .product-card-section {
-            background-color: #f0f2f5; /* Легкий фон для выделения */
+            background-color: #f0f2f5;
             text-align: center;
             padding: 80px 0;
         }
@@ -213,12 +213,12 @@
             border-radius: 12px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.1);
             padding: 40px;
-            max-width: 600px; /* Шире для большой карточки */
-            margin: 0 auto; /* Центрирование карточки */
+            max-width: 600px;
+            margin: 0 auto;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 30px; /* Отступ между элементами */
+            gap: 30px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
@@ -251,12 +251,12 @@
         .product-card .price {
             font-size: 2.2em;
             font-weight: bold;
-            color: #28a745; /* Зеленый цвет для цены */
+            color: #28a745;
             margin-bottom: 30px;
         }
 
         .product-card .cta-button {
-            width: 80%; /* Кнопка шире */
+            width: 80%;
             max-width: 300px;
             padding: 18px 35px;
             font-size: 1.2em;
@@ -265,18 +265,18 @@
         /* Стили для новых социальных кнопок */
         .social-buttons {
             display: flex;
-            flex-wrap: wrap; /* Для переноса на новую строку на маленьких экранах */
+            flex-wrap: wrap;
             justify-content: center;
-            gap: 15px; /* Отступ между кнопками */
+            gap: 15px;
             width: 100%;
-            max-width: 400px; /* Ограничим ширину блока кнопок */
-            margin-top: 20px; /* Отступ от предыдущего элемента */
+            max-width: 400px;
+            margin-top: 20px;
         }
 
         .social-button {
             display: inline-flex;
             align-items: center;
-            gap: 8px; /* Отступ между иконкой и текстом */
+            gap: 8px;
             padding: 12px 25px;
             border-radius: 5px;
             text-decoration: none;
@@ -284,16 +284,16 @@
             font-weight: bold;
             color: var(--light-text-color);
             transition: background-color 0.3s ease, transform 0.2s ease;
-            flex-grow: 1; /* Чтобы кнопки занимали доступное место */
-            justify-content: center; /* Центрируем содержимое кнопки */
+            flex-grow: 1;
+            justify-content: center;
         }
 
         .social-button i {
-            font-size: 1.2em; /* Размер иконки */
+            font-size: 1.2em;
         }
 
         .social-button.viber {
-            background-color: #7360F2; /* Цвет Viber */
+            background-color: #7360F2;
         }
 
         .social-button.viber:hover {
@@ -302,7 +302,7 @@
         }
 
         .social-button.telegram {
-            background-color: #0088CC; /* Цвет Telegram */
+            background-color: #0088CC;
         }
 
         .social-button.telegram:hover {
@@ -339,10 +339,10 @@
         }
 
         .gallery-item img {
-            width: 250px; /* Fixed width for circular images */
-            height: 250px; /* Fixed height for circular images */
-            border-radius: 50%; /* Makes the image circular */
-            object-fit: cover; /* Ensures the image covers the area */
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            object-fit: cover;
             border: 5px solid var(--primary-color);
             box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
@@ -378,7 +378,7 @@
 
         /* Планшеты */
         @media (max-width: 992px) {
-            .innovative-solutions .container,
+            /* Блок "О нас" перестраиваем в колонку */
             #about .container {
                 flex-direction: column;
                 text-align: center;
@@ -389,9 +389,8 @@
             }
             
             .innovative-solutions-image {
-                flex-basis: auto; /* Сбрасываем фиксированную ширину */
-                width: 70%;
-                margin-bottom: 20px;
+                flex: 1 1 auto;
+                margin: 0 auto 20px auto;
             }
 
             .services-grid {
@@ -425,47 +424,55 @@
                 width: 100%;
                 box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             }
-            
-            .nav.active {
-                display: flex;
-            }
-
+            .nav.active { display: flex; }
             .nav a {
                 margin: 0;
                 padding: 15px;
                 text-align: center;
                 border-bottom: 1px solid #eee;
             }
-            
-            .menu-toggle {
-                display: block;
-            }
+            .menu-toggle { display: block; }
 
             /* Сетка услуг */
             .services-grid {
                 grid-template-columns: 1fr;
             }
 
-            /* === ИЗМЕНЕНИЯ ЗДЕСЬ (Изображения и текст) === */
+            /* === ИЗМЕНЕНИЯ ЗДЕСЬ === */
 
-            /* Блок "Инновационные решения" */
-            .innovative-solutions-image {
-                width: 50%;
-                max-width: 180px; 
+            /* Блок "Инновационные решения": оставляем в ряд, но уменьшаем элементы */
+            .innovative-solutions .container {
+                flex-direction: row; /* Изображение и текст в ряд */
+                align-items: center;
+                gap: 15px; /* Уменьшаем отступ между ними */
             }
-
+            .innovative-solutions-image {
+                flex: 0 0 35%; /* Изображение занимает ~35% ширины */
+                max-width: 120px;
+                margin-bottom: 0;
+            }
+            .innovative-solutions-content {
+                flex: 1 1 65%; /* Текст занимает оставшееся место */
+                text-align: left; /* Выравниваем текст слева */
+            }
             .innovative-solutions-content h1 {
-                font-size: 1.6em; 
-                margin-bottom: 10px;
+                font-size: 1.2em; /* Значительно уменьшаем заголовок */
+                margin-bottom: 8px;
             }
             .innovative-solutions-content p {
-                font-size: 0.9em;
-                margin-bottom: 20px;
+                font-size: 0.8em; /* Уменьшаем параграф */
+                line-height: 1.4;
+                margin-bottom: 15px;
+            }
+             /* Уменьшаем кнопку только в этом блоке */
+            .innovative-solutions .cta-button {
+                font-size: 0.8em;
+                padding: 8px 12px;
             }
 
-            /* Блок "О нас" */
+            /* Блок "О нас": в колонку, изображение уменьшено */
             .about-image img {
-                max-width: 80%; /* Уменьшаем изображение */
+                max-width: 80%; 
                 margin: 0 auto;
             }
 
@@ -474,15 +481,9 @@
                 padding: 25px;
                 max-width: 90%;
             }
-            .product-card img {
-                max-width: 75%; /* Уменьшаем изображение с 90% до 75% */
-            }
-            .product-card h2 {
-                font-size: 1.8em;
-            }
-            .product-card .price {
-                font-size: 1.6em;
-            }
+            .product-card img { max-width: 75%; }
+            .product-card h2 { font-size: 1.8em; }
+            .product-card .price { font-size: 1.6em; }
             .product-card .cta-button {
                 width: 100%;
                 padding: 15px;
@@ -497,17 +498,12 @@
             
             /* Галерея */
             .gallery-item img {
-                width: 120px;  /* Уменьшено на 20% с 150px */
-                height: 120px; /* Уменьшено на 20% с 150px */
+                width: 120px;
+                height: 120px;
             }
             .gallery-nav-button {
                 padding: 10px 5px;
                 font-size: 1.2em;
-            }
-
-            .cta-button {
-                padding: 12px 20px;
-                font-size: 1em;
             }
         }
 
@@ -516,26 +512,27 @@
             .container {
                 padding: 0 15px;
             }
-            
-            .innovative-solutions-content h1 {
-                font-size: 1.4em;
+
+            /* На очень маленьких экранах все же перестраиваем верхний блок в колонку */
+            .innovative-solutions .container {
+                flex-direction: column;
+                text-align: center;
             }
-            .innovative-solutions-content p {
-                font-size: 0.85em;
+            .innovative-solutions-image {
+                margin: 0 auto 20px auto;
+            }
+            .innovative-solutions-content {
+                text-align: center;
             }
 
             .product-card {
                 padding: 20px;
             }
-            .product-card h2 {
-                font-size: 1.6em;
-            }
-            .product-card .price {
-                font-size: 1.5em;
-            }
+            .product-card h2 { font-size: 1.6em; }
+            .product-card .price { font-size: 1.5em; }
 
             .gallery-item img {
-                width: 100px; /* Дальнейшее уменьшение для самых маленьких экранов */
+                width: 100px;
                 height: 100px;
             }
 
