@@ -905,59 +905,80 @@
     </footer>
 
     <script>
-        // Мобильное меню
-        const menuToggle = document.getElementById('mobile-menu');
-        const navMenu = document.getElementById('nav-menu');
+    // Мобильное меню
+    const menuToggle = document.getElementById('mobile-menu');
+    const navMenu = document.getElementById('nav-menu');
 
-        menuToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-        });
+    menuToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+    });
 
-        // Плавная прокрутка
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-                if (navMenu.classList.contains('active')) {
-                    navMenu.classList.remove('active');
-                }
+    // Плавная прокрутка
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
             });
-        });
-
-        // Галерея
-        let currentSlide = 0;
-        const galleryContainer = document.getElementById('galleryContainer');
-        const totalSlides = galleryContainer.children.length;
-
-        function moveGallery(direction) {
-            currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
-            galleryContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
-        }
-
-        // Автопрокрутка галереи
-        setInterval(() => moveGallery(1), 5000);
-        
-        // Функции для модального окна
-        function openModal(imgSrc) {
-            const modal = document.getElementById("imageModal");
-            const modalImg = document.getElementById("expandedImg");
-            modal.style.display = "block";
-            modalImg.src = imgSrc;
-        }
-
-        function closeModal() {
-            document.getElementById("imageModal").style.display = "none";
-        }
-        
-        // Закрытие модального окна при клике вне изображения
-        window.onclick = function(event) {
-            const modal = document.getElementById("imageModal");
-            if (event.target == modal) {
-                closeModal();
+            if (navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
             }
+        });
+    });
+
+    // Галерея
+    let currentSlide = 0;
+    const galleryContainer = document.getElementById('galleryContainer');
+    const totalSlides = galleryContainer.children.length;
+
+    function moveGallery(direction) {
+        currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+        galleryContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
+    }
+
+    // Автопрокрутка галереи
+    setInterval(() => moveGallery(1), 5000);
+
+    // Функции для модального окна
+    const modal = document.getElementById("imageModal");
+    const modalImg = document.getElementById("expandedImg");
+
+    function openModal(imgSrc) {
+        modal.style.display = "block";
+        modalImg.src = imgSrc;
+        // Добавляем состояние в историю браузера
+        history.pushState({ modalOpen: true }, null, '#modal');
+    }
+
+    function closeModal() {
+        modal.style.display = "none";
+        modalImg.src = ""; // Очищаем src, чтобы изображение не висело в памяти
+        // Если модальное окно было открыто через pushState и мы закрываем его крестиком,
+        // нужно вернуться на шаг назад в истории, чтобы не было лишней записи.
+        // Проверяем, если предыдущее состояние было открытием модального окна
+        if (history.state && history.state.modalOpen) {
+            history.back(); // Возвращаемся на предыдущую запись в истории
         }
-    </script>
+    }
+
+    // Закрытие модального окна при клике вне изображения
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            closeModal();
+        }
+    }
+
+    // Обработчик события 'popstate' для кнопки "назад" браузера
+    window.addEventListener('popstate', function(event) {
+        // Если модальное окно открыто и мы вернулись в состояние, когда оно не должно быть открыто
+        if (modal.style.display === "block" && (!event.state || !event.state.modalOpen)) {
+            modal.style.display = "none";
+            modalImg.src = "";
+        }
+        // Если модальное окно не открыто, но popstate произошел после его открытия и закрытия через крестик,
+        // то мы уже сделали history.back() в closeModal, поэтому здесь ничего не делаем.
+    });
+</script>
+
 </body>
 </html>
