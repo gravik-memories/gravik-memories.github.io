@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Premium Laser Engraving | Гравировка на жетонах</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&family=Oswald:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Roboto:wght@400;500&family=Oswald:wght@500&display=swap" rel="stylesheet">
     <style>
         /* --- Общие стили --- */
         :root {
@@ -16,7 +16,7 @@
             --light-text-color: #fff;
             --container-padding: 20px;
             
-            --font-heading: 'Playfair Display', serif;
+            --font-heading: 'Montserrat', sans-serif; /* Изменён шрифт заголовков */
             --font-main: 'Roboto', sans-serif;
             --font-accent: 'Oswald', sans-serif;
         }
@@ -272,8 +272,9 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.08);
         }
 
+        /* Уменьшен размер названий и цены на 20% */
         .product-card h2 {
-            font-size: 1.7em;
+            font-size: 1.36em; /* Уменьшено с 1.7em */
             color: var(--accent-color);
             margin-bottom: 5px;
             font-family: var(--font-heading);
@@ -284,7 +285,7 @@
         }
 
         .product-card .price {
-            font-size: 1.7em;
+            font-size: 1.36em; /* Уменьшено с 1.7em */
             font-weight: bold;
             color: var(--primary-color);
             margin-bottom: 10px;
@@ -402,6 +403,77 @@
             right: 10px;
         }
 
+        /* Новая секция с плиткой фотографий */
+        .tile-gallery-section {
+            padding: 60px 0;
+            background-color: #fff;
+        }
+
+        .tile-gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .tile-gallery-item {
+            overflow: hidden;
+            border-radius: 8px;
+            height: 200px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .tile-gallery-item:hover {
+            transform: scale(1.03);
+        }
+
+        .tile-gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        /* Модальное окно для фотографий */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            padding-top: 60px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9);
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 80vh;
+            border-radius: 8px;
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #bbb;
+        }
+
         /* --- Футер --- */
         .footer {
             background-color: var(--primary-color);
@@ -452,11 +524,15 @@
                 font-size: 1em;
             }
             
-            .gallery-item img {
-                width: 200px;
-                height: 200px;
+            .cta-button {
+                padding: 8px 12px;
+                font-size: 0.8em;
             }
 
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
             .product-cards-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 20px;
@@ -468,6 +544,24 @@
             
             .product-card img {
                 height: 240px;
+            }
+            
+            .tile-gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .gallery-item img {
+                width: 200px;
+                height: 200px;
+            }
+
+            .gallery-nav-button {
+                padding: 10px 5px;
+                font-size: 1.2em;
+            }
+
+            .innovative-solutions {
+                padding: 40px var(--container-padding);
             }
         }
 
@@ -500,7 +594,6 @@
                 display: block;
             }
 
-            /* Ключевое исправление для мобильной версии */
             .innovative-solutions .container {
                 display: grid;
                 grid-template-columns: 120px 1fr;
@@ -523,8 +616,7 @@
             }
             
             .innovative-solutions-content h1 {
-                /* Увеличение на 15% от 1.3em (1.3 * 1.15 = 1.495) */
-                font-size: 1.495em; 
+                font-size: 1.495em;
                 margin-bottom: 10px;
             }
             
@@ -573,8 +665,8 @@
                 font-size: 1.2em;
             }
 
-            .innovative-solutions {
-                padding: 40px var(--container-padding);
+            .tile-gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
@@ -584,7 +676,6 @@
             }
             
             .innovative-solutions-content h1 {
-                /* Увеличение на 15% от 1.1em (1.1 * 1.15 = 1.265) */
                 font-size: 1.265em;
             }
             
@@ -605,6 +696,14 @@
             .gallery-item img {
                 width: 120px;
                 height: 120px;
+            }
+            
+            .tile-gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .tile-gallery-item {
+                height: 150px;
             }
         }
     </style>
@@ -754,6 +853,45 @@
                 </div>
             </div>
         </section>
+        
+        <!-- Новая секция с плиткой фотографий -->
+        <section class="tile-gallery-section">
+            <div class="container">
+                <h2 class="section-title">Наши работы</h2>
+                <div class="tile-gallery-grid">
+                    <div class="tile-gallery-item" onclick="openModal('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
+                        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Работа 1">
+                    </div>
+                    <div class="tile-gallery-item" onclick="openModal('https://images.unsplash.com/photo-1581093057305-406aab8cfa3d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
+                        <img src="https://images.unsplash.com/photo-1581093057305-406aab8cfa3d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Работа 2">
+                    </div>
+                    <div class="tile-gallery-item" onclick="openModal('https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
+                        <img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Работа 3">
+                    </div>
+                    <div class="tile-gallery-item" onclick="openModal('https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
+                        <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Работа 4">
+                    </div>
+                    <div class="tile-gallery-item" onclick="openModal('https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
+                        <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Работа 5">
+                    </div>
+                    <div class="tile-gallery-item" onclick="openModal('https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
+                        <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Работа 6">
+                    </div>
+                    <div class="tile-gallery-item" onclick="openModal('https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
+                        <img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Работа 7">
+                    </div>
+                    <div class="tile-gallery-item" onclick="openModal('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
+                        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Работа 8">
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Модальное окно -->
+        <div id="imageModal" class="modal">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <img class="modal-content" id="expandedImg">
+        </div>
     </main>
 
     <footer class="footer" id="contact">
@@ -800,6 +938,26 @@
 
         // Автопрокрутка галереи
         setInterval(() => moveGallery(1), 5000);
+        
+        // Функции для модального окна
+        function openModal(imgSrc) {
+            const modal = document.getElementById("imageModal");
+            const modalImg = document.getElementById("expandedImg");
+            modal.style.display = "block";
+            modalImg.src = imgSrc;
+        }
+
+        function closeModal() {
+            document.getElementById("imageModal").style.display = "none";
+        }
+        
+        // Закрытие модального окна при клике вне изображения
+        window.onclick = function(event) {
+            const modal = document.getElementById("imageModal");
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
     </script>
 </body>
 </html>
