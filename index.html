@@ -380,12 +380,13 @@
         .rectangular-gallery-section {
             background-color: var(--secondary-color);
             text-align: center;
+            padding: 60px 0;
         }
 
         .rectangular-gallery {
             position: relative;
             width: 100%;
-            max-width: 600px; /* Изменено для вертикальной ориентации */
+            max-width: 250px; /* Максимальная ширина, чтобы вертикальные фото выглядели хорошо */
             margin: 0 auto;
             overflow: hidden;
             padding: 30px 0;
@@ -403,17 +404,17 @@
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            padding: 0 10px;
+            padding: 0 5px; /* Уменьшил padding */
         }
 
         .gallery-item img {
-            width: 80%; /* Изменено для вертикальной ориентации */
-            max-width: 500px; /* Можно настроить по желанию */
-            height: 450px; /* Изменено для вертикальной ориентации */
-            object-fit: contain; /* Изменено для сохранения пропорций, можете выбрать 'cover' или 'fill' */
-            border-radius: 8px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-            border: 2px solid var(--accent-color);
+            width: 100%; /* Фото займет 100% ширины .gallery-item */
+            height: auto; /* Высота будет автоматически подстроена под aspect-ratio */
+            aspect-ratio: 3 / 5; /* Соотношение сторон: 3 (ширина) к 5 (высота) - делает вертикальное фото */
+            object-fit: cover; /* Обрезает изображение, чтобы заполнить контейнер, сохраняя пропорции */
+            border-radius: 8px; /* Слегка закругленные края */
+            box-shadow: none; /* Удаляем тени */
+            border: none; /* Удаляем границы */
         }
 
         .gallery-nav-button {
@@ -552,9 +553,12 @@
                 grid-template-columns: repeat(3, 1fr);
             }
             
+            .rectangular-gallery {
+                max-width: 200px; /* Уменьшаем для средних экранов */
+            }
             .gallery-item img {
-                height: 250px;
-                width: 90%; /* Адаптивная ширина для вертикальных изображений */
+                height: auto; /* Высота будет автоматически подстроена под aspect-ratio */
+                aspect-ratio: 3 / 5; /* Сохраняем пропорции */
             }
 
             .gallery-nav-button {
@@ -657,9 +661,12 @@
                 padding: 6px 10px;
             }
 
+            .rectangular-gallery {
+                max-width: 180px; /* Ещё уменьшаем для мобильных */
+            }
             .gallery-item img {
-                height: 200px;
-                width: 90%; /* Адаптивная ширина для вертикальных изображений */
+                height: auto; /* Высота будет автоматически подстроена под aspect-ratio */
+                aspect-ratio: 3 / 5; /* Сохраняем пропорции */
             }
             
             .gallery-nav-button {
@@ -695,9 +702,12 @@
                 padding: 5px 8px;
             }
             
+            .rectangular-gallery {
+                max-width: 150px; /* Самый маленький размер для мобильных */
+            }
             .gallery-item img {
-                height: 180px;
-                width: 95%; /* Более узкая ширина для вертикальных изображений на очень маленьких экранах */
+                height: auto; /* Высота будет автоматически подстроена под aspect-ratio */
+                aspect-ratio: 3 / 5; /* Сохраняем пропорции */
             }
             
             .tile-gallery-grid {
