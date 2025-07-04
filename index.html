@@ -376,18 +376,28 @@
             transition: transform 0.3s ease;
         }
         
-        /* --- Секция "Примеры работ" (Слайдер с прямоугольными изображениями) --- */
+        /* --- Секция "Примеры работ" (Два слайдера) --- */
         .rectangular-gallery-section {
             background-color: var(--secondary-color);
             text-align: center;
             padding: 60px 0;
         }
 
+        .dual-slider-wrapper {
+            display: flex; /* Для ПК: два слайдера рядом */
+            gap: 40px; /* Расстояние между слайдерами */
+            justify-content: center; /* Центрируем, если контента меньше */
+            flex-wrap: wrap; /* Позволяет слайдерам переноситься на новую строку, если места мало */
+            max-width: 600px; /* Общая максимальная ширина для двух слайдеров */
+            margin: 0 auto; /* Центрируем обертку слайдеров */
+        }
+
         .rectangular-gallery {
             position: relative;
-            width: 100%;
-            max-width: 250px; /* Максимальная ширина, чтобы вертикальные фото выглядели хорошо */
-            margin: 0 auto;
+            width: 100%; /* Каждый слайдер занимает всю доступную ширину */
+            max-width: 280px; /* Максимальная ширина для каждого отдельного слайдера */
+            flex-shrink: 0; /* Не сжимать */
+            margin: 0; /* Отключаем margin: 0 auto;, так как родитель .dual-slider-wrapper центрирует */
             overflow: hidden;
             padding: 30px 0;
         }
@@ -404,7 +414,7 @@
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            padding: 0 5px; /* Уменьшил padding */
+            padding: 0 5px;
         }
 
         .gallery-item img {
@@ -553,8 +563,13 @@
                 grid-template-columns: repeat(3, 1fr);
             }
             
+            /* Адаптация для двух слайдеров на планшетах */
+            .dual-slider-wrapper {
+                max-width: 500px; /* Уменьшаем общую ширину для двух слайдеров */
+                gap: 20px;
+            }
             .rectangular-gallery {
-                max-width: 200px; /* Уменьшаем для средних экранов */
+                max-width: 240px; /* Уменьшаем ширину каждого слайдера */
             }
             .gallery-item img {
                 height: auto; /* Высота будет автоматически подстроена под aspect-ratio */
@@ -661,8 +676,20 @@
                 padding: 6px 10px;
             }
 
+            /* Мобильная версия: один слайдер */
+            .dual-slider-wrapper {
+                flex-direction: column; /* Слайдеры друг под другом */
+                gap: 0; /* Убираем расстояние между ними */
+                max-width: 280px; /* Максимальная ширина для одного слайдера */
+            }
+            .rectangular-gallery:nth-child(2) { /* Скрываем второй слайдер */
+                display: none;
+            }
+            .rectangular-gallery:first-child {
+                margin: 0 auto; /* Центрируем оставшийся слайдер */
+            }
             .rectangular-gallery {
-                max-width: 180px; /* Ещё уменьшаем для мобильных */
+                max-width: 280px; /* Убедимся, что он занимает адекватное место */
             }
             .gallery-item img {
                 height: auto; /* Высота будет автоматически подстроена под aspect-ratio */
@@ -881,23 +908,44 @@
         <section id="gallery" class="rectangular-gallery-section">
             <div class="container">
                 <h2 class="section-title">Примеры работ</h2>
-                <div class="rectangular-gallery">
-                    <div class="gallery-container" id="galleryContainer">
-                        <div class="gallery-item" onclick="openModal('https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
-                            <img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Пример гравировки 1">
+                <div class="dual-slider-wrapper">
+                    <div class="rectangular-gallery">
+                        <div class="gallery-container" id="galleryContainer1">
+                            <div class="gallery-item" onclick="openModal('https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
+                                <img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Пример гравировки 1">
+                            </div>
+                            <div class="gallery-item" onclick="openModal('https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
+                                <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Пример гравировки 2">
+                            </div>
+                            <div class="gallery-item" onclick="openModal('https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
+                                <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Пример гравировки 3">
+                            </div>
+                            <div class="gallery-item" onclick="openModal('https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
+                                <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Пример гравировки 4">
+                            </div>
                         </div>
-                        <div class="gallery-item" onclick="openModal('https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
-                            <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Пример гравировки 2">
-                        </div>
-                        <div class="gallery-item" onclick="openModal('https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
-                            <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Пример гравировки 3">
-                        </div>
-                        <div class="gallery-item" onclick="openModal('https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
-                            <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Пример гравировки 4">
-                        </div>
+                        <button class="gallery-nav-button prev" id="prev1">&#10094;</button>
+                        <button class="gallery-nav-button next" id="next1">&#10095;</button>
                     </div>
-                    <button class="gallery-nav-button prev" onclick="moveGallery(-1)">&#10094;</button>
-                    <button class="gallery-nav-button next" onclick="moveGallery(1)">&#10095;</button>
+
+                    <div class="rectangular-gallery">
+                        <div class="gallery-container" id="galleryContainer2">
+                            <div class="gallery-item" onclick="openModal('https://images.unsplash.com/photo-1581093057305-406aab8cfa3d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
+                                <img src="https://images.unsplash.com/photo-1581093057305-406aab8cfa3d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Пример гравировки 5">
+                            </div>
+                            <div class="gallery-item" onclick="openModal('https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
+                                <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Пример гравировки 6">
+                            </div>
+                            <div class="gallery-item" onclick="openModal('https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
+                                <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Пример гравировки 7">
+                            </div>
+                            <div class="gallery-item" onclick="openModal('https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
+                                <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Пример гравировки 8">
+                            </div>
+                        </div>
+                        <button class="gallery-nav-button prev" id="prev2">&#10094;</button>
+                        <button class="gallery-nav-button next" id="next2">&#10095;</button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -943,20 +991,46 @@
         });
     });
 
-    // Галерея
-    let currentSlide = 0;
-    const galleryContainer = document.getElementById('galleryContainer');
-    const totalSlides = galleryContainer.children.length;
+    // --- Управление несколькими галереями (слайдерами) ---
+    // Массив для хранения состояния каждого слайдера
+    let sliderStates = [];
 
-    function moveGallery(direction) {
-        currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
-        galleryContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
+    document.addEventListener('DOMContentLoaded', () => {
+        const galleryContainers = document.querySelectorAll('.gallery-container'); // Находим все контейнеры слайдеров
+
+        galleryContainers.forEach((container, index) => {
+            // Инициализируем состояние для каждого слайдера
+            sliderStates.push({
+                id: `slider${index + 1}`, // Уникальный ID для каждого слайдера
+                currentSlide: 0,
+                container: container,
+                totalSlides: container.children.length
+            });
+
+            // Привязываем кнопки навигации к конкретному слайдеру
+            // Важно: ID кнопок в HTML должны быть уникальными (например, prev1, next1, prev2, next2)
+            const prevButton = document.getElementById(`prev${index + 1}`);
+            const nextButton = document.getElementById(`next${index + 1}`);
+
+            if (prevButton) {
+                prevButton.onclick = () => moveGallery(index, -1);
+            }
+            if (nextButton) {
+                nextButton.onclick = () => moveGallery(index, 1);
+            }
+            
+            // Автопрокрутка для каждого слайдера
+            setInterval(() => moveGallery(index, 1), 10000);
+        });
+    });
+
+    function moveGallery(sliderIndex, direction) {
+        let state = sliderStates[sliderIndex];
+        state.currentSlide = (state.currentSlide + direction + state.totalSlides) % state.totalSlides;
+        state.container.style.transform = `translateX(-${state.currentSlide * 100}%)`;
     }
 
-    // Автопрокрутка галереи
-    setInterval(() => moveGallery(1), 10000);
-
-    // Функции для модального окна
+    // --- Функции для модального окна ---
     const modal = document.getElementById("imageModal");
     const modalImg = document.getElementById("expandedImg");
 
