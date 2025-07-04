@@ -16,7 +16,7 @@
             --light-text-color: #fff;
             --container-padding: 20px;
             
-            --font-heading: 'Montserrat', sans-serif; /* Изменён шрифт заголовков */
+            --font-heading: 'Montserrat', sans-serif;
             --font-main: 'Roboto', sans-serif;
             --font-accent: 'Oswald', sans-serif;
         }
@@ -194,7 +194,10 @@
             background-color: var(--secondary-color);
         }
 
-        #services .section-title {
+        #services .section-title,
+        .product-card-section .section-title,
+        .tile-gallery-section .section-title,
+        .rectangular-gallery-section .section-title {
             text-align: center;
             margin-bottom: 40px;
         }
@@ -272,9 +275,8 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.08);
         }
 
-        /* Уменьшен размер названий и цены на 20% */
         .product-card h2 {
-            font-size: 1.36em; /* Уменьшено с 1.7em */
+            font-size: 1.36em;
             color: var(--accent-color);
             margin-bottom: 5px;
             font-family: var(--font-heading);
@@ -285,7 +287,7 @@
         }
 
         .product-card .price {
-            font-size: 1.36em; /* Уменьшено с 1.7em */
+            font-size: 1.36em;
             font-weight: bold;
             color: var(--primary-color);
             margin-bottom: 10px;
@@ -338,72 +340,8 @@
             background-color: #006FB3;
             transform: translateY(-2px);
         }
-
-        /* --- Галерея --- */
-        .circular-gallery-section {
-            background-color: var(--secondary-color);
-            text-align: center;
-        }
-
-        .circular-gallery {
-            position: relative;
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            overflow: hidden;
-            padding: 30px 0;
-        }
-
-        .gallery-container {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-        }
-
-        .gallery-item {
-            min-width: 100%;
-            box-sizing: border-box;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .gallery-item img {
-            width: 250px;
-            height: 250px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 5px solid var(--accent-color);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-        }
-
-        .gallery-nav-button {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(44, 62, 80, 0.5);
-            color: white;
-            border: none;
-            padding: 15px 10px;
-            cursor: pointer;
-            font-size: 1.5em;
-            z-index: 10;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-
-        .gallery-nav-button:hover {
-            background-color: rgba(44, 62, 80, 0.7);
-        }
-
-        .gallery-nav-button.prev {
-            left: 10px;
-        }
-
-        .gallery-nav-button.next {
-            right: 10px;
-        }
-
-        /* Новая секция с плиткой фотографий */
+        
+        /* --- Секция "Наши работы" (Плитка) --- */
         .tile-gallery-section {
             padding: 60px 0;
             background-color: #fff;
@@ -434,10 +372,78 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            border-radius: 8px;
             transition: transform 0.3s ease;
         }
+        
+        /* --- Секция "Примеры работ" (Слайдер с прямоугольными изображениями) --- */
+        .rectangular-gallery-section {
+            background-color: var(--secondary-color);
+            text-align: center;
+        }
 
-        /* Модальное окно для фотографий */
+        .rectangular-gallery {
+            position: relative;
+            width: 100%;
+            max-width: 600px; /* Изменено для вертикальной ориентации */
+            margin: 0 auto;
+            overflow: hidden;
+            padding: 30px 0;
+        }
+
+        .gallery-container {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .gallery-item {
+            min-width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            padding: 0 10px;
+        }
+
+        .gallery-item img {
+            width: 80%; /* Изменено для вертикальной ориентации */
+            max-width: 500px; /* Можно настроить по желанию */
+            height: 450px; /* Изменено для вертикальной ориентации */
+            object-fit: contain; /* Изменено для сохранения пропорций, можете выбрать 'cover' или 'fill' */
+            border-radius: 8px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            border: 2px solid var(--accent-color);
+        }
+
+        .gallery-nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(44, 62, 80, 0.5);
+            color: white;
+            border: none;
+            padding: 15px 10px;
+            cursor: pointer;
+            font-size: 1.5em;
+            z-index: 10;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .gallery-nav-button:hover {
+            background-color: rgba(44, 62, 80, 0.7);
+        }
+
+        .gallery-nav-button.prev {
+            left: 10px;
+        }
+
+        .gallery-nav-button.next {
+            right: 10px;
+        }
+
+        /* --- Модальное окно для фотографий --- */
         .modal {
             display: none;
             position: fixed;
@@ -475,7 +481,7 @@
         }
 
         /* --- Футер --- */
-        .footer {
+        .footer { 
             background-color: var(--primary-color);
             color: var(--light-text-color);
             padding: 40px 0;
@@ -529,10 +535,6 @@
                 font-size: 0.8em;
             }
 
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-            
             .product-cards-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 20px;
@@ -551,8 +553,8 @@
             }
             
             .gallery-item img {
-                width: 200px;
-                height: 200px;
+                height: 250px;
+                width: 90%; /* Адаптивная ширина для вертикальных изображений */
             }
 
             .gallery-nav-button {
@@ -656,8 +658,8 @@
             }
 
             .gallery-item img {
-                width: 150px;
-                height: 150px;
+                height: 200px;
+                width: 90%; /* Адаптивная ширина для вертикальных изображений */
             }
             
             .gallery-nav-button {
@@ -694,8 +696,8 @@
             }
             
             .gallery-item img {
-                width: 120px;
-                height: 120px;
+                height: 180px;
+                width: 95%; /* Более узкая ширина для вертикальных изображений на очень маленьких экранах */
             }
             
             .tile-gallery-grid {
@@ -719,8 +721,7 @@
                 <a href="#about">О нас</a>
                 <a href="#services">Услуги</a>
                 <a href="#products">Товары</a>
-                <a href="#gallery">Галерея</a>
-                <a href="#contact">Контакты</a>
+                <a href="#works">Наши работы</a> <a href="#gallery">Примеры работ</a>
             </nav>
         </div>
     </header>
@@ -729,12 +730,12 @@
         <section class="innovative-solutions" id="innovative-solutions">
             <div class="container">
                 <div class="innovative-solutions-image">
-                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Лазерная гравировка">
+                    <img src="images/IMG_20240407_134316.jpg" alt="Лазерная гравировка">
                 </div>
                 <div class="innovative-solutions-content">
-                    <h1>Премиальная гравировка на металле</h1>
-                    <p>Создаем уникальные изделия с точностью до микрона. Индивидуальный подход к каждому заказу и гарантия качества.</p>
-                    <a href="https://t.me/fifa_laser" class="cta-button" target="_blank">Заказать консультацию</a>
+                    <h1>Гравіювання на жетонах і брелоках</h1>
+                    <p>Ми створюємо унікальні вироби для кожного,ми не "штампуємо" замовлення клієнтів,а виконуємо їх з максимальною віддачею та увагою до деталей</p>
+                    <a href="https://t.me/fifa_laser" class="cta-button" target="_blank">Варіанти гравіювання</a>
                 </div>
             </div>
         </section>
@@ -792,7 +793,6 @@
                             </a>
                         </div>
                     </div>
-
                     <div class="product-card">
                         <img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Металлическая табличка">
                         <h2>Табличка</h2>
@@ -806,7 +806,6 @@
                             </a>
                         </div>
                     </div>
-
                     <div class="product-card">
                         <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Брелок с гравировкой">
                         <h2>Брелок</h2>
@@ -820,7 +819,6 @@
                             </a>
                         </div>
                     </div>
-
                     <div class="product-card">
                         <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Кулон с гравировкой">
                         <h2>Кулон</h2>
@@ -838,24 +836,7 @@
             </div>
         </section>
 
-        <section id="gallery" class="circular-gallery-section">
-            <div class="container">
-                <h2 class="section-title">Примеры работ</h2>
-                <div class="circular-gallery">
-                    <div class="gallery-container" id="galleryContainer">
-                        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Пример гравировки 1"></div>
-                        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Пример гравировки 2"></div>
-                        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Пример гравировки 3"></div>
-                        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Пример гравировки 4"></div>
-                    </div>
-                    <button class="gallery-nav-button prev" onclick="moveGallery(-1)">&#10094;</button>
-                    <button class="gallery-nav-button next" onclick="moveGallery(1)">&#10095;</button>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Новая секция с плиткой фотографий -->
-        <section class="tile-gallery-section">
+        <section class="tile-gallery-section" id="works"> 
             <div class="container">
                 <h2 class="section-title">Наши работы</h2>
                 <div class="tile-gallery-grid">
@@ -886,21 +867,44 @@
                 </div>
             </div>
         </section>
+
+        <section id="gallery" class="rectangular-gallery-section">
+            <div class="container">
+                <h2 class="section-title">Примеры работ</h2>
+                <div class="rectangular-gallery">
+                    <div class="gallery-container" id="galleryContainer">
+                        <div class="gallery-item" onclick="openModal('https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
+                            <img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Пример гравировки 1">
+                        </div>
+                        <div class="gallery-item" onclick="openModal('https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
+                            <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Пример гравировки 2">
+                        </div>
+                        <div class="gallery-item" onclick="openModal('https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
+                            <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Пример гравировки 3">
+                        </div>
+                        <div class="gallery-item" onclick="openModal('https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
+                            <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Пример гравировки 4">
+                        </div>
+                    </div>
+                    <button class="gallery-nav-button prev" onclick="moveGallery(-1)">&#10094;</button>
+                    <button class="gallery-nav-button next" onclick="moveGallery(1)">&#10095;</button>
+                </div>
+            </div>
+        </section>
         
-        <!-- Модальное окно -->
         <div id="imageModal" class="modal">
             <span class="close" onclick="closeModal()">&times;</span>
             <img class="modal-content" id="expandedImg">
         </div>
     </main>
 
-    <footer class="footer" id="contact">
+    <footer class="footer"> 
         <div class="container">
-            <h2>Контакты</h2>
+            <h2>Дополнительная информация</h2>
             <p>Email: info@lasergrav.com</p>
             <p>Телефон: +380 (XX) XXX-XX-XX</p>
             <p>Работаем: Пн-Пт 9:00-18:00</p>
-            <p>&copy; 2023 LaserGrav. Все права защищены.</p>
+            <p>&copy; 2024 LaserGrav. Все права защищены.</p>
         </div>
     </footer>
 
@@ -917,9 +921,12 @@
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
-                behavior: 'smooth'
-            });
+            const targetElement = document.querySelector(this.getAttribute('href'));
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
             if (navMenu.classList.contains('active')) {
                 navMenu.classList.remove('active');
             }
@@ -937,7 +944,7 @@
     }
 
     // Автопрокрутка галереи
-    setInterval(() => moveGallery(1), 5000);
+    setInterval(() => moveGallery(1), 10000);
 
     // Функции для модального окна
     const modal = document.getElementById("imageModal");
@@ -946,18 +953,14 @@
     function openModal(imgSrc) {
         modal.style.display = "block";
         modalImg.src = imgSrc;
-        // Добавляем состояние в историю браузера
         history.pushState({ modalOpen: true }, null, '#modal');
     }
 
     function closeModal() {
         modal.style.display = "none";
-        modalImg.src = ""; // Очищаем src, чтобы изображение не висело в памяти
-        // Если модальное окно было открыто через pushState и мы закрываем его крестиком,
-        // нужно вернуться на шаг назад в истории, чтобы не было лишней записи.
-        // Проверяем, если предыдущее состояние было открытием модального окна
+        modalImg.src = "";
         if (history.state && history.state.modalOpen) {
-            history.back(); // Возвращаемся на предыдущую запись в истории
+            history.back();
         }
     }
 
@@ -970,15 +973,13 @@
 
     // Обработчик события 'popstate' для кнопки "назад" браузера
     window.addEventListener('popstate', function(event) {
-        // Если модальное окно открыто и мы вернулись в состояние, когда оно не должно быть открыто
-        if (modal.style.display === "block" && (!event.state || !event.state.modalOpen)) {
-            modal.style.display = "none";
-            modalImg.src = "";
+        if (modal.style.display === "block") {
+             if (!event.state || !event.state.modalOpen) {
+                modal.style.display = "none";
+                modalImg.src = "";
+            }
         }
-        // Если модальное окно не открыто, но popstate произошел после его открытия и закрытия через крестик,
-        // то мы уже сделали history.back() в closeModal, поэтому здесь ничего не делаем.
     });
-</script>
-
+    </script>
 </body>
 </html>
