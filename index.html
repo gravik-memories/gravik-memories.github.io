@@ -15,880 +15,170 @@
             --text-color: #333;
             --light-text-color: #fff;
             --container-padding: 20px;
-            
             --font-heading: 'Montserrat', sans-serif;
             --font-main: 'Roboto', sans-serif;
             --font-accent: 'Oswald', sans-serif;
         }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: var(--font-main);
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: #fff;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 var(--container-padding);
-        }
-
-        h1, h2, h3 {
-            font-family: var(--font-heading);
-            font-weight: 700;
-            line-height: 1.2;
-            letter-spacing: 0.5px;
-            color: var(--primary-color);
-        }
-
-        section {
-            padding: 60px 0;
-        }
-
-        img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        /* --- Шапка (Header) --- */
-        .header {
-            background-color: #fff;
-            box-shadow: 0 2px 10px rgba(44, 62, 80, 0.1);
-            padding: 15px 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .header .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-family: var(--font-accent);
-            font-size: 1.5em;
-            font-weight: bold;
-            letter-spacing: 1px;
-            color: var(--primary-color);
-            text-decoration: none;
-            text-transform: uppercase;
-        }
-
-        .nav a {
-            font-family: var(--font-main);
-            color: var(--text-color);
-            text-decoration: none;
-            margin-left: 20px;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav a:hover {
-            color: var(--accent-color);
-        }
+        * { box-sizing: border-box; }
+        body { font-family: var(--font-main); margin: 0; padding: 0; line-height: 1.6; color: var(--text-color); background-color: #fff; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 var(--container-padding); }
+        h1, h2, h3 { font-family: var(--font-heading); font-weight: 700; line-height: 1.2; letter-spacing: 0.5px; color: var(--primary-color); }
+        section { padding: 60px 0; }
+        img { max-width: 100%; height: auto; }
+        .header { background-color: #fff; box-shadow: 0 2px 10px rgba(44, 62, 80, 0.1); padding: 15px 0; position: sticky; top: 0; z-index: 1000; }
+        .header .container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: var(--font-accent); font-size: 1.5em; font-weight: bold; letter-spacing: 1px; color: var(--primary-color); text-decoration: none; text-transform: uppercase; }
+        .nav a { font-family: var(--font-main); color: var(--text-color); text-decoration: none; margin-left: 20px; font-weight: 500; transition: color 0.3s ease; }
+        .nav a:hover { color: var(--accent-color); }
+        .menu-toggle { display: none; cursor: pointer; font-size: 24px; }
+        .innovative-solutions { background-color: var(--secondary-color); padding: 80px var(--container-padding); }
+        .innovative-solutions .container { display: flex; align-items: center; justify-content: center; gap: 40px; max-width: 1100px; width: 100%; }
+        .innovative-solutions-image { flex: 0 0 auto; width: 450px; max-width: 50%; }
+        .innovative-solutions-image img { width: 100%; height: auto; border-radius: 10px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); }
+        .innovative-solutions-content { flex: 1; text-align: left; min-width: 300px; }
+        .innovative-solutions-content h1 { font-size: 2.8em; margin-bottom: 20px; line-height: 1.3; }
+        .innovative-solutions-content p { font-size: 1.2em; margin-bottom: 30px; color: #555; }
+        .cta-button { display: inline-block; background-color: var(--primary-color); color: var(--light-text-color); padding: 15px 30px; border-radius: 5px; text-decoration: none; font-family: var(--font-accent); font-size: 1.1em; font-weight: bold; letter-spacing: 1px; transition: all 0.3s ease; }
+        .cta-button:hover { background-color: #1a252f; transform: translateY(-2px); }
+        #about .container { display: flex; align-items: center; gap: 40px; }
+        .about-content { flex: 1; }
+        .about-image { flex: 1; text-align: center; }
+        .about-image img { border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        #services { background-color: var(--secondary-color); }
+        #services .section-title, .product-card-section .section-title, .tile-gallery-section .section-title, .rectangular-gallery-section .section-title, .payment-delivery-section .section-title { text-align: center; margin-bottom: 40px; }
+        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .service-card { background-color: #fff; padding: 30px; text-align: center; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); transition: all 0.3s ease; }
+        .service-card:hover { transform: translateY(-5px); box-shadow: 0 8px 16px rgba(0,0,0,0.1); }
+        .service-card .icon { font-size: 3em; color: var(--accent-color); margin-bottom: 20px; }
+        .service-card h3 { margin-bottom: 15px; font-family: var(--font-heading); }
+        .product-card-section { background-color: #f0f2f5; text-align: center; padding: 80px 0; }
+        .product-cards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; max-width: 1200px; margin: 0 auto; padding: 0 var(--container-padding); }
+        .product-card { background-color: #fff; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); padding: 20px; display: flex; flex-direction: column; align-items: center; gap: 10px; transition: all 0.3s ease; }
+        .product-card:hover { transform: translateY(-8px); box-shadow: 0 12px 25px rgba(0,0,0,0.15); }
+        .product-card .product-image-wrapper { cursor: pointer; width: 100%; } /* NEW: Wrapper for image */
+        .product-card img { width: 100%; height: 300px; object-fit: cover; border-radius: 8px; margin-bottom: 5px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
+        .product-card h2 { font-size: 1.36em; color: var(--accent-color); margin-bottom: 5px; font-family: var(--font-heading); }
+        .product-card p { display: none; }
+        .product-card .price { font-size: 1.36em; font-weight: bold; color: var(--primary-color); margin-bottom: 10px; font-family: var(--font-accent); }
+        .product-card .social-buttons { display: flex; flex-direction: column; gap: 8px; width: 100%; margin-top: 5px; }
+        .product-card .social-button { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 8px 12px; border-radius: 5px; text-decoration: none; font-size: 0.9em; font-weight: bold; color: var(--light-text-color); transition: all 0.3s ease; flex-grow: 1; white-space: nowrap; font-family: var(--font-accent); }
+        .product-card .social-button i { font-size: 1.0em; }
+        .product-card .social-button.viber { background-color: #7360F2; }
+        .product-card .social-button.viber:hover { background-color: #604ED9; transform: translateY(-2px); }
+        .product-card .social-button.telegram { background-color: #0088CC; }
+        .product-card .social-button.telegram:hover { background-color: #006FB3; transform: translateY(-2px); }
+        .tile-gallery-section { padding: 60px 0; background-color: #fff; }
+        .tile-gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .tile-gallery-item { overflow: hidden; border-radius: 8px; height: 200px; cursor: pointer; transition: transform 0.3s ease; }
+        .tile-gallery-item:hover { transform: scale(1.03); }
+        .tile-gallery-item img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; transition: transform 0.3s ease; }
+        .rectangular-gallery-section { background-color: var(--secondary-color); text-align: center; padding: 60px 0; }
+        .dual-slider-wrapper { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; max-width: 600px; margin: 0 auto; }
+        .rectangular-gallery { position: relative; width: 100%; max-width: 280px; flex-shrink: 0; margin: 0; overflow: hidden; padding: 30px 0; }
+        .gallery-container { display: flex; transition: transform 0.5s ease-in-out; }
+        .gallery-item { min-width: 100%; box-sizing: border-box; display: flex; justify-content: center; align-items: center; cursor: pointer; padding: 0 5px; }
+        .gallery-item img { width: 100%; height: auto; aspect-ratio: 3 / 5; object-fit: cover; border-radius: 8px; box-shadow: none; border: none; }
+        .gallery-nav-button { position: absolute; top: 50%; transform: translateY(-50%); background-color: rgba(44, 62, 80, 0.5); color: white; border: none; padding: 15px 10px; cursor: pointer; font-size: 1.5em; z-index: 10; border-radius: 5px; transition: background-color 0.3s ease; }
+        .gallery-nav-button:hover { background-color: rgba(44, 62, 80, 0.7); }
+        .gallery-nav-button.prev { left: 10px; }
+        .gallery-nav-button.next { right: 10px; }
+        .payment-delivery-section { background-color: #fff; padding: 60px 0; }
+        .payment-delivery-container { max-width: 900px; margin: 0 auto; display: flex; gap: 40px; flex-wrap: wrap; }
+        .payment-methods, .delivery-options { flex: 1; min-width: 300px; background-color: var(--secondary-color); padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .payment-methods h3, .delivery-options h3 { color: var(--accent-color); border-bottom: 2px solid var(--accent-color); padding-bottom: 10px; margin-top: 0; }
+        .method, .option { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #eee; }
+        .method:last-child, .option:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+        .method h4, .option h4 { display: flex; align-items: center; margin-bottom: 10px; color: var(--primary-color); }
+        .method h4 i, .option h4 i { margin-right: 10px; color: var(--accent-color); }
+        .modal { display: none; position: fixed; z-index: 2000; padding-top: 60px; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.9); }
+        .modal-content { margin: auto; display: block; max-width: 80%; max-height: 80vh; border-radius: 8px; }
+        .close { position: absolute; top: 20px; right: 35px; color: #f1f1f1; font-size: 40px; font-weight: bold; transition: 0.3s; cursor: pointer; }
+        .close:hover { color: #bbb; }
         
-        /* Гамбургер-меню для мобильных */
-        .menu-toggle {
-            display: none;
-            cursor: pointer;
-            font-size: 24px;
-        }
-
-        /* --- Hero-блок --- */
-        .innovative-solutions {
-            background-color: var(--secondary-color);
-            padding: 80px var(--container-padding);
-        }
-
-        .innovative-solutions .container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 40px;
-            max-width: 1100px;
-            width: 100%;
-        }
-
-        .innovative-solutions-image {
-            flex: 0 0 auto;
-            width: 450px;
-            max-width: 50%;
-        }
-        
-        .innovative-solutions-image img {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-        }
-
-        .innovative-solutions-content {
-            flex: 1;
-            text-align: left;
-            min-width: 300px;
-        }
-
-        .innovative-solutions-content h1 {
-            font-size: 2.8em;
-            margin-bottom: 20px;
-            line-height: 1.3;
-        }
-
-        .innovative-solutions-content p {
-            font-size: 1.2em;
-            margin-bottom: 30px;
-            color: #555;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background-color: var(--primary-color);
-            color: var(--light-text-color);
-            padding: 15px 30px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-family: var(--font-accent);
-            font-size: 1.1em;
-            font-weight: bold;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-        }
-
-        .cta-button:hover {
-            background-color: #1a252f;
-            transform: translateY(-2px);
-        }
-
-        /* --- Секция "О нас" --- */
-        #about .container {
-            display: flex;
-            align-items: center;
-            gap: 40px;
-        }
-        
-        .about-content {
-            flex: 1;
-        }
-        
-        .about-image {
-            flex: 1;
-            text-align: center;
-        }
-        
-        .about-image img {
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        /* --- Секция "Услуги" --- */
-        #services {
-            background-color: var(--secondary-color);
-        }
-
-        #services .section-title,
-        .product-card-section .section-title,
-        .tile-gallery-section .section-title,
-        .rectangular-gallery-section .section-title,
-        .payment-delivery-section .section-title {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-        }
-
-        .service-card {
-            background-color: #fff;
-            padding: 30px;
-            text-align: center;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
-        }
-
-        .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-        }
-
-        .service-card .icon {
-            font-size: 3em;
-            color: var(--accent-color);
-            margin-bottom: 20px;
-        }
-
-        .service-card h3 {
-            margin-bottom: 15px;
-            font-family: var(--font-heading);
-        }
-
-        /* --- Секция Карточки Товара --- */
-        .product-card-section {
-            background-color: #f0f2f5;
-            text-align: center;
-            padding: 80px 0;
-        }
-
-        .product-cards-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 var(--container-padding);
-        }
-
-        .product-card {
-            background-color: #fff;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-        }
-
-        .product-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
-        }
-
-        .product-image-container {
-            position: relative;
-            width: 100%;
-            height: 300px;
-            overflow: hidden;
-            border-radius: 8px;
-            margin-bottom: 5px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-            cursor: pointer;
-        }
-
-        .product-slider {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-            height: 100%;
-        }
-
-        .product-slide {
-            min-width: 100%;
-            height: 100%;
-        }
-
-        .product-slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 8px;
-        }
-
-        .slider-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(0, 0, 0, 0.5);
-            color: white;
-            border: none;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 10;
-            opacity: 0.7;
-            transition: opacity 0.3s ease;
-        }
-
-        .slider-nav:hover {
-            opacity: 1;
-        }
-
-        .slider-prev {
-            left: 10px;
-        }
-
-        .slider-next {
-            right: 10px;
-        }
-
-        .product-card h2 {
-            font-size: 1.36em;
-            color: var(--accent-color);
-            margin-bottom: 5px;
-            font-family: var(--font-heading);
-        }
-
-        .product-card p {
-            display: none;
-        }
-
-        .product-card .price {
-            font-size: 1.36em;
-            font-weight: bold;
-            color: var(--primary-color);
-            margin-bottom: 10px;
-            font-family: var(--font-accent);
-        }
-
-        .product-card .social-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            width: 100%;
-            margin-top: 5px;
-        }
-
-        .product-card .social-button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 8px 12px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-size: 0.9em;
-            font-weight: bold;
-            color: var(--light-text-color);
-            transition: all 0.3s ease;
-            flex-grow: 1;
-            white-space: nowrap;
-            font-family: var(--font-accent);
-        }
-
-        .product-card .social-button i {
-            font-size: 1.0em;
-        }
-
-        .product-card .social-button.viber {
-            background-color: #7360F2;
-        }
-
-        .product-card .social-button.viber:hover {
-            background-color: #604ED9;
-            transform: translateY(-2px);
-        }
-
-        .product-card .social-button.telegram {
-            background-color: #0088CC;
-        }
-
-        .product-card .social-button.telegram:hover {
-            background-color: #006FB3;
-            transform: translateY(-2px);
-        }
-        
-        /* --- Секция "Наши работы" (Плитка) --- */
-        .tile-gallery-section {
-            padding: 60px 0;
-            background-color: #fff;
-        }
-
-        .tile-gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .tile-gallery-item {
-            overflow: hidden;
-            border-radius: 8px;
-            height: 200px;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .tile-gallery-item:hover {
-            transform: scale(1.03);
-        }
-
-        .tile-gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 8px;
-            transition: transform 0.3s ease;
-        }
-        
-        /* --- Секция "Примеры работ" (Два слайдера) --- */
-        .rectangular-gallery-section {
-            background-color: var(--secondary-color);
-            text-align: center;
-            padding: 60px 0;
-        }
-
-        .dual-slider-wrapper {
-            display: flex; /* Для ПК: два слайдера рядом */
-            gap: 40px; /* Расстояние между слайдерами */
-            justify-content: center; /* Центрируем, если контента меньше */
-            flex-wrap: wrap; /* Позволяет слайдерам переноситься на новую строку, если места мало */
-            max-width: 600px; /* Общая максимальная ширина для двух слайдеров */
-            margin: 0 auto; /* Центрируем обертку слайдеров */
-        }
-
-        .rectangular-gallery {
-            position: relative;
-            width: 100%; /* Каждый слайдер занимает всю доступную ширину */
-            max-width: 280px; /* Максимальная ширина для каждого отдельного слайдера */
-            flex-shrink: 0; /* Не сжимать */
-            margin: 0; /* Отключаем margin: 0 auto;, так как родитель .dual-slider-wrapper центрирует */
-            overflow: hidden;
-            padding: 30px 0;
-        }
-
-        .gallery-container {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-        }
-
-        .gallery-item {
-            min-width: 100%;
-            box-sizing: border-box;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            padding: 0 5px;
-        }
-
-        .gallery-item img {
-            width: 100%; /* Фото займет 100% ширины .gallery-item */
-            height: auto; /* Высота будет автоматически подстроена под aspect-ratio */
-            aspect-ratio: 3 / 5; /* Соотношение сторон: 3 (ширина) к 5 (высота) - делает вертикальное фото */
-            object-fit: cover; /* Обрезает изображение, чтобы заполнить контейнер, сохраняя пропорции */
-            border-radius: 8px; /* Слегка закругленные края */
-            box-shadow: none; /* Удаляем тени */
-            border: none; /* Удаляем границы */
-        }
-
-        .gallery-nav-button {
+        /* --- NEW: Стили для стрелок в модальном окне --- */
+        .modal-nav {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
             background-color: rgba(44, 62, 80, 0.5);
             color: white;
             border: none;
-            padding: 15px 10px;
-            cursor: pointer;
-            font-size: 1.5em;
-            z-index: 10;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-
-        .gallery-nav-button:hover {
-            background-color: rgba(44, 62, 80, 0.7);
-        }
-
-        .gallery-nav-button.prev {
-            left: 10px;
-        }
-
-        .gallery-nav-button.next {
-            right: 10px;
-        }
-
-        /* --- Секция "Оплата и доставка" --- */
-        .payment-delivery-section {
-            background-color: #fff;
-            padding: 60px 0;
-        }
-
-        .payment-delivery-container {
-            max-width: 900px;
-            margin: 0 auto;
-            display: flex;
-            gap: 40px;
-            flex-wrap: wrap;
-        }
-
-        .payment-methods,
-        .delivery-options {
-            flex: 1;
-            min-width: 300px;
-            background-color: var(--secondary-color);
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-
-        .payment-methods h3,
-        .delivery-options h3 {
-            color: var(--accent-color);
-            border-bottom: 2px solid var(--accent-color);
-            padding-bottom: 10px;
-            margin-top: 0;
-        }
-
-        .method,
-        .option {
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .method:last-child,
-        .option:last-child {
-            margin-bottom: 0;
-            padding-bottom: 0;
-            border-bottom: none;
-        }
-
-        .method h4,
-        .option h4 {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-            color: var(--primary-color);
-        }
-
-        .method h4 i,
-        .option h4 i {
-            margin-right: 10px;
-            color: var(--accent-color);
-        }
-
-        /* --- Модальное окно для фотографий --- */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 2000;
-            padding-top: 60px;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.9);
-        }
-
-        .modal-content {
-            margin: auto;
-            display: block;
-            max-width: 90%;
-            max-height: 80vh;
-            border-radius: 8px;
-        }
-
-        .close {
-            position: absolute;
-            top: 20px;
-            right: 35px;
-            color: #f1f1f1;
-            font-size: 40px;
-            font-weight: bold;
-            transition: 0.3s;
-            cursor: pointer;
-        }
-
-        .close:hover {
-            color: #bbb;
-        }
-
-        .modal-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(0, 0, 0, 0.5);
-            color: white;
-            border: none;
-            padding: 15px;
+            padding: 16px;
             cursor: pointer;
             font-size: 2em;
-            z-index: 10;
+            z-index: 2001;
             border-radius: 5px;
+            transition: background-color 0.3s ease;
+            user-select: none; /* Предотвращает выделение текста при кликах */
+            display: none; /* Скрыты по умолчанию */
         }
-
-        .modal-prev {
-            left: 20px;
-        }
-
-        .modal-next {
-            right: 20px;
-        }
-
-        /* --- Футер --- */
-        .footer { 
-            background-color: var(--primary-color);
-            color: var(--light-text-color);
-            padding: 40px 0;
-            text-align: center;
-        }
-
-        .footer .container {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .footer p {
-            margin: 0;
-        }
-
+        .modal-nav:hover { background-color: rgba(44, 62, 80, 0.8); }
+        .modal-nav.prev { left: 20px; }
+        .modal-nav.next { right: 20px; }
+        
+        .footer { background-color: var(--primary-color); color: var(--light-text-color); padding: 40px 0; text-align: center; }
+        .footer .container { display: flex; flex-direction: column; gap: 20px; }
+        .footer p { margin: 0; }
+        
         /* --- Адаптивность --- */
         @media (max-width: 992px) {
-            .services-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            #about .container {
-                flex-direction: column;
-            }
-            
-            .innovative-solutions .container {
-                gap: 20px;
-                padding: 0 15px;
-            }
-            
-            .innovative-solutions-image {
-                width: 40%;
-                max-width: 300px;
-            }
-            
-            .innovative-solutions-content {
-                min-width: unset;
-            }
-            
-            .innovative-solutions-content h1 {
-                font-size: 2.2em;
-            }
-            
-            .innovative-solutions-content p {
-                font-size: 1em;
-            }
-            
-            .cta-button {
-                padding: 8px 12px;
-                font-size: 0.8em;
-            }
-
-            .product-cards-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 20px;
-            }
-            
-            .product-card {
-                padding: 15px;
-            }
-            
-            .product-image-container {
-                height: 240px;
-            }
-            
-            .tile-gallery-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-            
-            /* Адаптация для двух слайдеров на планшетах */
-            .dual-slider-wrapper {
-                max-width: 500px; /* Уменьшаем общую ширину для двух слайдеров */
-                gap: 20px;
-            }
-            .rectangular-gallery {
-                max-width: 240px; /* Уменьшаем ширину каждого слайдера */
-            }
-            .gallery-item img {
-                height: auto; /* Высота будет автоматически подстроена под aspect-ratio */
-                aspect-ratio: 3 / 5; /* Сохраняем пропорции */
-            }
-
-            .gallery-nav-button {
-                padding: 10px 5px;
-                font-size: 1.2em;
-            }
-
-            .innovative-solutions {
-                padding: 40px var(--container-padding);
-            }
-            
-            .payment-delivery-container {
-                flex-direction: column;
-                gap: 30px;
-            }
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
+            #about .container { flex-direction: column; }
+            .innovative-solutions .container { gap: 20px; padding: 0 15px; }
+            .innovative-solutions-image { width: 40%; max-width: 300px; }
+            .innovative-solutions-content { min-width: unset; }
+            .innovative-solutions-content h1 { font-size: 2.2em; }
+            .innovative-solutions-content p { font-size: 1em; }
+            .cta-button { padding: 8px 12px; font-size: 0.8em; }
+            .product-cards-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+            .product-card { padding: 15px; }
+            .product-card img { height: 240px; }
+            .tile-gallery-grid { grid-template-columns: repeat(3, 1fr); }
+            .dual-slider-wrapper { max-width: 500px; gap: 20px; }
+            .rectangular-gallery { max-width: 240px; }
+            .gallery-item img { height: auto; aspect-ratio: 3 / 5; }
+            .gallery-nav-button { padding: 10px 5px; font-size: 1.2em; }
+            .innovative-solutions { padding: 40px var(--container-padding); }
+            .payment-delivery-container { flex-direction: column; gap: 30px; }
         }
-
         @media (max-width: 768px) {
             h1 { font-size: 2.2em; }
-
-            .nav {
-                display: none;
-                flex-direction: column;
-                position: absolute;
-                top: 60px;
-                right: 0;
-                background-color: white;
-                width: 100%;
-                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            }
-            
-            .nav.active {
-                display: flex;
-            }
-
-            .nav a {
-                margin: 0;
-                padding: 15px;
-                text-align: center;
-                border-bottom: 1px solid #eee;
-            }
-            
-            .menu-toggle {
-                display: block;
-            }
-
-            .innovative-solutions .container {
-                display: grid;
-                grid-template-columns: 120px 1fr;
-                grid-template-areas: "image content";
-                gap: 15px;
-                align-items: start;
-            }
-            
-            .innovative-solutions-image {
-                grid-area: image;
-                width: 100%;
-                max-width: 100%;
-                margin-right: 0;
-            }
-            
-            .innovative-solutions-content {
-                grid-area: content;
-                width: 100%;
-                padding-top: 0;
-            }
-            
-            .innovative-solutions-content h1 {
-                font-size: 1.495em;
-                margin-bottom: 10px;
-            }
-            
-            .innovative-solutions-content p {
-                font-size: 0.8em;
-                margin-bottom: 15px;
-            }
-            
-            .cta-button {
-                padding: 8px 12px;
-                font-size: 0.8em;
-            }
-
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .product-cards-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 10px 10px;
-                row-gap: 30px;
-                padding: 0 10px;
-            }
-            
-            .product-card {
-                padding: 10px;
-                gap: 8px;
-            }
-            
-            .product-image-container {
-                height: 200px;
-            }
-            
-            .product-card .social-button {
-                font-size: 0.8em;
-                padding: 6px 10px;
-            }
-
-            /* Мобильная версия: один слайдер */
-            .dual-slider-wrapper {
-                flex-direction: column; /* Слайдеры друг под другом */
-                gap: 0; /* Убираем расстояние между ними */
-                max-width: 336px; /* Увеличено на 20% для мобильных (280 * 1.2 = 336) */
-            }
-            .rectangular-gallery:nth-child(2) { /* Скрываем второй слайдер */
-                display: none;
-            }
-            .rectangular-gallery:first-child {
-                margin: 0 auto; /* Центрируем оставшийся слайдер */
-            }
-            .rectangular-gallery {
-                max-width: 336px; /* Убедимся, что он занимает адекватное место */
-            }
-            .gallery-item img {
-                height: auto; /* Высота будет автоматически подстроена под aspect-ratio */
-                aspect-ratio: 3 / 5; /* Сохраняем пропорции */
-            }
-            
-            .gallery-nav-button {
-                padding: 10px 5px;
-                font-size: 1.2em;
-            }
-
-            .tile-gallery-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .slider-nav {
-                width: 28px;
-                height: 28px;
-                font-size: 0.8em;
-            }
+            .nav { display: none; flex-direction: column; position: absolute; top: 60px; right: 0; background-color: white; width: 100%; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+            .nav.active { display: flex; }
+            .nav a { margin: 0; padding: 15px; text-align: center; border-bottom: 1px solid #eee; }
+            .menu-toggle { display: block; }
+            .innovative-solutions .container { display: grid; grid-template-columns: 120px 1fr; grid-template-areas: "image content"; gap: 15px; align-items: start; }
+            .innovative-solutions-image { grid-area: image; width: 100%; max-width: 100%; margin-right: 0; }
+            .innovative-solutions-content { grid-area: content; width: 100%; padding-top: 0; }
+            .innovative-solutions-content h1 { font-size: 1.495em; margin-bottom: 10px; }
+            .innovative-solutions-content p { font-size: 0.8em; margin-bottom: 15px; }
+            .cta-button { padding: 8px 12px; font-size: 0.8em; }
+            .services-grid { grid-template-columns: 1fr; }
+            .product-cards-grid { grid-template-columns: repeat(2, 1fr); gap: 10px 10px; row-gap: 30px; padding: 0 10px; }
+            .product-card { padding: 10px; gap: 8px; }
+            .product-card img { height: 200px; }
+            .product-card .social-button { font-size: 0.8em; padding: 6px 10px; }
+            .dual-slider-wrapper { flex-direction: column; gap: 0; max-width: 336px; }
+            .rectangular-gallery:nth-child(2) { display: none; }
+            .rectangular-gallery:first-child { margin: 0 auto; }
+            .rectangular-gallery { max-width: 336px; }
+            .gallery-item img { height: auto; aspect-ratio: 3 / 5; }
+            .gallery-nav-button { padding: 10px 5px; font-size: 1.2em; }
+            .tile-gallery-grid { grid-template-columns: repeat(2, 1fr); }
         }
-
         @media (max-width: 480px) {
-            .innovative-solutions .container {
-                grid-template-columns: 100px 1fr;
-            }
-            
-            .innovative-solutions-content h1 {
-                font-size: 1.265em;
-            }
-            
-            .product-card {
-                padding: 8px;
-                gap: 5px;
-            }
-            
-            .product-image-container {
-                height: 180px;
-            }
-            
-            .product-card .social-button {
-                font-size: 0.75em;
-                padding: 5px 8px;
-            }
-            
-            .rectangular-gallery {
-                max-width: 150px; /* Самый маленький размер для мобильных */
-            }
-            .gallery-item img {
-                height: auto; /* Высота будет автоматически подстроена под aspect-ratio */
-                aspect-ratio: 3 / 5; /* Сохраняем пропорции */
-            }
-            
-            .tile-gallery-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .tile-gallery-item {
-                height: 150px;
-            }
+            .innovative-solutions .container { grid-template-columns: 100px 1fr; }
+            .innovative-solutions-content h1 { font-size: 1.265em; }
+            .product-card { padding: 8px; gap: 5px; }
+            .product-card img { height: 180px; }
+            .product-card .social-button { font-size: 0.75em; padding: 5px 8px; }
+            .rectangular-gallery { max-width: 150px; }
+            .gallery-item img { height: auto; aspect-ratio: 3 / 5; }
+            .tile-gallery-grid { grid-template-columns: repeat(2, 1fr); }
+            .tile-gallery-item { height: 150px; }
+            .modal-nav { padding: 10px; font-size: 1.5em; } /* Адаптация стрелок для мобильных */
+            .modal-nav.prev { left: 10px; }
+            .modal-nav.next { right: 10px; }
         }
     </style>
 </head>
@@ -896,9 +186,7 @@
     <header class="header">
         <div class="container">
             <a href="#" class="logo">LaserGrav</a>
-            <div class="menu-toggle" id="mobile-menu">
-                <span>&#9776;</span>
-            </div>
+            <div class="menu-toggle" id="mobile-menu"><span>&#9776;</span></div>
             <nav class="nav" id="nav-menu">
                 <a href="#about">О нас</a>
                 <a href="#services">Услуги</a>
@@ -941,21 +229,9 @@
             <div class="container">
                 <h2 class="section-title">Наши Услуги</h2>
                 <div class="services-grid">
-                    <div class="service-card">
-                        <div class="icon"><i class="fas fa-gem"></i></div>
-                        <h3>Гравировка жетонов</h3>
-                        <p>Точная гравировка на металлических жетонах любой формы и размера.</p>
-                    </div>
-                    <div class="service-card">
-                        <div class="icon"><i class="fas fa-ring"></i></div>
-                        <h3>Ювелирные изделия</h3>
-                        <p>Персонализация колец, подвесок и других украшений.</p>
-                    </div>
-                    <div class="service-card">
-                        <div class="icon"><i class="fas fa-award"></i></div>
-                        <h3>Корпоративные награды</h3>
-                        <p>Изготовление премиальных табличек и наградных досок.</p>
-                    </div>
+                    <div class="service-card"><div class="icon"><i class="fas fa-gem"></i></div><h3>Гравировка жетонов</h3><p>Точная гравировка на металлических жетонах любой формы и размера.</p></div>
+                    <div class="service-card"><div class="icon"><i class="fas fa-ring"></i></div><h3>Ювелирные изделия</h3><p>Персонализация колец, подвесок и других украшений.</p></div>
+                    <div class="service-card"><div class="icon"><i class="fas fa-award"></i></div><h3>Корпоративные награды</h3><p>Изготовление премиальных табличек и наградных досок.</p></div>
                 </div>
             </div>
         </section>
@@ -964,189 +240,96 @@
             <div class="container">
                 <h2 class="section-title">Популярные товары</h2>
                 <div class="product-cards-grid">
-                    <div class="product-card">
-                        <div class="product-image-container" onclick="openProductModal(0)">
-                            <div class="product-slider">
-                                <div class="product-slide">
-                                    <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Жетон с гравировкой">
-                                </div>
-                                <div class="product-slide">
-                                    <img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Жетон с гравировкой">
-                                </div>
-                                <div class="product-slide">
-                                    <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Жетон с гравировкой">
-                                </div>
-                            </div>
-                            <button class="slider-nav slider-prev" onclick="prevSlide(event, 0)"><i class="fas fa-chevron-left"></i></button>
-                            <button class="slider-nav slider-next" onclick="nextSlide(event, 0)"><i class="fas fa-chevron-right"></i></button>
+                    
+                    <div class="product-card" 
+                         data-images="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80, https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80, https://images.unsplash.com/photo-1515442261558-c9c064c9d7a6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fG1ldGFsJTIwZG9nJTIwdGFnfGVufDB8fDB8fHww">
+                        <div class="product-image-wrapper">
+                           <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Жетон с гравировкой">
                         </div>
                         <h2>Жетон круглый</h2>
                         <div class="price">49.99 $</div>
                         <div class="social-buttons">
-                            <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" class="social-button viber">
-                                <i class="fab fa-viber"></i> Заказать в Viber
-                            </a>
-                            <a href="https://t.me/fifa_laser" target="_blank" class="social-button telegram">
-                                <i class="fab fa-telegram-plane"></i> Заказать в Telegram
-                            </a>
+                            <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" class="social-button viber"><i class="fab fa-viber"></i> Заказать в Viber</a>
+                            <a href="https://t.me/fifa_laser" target="_blank" class="social-button telegram"><i class="fab fa-telegram-plane"></i> Заказать в Telegram</a>
                         </div>
                     </div>
-                    <div class="product-card">
-                        <div class="product-image-container" onclick="openProductModal(1)">
-                            <div class="product-slider">
-                                <div class="product-slide">
-                                    <img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Металлическая табличка">
-                                </div>
-                                <div class="product-slide">
-                                    <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Металлическая табличка">
-                                </div>
-                                <div class="product-slide">
-                                    <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Металлическая табличка">
-                                </div>
-                            </div>
-                            <button class="slider-nav slider-prev" onclick="prevSlide(event, 1)"><i class="fas fa-chevron-left"></i></button>
-                            <button class="slider-nav slider-next" onclick="nextSlide(event, 1)"><i class="fas fa-chevron-right"></i></button>
+                    
+                    <div class="product-card" 
+                         data-images="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80, https://images.unsplash.com/photo-1506924992732-25038c7f07e5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bWV0YWwlMjBzaWdufGVufDB8fDB8fHww, https://images.unsplash.com/photo-1620164931988-758233f2c58a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bWV0YWwlMjBzaWdufGVufDB8fDB8fHww">
+                        <div class="product-image-wrapper">
+                           <img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Металлическая табличка">
                         </div>
                         <h2>Табличка</h2>
                         <div class="price">29.99 $</div>
                         <div class="social-buttons">
-                            <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" class="social-button viber">
-                                <i class="fab fa-viber"></i> Заказать в Viber
-                            </a>
-                            <a href="https://t.me/fifa_laser" target="_blank" class="social-button telegram">
-                                <i class="fab fa-telegram-plane"></i> Заказать в Telegram
-                            </a>
+                           <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" class="social-button viber"><i class="fab fa-viber"></i> Заказать в Viber</a>
+                           <a href="https://t.me/fifa_laser" target="_blank" class="social-button telegram"><i class="fab fa-telegram-plane"></i> Заказать в Telegram</a>
                         </div>
                     </div>
-                    <div class="product-card">
-                        <div class="product-image-container" onclick="openProductModal(2)">
-                            <div class="product-slider">
-                                <div class="product-slide">
-                                    <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Брелок с гравировкой">
-                                </div>
-                                <div class="product-slide">
-                                    <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Брелок с гравировкой">
-                                </div>
-                                <div class="product-slide">
-                                    <img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Брелок с гравировкой">
-                                </div>
-                            </div>
-                            <button class="slider-nav slider-prev" onclick="prevSlide(event, 2)"><i class="fas fa-chevron-left"></i></button>
-                            <button class="slider-nav slider-next" onclick="nextSlide(event, 2)"><i class="fas fa-chevron-right"></i></button>
-                        </div>
+
+                    <div class="product-card"
+                         data-images="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80, https://images.unsplash.com/photo-1563499187-5c472fde129c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8a2V5Y2hhaW58ZW58MHx8MHx8fDA%3D, https://images.unsplash.com/photo-1634578193072-35323a63b278?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8a2V5Y2hhaW58ZW58MHx8MHx8fDA%3D">
+                         <div class="product-image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Брелок с гравировкой">
+                         </div>
                         <h2>Брелок</h2>
                         <div class="price">19.99 $</div>
                         <div class="social-buttons">
-                            <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" class="social-button viber">
-                                <i class="fab fa-viber"></i> Заказать в Viber
-                            </a>
-                            <a href="https://t.me/fifa_laser" target="_blank" class="social-button telegram">
-                                <i class="fab fa-telegram-plane"></i> Заказать в Telegram
-                            </a>
+                           <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" class="social-button viber"><i class="fab fa-viber"></i> Заказать в Viber</a>
+                           <a href="https://t.me/fifa_laser" target="_blank" class="social-button telegram"><i class="fab fa-telegram-plane"></i> Заказать в Telegram</a>
                         </div>
                     </div>
-                    <div class="product-card">
-                        <div class="product-image-container" onclick="openProductModal(3)">
-                            <div class="product-slider">
-                                <div class="product-slide">
-                                    <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Кулон с гравировкой">
-                                </div>
-                                <div class="product-slide">
-                                    <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Кулон с гравировкой">
-                                </div>
-                                <div class="product-slide">
-                                    <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Кулон с гравировкой">
-                                </div>
-                            </div>
-                            <button class="slider-nav slider-prev" onclick="prevSlide(event, 3)"><i class="fas fa-chevron-left"></i></button>
-                            <button class="slider-nav slider-next" onclick="nextSlide(event, 3)"><i class="fas fa-chevron-right"></i></button>
+                    
+                    <div class="product-card" 
+                         data-images="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80, https://images.unsplash.com/photo-1611591437281-462bf4d3ab45?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGVuZGFudHxlbnwwfHwwfHx8MA%3D%3D, https://images.unsplash.com/photo-1618689178933-a2411b4396b2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGVuZGFudHxlbnwwfHwwfHx8MA%3D%3D">
+                        <div class="product-image-wrapper">
+                           <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Кулон с гравировкой">
                         </div>
                         <h2>Кулон</h2>
                         <div class="price">39.99 $</div>
                         <div class="social-buttons">
-                            <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" class="social-button viber">
-                                <i class="fab fa-viber"></i> Заказать в Viber
-                            </a>
-                            <a href="https://t.me/fifa_laser" target="_blank" class="social-button telegram">
-                                <i class="fab fa-telegram-plane"></i> Заказать в Telegram
-                            </a>
+                            <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" class="social-button viber"><i class="fab fa-viber"></i> Заказать в Viber</a>
+                            <a href="https://t.me/fifa_laser" target="_blank" class="social-button telegram"><i class="fab fa-telegram-plane"></i> Заказать в Telegram</a>
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>
 
-        <!-- Добавленный блок "Оплата и доставка" -->
         <section id="payment-delivery" class="payment-delivery-section">
             <div class="container">
                 <h2 class="section-title">Оплата и доставка</h2>
                 <div class="payment-delivery-container">
                     <div class="payment-methods">
                         <h3>Способы оплаты</h3>
-                        <div class="method">
-                            <h4><i class="fas fa-money-bill-wave"></i> Наличный расчет</h4>
-                            <p>Оплата при получении товара в нашем офисе или курьеру</p>
-                        </div>
-                        <div class="method">
-                            <h4><i class="fas fa-credit-card"></i> Безналичный расчет</h4>
-                            <p>Перевод на банковскую карту после подтверждения заказа</p>
-                        </div>
-                        <div class="method">
-                            <h4><i class="fab fa-cc-paypal"></i> Оплата онлайн</h4>
-                            <p>Безопасная оплата через платежные системы LiqPay или Portmone</p>
-                        </div>
+                        <div class="method"><h4><i class="fas fa-money-bill-wave"></i> Наличный расчет</h4><p>Оплата при получении товара в нашем офисе или курьеру</p></div>
+                        <div class="method"><h4><i class="fas fa-credit-card"></i> Безналичный расчет</h4><p>Перевод на банковскую карту после подтверждения заказа</p></div>
+                        <div class="method"><h4><i class="fab fa-cc-paypal"></i> Оплата онлайн</h4><p>Безопасная оплата через платежные системы LiqPay или Portmone</p></div>
                     </div>
                     <div class="delivery-options">
                         <h3>Варианты доставки</h3>
-                        <div class="option">
-                            <h4><i class="fas fa-truck"></i> Курьерская доставка</h4>
-                            <p>Доставка по Киеву - 50 грн. В другие города - по тарифам перевозчика</p>
-                        </div>
-                        <div class="option">
-                            <h4><i class="fas fa-store"></i> Самовывоз</h4>
-                            <p>Бесплатно из нашего офиса: г. Киев, ул. Гравировальная, 15</p>
-                        </div>
-                        <div class="option">
-                            <h4><i class="fas fa-box"></i> Новая почта</h4>
-                            <p>Доставка по всей Украине. Оплата при получении или наложенным платежом</p>
-                        </div>
-                        <div class="option">
-                            <h4><i class="fas fa-shipping-fast"></i> Укрпочта</h4>
-                            <p>Экономичная доставка в любую точку Украины. Срок - 2-4 дня</p>
-                        </div>
+                        <div class="option"><h4><i class="fas fa-truck"></i> Курьерская доставка</h4><p>Доставка по Киеву - 50 грн. В другие города - по тарифам перевозчика</p></div>
+                        <div class="option"><h4><i class="fas fa-store"></i> Самовывоз</h4><p>Бесплатно из нашего офиса: г. Киев, ул. Гравировальная, 15</p></div>
+                        <div class="option"><h4><i class="fas fa-box"></i> Новая почта</h4><p>Доставка по всей Украине. Оплата при получении или наложенным платежом</p></div>
+                        <div class="option"><h4><i class="fas fa-shipping-fast"></i> Укрпочта</h4><p>Экономичная доставка в любую точку Украины. Срок - 2-4 дня</p></div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="tile-gallery-section" id="works"> 
+        <section class="tile-gallery-section" id="works">
             <div class="container">
                 <h2 class="section-title">Наши работы</h2>
                 <div class="tile-gallery-grid">
-                    <div class="tile-gallery-item" onclick="openModal('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
-                        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Работа 1">
-                    </div>
-                    <div class="tile-gallery-item" onclick="openModal('https://images.unsplash.com/photo-1581093057305-406aab8cfa3d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
-                        <img src="https://images.unsplash.com/photo-1581093057305-406aab8cfa3d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Работа 2">
-                    </div>
-                    <div class="tile-gallery-item" onclick="openModal('https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
-                        <img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Работа 3">
-                    </div>
-                    <div class="tile-gallery-item" onclick="openModal('https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
-                        <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Работа 4">
-                    </div>
-                    <div class="tile-gallery-item" onclick="openModal('https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
-                        <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Работа 5">
-                    </div>
-                    <div class="tile-gallery-item" onclick="openModal('https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
-                        <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Работа 6">
-                    </div>
-                    <div class="tile-gallery-item" onclick="openModal('https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
-                        <img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Работа 7">
-                    </div>
-                    <div class="tile-gallery-item" onclick="openModal('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
-                        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Работа 8">
-                    </div>
+                    <div class="tile-gallery-item" data-src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"><img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Работа 1"></div>
+                    <div class="tile-gallery-item" data-src="https://images.unsplash.com/photo-1581093057305-406aab8cfa3d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"><img src="https://images.unsplash.com/photo-1581093057305-406aab8cfa3d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Работа 2"></div>
+                    <div class="tile-gallery-item" data-src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"><img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Работа 3"></div>
+                    <div class="tile-gallery-item" data-src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"><img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Работа 4"></div>
+                    <div class="tile-gallery-item" data-src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"><img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Работа 5"></div>
+                    <div class="tile-gallery-item" data-src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"><img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Работа 6"></div>
+                    <div class="tile-gallery-item" data-src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"><img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Работа 7"></div>
+                    <div class="tile-gallery-item" data-src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"><img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Работа 8"></div>
                 </div>
             </div>
         </section>
@@ -1157,37 +340,16 @@
                 <div class="dual-slider-wrapper">
                     <div class="rectangular-gallery">
                         <div class="gallery-container" id="galleryContainer1">
-                            <div class="gallery-item" onclick="openModal('https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
-                                <img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Пример гравировки 1">
-                            </div>
-                            <div class="gallery-item" onclick="openModal('https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
-                                <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Пример гравировки 2">
-                            </div>
-                            <div class="gallery-item" onclick="openModal('https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
-                                <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Пример гравировки 3">
-                            </div>
-                            <div class="gallery-item" onclick="openModal('https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
-                                <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Пример гравировки 4">
-                            </div>
+                            <div class="gallery-item" data-src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"><img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Пример гравировки 1"></div>
+                            <div class="gallery-item" data-src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"><img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Пример гравировки 2"></div>
                         </div>
                         <button class="gallery-nav-button prev" id="prev1">&#10094;</button>
                         <button class="gallery-nav-button next" id="next1">&#10095;</button>
                     </div>
-
                     <div class="rectangular-gallery">
                         <div class="gallery-container" id="galleryContainer2">
-                            <div class="gallery-item" onclick="openModal('https://images.unsplash.com/photo-1581093057305-406aab8cfa3d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
-                                <img src="https://images.unsplash.com/photo-1581093057305-406aab8cfa3d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Пример гравировки 5">
-                            </div>
-                            <div class="gallery-item" onclick="openModal('https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
-                                <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Пример гравировки 6">
-                            </div>
-                            <div class="gallery-item" onclick="openModal('https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
-                                <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Пример гравировки 7">
-                            </div>
-                            <div class="gallery-item" onclick="openModal('https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')">
-                                <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Пример гравировки 8">
-                            </div>
+                            <div class="gallery-item" data-src="https://images.unsplash.com/photo-1581093057305-406aab8cfa3d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"><img src="https://images.unsplash.com/photo-1581093057305-406aab8cfa3d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Пример гравировки 5"></div>
+                            <div class="gallery-item" data-src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"><img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Пример гравировки 6"></div>
                         </div>
                         <button class="gallery-nav-button prev" id="prev2">&#10094;</button>
                         <button class="gallery-nav-button next" id="next2">&#10095;</button>
@@ -1197,14 +359,14 @@
         </section>
         
         <div id="imageModal" class="modal">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <button class="modal-nav modal-prev" onclick="navigateModal(-1)">&#10094;</button>
-            <button class="modal-nav modal-next" onclick="navigateModal(1)">&#10095;</button>
+            <span class="close" id="closeModalButton">&times;</span>
             <img class="modal-content" id="expandedImg">
+            <button class="modal-nav prev" id="modalPrev">&#10094;</button>
+            <button class="modal-nav next" id="modalNext">&#10095;</button>
         </div>
     </main>
 
-    <footer class="footer"> 
+    <footer class="footer">
         <div class="container">
             <h2>Дополнительная информация</h2>
             <p>Email: info@lasergrav.com</p>
@@ -1215,161 +377,161 @@
     </footer>
 
     <script>
-    // Мобильное меню
-    const menuToggle = document.getElementById('mobile-menu');
-    const navMenu = document.getElementById('nav-menu');
-
-    menuToggle.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
-    });
-
-    // Плавная прокрутка
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const targetElement = document.querySelector(this.getAttribute('href'));
-            if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth'
-                });
-            }
-            if (navMenu.classList.contains('active')) {
-                navMenu.classList.remove('active');
-            }
-        });
-    });
-
-    // --- Управление несколькими галереями (слайдерами) ---
-    // Массив для хранения состояния каждого слайдера
-    let sliderStates = [];
-
     document.addEventListener('DOMContentLoaded', () => {
-        const galleryContainers = document.querySelectorAll('.gallery-container'); // Находим все контейнеры слайдеров
+        // --- СУЩЕСТВУЮЩИЙ КОД ---
+        // Мобильное меню
+        const menuToggle = document.getElementById('mobile-menu');
+        const navMenu = document.getElementById('nav-menu');
+        menuToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
 
+        // Плавная прокрутка
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetElement = document.querySelector(this.getAttribute('href'));
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                }
+                if (navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                }
+            });
+        });
+
+        // --- Управление старыми слайдерами (без изменений) ---
+        let sliderStates = [];
+        const galleryContainers = document.querySelectorAll('.rectangular-gallery .gallery-container');
         galleryContainers.forEach((container, index) => {
-            // Инициализируем состояние для каждого слайдера
             sliderStates.push({
-                id: `slider${index + 1}`, // Уникальный ID для каждого слайдера
+                id: `slider${index + 1}`,
                 currentSlide: 0,
                 container: container,
                 totalSlides: container.children.length
             });
-
-            // Привязываем кнопки навигации к конкретному слайдеру
-            // Важно: ID кнопок в HTML должны быть уникальными (например, prev1, next1, prev2, next2)
             const prevButton = document.getElementById(`prev${index + 1}`);
             const nextButton = document.getElementById(`next${index + 1}`);
-
-            if (prevButton) {
-                prevButton.onclick = () => moveGallery(index, -1);
-            }
-            if (nextButton) {
-                nextButton.onclick = () => moveGallery(index, 1);
-            }
-            
-            // Автопрокрутка для каждого слайдера
+            if (prevButton) prevButton.onclick = () => moveGallery(index, -1);
+            if (nextButton) nextButton.onclick = () => moveGallery(index, 1);
             setInterval(() => moveGallery(index, 1), 10000);
         });
-    });
 
-    function moveGallery(sliderIndex, direction) {
-        let state = sliderStates[sliderIndex];
-        state.currentSlide = (state.currentSlide + direction + state.totalSlides) % state.totalSlides;
-        state.container.style.transform = `translateX(-${state.currentSlide * 100}%)`;
-    }
-
-    // --- Функции для модального окна ---
-    const modal = document.getElementById("imageModal");
-    const modalImg = document.getElementById("expandedImg");
-    let currentModalIndex = 0;
-    let currentProductIndex = -1;
-    let currentSlideIndex = 0;
-
-    function openModal(imgSrc) {
-        modal.style.display = "block";
-        modalImg.src = imgSrc;
-        history.pushState({ modalOpen: true }, null, '#modal');
-    }
-
-    function closeModal() {
-        modal.style.display = "none";
-        modalImg.src = "";
-        if (history.state && history.state.modalOpen) {
-            history.back();
+        function moveGallery(sliderIndex, direction) {
+            let state = sliderStates[sliderIndex];
+            if (!state || state.totalSlides === 0) return;
+            state.currentSlide = (state.currentSlide + direction + state.totalSlides) % state.totalSlides;
+            state.container.style.transform = `translateX(-${state.currentSlide * 100}%)`;
         }
-    }
 
-    // Закрытие модального окна при клике вне изображения
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            closeModal();
+        // --- ОБНОВЛЕННЫЙ КОД МОДАЛЬНОГО ОКНА ---
+        const modal = document.getElementById("imageModal");
+        const modalImg = document.getElementById("expandedImg");
+        const closeModalButton = document.getElementById("closeModalButton");
+        const modalPrevBtn = document.getElementById("modalPrev");
+        const modalNextBtn = document.getElementById("modalNext");
+        
+        let currentModalImages = [];
+        let currentImageIndex = 0;
+        let isProductModal = false; // Флаг для определения типа модального окна
+
+        // Функция для отображения конкретного изображения в модальном окне
+        function showImage(index) {
+            if (!currentModalImages || currentModalImages.length === 0) return;
+            currentImageIndex = (index + currentModalImages.length) % currentModalImages.length;
+            modalImg.src = currentModalImages[currentImageIndex];
         }
-    }
 
-    // Обработчик события 'popstate' для кнопки "назад" браузера
-    window.addEventListener('popstate', function(event) {
-        if (modal.style.display === "block") {
-             if (!event.state || !event.state.modalOpen) {
-                modal.style.display = "none";
-                modalImg.src = "";
+        // Открытие модального окна для галерей (старый функционал)
+        document.querySelectorAll('.tile-gallery-item, .gallery-item').forEach(item => {
+            item.addEventListener('click', () => {
+                isProductModal = false;
+                modal.style.display = "block";
+                modalImg.src = item.dataset.src || item.querySelector('img').src;
+                modalPrevBtn.style.display = 'none';
+                modalNextBtn.style.display = 'none';
+            });
+        });
+        
+        // Открытие модального окна для карточек товаров (НОВЫЙ функционал)
+        document.querySelectorAll('.product-card .product-image-wrapper').forEach(wrapper => {
+            wrapper.addEventListener('click', (e) => {
+                const card = e.currentTarget.closest('.product-card');
+                const imagesAttr = card.dataset.images;
+                if (!imagesAttr) return;
+
+                currentModalImages = imagesAttr.split(',').map(s => s.trim());
+                if (currentModalImages.length > 0) {
+                    isProductModal = true;
+                    modal.style.display = "block";
+                    modalPrevBtn.style.display = 'block';
+                    modalNextBtn.style.display = 'block';
+                    showImage(0);
+                    
+                    // Добавляем слушатели для навигации
+                    document.addEventListener('keydown', handleKeyDown);
+                    modal.addEventListener('touchstart', handleTouchStart, { passive: true });
+                    modal.addEventListener('touchmove', handleTouchMove, { passive: true });
+                    modal.addEventListener('touchend', handleTouchEnd);
+                }
+            });
+        });
+
+        // Функции закрытия модального окна
+        function closeModal() {
+            modal.style.display = "none";
+            // Удаляем слушатели, чтобы они не работали в фоне
+            document.removeEventListener('keydown', handleKeyDown);
+            modal.removeEventListener('touchstart', handleTouchStart);
+            modal.removeEventListener('touchmove', handleTouchMove);
+            modal.removeEventListener('touchend', handleTouchEnd);
+        }
+
+        closeModalButton.onclick = closeModal;
+        modal.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+
+        // --- НАВИГАЦИЯ В МОДАЛЬНОМ ОКНЕ ТОВАРОВ ---
+
+        // 1. Клики по стрелкам
+        modalPrevBtn.onclick = () => showImage(currentImageIndex - 1);
+        modalNextBtn.onclick = () => showImage(currentImageIndex + 1);
+
+        // 2. Клавиши на клавиатуре
+        function handleKeyDown(e) {
+            if (!isProductModal) return;
+            if (e.key === "ArrowLeft") {
+                showImage(currentImageIndex - 1);
+            } else if (e.key === "ArrowRight") {
+                showImage(currentImageIndex + 1);
+            } else if (e.key === "Escape") {
+                closeModal();
+            }
+        }
+        
+        // 3. Свайпы на мобильных
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        function handleTouchStart(e) {
+            touchStartX = e.touches[0].clientX;
+        }
+
+        function handleTouchMove(e) {
+            touchEndX = e.touches[0].clientX;
+        }
+
+        function handleTouchEnd() {
+            if (!isProductModal) return;
+            if (touchStartX - touchEndX > 50) { // Свайп влево
+                showImage(currentImageIndex + 1);
+            }
+            if (touchStartX - touchEndX < -50) { // Свайп вправо
+                showImage(currentImageIndex - 1);
             }
         }
     });
-
-    // --- Слайдеры для карточек товаров ---
-    const productSliders = document.querySelectorAll('.product-slider');
-    const productSlides = [];
-    const productSlidesCount = [];
-    
-    // Инициализация слайдеров товаров
-    productSliders.forEach((slider, index) => {
-        const slides = slider.querySelectorAll('.product-slide');
-        productSlides[index] = slides;
-        productSlidesCount[index] = slides.length;
-        
-        // Устанавливаем начальную позицию
-        slider.style.transform = 'translateX(0)';
-    });
-    
-    function prevSlide(e, sliderIndex) {
-        e.stopPropagation();
-        const slider = productSliders[sliderIndex];
-        const slidesCount = productSlidesCount[sliderIndex];
-        const currentPosition = parseInt(slider.style.transform.replace('translateX(', '').replace('%)', '') || 0;
-        const newPosition = (currentPosition + 100) % (slidesCount * 100);
-        slider.style.transform = `translateX(${newPosition}%)`;
-    }
-    
-    function nextSlide(e, sliderIndex) {
-        e.stopPropagation();
-        const slider = productSliders[sliderIndex];
-        const slidesCount = productSlidesCount[sliderIndex];
-        const currentPosition = parseInt(slider.style.transform.replace('translateX(', '').replace('%)', '') || 0;
-        const newPosition = (currentPosition - 100 + slidesCount * 100) % (slidesCount * 100);
-        slider.style.transform = `translateX(${newPosition}%)`;
-    }
-    
-    function openProductModal(productIndex) {
-        currentProductIndex = productIndex;
-        const slider = productSliders[productIndex];
-        const slides = productSlides[productIndex];
-        const currentPosition = Math.abs(parseInt(slider.style.transform.replace('translateX(', '').replace('%)', '') || 0));
-        currentSlideIndex = Math.floor(currentPosition / 100);
-        
-        modal.style.display = "block";
-        modalImg.src = slides[currentSlideIndex].querySelector('img').src;
-        history.pushState({ modalOpen: true }, null, '#modal');
-    }
-    
-    function navigateModal(direction) {
-        if (currentProductIndex === -1) return;
-        
-        const slides = productSlides[currentProductIndex];
-        const slidesCount = productSlidesCount[currentProductIndex];
-        
-        currentSlideIndex = (currentSlideIndex + direction + slidesCount) % slidesCount;
-        modalImg.src = slides[currentSlideIndex].querySelector('img').src;
-    }
     </script>
 </body>
 </html>
