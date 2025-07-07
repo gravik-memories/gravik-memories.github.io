@@ -197,7 +197,8 @@
         #services .section-title,
         .product-card-section .section-title,
         .tile-gallery-section .section-title,
-        .rectangular-gallery-section .section-title {
+        .rectangular-gallery-section .section-title,
+        .payment-delivery-section .section-title {
             text-align: center;
             margin-bottom: 40px;
         }
@@ -454,6 +455,66 @@
             right: 10px;
         }
 
+        /* --- Секция "Оплата и доставка" --- */
+        .payment-delivery-section {
+            background-color: #fff;
+            padding: 60px 0;
+        }
+
+        .payment-delivery-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .payment-methods,
+        .delivery-options {
+            flex: 1;
+            min-width: 300px;
+            background-color: var(--secondary-color);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .payment-methods h3,
+        .delivery-options h3 {
+            color: var(--accent-color);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        .method,
+        .option {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .method:last-child,
+        .option:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .method h4,
+        .option h4 {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .method h4 i,
+        .option h4 i {
+            margin-right: 10px;
+            color: var(--accent-color);
+        }
+
         /* --- Модальное окно для фотографий --- */
         .modal {
             display: none;
@@ -583,6 +644,11 @@
 
             .innovative-solutions {
                 padding: 40px var(--container-padding);
+            }
+            
+            .payment-delivery-container {
+                flex-direction: column;
+                gap: 30px;
             }
         }
 
@@ -758,6 +824,7 @@
                 <a href="#about">О нас</a>
                 <a href="#services">Услуги</a>
                 <a href="#products">Товары</a>
+                <a href="#payment-delivery">Оплата и доставка</a>
                 <a href="#works">Наши работы</a>
                 <a href="#gallery">Примеры работ</a>
             </nav>
@@ -868,6 +935,49 @@
                             <a href="https://t.me/fifa_laser" target="_blank" class="social-button telegram">
                                 <i class="fab fa-telegram-plane"></i> Заказать в Telegram
                             </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Добавленный блок "Оплата и доставка" -->
+        <section id="payment-delivery" class="payment-delivery-section">
+            <div class="container">
+                <h2 class="section-title">Оплата и доставка</h2>
+                <div class="payment-delivery-container">
+                    <div class="payment-methods">
+                        <h3>Способы оплаты</h3>
+                        <div class="method">
+                            <h4><i class="fas fa-money-bill-wave"></i> Наличный расчет</h4>
+                            <p>Оплата при получении товара в нашем офисе или курьеру</p>
+                        </div>
+                        <div class="method">
+                            <h4><i class="fas fa-credit-card"></i> Безналичный расчет</h4>
+                            <p>Перевод на банковскую карту после подтверждения заказа</p>
+                        </div>
+                        <div class="method">
+                            <h4><i class="fab fa-cc-paypal"></i> Оплата онлайн</h4>
+                            <p>Безопасная оплата через платежные системы LiqPay или Portmone</p>
+                        </div>
+                    </div>
+                    <div class="delivery-options">
+                        <h3>Варианты доставки</h3>
+                        <div class="option">
+                            <h4><i class="fas fa-truck"></i> Курьерская доставка</h4>
+                            <p>Доставка по Киеву - 50 грн. В другие города - по тарифам перевозчика</p>
+                        </div>
+                        <div class="option">
+                            <h4><i class="fas fa-store"></i> Самовывоз</h4>
+                            <p>Бесплатно из нашего офиса: г. Киев, ул. Гравировальная, 15</p>
+                        </div>
+                        <div class="option">
+                            <h4><i class="fas fa-box"></i> Новая почта</h4>
+                            <p>Доставка по всей Украине. Оплата при получении или наложенным платежом</p>
+                        </div>
+                        <div class="option">
+                            <h4><i class="fas fa-shipping-fast"></i> Укрпочта</h4>
+                            <p>Экономичная доставка в любую точку Украины. Срок - 2-4 дня</p>
                         </div>
                     </div>
                 </div>
