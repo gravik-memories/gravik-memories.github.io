@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Laser Engraving | Гравировка на жетонах</title>
+    <title>Premium Laser Engraving | Гравіювання на жетонах</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Roboto:wght@400;500&family=Oswald:wght@500&display=swap" rel="stylesheet">
     <style>
@@ -55,7 +55,7 @@
         .product-cards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; max-width: 1200px; margin: 0 auto; padding: 0 var(--container-padding); }
         .product-card { background-color: #fff; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); padding: 20px; display: flex; flex-direction: column; align-items: center; gap: 10px; transition: all 0.3s ease; }
         .product-card:hover { transform: translateY(-8px); box-shadow: 0 12px 25px rgba(0,0,0,0.15); }
-        .product-card .product-image-wrapper { cursor: pointer; width: 100%; } /* NEW: Wrapper for image */
+        .product-card .product-image-wrapper { cursor: pointer; width: 100%; }
         .product-card img { width: 100%; height: 300px; object-fit: cover; border-radius: 8px; margin-bottom: 5px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
         .product-card h2 { font-size: 1.36em; color: var(--accent-color); margin-bottom: 5px; font-family: var(--font-heading); }
         .product-card p { display: none; }
@@ -90,12 +90,150 @@
         .method:last-child, .option:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
         .method h4, .option h4 { display: flex; align-items: center; margin-bottom: 10px; color: var(--primary-color); }
         .method h4 i, .option h4 i { margin-right: 10px; color: var(--accent-color); }
+        
+        /* -- Стили для блока акции -- */
+        #special-offer {
+            background: linear-gradient(135deg, #ff9933, #ff6600); /* Яскравий помаранчевий градієнт */
+            padding: 50px 0; /* Зменшено padding */
+            color: var(--light-text-color);
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Додано легку тінь */
+        }
+        #special-offer .container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            gap: 30px; /* Зменшено gap */
+            flex-wrap: wrap;
+        }
+        .offer-content {
+            flex-basis: 50%;
+            text-align: left;
+            min-width: 300px;
+        }
+        .offer-content h2 {
+            color: #fff;
+            font-size: 2.2em; /* Трохи зменшено розмір шрифту */
+            margin-bottom: 15px; /* Зменшено відступ */
+            font-family: var(--font-heading);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); /* Додано тінь для тексту */
+        }
+        .offer-content h2 i {
+            color: #f39c12;
+        }
+        .offer-content p {
+            font-size: 1em; /* Трохи зменшено розмір шрифту */
+            line-height: 1.6; /* Трохи зменшено міжрядковий інтервал */
+            margin-bottom: 25px; /* Зменшено відступ */
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Додано тінь для тексту */
+        }
+        .offer-button {
+            background-color: #fff; /* Змінено колір кнопки для кращого контрасту */
+            color: #ff6600; /* Змінено колір тексту кнопки */
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(255, 102, 0, 0.4);
+            transition: all 0.3s ease;
+            padding: 12px 25px; /* Трохи зменшено padding */
+            font-size: 1em; /* Трохи зменшено розмір шрифту */
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .offer-button:hover {
+            background-color: #e67e22;
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 102, 0, 0.5);
+        }
+        .offer-timer {
+            flex-basis: 40%;
+            min-width: 280px; /* Трохи зменшено min-width */
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Додано тінь для тексту */
+        }
+        .offer-timer h3 {
+            font-family: var(--font-main);
+            font-weight: 500;
+            font-size: 1.2em; /* Трохи зменшено розмір шрифту */
+            margin-bottom: 15px; /* Зменшено відступ */
+        }
+        .countdown-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px; /* Зменшено gap */
+        }
+        .countdown-item {
+            background: rgba(255, 255, 255, 0.15); /* Трохи світліший фон */
+            padding: 15px; /* Зменшено padding */
+            border-radius: 10px;
+            min-width: 80px; /* Трохи зменшено min-width */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .countdown-item span {
+            display: block;
+            font-size: 2.5em; /* Трохи зменшено розмір шрифту */
+            font-family: var(--font-accent);
+            font-weight: bold;
+            line-height: 1.1;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+        .countdown-item p {
+            margin: 0;
+            font-size: 0.8em; /* Трохи зменшено розмір шрифту */
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* --- Футер стилі --- */
+        .footer { 
+            background-color: var(--primary-color); 
+            color: var(--light-text-color); 
+            padding: 30px 0; /* Зменшено padding */
+            text-align: center;
+            font-size: 0.9em;
+        }
+        .footer .container { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 15px; /* Зменшено gap */
+            align-items: center;
+        }
+        .footer p { margin: 0; }
+        .footer h3 {
+            color: var(--light-text-color);
+            margin-bottom: 15px; /* Зменшено відступ */
+            font-size: 1.4em;
+        }
+        .footer-contacts p {
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .footer-contacts i {
+            color: var(--accent-color);
+            font-size: 1.1em;
+        }
+        .social-links {
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+        .social-links a {
+            color: var(--light-text-color);
+            font-size: 1.6em;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+        .social-links a:hover {
+            color: var(--accent-color);
+        }
+
+
         .modal { display: none; position: fixed; z-index: 2000; padding-top: 60px; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.9); }
         .modal-content { margin: auto; display: block; max-width: 80%; max-height: 80vh; border-radius: 8px; }
         .close { position: absolute; top: 20px; right: 35px; color: #f1f1f1; font-size: 40px; font-weight: bold; transition: 0.3s; cursor: pointer; }
         .close:hover { color: #bbb; }
         
-        /* --- NEW: Стили для стрелок в модальном окне --- */
         .modal-nav {
             position: absolute;
             top: 50%;
@@ -109,18 +247,14 @@
             z-index: 2001;
             border-radius: 5px;
             transition: background-color 0.3s ease;
-            user-select: none; /* Предотвращает выделение текста при кликах */
-            display: none; /* Скрыты по умолчанию */
+            user-select: none;
+            display: none;
         }
         .modal-nav:hover { background-color: rgba(44, 62, 80, 0.8); }
         .modal-nav.prev { left: 20px; }
         .modal-nav.next { right: 20px; }
         
-        .footer { background-color: var(--primary-color); color: var(--light-text-color); padding: 40px 0; text-align: center; }
-        .footer .container { display: flex; flex-direction: column; gap: 20px; }
-        .footer p { margin: 0; }
-        
-        /* --- Адаптивность --- */
+        /* --- Адаптивність --- */
         @media (max-width: 992px) {
             .services-grid { grid-template-columns: repeat(2, 1fr); }
             #about .container { flex-direction: column; }
@@ -140,6 +274,11 @@
             .gallery-nav-button { padding: 10px 5px; font-size: 1.2em; }
             .innovative-solutions { padding: 40px var(--container-padding); }
             .payment-delivery-container { flex-direction: column; gap: 30px; }
+            #special-offer { padding: 40px 0; } /* Адаптивність для акції */
+            .offer-content h2 { font-size: 2em; }
+            .offer-button { padding: 10px 20px; font-size: 0.9em; }
+            .countdown-item { padding: 12px; min-width: 70px; }
+            .countdown-item span { font-size: 2.2em; }
         }
         @media (max-width: 768px) {
             h1 { font-size: 2.2em; }
@@ -165,6 +304,12 @@
             .gallery-item img { height: auto; aspect-ratio: 3 / 5; }
             .gallery-nav-button { padding: 10px 5px; font-size: 1.2em; }
             .tile-gallery-grid { grid-template-columns: repeat(2, 1fr); }
+            #special-offer .container { flex-direction: column; }
+            .offer-content { text-align: center; }
+            .offer-content h2 { font-size: 1.8em; }
+            .offer-button { padding: 8px 15px; font-size: 0.85em; }
+            .countdown-item { padding: 10px; min-width: 60px; }
+            .countdown-item span { font-size: 2em; }
         }
         @media (max-width: 480px) {
             .innovative-solutions .container { grid-template-columns: 100px 1fr; }
@@ -176,9 +321,16 @@
             .gallery-item img { height: auto; aspect-ratio: 3 / 5; }
             .tile-gallery-grid { grid-template-columns: repeat(2, 1fr); }
             .tile-gallery-item { height: 150px; }
-            .modal-nav { padding: 10px; font-size: 1.5em; } /* Адаптация стрелок для мобильных */
+            .modal-nav { padding: 10px; font-size: 1.5em; }
             .modal-nav.prev { left: 10px; }
             .modal-nav.next { right: 10px; }
+            #special-offer { padding: 30px 0; }
+            .offer-content h2 { font-size: 1.5em; margin-bottom: 10px; }
+            .offer-content p { font-size: 0.9em; margin-bottom: 15px; }
+            .offer-timer h3 { font-size: 1.1em; margin-bottom: 10px; }
+            .countdown-item { padding: 8px; min-width: 50px; }
+            .countdown-item span { font-size: 1.8em; }
+            .countdown-item p { font-size: 0.7em; }
         }
     </style>
 </head>
@@ -188,12 +340,12 @@
             <a href="#" class="logo">LaserGrav</a>
             <div class="menu-toggle" id="mobile-menu"><span>&#9776;</span></div>
             <nav class="nav" id="nav-menu">
-                <a href="#about">О нас</a>
-                <a href="#services">Услуги</a>
-                <a href="#products">Товары</a>
-                <a href="#payment-delivery">Оплата и доставка</a>
-                <a href="#works">Наши работы</a>
-                <a href="#gallery">Примеры работ</a>
+                <a href="#about">Про нас</a>
+                <a href="#services">Послуги</a>
+                <a href="#products">Товари</a>
+                <a href="#payment-delivery">Оплата та доставка</a>
+                <a href="#works">Наші роботи</a>
+                <a href="#gallery">Приклади робіт</a>
             </nav>
         </div>
     </header>
@@ -202,11 +354,11 @@
         <section class="innovative-solutions" id="innovative-solutions">
             <div class="container">
                 <div class="innovative-solutions-image">
-                    <img src="image_573b97.jpg" alt="Лазерная гравировка">
+                    <img src="image_573b97.jpg" alt="Лазерна гравировка">
                 </div>
                 <div class="innovative-solutions-content">
                     <h1>Гравіювання на жетонах і брелоках</h1>
-                    <p>Ми створюємо унікальні вироби для кожного,ми не "штампуємо" замовлення клієнтів,а виконуємо їх з максимальною віддачею та увагою до деталей</p>
+                    <p>Ми створюємо унікальні вироби для кожного, ми не "штампуємо" замовлення клієнтів, а виконуємо їх з максимальною віддачею та увагою до деталей.</p>
                     <a href="https://t.me/fifa_laser" class="cta-button" target="_blank">Варіанти гравіювання</a>
                 </div>
             </div>
@@ -215,81 +367,81 @@
         <section id="about">
             <div class="container">
                 <div class="about-content">
-                    <h2>О нашей мастерской</h2>
-                    <p>Мы специализируемся на лазерной гравировке с 2015 года. Наше оборудование позволяет создавать четкие и долговечные изображения на металле, дереве и других материалах. Каждое изделие проходит многоступенчатый контроль качества.</p>
-                    <p>Используем только сертифицированные материалы и современные технологии гравировки.</p>
+                    <h2>Про нашу майстерню</h2>
+                    <p>Ми спеціалізуємося на лазерному гравіюванні з 2015 року. Наше обладнання дозволяє створювати чіткі та довговічні зображення на металі, дереві та інших матеріалах. Кожен виріб проходить багатоступінчастий контроль якості.</p>
+                    <p>Використовуємо тільки сертифіковані матеріали та сучасні технології гравіювання.</p>
                 </div>
                 <div class="about-image">
-                    <img src="https://images.unsplash.com/photo-1581093057305-406aab8cfa3d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Наша мастерская">
+                    <img src="https://images.unsplash.com/photo-1581093057305-406aab8cfa3d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Наша майстерня">
                 </div>
             </div>
         </section>
 
         <section id="services">
             <div class="container">
-                <h2 class="section-title">Наши Услуги</h2>
+                <h2 class="section-title">Наші Послуги</h2>
                 <div class="services-grid">
-                    <div class="service-card"><div class="icon"><i class="fas fa-gem"></i></div><h3>Гравировка жетонов</h3><p>Точная гравировка на металлических жетонах любой формы и размера.</p></div>
-                    <div class="service-card"><div class="icon"><i class="fas fa-ring"></i></div><h3>Ювелирные изделия</h3><p>Персонализация колец, подвесок и других украшений.</p></div>
-                    <div class="service-card"><div class="icon"><i class="fas fa-award"></i></div><h3>Корпоративные награды</h3><p>Изготовление премиальных табличек и наградных досок.</p></div>
+                    <div class="service-card"><div class="icon"><i class="fas fa-gem"></i></div><h3>Гравіювання жетонів</h3><p>Точне гравіювання на металевих жетонах будь-якої форми та розміру.</p></div>
+                    <div class="service-card"><div class="icon"><i class="fas fa-ring"></i></div><h3>Ювелірні вироби</h3><p>Персоналізація кілець, підвісок та інших прикрас.</p></div>
+                    <div class="service-card"><div class="icon"><i class="fas fa-award"></i></div><h3>Корпоративні нагороди</h3><p>Виготовлення преміальних табличок та нагородних дощок.</p></div>
                 </div>
             </div>
         </section>
         
         <section class="product-card-section" id="products">
             <div class="container">
-                <h2 class="section-title">Популярные товары</h2>
+                <h2 class="section-title">Популярні товари</h2>
                 <div class="product-cards-grid">
                     
                     <div class="product-card" 
                          data-images="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80, https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80, https://images.unsplash.com/photo-1515442261558-c9c064c9d7a6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fG1ldGFsJTIwZG9nJTIwdGFnfGVufDB8fDB8fHww">
                         <div class="product-image-wrapper">
-                           <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Жетон с гравировкой">
+                            <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Жетон з гравіюванням">
                         </div>
-                        <h2>Жетон круглый</h2>
+                        <h2>Жетон круглий</h2>
                         <div class="price">49.99 $</div>
                         <div class="social-buttons">
-                            <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" class="social-button viber"><i class="fab fa-viber"></i> Заказать в Viber</a>
-                            <a href="https://t.me/fifa_laser" target="_blank" class="social-button telegram"><i class="fab fa-telegram-plane"></i> Заказать в Telegram</a>
+                            <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" class="social-button viber"><i class="fab fa-viber"></i> Замовити в Viber</a>
+                            <a href="https://t.me/fifa_laser" target="_blank" class="social-button telegram"><i class="fab fa-telegram-plane"></i> Замовити в Telegram</a>
                         </div>
                     </div>
                     
                     <div class="product-card" 
-                         data-images="images/IMG_20240407_134316.jpg, images/IMG_20240407_134317.jpg, https://images.unsplash.com/photo-1620164931988-758233f2c58a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bWV0YWwlMjBzaWdufGVufDB8fDB8fHww">
+                         data-images="https://images.unsplash.com/photo-1620164931988-758233f2c58a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bWV0YWwlMjBzaWdufGVufDB8fDB8fHww, https://images.unsplash.com/photo-1598284534898-e7a9b8f2d5f8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fG1ldGFsJTIwZG9nJTIwdGFnfGVufDB8fDB8fHww, https://images.unsplash.com/photo-1596791550997-6a1d9b3a0b3f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fG1ldGFsJTIwZG9nJTIwdGFnfGVufDB8fDB8fHww">
                         <div class="product-image-wrapper">
-                           <img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Металлическая табличка">
+                            <img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Металева табличка">
                         </div>
                         <h2>Табличка</h2>
                         <div class="price">29.99 $</div>
                         <div class="social-buttons">
-                           <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" class="social-button viber"><i class="fab fa-viber"></i> Заказать в Viber</a>
-                           <a href="https://t.me/fifa_laser" target="_blank" class="social-button telegram"><i class="fab fa-telegram-plane"></i> Заказать в Telegram</a>
+                           <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" class="social-button viber"><i class="fab fa-viber"></i> Замовити в Viber</a>
+                           <a href="https://t.me/fifa_laser" target="_blank" class="social-button telegram"><i class="fab fa-telegram-plane"></i> Замовити в Telegram</a>
                         </div>
                     </div>
 
                     <div class="product-card"
-                         data-images="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80, https://images.unsplash.com/photo-1563499187-5c472fde129c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8a2V5Y2hhaW58ZW58MHx8MHx8fDA%3D, https://images.unsplash.com/photo-1634578193072-35323a63b278?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8a2V5Y2hhaW58ZW58MHx8MHx8fDA%3D">
-                         <div class="product-image-wrapper">
-                            <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Брелок с гравировкой">
-                         </div>
-                        <h2>Брелок</h2>
-                        <div class="price">19.99 $</div>
-                        <div class="social-buttons">
-                           <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" class="social-button viber"><i class="fab fa-viber"></i> Заказать в Viber</a>
-                           <a href="https://t.me/fifa_laser" target="_blank" class="social-button telegram"><i class="fab fa-telegram-plane"></i> Заказать в Telegram</a>
-                        </div>
+                         data-images="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80, https://images.unsplash.com/photo-1563499187-5c472fde129c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8a2V5Y2hhaW58ZW58MHx8MHx8fDA%3D, https://images.unsplash.com/photo-1634578193072-35323a63b278?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8a2V5Y2hhaW58ZW59MHx8MHx8fDA%3D">
+                             <div class="product-image-wrapper">
+                                 <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Брелок з гравіюванням">
+                             </div>
+                             <h2>Брелок</h2>
+                             <div class="price">19.99 $</div>
+                             <div class="social-buttons">
+                                <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" class="social-button viber"><i class="fab fa-viber"></i> Замовити в Viber</a>
+                                <a href="https://t.me/fifa_laser" target="_blank" class="social-button telegram"><i class="fab fa-telegram-plane"></i> Замовити в Telegram</a>
+                             </div>
                     </div>
                     
                     <div class="product-card" 
                          data-images="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80, https://images.unsplash.com/photo-1611591437281-462bf4d3ab45?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGVuZGFudHxlbnwwfHwwfHx8MA%3D%3D, https://images.unsplash.com/photo-1618689178933-a2411b4396b2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGVuZGFudHxlbnwwfHwwfHx8MA%3D%3D">
                         <div class="product-image-wrapper">
-                           <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Кулон с гравировкой">
+                            <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Кулон з гравіюванням">
                         </div>
                         <h2>Кулон</h2>
                         <div class="price">39.99 $</div>
                         <div class="social-buttons">
-                            <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" class="social-button viber"><i class="fab fa-viber"></i> Заказать в Viber</a>
-                            <a href="https://t.me/fifa_laser" target="_blank" class="social-button telegram"><i class="fab fa-telegram-plane"></i> Заказать в Telegram</a>
+                             <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" class="social-button viber"><i class="fab fa-viber"></i> Замовити в Viber</a>
+                             <a href="https://t.me/fifa_laser" target="_blank" class="social-button telegram"><i class="fab fa-telegram-plane"></i> Замовити в Telegram</a>
                         </div>
                     </div>
 
@@ -299,20 +451,20 @@
 
         <section id="payment-delivery" class="payment-delivery-section">
             <div class="container">
-                <h2 class="section-title">Оплата и доставка</h2>
+                <h2 class="section-title">Оплата та доставка</h2>
                 <div class="payment-delivery-container">
                     <div class="payment-methods">
-                        <h3>Способы оплаты</h3>
-                        <div class="method"><h4><i class="fas fa-money-bill-wave"></i> Наличный расчет</h4><p>Оплата при получении товара в нашем офисе или курьеру</p></div>
-                        <div class="method"><h4><i class="fas fa-credit-card"></i> Безналичный расчет</h4><p>Перевод на банковскую карту после подтверждения заказа</p></div>
-                        <div class="method"><h4><i class="fab fa-cc-paypal"></i> Оплата онлайн</h4><p>Безопасная оплата через платежные системы LiqPay или Portmone</p></div>
+                        <h3>Способи оплати</h3>
+                        <div class="method"><h4><i class="fas fa-money-bill-wave"></i> Готівковий розрахунок</h4><p>Оплата при отриманні товару в нашому офісі або кур'єру</p></div>
+                        <div class="method"><h4><i class="fas fa-credit-card"></i> Безготівковий розрахунок</h4><p>Переказ на банківську картку після підтвердження замовлення</p></div>
+                        <div class="method"><h4><i class="fab fa-cc-paypal"></i> Оплата онлайн</h4><p>Безпечна оплата через платіжні системи LiqPay або Portmone</p></div>
                     </div>
                     <div class="delivery-options">
-                        <h3>Варианты доставки</h3>
-                        <div class="option"><h4><i class="fas fa-truck"></i> Курьерская доставка</h4><p>Доставка по Киеву - 50 грн. В другие города - по тарифам перевозчика</p></div>
-                        <div class="option"><h4><i class="fas fa-store"></i> Самовывоз</h4><p>Бесплатно из нашего офиса: г. Киев, ул. Гравировальная, 15</p></div>
-                        <div class="option"><h4><i class="fas fa-box"></i> Новая почта</h4><p>Доставка по всей Украине. Оплата при получении или наложенным платежом</p></div>
-                        <div class="option"><h4><i class="fas fa-shipping-fast"></i> Укрпочта</h4><p>Экономичная доставка в любую точку Украины. Срок - 2-4 дня</p></div>
+                        <h3>Варіанти доставки</h3>
+                        <div class="option"><h4><i class="fas fa-truck"></i> Кур'єрська доставка</h4><p>Доставка по Києву - 50 грн. В інші міста - за тарифами перевізника</p></div>
+                        <div class="option"><h4><i class="fas fa-store"></i> Самовивіз</h4><p>Безкоштовно з нашого офісу: м. Київ, вул. Гравірувальна, 15</p></div>
+                        <div class="option"><h4><i class="fas fa-box"></i> Нова пошта</h4><p>Доставка по всій Україні. Оплата при отриманні або післяплатою</p></div>
+                        <div class="option"><h4><i class="fas fa-shipping-fast"></i> Укрпошта</h4><p>Економічна доставка в будь-яку точку України. Термін - 2-4 дні</p></div>
                     </div>
                 </div>
             </div>
@@ -320,65 +472,135 @@
 
         <section class="tile-gallery-section" id="works">
             <div class="container">
-                <h2 class="section-title">Наши работы</h2>
+                <h2 class="section-title">Наші роботи</h2>
                 <div class="tile-gallery-grid">
-                    <div class="tile-gallery-item" data-src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"><img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Работа 1"></div>
-                    <div class="tile-gallery-item" data-src="https://images.unsplash.com/photo-1581093057305-406aab8cfa3d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"><img src="https://images.unsplash.com/photo-1581093057305-406aab8cfa3d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Работа 2"></div>
-                    <div class="tile-gallery-item" data-src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"><img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Работа 3"></div>
-                    <div class="tile-gallery-item" data-src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"><img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Работа 4"></div>
-                    <div class="tile-gallery-item" data-src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"><img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Работа 5"></div>
-                    <div class="tile-gallery-item" data-src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"><img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Работа 6"></div>
-                    <div class="tile-gallery-item" data-src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"><img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Работа 7"></div>
-                    <div class="tile-gallery-item" data-src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"><img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Работа 8"></div>
+                    <div class="tile-gallery-item" data-src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"><img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Робота 1"></div>
+                    <div class="tile-gallery-item" data-src="https://images.unsplash.com/photo-1581093057305-406aab8cfa3d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"><img src="https://images.unsplash.com/photo-1581093057305-406aab8cfa3d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Робота 2"></div>
+                    <div class="tile-gallery-item" data-src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"><img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Робота 3"></div>
+                    <div class="tile-gallery-item" data-src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"><img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Робота 4"></div>
+                    <div class="tile-gallery-item" data-src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"><img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Робота 5"></div>
+                    <div class="tile-gallery-item" data-src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"><img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Робота 6"></div>
+                    <div class="tile-gallery-item" data-src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"><img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Робота 7"></div>
+                    <div class="tile-gallery-item" data-src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"><img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Робота 8"></div>
                 </div>
             </div>
         </section>
 
         <section id="gallery" class="rectangular-gallery-section">
             <div class="container">
-                <h2 class="section-title">Примеры работ</h2>
+                <h2 class="section-title">Приклади робіт</h2>
                 <div class="dual-slider-wrapper">
                     <div class="rectangular-gallery">
                         <div class="gallery-container" id="galleryContainer1">
-                            <div class="gallery-item" data-src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"><img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Пример гравировки 1"></div>
-                            <div class="gallery-item" data-src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"><img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Пример гравировки 2"></div>
+                            <div class="gallery-item" data-src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"><img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Приклад гравіювання 1"></div>
+                            <div class="gallery-item" data-src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"><img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Приклад гравіювання 2"></div>
+                            <div class="gallery-item" data-src="https://images.unsplash.com/photo-1565985834898-e7a9b8f2d5f8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fG1ldGFsJTIwZG9nJTIwdGFnfGVufDB8fDB8fHww"><img src="https://images.unsplash.com/photo-1565985834898-e7a9b8f2d5f8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fG1ldGFsJTIwZG9nJTIwdGFnfGVufDB8fDB8fHww" alt="Приклад гравіювання 3"></div>
                         </div>
-                        <button class="gallery-nav-button prev" id="prev1">&#10094;</button>
-                        <button class="gallery-nav-button next" id="next1">&#10095;</button>
+                        <button class="gallery-nav-button prev" id="prev1" aria-label="Попереднє зображення">&#10094;</button>
+                        <button class="gallery-nav-button next" id="next1" aria-label="Наступне зображення">&#10095;</button>
                     </div>
                     <div class="rectangular-gallery">
                         <div class="gallery-container" id="galleryContainer2">
-                            <div class="gallery-item" data-src="https://images.unsplash.com/photo-1581093057305-406aab8cfa3d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"><img src="https://images.unsplash.com/photo-1581093057305-406aab8cfa3d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Пример гравировки 5"></div>
-                            <div class="gallery-item" data-src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"><img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Пример гравировки 6"></div>
+                            <div class="gallery-item" data-src="https://images.unsplash.com/photo-1581093057305-406aab8cfa3d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"><img src="https://images.unsplash.com/photo-1581093057305-406aab8cfa3d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Приклад гравіювання 4"></div>
+                            <div class="gallery-item" data-src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"><img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Приклад гравіювання 5"></div>
+                            <div class="gallery-item" data-src="https://images.unsplash.com/photo-1515442261558-c9c064c9d7a6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fG1ldGFsJTIwZG9nJTIwdGFnfGVufDB8fDB8fHww"><img src="https://images.unsplash.com/photo-1515442261558-c9c064c9d7a6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fG1ldGFsJTIwZG9nJTIwdGFnfGVufDB8fDB8fHww" alt="Приклад гравіювання 6"></div>
                         </div>
-                        <button class="gallery-nav-button prev" id="prev2">&#10094;</button>
-                        <button class="gallery-nav-button next" id="next2">&#10095;</button>
+                        <button class="gallery-nav-button prev" id="prev2" aria-label="Попереднє зображення">&#10094;</button>
+                        <button class="gallery-nav-button next" id="next2" aria-label="Наступне зображення">&#10095;</button>
                     </div>
                 </div>
             </div>
         </section>
         
-        <div id="imageModal" class="modal">
-            <span class="close" id="closeModalButton">&times;</span>
-            <img class="modal-content" id="expandedImg">
-            <button class="modal-nav prev" id="modalPrev">&#10094;</button>
-            <button class="modal-nav next" id="modalNext">&#10095;</button>
-        </div>
+        <section id="special-offer">
+            <div class="container">
+                <div class="offer-content">
+                    <h2><i class="fas fa-fire"></i> Акція: Жетони з гравіюванням!</h2>
+                    <p>Не пропустіть шанс! Тільки до кінця акції при замовленні двох жетонів з будь-яким гравіюванням — третій ви отримуєте абсолютно безкоштовно. Ідеально для друзів або як подарунок.</p>
+                    <a href="#products" class="cta-button offer-button">Вибрати жетони</a>
+                </div>
+                <div class="offer-timer">
+                    <h3>До кінця акції залишилось:</h3>
+                    <div id="countdown" class="countdown-container">
+                        <div class="countdown-item">
+                            <span id="days">00</span>
+                            <p>днів</p>
+                        </div>
+                        <div class="countdown-item">
+                            <span id="hours">00</span>
+                            <p>годин</p>
+                        </div>
+                        <div class="countdown-item">
+                            <span id="minutes">00</span>
+                            <p>хвилин</p>
+                        </div>
+                        <div class="countdown-item">
+                            <span id="seconds">00</span>
+                            <p>секунд</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer class="footer">
         <div class="container">
-            <h2>Дополнительная информация</h2>
-            <p>Email: info@lasergrav.com</p>
-            <p>Телефон: +380 (XX) XXX-XX-XX</p>
-            <p>Работаем: Пн-Пт 9:00-18:00</p>
-            <p>&copy; 2024 LaserGrav. Все права защищены.</p>
+            <h3>Контакти та інформація</h3>
+            <div class="footer-contacts">
+                <p><i class="fas fa-envelope"></i> Email: info@lasergrav.com</p>
+                <p><i class="fas fa-phone"></i> Телефон: +380 (XX) XXX-XX-XX **(ЗАМІНІТЬ НА СВІЙ НОМЕР)**</p>
+                <p><i class="fas fa-clock"></i> Працюємо: Пн-Пт 9:00-18:00</p>
+            </div>
+            <div class="social-links">
+                <a href="https://www.facebook.com/yourpage" target="_blank" aria-label="Наша сторінка в Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/yourpage" target="_blank" aria-label="Наш Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://t.me/fifa_laser" target="_blank" aria-label="Наш Telegram"><i class="fab fa-telegram-plane"></i></a>
+                <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" aria-label="Наш Viber"><i class="fab fa-viber"></i></a>
+            </div>
+            <p>&copy; 2024 LaserGrav. Всі права захищені.</p>
         </div>
     </footer>
 
+    <div id="imageModal" class="modal">
+        <span class="close" id="closeModalButton">&times;</span>
+        <img class="modal-content" id="expandedImg">
+        <button class="modal-nav prev" id="modalPrev">&#10094;</button>
+        <button class="modal-nav next" id="modalNext">&#10095;</button>
+    </div>
+
     <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // --- СУЩЕСТВУЮЩИЙ КОД ---
+        // --- Логіка для таймера зворотного відліку ---
+        // ВАЖНО: Установите здесь вашу дату окончания акции!
+        const promotionEndDate = new Date("Jul 20, 2025 23:59:59").getTime();
+
+        const countdownFunction = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = promotionEndDate - now;
+
+            if (distance < 0) {
+                clearInterval(countdownFunction);
+                document.getElementById("countdown").innerHTML = "<h3 style='color: #f39c12;'>Акція завершена!</h3>";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            const format = (num) => num < 10 ? '0' + num : num;
+
+            if(document.getElementById("days")) {
+                document.getElementById("days").innerText = format(days);
+                document.getElementById("hours").innerText = format(hours);
+                document.getElementById("minutes").innerText = format(minutes);
+                document.getElementById("seconds").innerText = format(seconds);
+            }
+
+        }, 1000);
+
         // Мобильное меню
         const menuToggle = document.getElementById('mobile-menu');
         const navMenu = document.getElementById('nav-menu');
@@ -398,7 +620,7 @@
             });
         });
 
-        // --- Управление старыми слайдерами (без изменений) ---
+        // Слайдеры в секции "Примеры работ"
         let sliderStates = [];
         const galleryContainers = document.querySelectorAll('.rectangular-gallery .gallery-container');
         galleryContainers.forEach((container, index) => {
@@ -422,7 +644,7 @@
             state.container.style.transform = `translateX(-${state.currentSlide * 100}%)`;
         }
 
-        // --- ОБНОВЛЕННЫЙ КОД МОДАЛЬНОГО ОКНА ---
+        // --- ИСПРАВЛЕННЫЙ КОД МОДАЛЬНОГО ОКНА ---
         const modal = document.getElementById("imageModal");
         const modalImg = document.getElementById("expandedImg");
         const closeModalButton = document.getElementById("closeModalButton");
@@ -431,105 +653,90 @@
         
         let currentModalImages = [];
         let currentImageIndex = 0;
-        let isProductModal = false; // Флаг для определения типа модального окна
 
-        // Функция для отображения конкретного изображения в модальном окне
+        function openModal(isProduct, imagesOrSrc, startIndex = 0) {
+            modal.style.display = "block";
+            if (isProduct) {
+                currentModalImages = imagesOrSrc;
+                modalPrevBtn.style.display = 'block';
+                modalNextBtn.style.display = 'block';
+                showImage(startIndex);
+                document.addEventListener('keydown', handleKeyDown);
+                modal.addEventListener('touchstart', handleTouchStart, { passive: true });
+                modal.addEventListener('touchmove', handleTouchMove, { passive: true });
+                modal.addEventListener('touchend', handleTouchEnd);
+            } else {
+                currentModalImages = [imagesOrSrc];
+                modalImg.src = imagesOrSrc;
+                modalPrevBtn.style.display = 'none';
+                modalNextBtn.style.display = 'none';
+                currentImageIndex = 0;
+                document.addEventListener('keydown', handleKeyDown);
+            }
+            history.pushState({ modalOpen: true }, "");
+        }
+
+        function closeModalLogic() {
+            if (modal.style.display === "block") {
+                modal.style.display = "none";
+                document.removeEventListener('keydown', handleKeyDown);
+                modal.removeEventListener('touchstart', handleTouchStart);
+                modal.removeEventListener('touchmove', handleTouchMove);
+                modal.removeEventListener('touchend', handleTouchEnd);
+            }
+        }
+
+        window.addEventListener('popstate', closeModalLogic);
+        closeModalButton.addEventListener('click', () => history.back());
+        modal.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                history.back();
+            }
+        });
+
         function showImage(index) {
             if (!currentModalImages || currentModalImages.length === 0) return;
             currentImageIndex = (index + currentModalImages.length) % currentModalImages.length;
             modalImg.src = currentModalImages[currentImageIndex];
         }
 
-        // Открытие модального окна для галерей (старый функционал)
+        modalPrevBtn.addEventListener('click', () => showImage(currentImageIndex - 1));
+        modalNextBtn.addEventListener('click', () => showImage(currentImageIndex + 1));
+
         document.querySelectorAll('.tile-gallery-item, .gallery-item').forEach(item => {
             item.addEventListener('click', () => {
-                isProductModal = false;
-                modal.style.display = "block";
-                modalImg.src = item.dataset.src || item.querySelector('img').src;
-                modalPrevBtn.style.display = 'none';
-                modalNextBtn.style.display = 'none';
+                const src = item.dataset.src || item.querySelector('img').src;
+                openModal(false, src);
             });
         });
         
-        // Открытие модального окна для карточек товаров (НОВЫЙ функционал)
         document.querySelectorAll('.product-card .product-image-wrapper').forEach(wrapper => {
             wrapper.addEventListener('click', (e) => {
                 const card = e.currentTarget.closest('.product-card');
                 const imagesAttr = card.dataset.images;
                 if (!imagesAttr) return;
-
-                currentModalImages = imagesAttr.split(',').map(s => s.trim());
-                if (currentModalImages.length > 0) {
-                    isProductModal = true;
-                    modal.style.display = "block";
-                    modalPrevBtn.style.display = 'block';
-                    modalNextBtn.style.display = 'block';
-                    showImage(0);
-                    
-                    // Добавляем слушатели для навигации
-                    document.addEventListener('keydown', handleKeyDown);
-                    modal.addEventListener('touchstart', handleTouchStart, { passive: true });
-                    modal.addEventListener('touchmove', handleTouchMove, { passive: true });
-                    modal.addEventListener('touchend', handleTouchEnd);
+                const images = imagesAttr.split(',').map(s => s.trim());
+                if (images.length > 0) {
+                    openModal(true, images, 0);
                 }
             });
         });
 
-        // Функции закрытия модального окна
-        function closeModal() {
-            modal.style.display = "none";
-            // Удаляем слушатели, чтобы они не работали в фоне
-            document.removeEventListener('keydown', handleKeyDown);
-            modal.removeEventListener('touchstart', handleTouchStart);
-            modal.removeEventListener('touchmove', handleTouchMove);
-            modal.removeEventListener('touchend', handleTouchEnd);
-        }
-
-        closeModalButton.onclick = closeModal;
-        modal.addEventListener('click', (event) => {
-            if (event.target === modal) {
-                closeModal();
-            }
-        });
-
-        // --- НАВИГАЦИЯ В МОДАЛЬНОМ ОКНЕ ТОВАРОВ ---
-
-        // 1. Клики по стрелкам
-        modalPrevBtn.onclick = () => showImage(currentImageIndex - 1);
-        modalNextBtn.onclick = () => showImage(currentImageIndex + 1);
-
-        // 2. Клавиши на клавиатуре
         function handleKeyDown(e) {
-            if (!isProductModal) return;
-            if (e.key === "ArrowLeft") {
-                showImage(currentImageIndex - 1);
-            } else if (e.key === "ArrowRight") {
-                showImage(currentImageIndex + 1);
-            } else if (e.key === "Escape") {
-                closeModal();
-            }
+            if (modal.style.display !== 'block') return;
+            if (e.key === "ArrowLeft" && modalPrevBtn.style.display !== 'none') showImage(currentImageIndex - 1);
+            else if (e.key === "ArrowRight" && modalNextBtn.style.display !== 'none') showImage(currentImageIndex + 1);
+            else if (e.key === "Escape") history.back();
         }
         
-        // 3. Свайпы на мобильных
         let touchStartX = 0;
         let touchEndX = 0;
-
-        function handleTouchStart(e) {
-            touchStartX = e.touches[0].clientX;
-        }
-
-        function handleTouchMove(e) {
-            touchEndX = e.touches[0].clientX;
-        }
-
+        function handleTouchStart(e) { touchStartX = e.touches[0].clientX; }
+        function handleTouchMove(e) { touchEndX = e.touches[0].clientX; }
         function handleTouchEnd() {
-            if (!isProductModal) return;
-            if (touchStartX - touchEndX > 50) { // Свайп влево
-                showImage(currentImageIndex + 1);
-            }
-            if (touchStartX - touchEndX < -50) { // Свайп вправо
-                showImage(currentImageIndex - 1);
-            }
+            if (modalPrevBtn.style.display === 'none') return;
+            if (touchStartX - touchEndX > 50) showImage(currentImageIndex + 1);
+            if (touchStartX - touchEndX < -50) showImage(currentImageIndex - 1);
         }
     });
     </script>
