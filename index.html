@@ -72,7 +72,7 @@
         .tile-gallery-item { overflow: hidden; border-radius: 8px; height: 200px; cursor: pointer; transition: transform 0.3s ease; }
         .tile-gallery-item:hover { transform: scale(1.03); }
         .tile-gallery-item img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; transition: transform 0.3s ease; }
-        .rectangular-gallery-section { background-color: var(--secondary-color); text-align: center; padding: 60px 0; }
+        .rectangular-gallery-section { background-color: #f0f2f5; text-align: center; padding: 60px 0; }
         .dual-slider-wrapper { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; max-width: 600px; margin: 0 auto; }
         .rectangular-gallery { position: relative; width: 100%; max-width: 280px; flex-shrink: 0; margin: 0; overflow: hidden; padding: 30px 0; }
         .gallery-container { display: flex; transition: transform 0.5s ease-in-out; }
@@ -84,7 +84,7 @@
         .gallery-nav-button.next { right: 10px; }
         .payment-delivery-section { background-color: #fff; padding: 60px 0; }
         .payment-delivery-container { max-width: 900px; margin: 0 auto; display: flex; gap: 40px; flex-wrap: wrap; }
-        .payment-methods, .delivery-options { flex: 1; min-width: 300px; background-color: var(--secondary-color); padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .payment-methods, .delivery-options { flex: 1; min-width: 300px; background-color: #f0f2f5; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
         .payment-methods h3, .delivery-options h3 { color: var(--accent-color); border-bottom: 2px solid var(--accent-color); padding-bottom: 10px; margin-top: 0; }
         .method, .option { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #eee; }
         .method:last-child, .option:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
@@ -332,6 +332,13 @@
             .countdown-item span { font-size: 1.8em; }
             .countdown-item p { font-size: 0.7em; }
         }
+        /* Увеличение фото в слайдере на мобильных устройствах */
+@media (max-width: 768px) {
+  .rectangular-gallery .gallery-item img {
+    transform: scale(1.2); /* Увеличиваем изображение на 20% */
+    transition: transform 0.3s ease; /* Плавность для красоты */
+  }
+}
     </style>
 </head>
 <body>
@@ -349,7 +356,6 @@
             </nav>
         </div>
     </header>
-
     <main>
         <section class="innovative-solutions" id="innovative-solutions">
             <div class="container">
@@ -421,15 +427,15 @@
 
                     <div class="product-card"
                          data-images="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80, https://images.unsplash.com/photo-1563499187-5c472fde129c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8a2V5Y2hhaW58ZW58MHx8MHx8fDA%3D, https://images.unsplash.com/photo-1634578193072-35323a63b278?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8a2V5Y2hhaW58ZW59MHx8MHx8fDA%3D">
-                             <div class="product-image-wrapper">
-                                 <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Брелок з гравіюванням">
-                             </div>
-                             <h2>Брелок</h2>
-                             <div class="price">19.99 $</div>
-                             <div class="social-buttons">
+                            <div class="product-image-wrapper">
+                                <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Брелок з гравіюванням">
+                            </div>
+                            <h2>Брелок</h2>
+                            <div class="price">19.99 $</div>
+                            <div class="social-buttons">
                                 <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" class="social-button viber"><i class="fab fa-viber"></i> Замовити в Viber</a>
                                 <a href="https://t.me/fifa_laser" target="_blank" class="social-button telegram"><i class="fab fa-telegram-plane"></i> Замовити в Telegram</a>
-                             </div>
+                            </div>
                     </div>
                     
                     <div class="product-card" 
@@ -440,8 +446,8 @@
                         <h2>Кулон</h2>
                         <div class="price">39.99 $</div>
                         <div class="social-buttons">
-                             <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" class="social-button viber"><i class="fab fa-viber"></i> Замовити в Viber</a>
-                             <a href="https://t.me/fifa_laser" target="_blank" class="social-button telegram"><i class="fab fa-telegram-plane"></i> Замовити в Telegram</a>
+                               <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" class="social-button viber"><i class="fab fa-viber"></i> Замовити в Viber</a>
+                               <a href="https://t.me/fifa_laser" target="_blank" class="social-button telegram"><i class="fab fa-telegram-plane"></i> Замовити в Telegram</a>
                         </div>
                     </div>
 
@@ -703,12 +709,27 @@
         modalPrevBtn.addEventListener('click', () => showImage(currentImageIndex - 1));
         modalNextBtn.addEventListener('click', () => showImage(currentImageIndex + 1));
 
-        document.querySelectorAll('.tile-gallery-item, .gallery-item').forEach(item => {
-            item.addEventListener('click', () => {
-                const src = item.dataset.src || item.querySelector('img').src;
-                openModal(false, src);
-            });
-        });
+    
+document.querySelectorAll('.tile-gallery-item, .gallery-item').forEach(item => {
+    item.addEventListener('click', () => {
+        // Находим родительский контейнер-галерею
+        const galleryContainer = item.closest('.gallery-container');
+
+        if (galleryContainer) {
+            // Если мы внутри слайдера (Приклади робіт)
+            const allItems = Array.from(galleryContainer.children);
+            const images = allItems.map(galleryItem => galleryItem.dataset.src || galleryItem.querySelector('img').src);
+            const startIndex = allItems.indexOf(item);
+            
+            // Вызываем модальное окно в режиме галереи (true)
+            openModal(true, images, startIndex);
+        } else {
+            // Если это обычное фото из плиточной галереи (Наші роботи)
+            const src = item.dataset.src || item.querySelector('img').src;
+            openModal(false, src);
+        }
+    });
+});
         
         document.querySelectorAll('.product-card .product-image-wrapper').forEach(wrapper => {
             wrapper.addEventListener('click', (e) => {
