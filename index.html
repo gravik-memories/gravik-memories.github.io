@@ -23,7 +23,7 @@
         body { font-family: var(--font-main); margin: 0; padding: 0; line-height: 1.6; color: var(--text-color); background-color: #fff; }
         .container { max-width: 1100px; margin: 0 auto; padding: 0 var(--container-padding); }
         h1, h2, h3 { font-family: var(--font-heading); font-weight: 700; line-height: 1.2; letter-spacing: 0.5px; color: var(--primary-color); }
-        section { padding: 60px 0; }
+        section { padding: 48px 0; /* ИЗМЕНЕНО: 60px -> 48px (уменьшено на 20%) */ }
         img { max-width: 100%; height: auto; }
         .header { background-color: #fff; box-shadow: 0 2px 10px rgba(44, 62, 80, 0.1); padding: 15px 0; position: sticky; top: 0; z-index: 1000; }
         .header .container { display: flex; justify-content: space-between; align-items: center; }
@@ -31,7 +31,7 @@
         .nav a { font-family: var(--font-main); color: var(--text-color); text-decoration: none; margin-left: 20px; font-weight: 500; transition: color 0.3s ease; }
         .nav a:hover { color: var(--accent-color); }
         .menu-toggle { display: none; cursor: pointer; font-size: 24px; }
-        .innovative-solutions { background-color: var(--secondary-color); padding: 80px var(--container-padding); }
+        .innovative-solutions { background-color: var(--secondary-color); padding: 64px var(--container-padding); /* ИЗМЕНЕНО: 80px -> 64px (уменьшено на 20%) */ }
         .innovative-solutions .container { display: flex; align-items: center; justify-content: center; gap: 40px; max-width: 1100px; width: 100%; }
         .innovative-solutions-image { flex: 0 0 auto; width: 450px; max-width: 50%; }
         .innovative-solutions-image img { width: 100%; height: auto; border-radius: 10px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); }
@@ -59,7 +59,7 @@
         .service-card:hover { transform: translateY(-5px); box-shadow: 0 8px 16px rgba(0,0,0,0.1); }
         .service-card .icon { font-size: 3em; color: var(--accent-color); margin-bottom: 20px; }
         .service-card h3 { margin-bottom: 15px; font-family: var(--font-heading); }
-        .product-card-section { background-color: #f0f2f5; text-align: center; padding: 80px 0; }
+        .product-card-section { background-color: #f0f2f5; text-align: center; padding: 64px 0; /* ИЗМЕНЕНО: 80px -> 64px (уменьшено на 20%) */ }
         .product-cards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; max-width: 1200px; margin: 0 auto; padding: 0 var(--container-padding); }
         .product-card { background-color: #fff; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); padding: 20px; display: flex; flex-direction: column; align-items: center; gap: 10px; transition: all 0.3s ease; }
         .product-card:hover { transform: translateY(-8px); box-shadow: 0 12px 25px rgba(0,0,0,0.15); }
@@ -75,12 +75,12 @@
         .product-card .social-button.viber:hover { background-color: #604ED9; transform: translateY(-2px); }
         .product-card .social-button.telegram { background-color: #0088CC; }
         .product-card .social-button.telegram:hover { background-color: #006FB3; transform: translateY(-2px); }
-        .tile-gallery-section { padding: 60px 0; background-color: #fff; }
+        .tile-gallery-section { padding: 30px 0; background-color: #fff; /* ИЗМЕНЕНО: 60px -> 30px (уменьшено на 50%) */ }
         .tile-gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .tile-gallery-item { overflow: hidden; border-radius: 8px; height: 200px; cursor: pointer; transition: transform 0.3s ease; }
         .tile-gallery-item:hover { transform: scale(1.03); }
         .tile-gallery-item img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; transition: transform 0.3s ease; }
-        .rectangular-gallery-section { background-color: #f0f2f5; text-align: center; padding: 60px 0; }
+        .rectangular-gallery-section { background-color: #f0f2f5; text-align: center; padding: 48px 0; /* ИЗМЕНЕНО: 60px -> 48px (уменьшено на 20%) */ }
         .dual-slider-wrapper { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; max-width: 600px; margin: 0 auto; }
         .rectangular-gallery { position: relative; width: 100%; max-width: 280px; flex-shrink: 0; margin: 0; overflow: hidden; padding: 30px 0; }
         .gallery-container { display: flex; transition: transform 0.5s ease-in-out; }
@@ -90,7 +90,7 @@
         .gallery-nav-button:hover { background-color: rgba(44, 62, 80, 0.7); }
         .gallery-nav-button.prev { left: 10px; }
         .gallery-nav-button.next { right: 10px; }
-        .payment-delivery-section { background-color: #fff; padding: 60px 0; }
+        .payment-delivery-section { background-color: #fff; padding: 48px 0; /* ИЗМЕНЕНО: 60px -> 48px (уменьшено на 20%) */ }
         .payment-delivery-container { max-width: 900px; margin: 0 auto; display: flex; gap: 40px; flex-wrap: wrap; }
         .payment-methods, .delivery-options { flex: 1; min-width: 300px; background-color: #f0f2f5; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
         .payment-methods h3, .delivery-options h3 { color: var(--accent-color); border-bottom: 2px solid var(--accent-color); padding-bottom: 10px; margin-top: 0; }
@@ -102,7 +102,7 @@
         /* -- Стили для блока акции -- */
         #special-offer {
             background: linear-gradient(135deg, #ff9933, #ff6600); /* Яскравий помаранчевий градієнт */
-            padding: 50px 0; /* Зменшено padding */
+            padding: 40px 0; /* ИЗМЕНЕНО: 50px -> 40px (уменьшено на 20%) */
             color: var(--light-text-color);
             text-align: center;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Додано легку тінь */
@@ -280,9 +280,9 @@
             .rectangular-gallery { max-width: 240px; }
             .gallery-item img { height: auto; aspect-ratio: 3 / 5; }
             .gallery-nav-button { padding: 10px 5px; font-size: 1.2em; }
-            .innovative-solutions { padding: 40px var(--container-padding); }
+            .innovative-solutions { padding: 32px var(--container-padding); /* ИЗМЕНЕНО: 40px -> 32px */ }
             .payment-delivery-container { flex-direction: column; gap: 30px; }
-            #special-offer { padding: 40px 0; } /* Адаптивність для акції */
+            #special-offer { padding: 32px 0; /* ИЗМЕНЕНО: 40px -> 32px */ } /* Адаптивність для акції */
             .offer-content h2 { font-size: 2em; }
             .offer-button { padding: 10px 20px; font-size: 0.9em; }
             .countdown-item { padding: 12px; min-width: 70px; }
@@ -346,7 +346,7 @@
             .modal-nav { padding: 10px; font-size: 1.5em; }
             .modal-nav.prev { left: 10px; }
             .modal-nav.next { right: 10px; }
-            #special-offer { padding: 30px 0; }
+            #special-offer { padding: 24px 0; /* ИЗМЕНЕНО: 30px -> 24px */ }
             .offer-content h2 { font-size: 1.5em; margin-bottom: 10px; }
             .offer-content p { font-size: 0.9em; margin-bottom: 15px; }
             .offer-timer h3 { font-size: 1.1em; margin-bottom: 10px; }
@@ -468,8 +468,8 @@
                         <h2>Кулон</h2>
                         <div class="price">39.99 $</div>
                         <div class="social-buttons">
-                               <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" class="social-button viber"><i class="fab fa-viber"></i> Замовити в Viber</a>
-                               <a href="https://t.me/fifa_laser" target="_blank" class="social-button telegram"><i class="fab fa-telegram-plane"></i> Замовити в Telegram</a>
+                                <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" class="social-button viber"><i class="fab fa-viber"></i> Замовити в Viber</a>
+                                <a href="https://t.me/fifa_laser" target="_blank" class="social-button telegram"><i class="fab fa-telegram-plane"></i> Замовити в Telegram</a>
                         </div>
                     </div>
 
@@ -489,8 +489,6 @@
                     </div>
                     <div class="delivery-options">
                         <h3>Варіанти доставки</h3>
-                        <div class="option"><h4><i class="fas fa-truck"></i> Кур'єрська доставка</h4><p>Доставка по Києву - 50 грн. В інші міста - за тарифами перевізника</p></div>
-                        <div class="option"><h4><i class="fas fa-store"></i> Самовивіз</h4><p>Безкоштовно з нашого офісу: м. Київ, вул. Гравірувальна, 15</p></div>
                         <div class="option"><h4><i class="fas fa-box"></i> Нова пошта</h4><p>Доставка по всій Україні. Оплата при отриманні або післяплатою</p></div>
                         <div class="option"><h4><i class="fas fa-shipping-fast"></i> Укрпошта</h4><p>Економічна доставка в будь-яку точку України. Термін - 2-4 дні</p></div>
                     </div>
