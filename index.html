@@ -35,6 +35,14 @@
         .innovative-solutions .container { display: flex; align-items: center; justify-content: center; gap: 40px; max-width: 1100px; width: 100%; }
         .innovative-solutions-image { flex: 0 0 auto; width: 450px; max-width: 50%; }
         .innovative-solutions-image img { width: 100%; height: auto; border-radius: 10px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); }
+        
+        /* -- НОВЫЙ СТИЛЬ ДЛЯ ВТОРОГО ИЗОБРАЖЕНИЯ (СКРЫТ ПО УМОЛЧАНИЮ) -- */
+        .mobile-only-image {
+            display: none;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+
         .innovative-solutions-content { flex: 1; text-align: left; min-width: 300px; }
         .innovative-solutions-content h1 { font-size: 2.8em; margin-bottom: 20px; line-height: 1.3; }
         .innovative-solutions-content p { font-size: 1.2em; margin-bottom: 30px; color: #555; }
@@ -287,7 +295,21 @@
             .nav a { margin: 0; padding: 15px; text-align: center; border-bottom: 1px solid #eee; }
             .menu-toggle { display: block; }
             .innovative-solutions .container { display: grid; grid-template-columns: 120px 1fr; grid-template-areas: "image content"; gap: 15px; align-items: start; }
-            .innovative-solutions-image { grid-area: image; width: 100%; max-width: 100%; margin-right: 0; }
+            
+            /* -- ИЗМЕНЕНИЯ ДЛЯ МОБИЛЬНОЙ ВЕРСИИ -- */
+            .innovative-solutions-image { 
+                grid-area: image; 
+                width: 100%; 
+                max-width: 100%; 
+                margin-right: 0;
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
+            .mobile-only-image {
+                display: block;
+            }
+
             .innovative-solutions-content { grid-area: content; width: 100%; padding-top: 0; }
             .innovative-solutions-content h1 { font-size: 1.495em; margin-bottom: 10px; }
             .innovative-solutions-content p { font-size: 0.8em; margin-bottom: 15px; }
@@ -333,12 +355,12 @@
             .countdown-item p { font-size: 0.7em; }
         }
         /* Увеличение фото в слайдере на мобильных устройствах */
-@media (max-width: 768px) {
-  .rectangular-gallery .gallery-item img {
-    transform: scale(1.2); /* Увеличиваем изображение на 20% */
-    transition: transform 0.3s ease; /* Плавность для красоты */
-  }
-}
+        @media (max-width: 768px) {
+            .rectangular-gallery .gallery-item img {
+                transform: scale(1.2); /* Увеличиваем изображение на 20% */
+                transition: transform 0.3s ease; /* Плавность для красоты */
+            }
+        }
     </style>
 </head>
 <body>
@@ -361,6 +383,7 @@
             <div class="container">
                 <div class="innovative-solutions-image">
                     <img src="images/IMG_20230618_210644.jpg" alt="Лазерна гравировка">
+                    <img src="images/shop38-6.jpg" alt="Додаткове фото гравіювання" class="mobile-only-image">
                 </div>
                 <div class="innovative-solutions-content">
                     <h1>Гравіювання на жетонах і брелоках</h1>
@@ -398,7 +421,6 @@
             <div class="container">
                 <h2 class="section-title">Популярні товари</h2>
                 <div class="product-cards-grid">
-                    
                     <div class="product-card" 
                          data-images="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80, https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80, https://images.unsplash.com/photo-1515442261558-c9c064c9d7a6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fG1ldGFsJTIwZG9nJTIwdGFnfGVufDB8fDB8fHww">
                         <div class="product-image-wrapper">
@@ -710,26 +732,26 @@
         modalNextBtn.addEventListener('click', () => showImage(currentImageIndex + 1));
 
     
-document.querySelectorAll('.tile-gallery-item, .gallery-item').forEach(item => {
-    item.addEventListener('click', () => {
-        // Находим родительский контейнер-галерею
-        const galleryContainer = item.closest('.gallery-container');
+    document.querySelectorAll('.tile-gallery-item, .gallery-item').forEach(item => {
+        item.addEventListener('click', () => {
+            // Находим родительский контейнер-галерею
+            const galleryContainer = item.closest('.gallery-container');
 
-        if (galleryContainer) {
-            // Если мы внутри слайдера (Приклади робіт)
-            const allItems = Array.from(galleryContainer.children);
-            const images = allItems.map(galleryItem => galleryItem.dataset.src || galleryItem.querySelector('img').src);
-            const startIndex = allItems.indexOf(item);
-            
-            // Вызываем модальное окно в режиме галереи (true)
-            openModal(true, images, startIndex);
-        } else {
-            // Если это обычное фото из плиточной галереи (Наші роботи)
-            const src = item.dataset.src || item.querySelector('img').src;
-            openModal(false, src);
-        }
+            if (galleryContainer) {
+                // Если мы внутри слайдера (Приклади робіт)
+                const allItems = Array.from(galleryContainer.children);
+                const images = allItems.map(galleryItem => galleryItem.dataset.src || galleryItem.querySelector('img').src);
+                const startIndex = allItems.indexOf(item);
+                
+                // Вызываем модальное окно в режиме галереи (true)
+                openModal(true, images, startIndex);
+            } else {
+                // Если это обычное фото из плиточной галереи (Наші роботи)
+                const src = item.dataset.src || item.querySelector('img').src;
+                openModal(false, src);
+            }
+        });
     });
-});
         
         document.querySelectorAll('.product-card .product-image-wrapper').forEach(wrapper => {
             wrapper.addEventListener('click', (e) => {
