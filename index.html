@@ -233,21 +233,32 @@
             .countdown-item { padding: 12px; min-width: 70px; }
             .countdown-item span { font-size: 2.2em; }
 
-            /* === ЗМІНИ ДЛЯ МОБІЛЬНИХ === */
             /* Адаптивність для блоку "Додатково" - горизонтальна прокрутка */
             .extras-grid {
-                display: flex;       /* Використовуємо Flexbox для ряду */
-                overflow-x: auto;    /* Вмикаємо горизонтальну прокрутку */
-                gap: 20px;           /* Відступ між картками */
-                padding: 10px 0 20px 0; /* Додатковий відступ для зручності */
-                -ms-overflow-style: none;  /* Приховуємо скролбар в IE та Edge */
-                scrollbar-width: none;  /* Приховуємо скролбар в Firefox */
+                display: flex;
+                overflow-x: auto;
+                gap: 20px;
+                padding: 10px 0 20px 0;
+                -ms-overflow-style: none;
+                scrollbar-width: none;
             }
             .extras-grid::-webkit-scrollbar {
-                display: none; /* Приховуємо скролбар в Chrome, Safari */
+                display: none;
             }
             .extra-item {
-                flex: 0 0 280px; /* Кожна картка має фіксовану ширину 280px */
+                flex: 0 0 280px;
+            }
+            
+            /* Анімація похитування */
+            @keyframes sway {
+                0% { transform: translateX(0); }
+                30% { transform: translateX(-15px); }
+                60% { transform: translateX(8px); }
+                80% { transform: translateX(-5px); }
+                100% { transform: translateX(0); }
+            }
+            .sway-animation {
+                animation: sway 1s ease-in-out;
             }
         }
         @media (max-width: 768px) {
@@ -427,10 +438,10 @@
                     <div class="extra-item">
                         <div class="extra-circles">
                             <div class="circle">
-                                <img src="images/IMG_20221112_160455.jpg" alt="Перкапчик">
+                                <img src="images/placeholder1.jpg" alt="Перкапчик">
                             </div>
                             <div class="circle">
-                                <img src="images/IMG_20230330_183520.jpg" alt="Ланцюжок">
+                                <img src="images/placeholder2.jpg" alt="Ланцюжок">
                             </div>
                         </div>
                         <p class="extra-price">БЕЗ ДОПЛАТ</p>
@@ -441,7 +452,7 @@
                     <div class="extra-item">
                         <div class="extra-circles">
                             <div class="circle">
-                                <img src="images/IMG_20230618_210644.jpg" alt="Силіконовий бампер">
+                                <img src="images/bamper.jpg" alt="Силіконовий бампер">
                             </div>
                         </div>
                         <p class="extra-price">+30 грн</p>
@@ -451,7 +462,7 @@
                     <div class="extra-item">
                         <div class="extra-circles">
                             <div class="circle">
-                                <img src="images/IMG_20230729_190317.jpg" alt="Посилений ланцюжок">
+                                <img src="images/lancujok_posyleniy.png" alt="Посилений ланцюжок">
                             </div>
                         </div>
                         <p class="extra-price">від 170грн</p>
@@ -767,6 +778,25 @@
                 }
             });
         });
+        
+        // --- Анімація похитування для блоку "Додатково" ---
+        const extrasBlock = document.getElementById('extras');
+        if (extrasBlock) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const grid = entry.target.querySelector('.extras-grid');
+                        if(grid) {
+                           grid.classList.add('sway-animation');
+                        }
+                        observer.unobserve(entry.target); // Запускаємо анімацію лише один раз
+                    }
+                });
+            }, { threshold: 0.5 }); // Поріг 0.5 означає, що анімація запуститься, коли 50% блоку видно
+
+            observer.observe(extrasBlock);
+        }
+
 
         function handleKeyDown(e) {
             if (modal.style.display !== 'block') return;
