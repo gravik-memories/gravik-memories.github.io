@@ -95,11 +95,11 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 130px; /* Фіксована висота для вирівнювання */
+            min-height: 130px;
             margin-bottom: 20px;
         }
         .extra-item:first-child .extra-circles {
-             margin-left: -20px; /* Компенсація накладення */
+             margin-left: -20px;
         }
         .circle {
             width: 130px;
@@ -109,17 +109,16 @@
             align-items: center;
             justify-content: center;
             background-color: #fff;
-            overflow: hidden; /* Ховаємо частини зображення, що виходять за коло */
+            overflow: hidden;
         }
-        /* Стилі для зображення всередині кола */
         .circle img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Масштабує зображення, щоб заповнити коло, обрізаючи зайве */
+            object-fit: cover;
             border-radius: 50%;
         }
         .extra-item:first-child .circle:nth-child(2) {
-            margin-left: -40px; /* Накладення кіл */
+            margin-left: -40px;
         }
         .extra-price {
             font-family: var(--font-main);
@@ -134,7 +133,7 @@
         .extra-item p {
             font-size: 0.9em;
             color: #666;
-            max-width: 280px; /* Обмеження ширини тексту */
+            max-width: 280px;
             margin-bottom: 15px;
         }
         .extra-stock {
@@ -234,10 +233,21 @@
             .countdown-item { padding: 12px; min-width: 70px; }
             .countdown-item span { font-size: 2.2em; }
 
-            /* Адаптивність для блоку "Додатково" */
+            /* === ЗМІНИ ДЛЯ МОБІЛЬНИХ === */
+            /* Адаптивність для блоку "Додатково" - горизонтальна прокрутка */
             .extras-grid {
-                grid-template-columns: 1fr;
-                gap: 50px;
+                display: flex;       /* Використовуємо Flexbox для ряду */
+                overflow-x: auto;    /* Вмикаємо горизонтальну прокрутку */
+                gap: 20px;           /* Відступ між картками */
+                padding: 10px 0 20px 0; /* Додатковий відступ для зручності */
+                -ms-overflow-style: none;  /* Приховуємо скролбар в IE та Edge */
+                scrollbar-width: none;  /* Приховуємо скролбар в Firefox */
+            }
+            .extras-grid::-webkit-scrollbar {
+                display: none; /* Приховуємо скролбар в Chrome, Safari */
+            }
+            .extra-item {
+                flex: 0 0 280px; /* Кожна картка має фіксовану ширину 280px */
             }
         }
         @media (max-width: 768px) {
@@ -291,6 +301,9 @@
             .countdown-item { padding: 8px; min-width: 50px; }
             .countdown-item span { font-size: 1.8em; }
             .countdown-item p { font-size: 0.7em; }
+            .extra-item {
+                flex: 0 0 250px; /* Робимо картки трохи меншими на дуже маленьких екранах */
+            }
         }
     </style>
 </head>
@@ -414,31 +427,31 @@
                     <div class="extra-item">
                         <div class="extra-circles">
                             <div class="circle">
-                                <img src="images/IMG_20230814_213855.jpg" alt="Перкапчик">
+                                <img src="images/IMG_20221112_160455.jpg" alt="Перкапчик">
                             </div>
                             <div class="circle">
-                                <img src="images/IMG_20240407_134317.jpg" alt="Ланцюжок">
+                                <img src="images/IMG_20230330_183520.jpg" alt="Ланцюжок">
                             </div>
                         </div>
                         <p class="extra-price">БЕЗ ДОПЛАТ</p>
-                        <p>На вибір ви додатково отримуєте <b>нержавіючий</b> ланцюжок на шию і кліпсу або ланцюжок для брелоку.</p>
+                        <p>На вибір ви додатково отримуєте перкапчик, ланцюжок на шию і кліпсу або ланцюжок для брелоку.</p>
                         <p style="margin-bottom: 5px;">(кількість обмежена)</p>
-                        <span class="extra-stock">Залишилось 8шт</span>
+                        <span class="extra-stock">залишок 8шт</span>
                     </div>
                     <div class="extra-item">
                         <div class="extra-circles">
                             <div class="circle">
-                                <img src="images/IMG_20230814_213855.jpg" alt="Силіконовий бампер">
+                                <img src="images/IMG_20230618_210644.jpg" alt="Силіконовий бампер">
                             </div>
                         </div>
                         <p class="extra-price">+30 грн</p>
                         <h3>Силіконовий бампер</h3>
-                        <p>(всі додаткові товари менеджер запропонує вам при оформленні замовлення)</p>
+                        <p>(всі варіанти менеджер запропонує вам при оформленні замовлення)</p>
                     </div>
                     <div class="extra-item">
                         <div class="extra-circles">
                             <div class="circle">
-                                <img src="images/IMG_20230618_210644.jpg" alt="Посилений ланцюжок">
+                                <img src="images/IMG_20230729_190317.jpg" alt="Посилений ланцюжок">
                             </div>
                         </div>
                         <p class="extra-price">від 170грн</p>
