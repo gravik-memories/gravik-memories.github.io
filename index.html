@@ -313,7 +313,7 @@
             .countdown-item span { font-size: 1.8em; }
             .countdown-item p { font-size: 0.7em; }
             .extra-item {
-                flex: 0 0 250px; /* Робимо картки трохи меншими на дуже маленьких екранах */
+                flex: 0 0 250px;
             }
         }
     </style>
@@ -782,21 +782,45 @@
         // --- Анімація похитування для блоку "Додатково" ---
         const extrasBlock = document.getElementById('extras');
         if (extrasBlock) {
+            const extrasGrid = extrasBlock.querySelector('.extras-grid');
+            let swayIntervalId = null;
+
+            // Функція, що запускає анімацію
+            const triggerSwayAnimation = () => {
+                if (extrasGrid && !extrasGrid.classList.contains('sway-animation')) {
+                    extrasGrid.classList.add('sway-animation');
+                    // Прибираємо клас після завершення анімації, щоб її можна було запустити знову
+                    extrasGrid.addEventListener('animationend', () => {
+                        extrasGrid.classList.remove('sway-animation');
+                    }, { once: true });
+                }
+            };
+            
+            // Функція, що зупиняє анімацію назавжди після скролу
+            const stopSwayingPermanently = () => {
+                clearInterval(swayIntervalId);
+                extrasGrid.removeEventListener('scroll', stopSwayingPermanently); // Видаляємо слухач
+            };
+
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        const grid = entry.target.querySelector('.extras-grid');
-                        if(grid) {
-                           grid.classList.add('sway-animation');
+                        // Якщо інтервал ще не встановлено, встановлюємо його
+                        if (!swayIntervalId) {
+                            swayIntervalId = setInterval(triggerSwayAnimation, 3000);
+                            // Додаємо слухач скролу, який спрацює лише один раз
+                            extrasGrid.addEventListener('scroll', stopSwayingPermanently, { once: true });
                         }
-                        observer.unobserve(entry.target); // Запускаємо анімацію лише один раз
+                    } else {
+                        // Якщо блок зникає з екрану, зупиняємо інтервал
+                        clearInterval(swayIntervalId);
+                        swayIntervalId = null; // Скидаємо ID, щоб він міг запуститися знову
                     }
                 });
-            }, { threshold: 0.5 }); // Поріг 0.5 означає, що анімація запуститься, коли 50% блоку видно
+            }, { threshold: 0.5 });
 
             observer.observe(extrasBlock);
         }
-
 
         function handleKeyDown(e) {
             if (modal.style.display !== 'block') return;
