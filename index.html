@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Roboto:wght@400;500&family=Oswald:wght@500&display=swap" rel="stylesheet">
     <style>
-        /* -- Общие стили -- */
+        /* -- Загальні стилі -- */
         :root {
             --primary-color: #2c3e50;
             --secondary-color: #f8f9fa;
@@ -22,8 +22,8 @@
         * { box-sizing: border-box; }
         body { font-family: var(--font-main); margin: 0; padding: 0; line-height: 1.6; color: var(--text-color); background-color: #fff; }
         .container { max-width: 1100px; margin: 0 auto; padding: 0 var(--container-padding); }
-        h1, h2, h3 { font-family: var(--font-heading); font-weight: 700; line-height: 1.2; letter-spacing: 0.5px; color: var(--primary-color); }
-        section { padding: 48px 0; /* ИЗМЕНЕНО: 60px -> 48px (уменьшено на 20%) */ }
+        h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 700; line-height: 1.2; letter-spacing: 0.5px; color: var(--primary-color); }
+        section { padding: 48px 0; }
         img { max-width: 100%; height: auto; }
         .header { background-color: #fff; box-shadow: 0 2px 10px rgba(44, 62, 80, 0.1); padding: 15px 0; position: sticky; top: 0; z-index: 1000; }
         .header .container { display: flex; justify-content: space-between; align-items: center; }
@@ -31,12 +31,11 @@
         .nav a { font-family: var(--font-main); color: var(--text-color); text-decoration: none; margin-left: 20px; font-weight: 500; transition: color 0.3s ease; }
         .nav a:hover { color: var(--accent-color); }
         .menu-toggle { display: none; cursor: pointer; font-size: 24px; }
-        .innovative-solutions { background-color: var(--secondary-color); padding: 64px var(--container-padding); /* ИЗМЕНЕНО: 80px -> 64px (уменьшено на 20%) */ }
+        .innovative-solutions { background-color: var(--secondary-color); padding: 64px var(--container-padding); }
         .innovative-solutions .container { display: flex; align-items: center; justify-content: center; gap: 40px; max-width: 1100px; width: 100%; }
         .innovative-solutions-image { flex: 0 0 auto; width: 450px; max-width: 50%; }
         .innovative-solutions-image img { width: 100%; height: auto; border-radius: 10px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); }
-        
-        /* -- НОВЫЙ СТИЛЬ ДЛЯ ВТОРОГО ИЗОБРАЖЕНИЯ (СКРЫТ ПО УМОЛЧАНИЮ) -- */
+
         .mobile-only-image {
             display: none;
             border-radius: 10px;
@@ -53,13 +52,13 @@
         .about-image { flex: 1; text-align: center; }
         .about-image img { border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         #services { background-color: var(--secondary-color); }
-        #services .section-title, .product-card-section .section-title, .tile-gallery-section .section-title, .rectangular-gallery-section .section-title, .payment-delivery-section .section-title { text-align: center; margin-bottom: 40px; }
+        .section-title { text-align: center; margin-bottom: 40px; }
         .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
         .service-card { background-color: #fff; padding: 30px; text-align: center; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); transition: all 0.3s ease; }
         .service-card:hover { transform: translateY(-5px); box-shadow: 0 8px 16px rgba(0,0,0,0.1); }
         .service-card .icon { font-size: 3em; color: var(--accent-color); margin-bottom: 20px; }
         .service-card h3 { margin-bottom: 15px; font-family: var(--font-heading); }
-        .product-card-section { background-color: #f0f2f5; text-align: center; padding: 64px 0; /* ИЗМЕНЕНО: 80px -> 64px (уменьшено на 20%) */ }
+        .product-card-section { background-color: #f0f2f5; text-align: center; padding: 64px 0; }
         .product-cards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; max-width: 1200px; margin: 0 auto; padding: 0 var(--container-padding); }
         .product-card { background-color: #fff; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); padding: 20px; display: flex; flex-direction: column; align-items: center; gap: 10px; transition: all 0.3s ease; }
         .product-card:hover { transform: translateY(-8px); box-shadow: 0 12px 25px rgba(0,0,0,0.15); }
@@ -75,12 +74,86 @@
         .product-card .social-button.viber:hover { background-color: #604ED9; transform: translateY(-2px); }
         .product-card .social-button.telegram { background-color: #0088CC; }
         .product-card .social-button.telegram:hover { background-color: #006FB3; transform: translateY(-2px); }
-        .tile-gallery-section { padding: 30px 0; background-color: #fff; /* ИЗМЕНЕНО: 60px -> 30px (уменьшено на 50%) */ }
+
+        /* -- Стилі для блоку "Додатково" -- */
+        #extras {
+            background-color: #fff;
+            padding: 48px 0;
+        }
+        .extras-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            text-align: center;
+        }
+        .extra-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .extra-circles {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 130px; /* Фіксована висота для вирівнювання */
+            margin-bottom: 20px;
+        }
+        .extra-item:first-child .extra-circles {
+             margin-left: -20px; /* Компенсація накладення */
+        }
+        .circle {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #fff;
+            overflow: hidden; /* Ховаємо частини зображення, що виходять за коло */
+        }
+        /* Стилі для зображення всередині кола */
+        .circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Масштабує зображення, щоб заповнити коло, обрізаючи зайве */
+            border-radius: 50%;
+        }
+        .extra-item:first-child .circle:nth-child(2) {
+            margin-left: -40px; /* Накладення кіл */
+        }
+        .extra-price {
+            font-family: var(--font-main);
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+        .extra-item h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+        .extra-item p {
+            font-size: 0.9em;
+            color: #666;
+            max-width: 280px; /* Обмеження ширини тексту */
+            margin-bottom: 15px;
+        }
+        .extra-stock {
+            color: var(--accent-color);
+            font-weight: 500;
+            font-family: var(--font-main);
+            font-size: 1em;
+        }
+        .extra-item .cta-button {
+             padding: 12px 25px;
+             font-size: 1em;
+        }
+
+        .tile-gallery-section { padding: 30px 0; background-color: var(--secondary-color); }
         .tile-gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .tile-gallery-item { overflow: hidden; border-radius: 8px; height: 200px; cursor: pointer; transition: transform 0.3s ease; }
         .tile-gallery-item:hover { transform: scale(1.03); }
         .tile-gallery-item img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; transition: transform 0.3s ease; }
-        .rectangular-gallery-section { background-color: #f0f2f5; text-align: center; padding: 48px 0; /* ИЗМЕНЕНО: 60px -> 48px (уменьшено на 20%) */ }
+        .rectangular-gallery-section { background-color: #f0f2f5; text-align: center; padding: 48px 0; }
         .dual-slider-wrapper { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; max-width: 600px; margin: 0 auto; }
         .rectangular-gallery { position: relative; width: 100%; max-width: 280px; flex-shrink: 0; margin: 0; overflow: hidden; padding: 30px 0; }
         .gallery-container { display: flex; transition: transform 0.5s ease-in-out; }
@@ -90,151 +163,39 @@
         .gallery-nav-button:hover { background-color: rgba(44, 62, 80, 0.7); }
         .gallery-nav-button.prev { left: 10px; }
         .gallery-nav-button.next { right: 10px; }
-        .payment-delivery-section { background-color: #fff; padding: 48px 0; /* ИЗМЕНЕНО: 60px -> 48px (уменьшено на 20%) */ }
+        .payment-delivery-section { background-color: var(--secondary-color); padding: 48px 0; }
         .payment-delivery-container { max-width: 900px; margin: 0 auto; display: flex; gap: 40px; flex-wrap: wrap; }
-        .payment-methods, .delivery-options { flex: 1; min-width: 300px; background-color: #f0f2f5; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .payment-methods, .delivery-options { flex: 1; min-width: 300px; background-color: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
         .payment-methods h3, .delivery-options h3 { color: var(--accent-color); border-bottom: 2px solid var(--accent-color); padding-bottom: 10px; margin-top: 0; }
         .method, .option { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #eee; }
         .method:last-child, .option:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
         .method h4, .option h4 { display: flex; align-items: center; margin-bottom: 10px; color: var(--primary-color); }
         .method h4 i, .option h4 i { margin-right: 10px; color: var(--accent-color); }
         
-        /* -- Стили для блока акции -- */
-        #special-offer {
-            background: linear-gradient(135deg, #ff9933, #ff6600); /* Яскравий помаранчевий градієнт */
-            padding: 40px 0; /* ИЗМЕНЕНО: 50px -> 40px (уменьшено на 20%) */
-            color: var(--light-text-color);
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Додано легку тінь */
-        }
-        #special-offer .container {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            gap: 30px; /* Зменшено gap */
-            flex-wrap: wrap;
-        }
-        .offer-content {
-            flex-basis: 50%;
-            text-align: left;
-            min-width: 300px;
-        }
-        .offer-content h2 {
-            color: #fff;
-            font-size: 2.2em; /* Трохи зменшено розмір шрифту */
-            margin-bottom: 15px; /* Зменшено відступ */
-            font-family: var(--font-heading);
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); /* Додано тінь для тексту */
-        }
-        .offer-content h2 i {
-            color: #f39c12;
-        }
-        .offer-content p {
-            font-size: 1em; /* Трохи зменшено розмір шрифту */
-            line-height: 1.6; /* Трохи зменшено міжрядковий інтервал */
-            margin-bottom: 25px; /* Зменшено відступ */
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Додано тінь для тексту */
-        }
-        .offer-button {
-            background-color: #fff; /* Змінено колір кнопки для кращого контрасту */
-            color: #ff6600; /* Змінено колір тексту кнопки */
-            font-weight: bold;
-            box-shadow: 0 5px 15px rgba(255, 102, 0, 0.4);
-            transition: all 0.3s ease;
-            padding: 12px 25px; /* Трохи зменшено padding */
-            font-size: 1em; /* Трохи зменшено розмір шрифту */
-            border-radius: 5px;
-            text-decoration: none;
-        }
-        .offer-button:hover {
-            background-color: #e67e22;
-            color: #fff;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(255, 102, 0, 0.5);
-        }
-        .offer-timer {
-            flex-basis: 40%;
-            min-width: 280px; /* Трохи зменшено min-width */
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Додано тінь для тексту */
-        }
-        .offer-timer h3 {
-            font-family: var(--font-main);
-            font-weight: 500;
-            font-size: 1.2em; /* Трохи зменшено розмір шрифту */
-            margin-bottom: 15px; /* Зменшено відступ */
-        }
-        .countdown-container {
-            display: flex;
-            justify-content: center;
-            gap: 15px; /* Зменшено gap */
-        }
-        .countdown-item {
-            background: rgba(255, 255, 255, 0.15); /* Трохи світліший фон */
-            padding: 15px; /* Зменшено padding */
-            border-radius: 10px;
-            min-width: 80px; /* Трохи зменшено min-width */
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-        .countdown-item span {
-            display: block;
-            font-size: 2.5em; /* Трохи зменшено розмір шрифту */
-            font-family: var(--font-accent);
-            font-weight: bold;
-            line-height: 1.1;
-            color: #fff;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-        }
-        .countdown-item p {
-            margin: 0;
-            font-size: 0.8em; /* Трохи зменшено розмір шрифту */
-            text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.8);
-        }
+        #special-offer { background: linear-gradient(135deg, #ff9933, #ff6600); padding: 40px 0; color: var(--light-text-color); text-align: center; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); }
+        #special-offer .container { display: flex; justify-content: space-around; align-items: center; gap: 30px; flex-wrap: wrap; }
+        .offer-content { flex-basis: 50%; text-align: left; min-width: 300px; }
+        .offer-content h2 { color: #fff; font-size: 2.2em; margin-bottom: 15px; font-family: var(--font-heading); text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); }
+        .offer-content h2 i { color: #f39c12; }
+        .offer-content p { font-size: 1em; line-height: 1.6; margin-bottom: 25px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); }
+        .offer-button { background-color: #fff; color: #ff6600; font-weight: bold; box-shadow: 0 5px 15px rgba(255, 102, 0, 0.4); transition: all 0.3s ease; padding: 12px 25px; font-size: 1em; border-radius: 5px; text-decoration: none; }
+        .offer-button:hover { background-color: #e67e22; color: #fff; transform: translateY(-3px); box-shadow: 0 8px 20px rgba(255, 102, 0, 0.5); }
+        .offer-timer { flex-basis: 40%; min-width: 280px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); }
+        .offer-timer h3 { font-family: var(--font-main); font-weight: 500; font-size: 1.2em; margin-bottom: 15px; }
+        .countdown-container { display: flex; justify-content: center; gap: 15px; }
+        .countdown-item { background: rgba(255, 255, 255, 0.15); padding: 15px; border-radius: 10px; min-width: 80px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .countdown-item span { display: block; font-size: 2.5em; font-family: var(--font-accent); font-weight: bold; line-height: 1.1; color: #fff; text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
+        .countdown-item p { margin: 0; font-size: 0.8em; text-transform: uppercase; color: rgba(255, 255, 255, 0.8); }
 
-        /* --- Футер стилі --- */
-        .footer { 
-            background-color: var(--primary-color); 
-            color: var(--light-text-color); 
-            padding: 30px 0; /* Зменшено padding */
-            text-align: center;
-            font-size: 0.9em;
-        }
-        .footer .container { 
-            display: flex; 
-            flex-direction: column; 
-            gap: 15px; /* Зменшено gap */
-            align-items: center;
-        }
+        .footer { background-color: var(--primary-color); color: var(--light-text-color); padding: 30px 0; text-align: center; font-size: 0.9em; }
+        .footer .container { display: flex; flex-direction: column; gap: 15px; align-items: center; }
         .footer p { margin: 0; }
-        .footer h3 {
-            color: var(--light-text-color);
-            margin-bottom: 15px; /* Зменшено відступ */
-            font-size: 1.4em;
-        }
-        .footer-contacts p {
-            margin-bottom: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        .footer-contacts i {
-            color: var(--accent-color);
-            font-size: 1.1em;
-        }
-        .social-links {
-            margin-top: 15px;
-            margin-bottom: 10px;
-        }
-        .social-links a {
-            color: var(--light-text-color);
-            font-size: 1.6em;
-            margin: 0 10px;
-            transition: color 0.3s ease;
-        }
-        .social-links a:hover {
-            color: var(--accent-color);
-        }
+        .footer h3 { color: var(--light-text-color); margin-bottom: 15px; font-size: 1.4em; }
+        .footer-contacts p { margin-bottom: 5px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .footer-contacts i { color: var(--accent-color); font-size: 1.1em; }
+        .social-links { margin-top: 15px; margin-bottom: 10px; }
+        .social-links a { color: var(--light-text-color); font-size: 1.6em; margin: 0 10px; transition: color 0.3s ease; }
+        .social-links a:hover { color: var(--accent-color); }
 
 
         .modal { display: none; position: fixed; z-index: 2000; padding-top: 60px; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.9); }
@@ -242,22 +203,7 @@
         .close { position: absolute; top: 20px; right: 35px; color: #f1f1f1; font-size: 40px; font-weight: bold; transition: 0.3s; cursor: pointer; }
         .close:hover { color: #bbb; }
         
-        .modal-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(44, 62, 80, 0.5);
-            color: white;
-            border: none;
-            padding: 16px;
-            cursor: pointer;
-            font-size: 2em;
-            z-index: 2001;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-            user-select: none;
-            display: none;
-        }
+        .modal-nav { position: absolute; top: 50%; transform: translateY(-50%); background-color: rgba(44, 62, 80, 0.5); color: white; border: none; padding: 16px; cursor: pointer; font-size: 2em; z-index: 2001; border-radius: 5px; transition: background-color 0.3s ease; user-select: none; display: none; }
         .modal-nav:hover { background-color: rgba(44, 62, 80, 0.8); }
         .modal-nav.prev { left: 20px; }
         .modal-nav.next { right: 20px; }
@@ -280,13 +226,19 @@
             .rectangular-gallery { max-width: 240px; }
             .gallery-item img { height: auto; aspect-ratio: 3 / 5; }
             .gallery-nav-button { padding: 10px 5px; font-size: 1.2em; }
-            .innovative-solutions { padding: 32px var(--container-padding); /* ИЗМЕНЕНО: 40px -> 32px */ }
+            .innovative-solutions { padding: 32px var(--container-padding); }
             .payment-delivery-container { flex-direction: column; gap: 30px; }
-            #special-offer { padding: 32px 0; /* ИЗМЕНЕНО: 40px -> 32px */ } /* Адаптивність для акції */
+            #special-offer { padding: 32px 0; }
             .offer-content h2 { font-size: 2em; }
             .offer-button { padding: 10px 20px; font-size: 0.9em; }
             .countdown-item { padding: 12px; min-width: 70px; }
             .countdown-item span { font-size: 2.2em; }
+
+            /* Адаптивність для блоку "Додатково" */
+            .extras-grid {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
         }
         @media (max-width: 768px) {
             h1 { font-size: 2.2em; }
@@ -296,24 +248,12 @@
             .menu-toggle { display: block; }
             .innovative-solutions .container { display: grid; grid-template-columns: 120px 1fr; grid-template-areas: "image content"; gap: 15px; align-items: start; }
             
-            /* -- ИЗМЕНЕНИЯ ДЛЯ МОБИЛЬНОЙ ВЕРСИИ -- */
-            .innovative-solutions-image { 
-                grid-area: image; 
-                width: 100%; 
-                max-width: 100%; 
-                margin-right: 0;
-                display: flex;
-                flex-direction: column;
-                gap: 15px;
-            }
-            .mobile-only-image {
-                display: block;
-            }
+            .innovative-solutions-image { grid-area: image; width: 100%; max-width: 100%; margin-right: 0; display: flex; flex-direction: column; gap: 15px; }
+            .mobile-only-image { display: block; }
 
             .innovative-solutions-content { grid-area: content; width: 100%; padding-top: 0; }
             .innovative-solutions-content h1 { font-size: 1.495em; margin-bottom: 10px; }
             .innovative-solutions-content p { font-size: 0.8em; margin-bottom: 15px; }
-            .cta-button { padding: 8px 12px; font-size: 0.8em; }
             .services-grid { grid-template-columns: 1fr; }
             .product-cards-grid { grid-template-columns: repeat(2, 1fr); gap: 10px 10px; row-gap: 30px; padding: 0 10px; }
             .product-card { padding: 10px; gap: 8px; }
@@ -323,8 +263,7 @@
             .rectangular-gallery:nth-child(2) { display: none; }
             .rectangular-gallery:first-child { margin: 0 auto; }
             .rectangular-gallery { max-width: 336px; }
-            .gallery-item img { height: auto; aspect-ratio: 3 / 5; }
-            .gallery-nav-button { padding: 10px 5px; font-size: 1.2em; }
+            .gallery-item img { height: auto; aspect-ratio: 3 / 5; transform: scale(1.2); transition: transform 0.3s ease; }
             .tile-gallery-grid { grid-template-columns: repeat(2, 1fr); }
             #special-offer .container { flex-direction: column; }
             .offer-content { text-align: center; }
@@ -340,26 +279,18 @@
             .product-card img { height: 180px; }
             .product-card .social-button { font-size: 0.75em; padding: 5px 8px; }
             .rectangular-gallery { max-width: 150px; }
-            .gallery-item img { height: auto; aspect-ratio: 3 / 5; }
             .tile-gallery-grid { grid-template-columns: repeat(2, 1fr); }
             .tile-gallery-item { height: 150px; }
             .modal-nav { padding: 10px; font-size: 1.5em; }
             .modal-nav.prev { left: 10px; }
             .modal-nav.next { right: 10px; }
-            #special-offer { padding: 24px 0; /* ИЗМЕНЕНО: 30px -> 24px */ }
+            #special-offer { padding: 24px 0; }
             .offer-content h2 { font-size: 1.5em; margin-bottom: 10px; }
             .offer-content p { font-size: 0.9em; margin-bottom: 15px; }
             .offer-timer h3 { font-size: 1.1em; margin-bottom: 10px; }
             .countdown-item { padding: 8px; min-width: 50px; }
             .countdown-item span { font-size: 1.8em; }
             .countdown-item p { font-size: 0.7em; }
-        }
-        /* Увеличение фото в слайдере на мобильных устройствах */
-        @media (max-width: 768px) {
-            .rectangular-gallery .gallery-item img {
-                transform: scale(1.2); /* Увеличиваем изображение на 20% */
-                transition: transform 0.3s ease; /* Плавность для красоты */
-            }
         }
     </style>
 </head>
@@ -382,7 +313,7 @@
         <section class="innovative-solutions" id="innovative-solutions">
             <div class="container">
                 <div class="innovative-solutions-image">
-                    <img src="images/IMG_20230618_210644.jpg" alt="Лазерна гравировка">
+                    <img src="images/IMG_20230618_210644.jpg" alt="Лазерне гравіювання">
                     <img src="images/shop38-6.jpg" alt="Додаткове фото гравіювання" class="mobile-only-image">
                 </div>
                 <div class="innovative-solutions-content">
@@ -405,7 +336,7 @@
                 </div>
             </div>
         </section>
-
+        
         <section id="services">
             <div class="container">
                 <h2 class="section-title">Наші Послуги</h2>
@@ -472,11 +403,51 @@
                                 <a href="https://t.me/fifa_laser" target="_blank" class="social-button telegram"><i class="fab fa-telegram-plane"></i> Замовити в Telegram</a>
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>
-
+        
+        <section id="extras">
+            <div class="container">
+                <h2 class="section-title">ДОДАТКОВО</h2>
+                <div class="extras-grid">
+                    <div class="extra-item">
+                        <div class="extra-circles">
+                            <div class="circle">
+                                <img src="images/IMG_20230814_213855.jpg" alt="Перкапчик">
+                            </div>
+                            <div class="circle">
+                                <img src="images/IMG_20240407_134317.jpg" alt="Ланцюжок">
+                            </div>
+                        </div>
+                        <p class="extra-price">БЕЗ ДОПЛАТ</p>
+                        <p>На вибір ви додатково отримуєте <b>нержавіючий</b> ланцюжок на шию і кліпсу або ланцюжок для брелоку.</p>
+                        <p style="margin-bottom: 5px;">(кількість обмежена)</p>
+                        <span class="extra-stock">Залишилось 8шт</span>
+                    </div>
+                    <div class="extra-item">
+                        <div class="extra-circles">
+                            <div class="circle">
+                                <img src="images/IMG_20230814_213855.jpg" alt="Силіконовий бампер">
+                            </div>
+                        </div>
+                        <p class="extra-price">+30 грн</p>
+                        <h3>Силіконовий бампер</h3>
+                        <p>(всі додаткові товари менеджер запропонує вам при оформленні замовлення)</p>
+                    </div>
+                    <div class="extra-item">
+                        <div class="extra-circles">
+                            <div class="circle">
+                                <img src="images/IMG_20230618_210644.jpg" alt="Посилений ланцюжок">
+                            </div>
+                        </div>
+                        <p class="extra-price">від 170грн</p>
+                        <h3>Посилений ланцюжок</h3>
+                        <a href="#products" class="cta-button">Варіанти гравіювання</a>
+                    </div>
+                </div>
+            </div>
+        </section>
         <section id="payment-delivery" class="payment-delivery-section">
             <div class="container">
                 <h2 class="section-title">Оплата та доставка</h2>
@@ -518,7 +489,7 @@
                 <div class="dual-slider-wrapper">
                     <div class="rectangular-gallery">
                         <div class="gallery-container" id="galleryContainer1">
-                            <div class="gallery-item" data-src="images/Screenshot_2023-05-27-14-05-53-383_com.instagram.android.jpg""><img src="images/Screenshot_2023-05-27-14-05-53-383_com.instagram.android.jpg" alt="Приклад гравіювання 1"></div>
+                            <div class="gallery-item" data-src="images/Screenshot_2023-05-27-14-05-53-383_com.instagram.android.jpg"><img src="images/Screenshot_2023-05-27-14-05-53-383_com.instagram.android.jpg" alt="Приклад гравіювання 1"></div>
                             <div class="gallery-item" data-src="images/Screenshot_2023-06-23-13-15-05-128_com.instagram.android.jpg"><img src="images/Screenshot_2023-06-23-13-15-05-128_com.instagram.android.jpg" alt="Приклад гравіювання 2"></div>
                             <div class="gallery-item" data-src="images/Screenshot_2023-11-12-13-41-37-972_com.instagram.android.jpg"><img src="images/Screenshot_2023-11-12-13-41-37-972_com.instagram.android.jpg" alt="Приклад гравіювання 3"></div>
                             <div class="gallery-item" data-src="images/IMG_20240407_134317.jpg"><img src="images/IMG_20240407_134317.jpg" alt="Приклад гравіювання 7"></div>
@@ -599,8 +570,8 @@
     <script>
     document.addEventListener('DOMContentLoaded', () => {
         // --- Логіка для таймера зворотного відліку ---
-        // ВАЖНО: Установите здесь вашу дату окончания акции!
-        const promotionEndDate = new Date("Jul 20, 2025 23:59:59").getTime();
+        const promotionEndDateString = "Jul 20, 2025 23:59:59";
+        const promotionEndDate = new Date(promotionEndDateString).getTime();
 
         const countdownFunction = setInterval(() => {
             const now = new Date().getTime();
@@ -608,7 +579,10 @@
 
             if (distance < 0) {
                 clearInterval(countdownFunction);
-                document.getElementById("countdown").innerHTML = "<h3 style='color: #f39c12;'>Акція завершена!</h3>";
+                const countdownContainer = document.getElementById("countdown");
+                if (countdownContainer) {
+                    countdownContainer.innerHTML = "<h3 style='color: #f39c12;'>Акція завершена!</h3>";
+                }
                 return;
             }
 
@@ -618,36 +592,43 @@
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
             const format = (num) => num < 10 ? '0' + num : num;
-
-            if(document.getElementById("days")) {
-                document.getElementById("days").innerText = format(days);
-                document.getElementById("hours").innerText = format(hours);
-                document.getElementById("minutes").innerText = format(minutes);
-                document.getElementById("seconds").innerText = format(seconds);
-            }
+            
+            const daysEl = document.getElementById("days");
+            if(daysEl) daysEl.innerText = format(days);
+            const hoursEl = document.getElementById("hours");
+            if(hoursEl) hoursEl.innerText = format(hours);
+            const minutesEl = document.getElementById("minutes");
+            if(minutesEl) minutesEl.innerText = format(minutes);
+            const secondsEl = document.getElementById("seconds");
+            if(secondsEl) secondsEl.innerText = format(seconds);
 
         }, 1000);
 
-        // Мобильное меню
+        // Мобільне меню
         const menuToggle = document.getElementById('mobile-menu');
         const navMenu = document.getElementById('nav-menu');
-        menuToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
+        if (menuToggle && navMenu) {
+            menuToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
+        }
 
-        // Плавная прокрутка
+        // Плавне прокручування
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href === '#' || !document.querySelector(href)) return;
+
                 e.preventDefault();
-                const targetElement = document.querySelector(this.getAttribute('href'));
+                const targetElement = document.querySelector(href);
                 if (targetElement) {
                     targetElement.scrollIntoView({ behavior: 'smooth' });
                 }
-                if (navMenu.classList.contains('active')) {
+                if (navMenu && navMenu.classList.contains('active')) {
                     navMenu.classList.remove('active');
                 }
             });
         });
 
-        // Слайдеры в секции "Примеры работ"
+        // Слайдери в секції "Приклади робіт"
         let sliderStates = [];
         const galleryContainers = document.querySelectorAll('.rectangular-gallery .gallery-container');
         galleryContainers.forEach((container, index) => {
@@ -655,13 +636,27 @@
                 id: `slider${index + 1}`,
                 currentSlide: 0,
                 container: container,
-                totalSlides: container.children.length
+                totalSlides: container.children.length,
+                intervalId: null
             });
+
             const prevButton = document.getElementById(`prev${index + 1}`);
             const nextButton = document.getElementById(`next${index + 1}`);
-            if (prevButton) prevButton.onclick = () => moveGallery(index, -1);
-            if (nextButton) nextButton.onclick = () => moveGallery(index, 1);
-            setInterval(() => moveGallery(index, 1), 10000);
+
+            const startAutoPlay = () => {
+                if (sliderStates[index].intervalId) clearInterval(sliderStates[index].intervalId);
+                sliderStates[index].intervalId = setInterval(() => moveGallery(index, 1), 10000);
+            };
+            
+            const moveAndReset = (direction) => {
+                moveGallery(index, direction);
+                startAutoPlay();
+            };
+
+            if (prevButton) prevButton.onclick = () => moveAndReset(-1);
+            if (nextButton) nextButton.onclick = () => moveAndReset(1);
+            
+            startAutoPlay();
         });
 
         function moveGallery(sliderIndex, direction) {
@@ -671,34 +666,34 @@
             state.container.style.transform = `translateX(-${state.currentSlide * 100}%)`;
         }
 
-        // --- ИСПРАВЛЕННЫЙ КОД МОДАЛЬНОГО ОКНА ---
+        // --- КОД МОДАЛЬНОГО ВІКНА ---
         const modal = document.getElementById("imageModal");
         const modalImg = document.getElementById("expandedImg");
         const closeModalButton = document.getElementById("closeModalButton");
         const modalPrevBtn = document.getElementById("modalPrev");
         const modalNextBtn = document.getElementById("modalNext");
         
+        if (!modal || !modalImg || !closeModalButton || !modalPrevBtn || !modalNextBtn) return;
+
         let currentModalImages = [];
         let currentImageIndex = 0;
 
-        function openModal(isProduct, imagesOrSrc, startIndex = 0) {
+        function openModal(isGallery, imagesOrSrc, startIndex = 0) {
             modal.style.display = "block";
-            if (isProduct) {
-                currentModalImages = imagesOrSrc;
-                modalPrevBtn.style.display = 'block';
-                modalNextBtn.style.display = 'block';
-                showImage(startIndex);
-                document.addEventListener('keydown', handleKeyDown);
+            currentModalImages = Array.isArray(imagesOrSrc) ? imagesOrSrc : [imagesOrSrc];
+            currentImageIndex = startIndex;
+            
+            const canNavigate = isGallery && currentModalImages.length > 1;
+            modalPrevBtn.style.display = canNavigate ? 'block' : 'none';
+            modalNextBtn.style.display = canNavigate ? 'block' : 'none';
+            
+            showImage(currentImageIndex);
+            
+            document.addEventListener('keydown', handleKeyDown);
+            if(canNavigate) {
                 modal.addEventListener('touchstart', handleTouchStart, { passive: true });
                 modal.addEventListener('touchmove', handleTouchMove, { passive: true });
                 modal.addEventListener('touchend', handleTouchEnd);
-            } else {
-                currentModalImages = [imagesOrSrc];
-                modalImg.src = imagesOrSrc;
-                modalPrevBtn.style.display = 'none';
-                modalNextBtn.style.display = 'none';
-                currentImageIndex = 0;
-                document.addEventListener('keydown', handleKeyDown);
             }
             history.pushState({ modalOpen: true }, "");
         }
@@ -727,30 +722,26 @@
             modalImg.src = currentModalImages[currentImageIndex];
         }
 
-        modalPrevBtn.addEventListener('click', () => showImage(currentImageIndex - 1));
-        modalNextBtn.addEventListener('click', () => showImage(currentImageIndex + 1));
+        modalPrevBtn.addEventListener('click', (e) => { e.stopPropagation(); showImage(currentImageIndex - 1); });
+        modalNextBtn.addEventListener('click', (e) => { e.stopPropagation(); showImage(currentImageIndex + 1); });
 
     
-    document.querySelectorAll('.tile-gallery-item, .gallery-item').forEach(item => {
-        item.addEventListener('click', () => {
-            // Находим родительский контейнер-галерею
-            const galleryContainer = item.closest('.gallery-container');
+        document.querySelectorAll('.tile-gallery-item, .gallery-item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const galleryContainer = item.closest('.gallery-container');
 
-            if (galleryContainer) {
-                // Если мы внутри слайдера (Приклади робіт)
-                const allItems = Array.from(galleryContainer.children);
-                const images = allItems.map(galleryItem => galleryItem.dataset.src || galleryItem.querySelector('img').src);
-                const startIndex = allItems.indexOf(item);
-                
-                // Вызываем модальное окно в режиме галереи (true)
-                openModal(true, images, startIndex);
-            } else {
-                // Если это обычное фото из плиточной галереи (Наші роботи)
-                const src = item.dataset.src || item.querySelector('img').src;
-                openModal(false, src);
-            }
+                if (galleryContainer) {
+                    const allItems = Array.from(galleryContainer.children);
+                    const images = allItems.map(galleryItem => galleryItem.dataset.src || galleryItem.querySelector('img').src);
+                    const startIndex = allItems.indexOf(item);
+                    openModal(true, images, startIndex);
+                } else {
+                    const src = item.dataset.src || item.querySelector('img').src;
+                    openModal(false, src);
+                }
+            });
         });
-    });
         
         document.querySelectorAll('.product-card .product-image-wrapper').forEach(wrapper => {
             wrapper.addEventListener('click', (e) => {
