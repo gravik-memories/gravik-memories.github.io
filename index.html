@@ -196,7 +196,6 @@
         .social-links a { color: var(--light-text-color); font-size: 1.6em; margin: 0 10px; transition: color 0.3s ease; }
         .social-links a:hover { color: var(--accent-color); }
 
-
         .modal { display: none; position: fixed; z-index: 2000; padding-top: 60px; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.9); }
         .modal-content { margin: auto; display: block; max-width: 80%; max-height: 80vh; border-radius: 8px; }
         .close { position: absolute; top: 20px; right: 35px; color: #f1f1f1; font-size: 40px; font-weight: bold; transition: 0.3s; cursor: pointer; }
@@ -206,6 +205,121 @@
         .modal-nav:hover { background-color: rgba(44, 62, 80, 0.8); }
         .modal-nav.prev { left: 20px; }
         .modal-nav.next { right: 20px; }
+        
+        /* --- Стилі для компактного віджета швидкого замовлення --- */
+        .quick-order-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1001;
+        }
+
+        .order-trigger {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: var(--primary-color);
+            color: var(--light-text-color);
+            padding: 12px 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            font-family: var(--font-main);
+            font-weight: 500;
+        }
+
+        .order-trigger:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+            background-color: #3e536c;
+        }
+
+        .order-trigger i {
+            font-size: 1.2em;
+        }
+
+        .order-popup {
+            display: none;
+            position: absolute;
+            bottom: calc(100% + 10px);
+            right: 0;
+            width: 280px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+            border: 1px solid #ddd;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .quick-order-widget.active .order-popup {
+            display: block;
+        }
+
+        .quick-order-widget.active .order-trigger {
+            display: none;
+        }
+
+        #quickOrderForm {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            text-align: center;
+            position: relative;
+        }
+
+        #quickOrderForm p {
+            font-size: 0.95em;
+            color: var(--text-color);
+            margin: 0;
+            font-family: var(--font-main);
+        }
+
+        #quickOrderForm input[type="tel"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            text-align: center;
+        }
+
+        #quickOrderForm button[type="submit"] {
+            background-color: var(--accent-color);
+            color: var(--light-text-color);
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: var(--font-accent);
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+
+        #quickOrderForm button[type="submit"]:hover {
+            background-color: #a8855a;
+        }
+
+        .close-popup {
+            position: absolute;
+            top: -15px;
+            right: -10px;
+            background: none;
+            border: none;
+            font-size: 2em;
+            color: #aaa;
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+        }
+        .close-popup:hover {
+            color: #333;
+        }
         
         /* --- Адаптивність --- */
         @media (max-width: 992px) {
@@ -233,7 +347,6 @@
             .countdown-item { padding: 12px; min-width: 70px; }
             .countdown-item span { font-size: 2.2em; }
 
-            /* Адаптивність для блоку "Додатково" - горизонтальна прокрутка */
             .extras-grid {
                 display: flex;
                 overflow-x: auto;
@@ -249,7 +362,6 @@
                 flex: 0 0 280px;
             }
             
-            /* Анімація похитування */
             @keyframes sway {
                 0% { transform: translateX(0); }
                 30% { transform: translateX(-15px); }
@@ -315,6 +427,14 @@
             .extra-item {
                 flex: 0 0 250px;
             }
+            .quick-order-widget {
+                right: 10px;
+                bottom: 10px;
+            }
+            .order-popup {
+                width: calc(100vw - 20px);
+                right: -10px; 
+            }
         }
     </style>
 </head>
@@ -376,8 +496,7 @@
             <div class="container">
                 <h2 class="section-title">Популярні товари</h2>
                 <div class="product-cards-grid">
-                    <div class="product-card" 
-                         data-images="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80, https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80, https://images.unsplash.com/photo-1515442261558-c9c064c9d7a6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fG1ldGFsJTIwZG9nJTIwdGFnfGVufDB8fDB8fHww">
+                    <div class="product-card" data-images="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80, https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80, https://images.unsplash.com/photo-1515442261558-c9c064c9d7a6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fG1ldGFsJTIwZG9nJTIwdGFnfGVufDB8fDB8fHww">
                         <div class="product-image-wrapper">
                             <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Жетон з гравіюванням">
                         </div>
@@ -389,8 +508,7 @@
                         </div>
                     </div>
                     
-                    <div class="product-card" 
-                         data-images="https://images.unsplash.com/photo-1620164931988-758233f2c58a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bWV0YWwlMjBzaWdufGVufDB8fDB8fHww, https://images.unsplash.com/photo-1598284534898-e7a9b8f2d5f8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fG1ldGFsJTIwZG9nJTIwdGFnfGVufDB8fDB8fHww, https://images.unsplash.com/photo-1596791550997-6a1d9b3a0b3f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fG1ldGFsJTIwZG9nJTIwdGFnfGVufDB8fDB8fHww">
+                    <div class="product-card" data-images="https://images.unsplash.com/photo-1620164931988-758233f2c58a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bWV0YWwlMjBzaWdufGVufDB8fDB8fHww, https://images.unsplash.com/photo-1598284534898-e7a9b8f2d5f8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fG1ldGFsJTIwZG9nJTIwdGFnfGVufDB8fDB8fHww, https://images.unsplash.com/photo-1596791550997-6a1d9b3a0b3f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fG1ldGFsJTIwZG9nJTIwdGFnfGVufDB8fDB8fHww">
                         <div class="product-image-wrapper">
                             <img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Металева табличка">
                         </div>
@@ -402,8 +520,7 @@
                         </div>
                     </div>
 
-                    <div class="product-card"
-                         data-images="images/IMG_20230330_183520.jpg, images/IMG_20230618_211239.jpg, images/IMG_20240407_134316.jpg">
+                    <div class="product-card" data-images="images/IMG_20230330_183520.jpg, images/IMG_20230618_211239.jpg, images/IMG_20240407_134316.jpg">
                             <div class="product-image-wrapper">
                                 <img src="images/IMG_20230330_183520.jpg" alt="Брелок з гравіюванням">
                             </div>
@@ -415,8 +532,7 @@
                             </div>
                     </div>
                     
-                    <div class="product-card" 
-                         data-images="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80, https://images.unsplash.com/photo-1611591437281-462bf4d3ab45?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGVuZGFudHxlbnwwfHwwfHx8MA%3D%3D, https://images.unsplash.com/photo-1618689178933-a2411b4396b2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGVuZGFudHxlbnwwfHwwfHx8MA%3D%3D">
+                    <div class="product-card" data-images="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80, https://images.unsplash.com/photo-1611591437281-462bf4d3ab45?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGVuZGFudHxlbnwwfHwwfHx8MA%3D%3D, https://images.unsplash.com/photo-1618689178933-a2411b4396b2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGVuZGFudHxlbnwwfHwwfHx8MA%3D%3D">
                         <div class="product-image-wrapper">
                             <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Кулон з гравіюванням">
                         </div>
@@ -430,7 +546,7 @@
                 </div>
             </div>
         </section>
-        
+
         <section id="extras">
             <div class="container">
                 <h2 class="section-title">ДОДАТКОВО</h2>
@@ -472,6 +588,7 @@
                 </div>
             </div>
         </section>
+        
         <section id="payment-delivery" class="payment-delivery-section">
             <div class="container">
                 <h2 class="section-title">Оплата та доставка</h2>
@@ -591,6 +708,21 @@
         <button class="modal-nav next" id="modalNext">&#10095;</button>
     </div>
 
+    <div class="quick-order-widget" id="quickOrderWidget">
+        <div class="order-trigger" id="orderTrigger">
+            <i class="fas fa-phone"></i>
+            <span></span>
+        </div>
+        <div class="order-popup">
+            <form id="quickOrderForm">
+                <button type="button" class="close-popup" id="closePopup">&times;</button>
+                <p>Введіть ваш номер, і ми зателефонуємо!</p>
+                <input type="tel" id="clientPhone" placeholder="+380 XX XXX XX XX" required>
+                <button type="submit">Чекаю на дзвінок</button>
+            </form>
+        </div>
+    </div>
+
     <script>
     document.addEventListener('DOMContentLoaded', () => {
         // --- Логіка для таймера зворотного відліку ---
@@ -628,14 +760,14 @@
 
         }, 1000);
 
-        // Мобільне меню
+        // --- Мобільне меню ---
         const menuToggle = document.getElementById('mobile-menu');
         const navMenu = document.getElementById('nav-menu');
         if (menuToggle && navMenu) {
             menuToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
         }
 
-        // Плавне прокручування
+        // --- Плавне прокручування ---
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 const href = this.getAttribute('href');
@@ -652,7 +784,7 @@
             });
         });
 
-        // Слайдери в секції "Приклади робіт"
+        // --- Слайдери в секції "Приклади робіт" ---
         let sliderStates = [];
         const galleryContainers = document.querySelectorAll('.rectangular-gallery .gallery-container');
         galleryContainers.forEach((container, index) => {
@@ -785,36 +917,30 @@
             const extrasGrid = extrasBlock.querySelector('.extras-grid');
             let swayIntervalId = null;
 
-            // Функція, що запускає анімацію
             const triggerSwayAnimation = () => {
                 if (extrasGrid && !extrasGrid.classList.contains('sway-animation')) {
                     extrasGrid.classList.add('sway-animation');
-                    // Прибираємо клас після завершення анімації, щоб її можна було запустити знову
                     extrasGrid.addEventListener('animationend', () => {
                         extrasGrid.classList.remove('sway-animation');
                     }, { once: true });
                 }
             };
             
-            // Функція, що зупиняє анімацію назавжди після скролу
             const stopSwayingPermanently = () => {
                 clearInterval(swayIntervalId);
-                extrasGrid.removeEventListener('scroll', stopSwayingPermanently); // Видаляємо слухач
+                extrasGrid.removeEventListener('scroll', stopSwayingPermanently);
             };
 
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        // Якщо інтервал ще не встановлено, встановлюємо його
                         if (!swayIntervalId) {
                             swayIntervalId = setInterval(triggerSwayAnimation, 3000);
-                            // Додаємо слухач скролу, який спрацює лише один раз
                             extrasGrid.addEventListener('scroll', stopSwayingPermanently, { once: true });
                         }
                     } else {
-                        // Якщо блок зникає з екрану, зупиняємо інтервал
                         clearInterval(swayIntervalId);
-                        swayIntervalId = null; // Скидаємо ID, щоб він міг запуститися знову
+                        swayIntervalId = null;
                     }
                 });
             }, { threshold: 0.5 });
@@ -837,6 +963,61 @@
             if (modalPrevBtn.style.display === 'none') return;
             if (touchStartX - touchEndX > 50) showImage(currentImageIndex + 1);
             if (touchStartX - touchEndX < -50) showImage(currentImageIndex - 1);
+        }
+
+        // --- Логіка для компактного віджета швидкого замовлення ---
+        const quickOrderWidget = document.getElementById('quickOrderWidget');
+        const orderTrigger = document.getElementById('orderTrigger');
+        const closePopup = document.getElementById('closePopup');
+        const quickOrderForm = document.getElementById('quickOrderForm');
+
+        if (quickOrderWidget && orderTrigger && closePopup && quickOrderForm) {
+            orderTrigger.addEventListener('click', () => {
+                quickOrderWidget.classList.add('active');
+            });
+
+            closePopup.addEventListener('click', () => {
+                quickOrderWidget.classList.remove('active');
+            });
+            
+            document.addEventListener('click', (e) => {
+                if (!quickOrderWidget.contains(e.target)) {
+                    quickOrderWidget.classList.remove('active');
+                }
+            });
+
+            quickOrderForm.addEventListener('submit', function(e) {
+                e.preventDefault(); 
+                const phoneInput = document.getElementById('clientPhone');
+                const phone = phoneInput.value;
+                
+                // ❗️❗️❗️ ВСТАВТЕ ВАШІ ДАНІ СЮДИ ❗️❗️❗️
+                const TOKEN = "ВАШ_ТОКЕН_БОТА";
+                const CHAT_ID = "ВАШ_ID_ЧАТА";
+                // ❗️❗️❗️ ----------------------------- ❗️❗️❗️
+
+                const message = `<b>Нове замовлення!</b>\nКлієнт залишив номер: ${phone}`;
+                const url = `https://api.telegram.org/bot${TOKEN}/sendMessage`;
+                const params = { chat_id: CHAT_ID, text: message, parse_mode: 'HTML' };
+
+                fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(params)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.ok) {
+                        alert('Дякуємо! Ми скоро з вами зв\'яжемось.');
+                        phoneInput.value = '';
+                        quickOrderWidget.classList.remove('active');
+                    } else { throw new Error(data.description); }
+                })
+                .catch(error => {
+                    console.error('Помилка відправки в Telegram:', error);
+                    alert('Виникла помилка. Спробуйте ще раз або зв\'яжіться з нами напряму.');
+                });
+            });
         }
     });
     </script>
