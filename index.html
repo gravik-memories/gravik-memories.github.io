@@ -965,60 +965,90 @@
             if (touchStartX - touchEndX < -50) showImage(currentImageIndex - 1);
         }
 
-        // --- Логіка для компактного віджета швидкого замовлення ---
-        const quickOrderWidget = document.getElementById('quickOrderWidget');
-        const orderTrigger = document.getElementById('orderTrigger');
-        const closePopup = document.getElementById('closePopup');
-        const quickOrderForm = document.getElementById('quickOrderForm');
+        // --- Логіка для компактного віджета швидкого замовлення (з підтримкою кнопки "Назад") ---
+const quickOrderWidget = document.getElementById('quickOrderWidget');
+const orderTrigger = document.getElementById('orderTrigger');
+const closePopup = document.getElementById('closePopup');
+const quickOrderForm = document.getElementById('quickOrderForm');
 
-        if (quickOrderWidget && orderTrigger && closePopup && quickOrderForm) {
-            orderTrigger.addEventListener('click', () => {
-                quickOrderWidget.classList.add('active');
-            });
+if (quickOrderWidget && orderTrigger && closePopup && quickOrderForm) {
 
-            closePopup.addEventListener('click', () => {
-                quickOrderWidget.classList.remove('active');
-            });
-            
-            document.addEventListener('click', (e) => {
-                if (!quickOrderWidget.contains(e.target)) {
-                    quickOrderWidget.classList.remove('active');
-                }
-            });
-
-            quickOrderForm.addEventListener('submit', function(e) {
-                e.preventDefault(); 
-                const phoneInput = document.getElementById('clientPhone');
-                const phone = phoneInput.value;
-                
-                // ❗️❗️❗️ ВСТАВТЕ ВАШІ ДАНІ СЮДИ ❗️❗️❗️
-                const TOKEN = "ВАШ_ТОКЕН_БОТА";
-                const CHAT_ID = "ВАШ_ID_ЧАТА";
-                // ❗️❗️❗️ ----------------------------- ❗️❗️❗️
-
-                const message = `<b>Нове замовлення!</b>\nКлієнт залишив номер: ${phone}`;
-                const url = `https://api.telegram.org/bot${TOKEN}/sendMessage`;
-                const params = { chat_id: CHAT_ID, text: message, parse_mode: 'HTML' };
-
-                fetch(url, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(params)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.ok) {
-                        alert('Дякуємо! Ми скоро з вами зв\'яжемось.');
-                        phoneInput.value = '';
-                        quickOrderWidget.classList.remove('active');
-                    } else { throw new Error(data.description); }
-                })
-                .catch(error => {
-                    console.error('Помилка відправки в Telegram:', error);
-                    alert('Виникла помилка. Спробуйте ще раз або зв\'яжіться з нами напряму.');
-                });
-            });
+    const openPopup = () => {
+        if (!quickOrderWidget.classList.contains('active')) {
+            quickOrderWidget.classList.add('active');
+            // Додаємо запис в історію, щоб перехопити кнопку "Назад"
+            history.pushState({ quickOrderPopupOpen: true }, null, "");
         }
+    };
+
+    const closePopupLogic = () => {
+        quickOrderWidget.classList.remove('active');
+    };
+
+    // Відкрити вікно по кліку на тригер
+    orderTrigger.addEventListener('click', (e) => {
+        e.stopPropagation(); // Зупиняємо спливання, щоб не спрацював клік поза ним
+        openPopup();
+    });
+
+    // Закрити вікно по кліку на хрестик
+    closePopup.addEventListener('click', () => {
+        history.back(); // Використовуємо history.back(), щоб викликати popstate
+    });
+
+    // Закрити вікно по кліку поза ним
+    document.addEventListener('click', (e) => {
+        // Закриваємо, тільки якщо вікно відкрите і клік був не по тригеру
+        if (quickOrderWidget.classList.contains('active') && !quickOrderWidget.contains(e.target)) {
+            history.back();
+        }
+    });
+    
+    // Слухаємо системну кнопку "Назад" на телефоні
+    window.addEventListener('popstate', (event) => {
+        // Якщо у нас був стан "вікно відкрите", то просто закриваємо його
+        if (quickOrderWidget.classList.contains('active')) {
+             closePopupLogic();
+        }
+    });
+
+    // Логіка відправки форми (залишилася без змін)
+    quickOrderForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        e.stopPropagation(); // Важливо, щоб не закрити вікно одразу
+        
+        const phoneInput = document.getElementById('clientPhone');
+        const phone = phoneInput.value;
+
+        // ---- ВСТАВТЕ ВАШІ ДАНІ СЮДИ ----
+        const TOKEN = "ВАШ_ТОКЕН_БОТА";
+        const CHAT_ID = "ВАШ_ID_ЧАТА";
+        // ------------------------------------
+
+        const message = `<b>Нове замовлення!</b>\nКлієнт залишив номер: ${phone}`;
+        const url = `https://api.telegram.org/bot${TOKEN}/sendMessage`;
+        const params = { chat_id: CHAT_ID, text: message, parse_mode: 'HTML' };
+
+        fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(params)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.ok) {
+                alert('Дякуємо! Ми скоро з вами зв\'яжемось.');
+                phoneInput.value = '';
+                // Закриваємо вікно після успішної відправки
+                history.back(); 
+            } else { throw new Error(data.description); }
+        })
+        .catch(error => {
+            console.error('Помилка відправки в Telegram:', error);
+            alert('Виникла помилка. Спробуйте ще раз або зв\'яжіться з нами напряму.');
+        });
+    });
+}
     });
     </script>
 </body>
