@@ -1,1 +1,1234 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Laser Engraving | Гравіювання на жетонах</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Roboto:wght@400;500&family=Oswald:wght@500&display=swap" rel="stylesheet">
+    <style>
+        /* -- Загальні стилі -- */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #f8f9fa;
+            --accent-color: #c19a6b;
+            --text-color: #333;
+            --light-text-color: #fff;
+            --container-padding: 20px;
+            --font-heading: 'Montserrat', sans-serif;
+            --font-main: 'Roboto', sans-serif;
+            --font-accent: 'Oswald', sans-serif;
+        }
+        * { box-sizing: border-box; }
+        body { font-family: var(--font-main); margin: 0; padding: 0; line-height: 1.6; color: var(--text-color); background-color: #fff; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 var(--container-padding); }
+        h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 700; line-height: 1.2; letter-spacing: 0.5px; color: var(--primary-color); }
+        section { padding: 48px 0; }
+        img { max-width: 100%; height: auto; }
+        .header { background-color: #fff; box-shadow: 0 2px 10px rgba(44, 62, 80, 0.1); padding: 15px 0; position: sticky; top: 0; z-index: 1000; }
+        .header .container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: var(--font-accent); font-size: 1.5em; font-weight: bold; letter-spacing: 1px; color: var(--primary-color); text-decoration: none; text-transform: uppercase; }
+        .nav a { font-family: var(--font-main); color: var(--text-color); text-decoration: none; margin-left: 20px; font-weight: 500; transition: color 0.3s ease; }
+        .nav a:hover { color: var(--accent-color); }
+        .menu-toggle { display: none; cursor: pointer; font-size: 24px; }
+        .innovative-solutions { background-color: var(--secondary-color); padding: 64px var(--container-padding); }
+        .innovative-solutions .container { display: flex; align-items: center; justify-content: center; gap: 40px; max-width: 1100px; width: 100%; }
+        .innovative-solutions-image { flex: 0 0 auto; width: 450px; max-width: 50%; }
+        .innovative-solutions-image img { width: 100%; height: auto; border-radius: 10px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); }
 
+        .mobile-only-image {
+            display: none;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        .innovative-solutions-content { flex: 1; text-align: left; min-width: 300px; }
+        .innovative-solutions-content h1 { font-size: 2.8em; margin-bottom: 20px; line-height: 1.3; }
+        .innovative-solutions-content p { font-size: 1.2em; margin-bottom: 30px; color: #555; }
+        .cta-button { display: inline-block; background-color: var(--primary-color); color: var(--light-text-color); padding: 15px 30px; border-radius: 5px; text-decoration: none; font-family: var(--font-accent); font-size: 1.1em; font-weight: bold; letter-spacing: 1px; transition: all 0.3s ease; }
+        .cta-button:hover { background-color: #1a252f; transform: translateY(-2px); }
+        #about .container { display: flex; align-items: center; gap: 40px; }
+        .about-content { flex: 1; }
+        .about-image { flex: 1; text-align: center; }
+        .about-image img { border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        #services { background-color: var(--secondary-color); }
+        .section-title { text-align: center; margin-bottom: 40px; }
+        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .service-card { background-color: #fff; padding: 30px; text-align: center; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); transition: all 0.3s ease; display: flex; flex-direction: column; align-items: center;}
+        .service-card:hover { transform: translateY(-5px); box-shadow: 0 8px 16px rgba(0,0,0,0.1); }
+        
+        .service-card-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 { margin-bottom: 15px; font-family: var(--font-heading); }
+        .product-card-section { background-color: #f0f2f5; text-align: center; padding: 64px 0; }
+        .product-cards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; max-width: 1200px; margin: 0 auto; padding: 0 var(--container-padding); }
+        .product-card { background-color: #fff; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); padding: 20px; display: flex; flex-direction: column; align-items: center; gap: 10px; transition: all 0.3s ease; }
+        .product-card:hover { transform: translateY(-8px); box-shadow: 0 12px 25px rgba(0,0,0,0.15); }
+        .product-card .product-image-wrapper { cursor: pointer; width: 100%; }
+        .product-card img { width: 100%; height: 300px; object-fit: cover; border-radius: 8px; margin-bottom: 5px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
+        .product-card h2 { font-size: 1.36em; color: var(--accent-color); margin-bottom: 5px; font-family: var(--font-heading); }
+        .product-card p { display: none; }
+        .product-card .price { font-size: 1.36em; font-weight: bold; color: var(--primary-color); margin-bottom: 10px; font-family: var(--font-accent); }
+        .product-card .social-buttons { display: flex; flex-direction: column; gap: 8px; width: 100%; margin-top: 5px; }
+        .product-card .social-button { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 8px 12px; border-radius: 5px; text-decoration: none; font-size: 0.9em; font-weight: bold; color: var(--light-text-color); transition: all 0.3s ease; flex-grow: 1; white-space: nowrap; font-family: var(--font-accent); }
+        .product-card .social-button i { font-size: 1.0em; }
+        .product-card .social-button.viber { background-color: #7360F2; }
+        .product-card .social-button.viber:hover { background-color: #604ED9; transform: translateY(-2px); }
+        .product-card .social-button.telegram { background-color: #0088CC; }
+        .product-card .social-button.telegram:hover { background-color: #006FB3; transform: translateY(-2px); }
+.quick-order-button-wrapper {
+    text-align: center; /* Центрує кнопку */
+    margin-top: 30px;   /* Невеликий відступ зверху */
+}
+        #extras {
+            background-color: #fff;
+            padding: 48px 0;
+        }
+        .extras-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            text-align: center;
+        }
+        .extra-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .extra-circles {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 130px;
+            margin-bottom: 20px;
+        }
+        .extra-item:first-child .extra-circles {
+             margin-left: -20px;
+        }
+        .circle {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #fff;
+            overflow: hidden;
+        }
+        .circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        .extra-item:first-child .circle:nth-child(2) {
+            margin-left: -40px;
+        }
+        .extra-price {
+            font-family: var(--font-main);
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+        .extra-item h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+        .extra-item p {
+            font-size: 0.9em;
+            color: #666;
+            max-width: 280px;
+            margin-bottom: 15px;
+        }
+        .extra-stock {
+            color: var(--accent-color);
+            font-weight: 500;
+            font-family: var(--font-main);
+            font-size: 1em;
+        }
+        .extra-item .cta-button {
+             padding: 12px 25px;
+             font-size: 1em;
+        }
+
+        .tile-gallery-section { padding: 30px 0; background-color: var(--secondary-color); }
+        .tile-gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .tile-gallery-item { overflow: hidden; border-radius: 8px; height: 200px; cursor: pointer; transition: transform 0.3s ease; }
+        .tile-gallery-item:hover { transform: scale(1.03); }
+        .tile-gallery-item img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; transition: transform 0.3s ease; }
+        .rectangular-gallery-section { background-color: #f0f2f5; text-align: center; padding: 48px 0; }
+        .dual-slider-wrapper { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; max-width: 600px; margin: 0 auto; }
+        .rectangular-gallery { position: relative; width: 100%; max-width: 280px; flex-shrink: 0; margin: 0; overflow: hidden; padding: 30px 0; }
+        .gallery-container { display: flex; transition: transform 0.5s ease-in-out; }
+        .gallery-item { min-width: 100%; box-sizing: border-box; display: flex; justify-content: center; align-items: center; cursor: pointer; padding: 0 5px; }
+        .gallery-item img { width: 100%; height: auto; aspect-ratio: 3 / 5; object-fit: cover; border-radius: 8px; box-shadow: none; border: none; }
+        .gallery-nav-button { position: absolute; top: 50%; transform: translateY(-50%); background-color: rgba(44, 62, 80, 0.5); color: white; border: none; padding: 15px 10px; cursor: pointer; font-size: 1.5em; z-index: 10; border-radius: 5px; transition: background-color 0.3s ease; }
+        .gallery-nav-button:hover { background-color: rgba(44, 62, 80, 0.7); }
+        .gallery-nav-button.prev { left: 10px; }
+        .gallery-nav-button.next { right: 10px; }
+        .payment-delivery-section { background-color: var(--secondary-color); padding: 48px 0; }
+        .payment-delivery-container { max-width: 900px; margin: 0 auto; display: flex; gap: 40px; flex-wrap: wrap; }
+        .payment-methods, .delivery-options { flex: 1; min-width: 300px; background-color: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .payment-methods h3, .delivery-options h3 { color: var(--accent-color); border-bottom: 2px solid var(--accent-color); padding-bottom: 10px; margin-top: 0; }
+        .method, .option { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #eee; }
+        .method:last-child, .option:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+        .method h4, .option h4 { display: flex; align-items: center; margin-bottom: 10px; color: var(--primary-color); }
+        .method h4 i, .option h4 i { margin-right: 10px; color: var(--accent-color); }
+        
+        #special-offer { background: linear-gradient(135deg, #ff9933, #ff6600); padding: 40px 0; color: var(--light-text-color); text-align: center; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); }
+        #special-offer .container { display: flex; justify-content: space-around; align-items: center; gap: 30px; flex-wrap: wrap; }
+        .offer-content { flex-basis: 50%; text-align: left; min-width: 300px; }
+        .offer-content h2 { color: #fff; font-size: 2.2em; margin-bottom: 15px; font-family: var(--font-heading); text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); }
+        .offer-content h2 i { color: #f39c12; }
+        .offer-content p { font-size: 1em; line-height: 1.6; margin-bottom: 25px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); }
+        .offer-button { background-color: #fff; color: #ff6600; font-weight: bold; box-shadow: 0 5px 15px rgba(255, 102, 0, 0.4); transition: all 0.3s ease; padding: 12px 25px; font-size: 1em; border-radius: 5px; text-decoration: none; }
+        .offer-button:hover { background-color: #e67e22; color: #fff; transform: translateY(-3px); box-shadow: 0 8px 20px rgba(255, 102, 0, 0.5); }
+        .offer-timer { flex-basis: 40%; min-width: 280px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); }
+        .offer-timer h3 { font-family: var(--font-main); font-weight: 500; font-size: 1.2em; margin-bottom: 15px; }
+        .countdown-container { display: flex; justify-content: center; gap: 15px; }
+        .countdown-item { background: rgba(255, 255, 255, 0.15); padding: 15px; border-radius: 10px; min-width: 80px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .countdown-item span { display: block; font-size: 2.5em; font-family: var(--font-accent); font-weight: bold; line-height: 1.1; color: #fff; text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
+        .countdown-item p { margin: 0; font-size: 0.8em; text-transform: uppercase; color: rgba(255, 255, 255, 0.8); }
+
+        /* --- НОВІ СТИЛІ: Секція "Як зробити замовлення" (Таймлайн) --- */
+        #how-to-order {
+            background-color: #fff;
+            padding: 48px 0 64px 0;
+        }
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: var(--accent-color);
+            opacity: 0.3;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+            border-radius: 2px;
+        }
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background-color: white;
+            border: 4px solid var(--accent-color);
+            top: 25px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        .timeline-item:not(.right) {
+            left: 0;
+        }
+        .timeline-item.right {
+            left: 50%;
+        }
+        .timeline-item.right::after {
+            left: -10px;
+        }
+        .timeline-content {
+            padding: 20px;
+            background-color: white;
+            position: relative;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border: 1px solid #eee;
+        }
+        .timeline-content h4 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+        .timeline-content p {
+            margin-bottom: 0;
+            font-size: 0.9em;
+            color: #555;
+        }
+        .timeline-number {
+            position: absolute;
+            top: 15px;
+            z-index: 2;
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: var(--font-heading);
+            font-weight: bold;
+            border: 3px solid #fff;
+        }
+        .timeline-item:not(.right) .timeline-number {
+            right: 20px;
+        }
+        .timeline-item.right .timeline-number {
+            left: 20px;
+        }
+
+        .footer { background-color: var(--primary-color); color: var(--light-text-color); padding: 30px 0; text-align: center; font-size: 0.9em; }
+        .footer .container { display: flex; flex-direction: column; gap: 15px; align-items: center; }
+        .footer p { margin: 0; }
+        .footer h3 { color: var(--light-text-color); margin-bottom: 15px; font-size: 1.4em; }
+        .footer-contacts p { margin-bottom: 5px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .footer-contacts i { color: var(--accent-color); font-size: 1.1em; }
+        .social-links { margin-top: 15px; margin-bottom: 10px; }
+        .social-links a { color: var(--light-text-color); font-size: 1.6em; margin: 0 10px; transition: color 0.3s ease; }
+        .social-links a:hover { color: var(--accent-color); }
+
+        .modal { display: none; position: fixed; z-index: 2000; padding-top: 60px; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.9); }
+        .modal-content { margin: auto; display: block; max-width: 80%; max-height: 80vh; border-radius: 8px; }
+        .close { position: absolute; top: 20px; right: 35px; color: #f1f1f1; font-size: 40px; font-weight: bold; transition: 0.3s; cursor: pointer; }
+        .close:hover { color: #bbb; }
+        
+        .modal-nav { position: absolute; top: 50%; transform: translateY(-50%); background-color: rgba(44, 62, 80, 0.5); color: white; border: none; padding: 16px; cursor: pointer; font-size: 2em; z-index: 2001; border-radius: 5px; transition: background-color 0.3s ease; user-select: none; display: none; }
+        .modal-nav:hover { background-color: rgba(44, 62, 80, 0.8); }
+        .modal-nav.prev { left: 20px; }
+        .modal-nav.next { right: 20px; }
+        
+        .quick-order-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1001;
+        }
+        .order-trigger {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: var(--primary-color);
+            color: var(--light-text-color);
+            padding: 12px 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            font-family: var(--font-main);
+            font-weight: 500;
+        }
+        .order-trigger:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+            background-color: #3e536c;
+        }
+        .order-trigger i {
+            font-size: 1.2em;
+        }
+        .order-popup {
+            display: none;
+            position: absolute;
+            bottom: calc(100% + 10px);
+            right: 0;
+            width: 280px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+            border: 1px solid #ddd;
+            animation: fadeIn 0.3s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .quick-order-widget.active .order-popup {
+            display: block;
+        }
+        .quick-order-widget.active .order-trigger {
+            display: none;
+        }
+        #quickOrderForm {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            text-align: center;
+            position: relative;
+        }
+        #quickOrderForm p {
+            font-size: 0.95em;
+            color: var(--text-color);
+            margin: 0;
+            font-family: var(--font-main);
+        }
+        #quickOrderForm input[type="tel"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            text-align: center;
+        }
+        #quickOrderForm button[type="submit"] {
+            background-color: var(--accent-color);
+            color: var(--light-text-color);
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: var(--font-accent);
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+        #quickOrderForm button[type="submit"]:hover {
+            background-color: #a8855a;
+        }
+        .close-popup {
+            position: absolute;
+            top: -15px;
+            right: -10px;
+            background: none;
+            border: none;
+            font-size: 2em;
+            color: #aaa;
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+        }
+        .close-popup:hover {
+            color: #333;
+        }
+        
+        /* --- Адаптивність --- */
+        @media (max-width: 992px) {
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
+            #about .container { flex-direction: column; }
+            .innovative-solutions .container { gap: 20px; padding: 0 15px; }
+            .innovative-solutions-image { width: 40%; max-width: 300px; }
+            .innovative-solutions-content { min-width: unset; }
+            .innovative-solutions-content h1 { font-size: 2.2em; }
+            .innovative-solutions-content p { font-size: 1em; }
+            .cta-button { padding: 8px 12px; font-size: 0.8em; }
+            .product-cards-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+            .product-card { padding: 15px; }
+            .product-card img { height: 240px; }
+            .tile-gallery-grid { grid-template-columns: repeat(3, 1fr); }
+            .dual-slider-wrapper { max-width: 500px; gap: 20px; }
+            .rectangular-gallery { max-width: 240px; }
+            .gallery-item img { height: auto; aspect-ratio: 3 / 5; }
+            .gallery-nav-button { padding: 10px 5px; font-size: 1.2em; }
+            .innovative-solutions { padding: 32px var(--container-padding); }
+            .payment-delivery-container { flex-direction: column; gap: 30px; }
+            #special-offer { padding: 32px 0; }
+            .offer-content h2 { font-size: 2em; }
+            .offer-button { padding: 10px 20px; font-size: 0.9em; }
+            .countdown-item { padding: 12px; min-width: 70px; }
+            .countdown-item span { font-size: 2.2em; }
+            .extras-grid {
+                display: flex;
+                overflow-x: auto;
+                gap: 20px;
+                padding: 10px 0 20px 0;
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+            .extras-grid::-webkit-scrollbar {
+                display: none;
+            }
+            .extra-item {
+                flex: 0 0 280px;
+            }
+            
+            @keyframes sway {
+                0% { transform: translateX(0); }
+                30% { transform: translateX(-15px); }
+                60% { transform: translateX(8px); }
+                80% { transform: translateX(-5px); }
+                100% { transform: translateX(0); }
+            }
+            .sway-animation {
+                animation: sway 1s ease-in-out;
+            }
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2em; }
+            .nav { display: none; flex-direction: column; position: absolute; top: 60px; right: 0; background-color: white; width: 100%; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+            .nav.active { display: flex; }
+            .nav a { margin: 0; padding: 15px; text-align: center; border-bottom: 1px solid #eee; }
+            .menu-toggle { display: block; }
+            .innovative-solutions .container { display: grid; grid-template-columns: 120px 1fr; grid-template-areas: "image content"; gap: 15px; align-items: start; }
+            
+            .innovative-solutions-image { grid-area: image; width: 100%; max-width: 100%; margin-right: 0; display: flex; flex-direction: column; gap: 15px; }
+            .mobile-only-image { display: block; }
+
+            .innovative-solutions-content { grid-area: content; width: 100%; padding-top: 0; }
+            .innovative-solutions-content h1 { font-size: 1.495em; margin-bottom: 10px; }
+            .innovative-solutions-content p { font-size: 0.8em; margin-bottom: 15px; }
+            .services-grid { grid-template-columns: 1fr; }
+            .product-cards-grid { grid-template-columns: repeat(2, 1fr); gap: 10px 10px; row-gap: 30px; padding: 0 10px; }
+            .product-card { padding: 10px; gap: 8px; }
+            .product-card img { height: 200px; }
+            .product-card .social-button { font-size: 0.8em; padding: 6px 10px; }
+            .dual-slider-wrapper { flex-direction: column; gap: 0; max-width: 336px; }
+            .rectangular-gallery:nth-child(2) { display: none; }
+            .rectangular-gallery:first-child { margin: 0 auto; }
+            .rectangular-gallery { max-width: 336px; }
+            .gallery-item img { height: auto; aspect-ratio: 3 / 5; transform: scale(1.2); transition: transform 0.3s ease; }
+            .tile-gallery-grid { grid-template-columns: repeat(2, 1fr); }
+            #special-offer .container { flex-direction: column; }
+            .offer-content { text-align: center; }
+            .offer-content h2 { font-size: 1.8em; }
+            .offer-button { padding: 8px 15px; font-size: 0.85em; }
+            .countdown-item { padding: 10px; min-width: 60px; }
+            .countdown-item span { font-size: 2em; }
+            
+            /* Адаптивність для таймлайну */
+            .timeline::after {
+                left: 30px;
+            }
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 15px;
+            }
+            .timeline-item:not(.right), .timeline-item.right {
+                left: 0;
+            }
+            .timeline-item::after, .timeline-item.right::after {
+                left: 20px;
+            }
+            .timeline-item .timeline-number, .timeline-item.right .timeline-number {
+                left: 10px;
+            }
+        }
+        @media (max-width: 480px) {
+            .innovative-solutions .container { grid-template-columns: 100px 1fr; }
+            .innovative-solutions-content h1 { font-size: 1.265em; }
+            .product-card { padding: 8px; gap: 5px; }
+            .product-card img { height: 180px; }
+            .product-card .social-button { font-size: 0.75em; padding: 5px 8px; }
+            .rectangular-gallery { max-width: 150px; }
+            .tile-gallery-grid { grid-template-columns: repeat(2, 1fr); }
+            .tile-gallery-item { height: 150px; }
+            .modal-nav { padding: 10px; font-size: 1.5em; }
+            .modal-nav.prev { left: 10px; }
+            .modal-nav.next { right: 10px; }
+            #special-offer { padding: 24px 0; }
+            .offer-content h2 { font-size: 1.5em; margin-bottom: 10px; }
+            .offer-content p { font-size: 0.9em; margin-bottom: 15px; }
+            .offer-timer h3 { font-size: 1.1em; margin-bottom: 10px; }
+            .countdown-item { padding: 8px; min-width: 50px; }
+            .countdown-item span { font-size: 1.8em; }
+            .countdown-item p { font-size: 0.7em; }
+            .extra-item {
+                flex: 0 0 250px;
+            }
+            .quick-order-widget {
+                right: 10px;
+                bottom: 10px;
+            }
+            .order-popup {
+                width: calc(100vw - 20px);
+                right: -10px; 
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <a href="#" class="logo">GRAVIK-MEMORIES</a>
+            <div class="menu-toggle" id="mobile-menu"><span>&#9776;</span></div>
+            <nav class="nav" id="nav-menu">
+                <a href="#about">Про нас</a>
+                <a href="#services">Послуги</a>
+                <a href="#products">Товари</a>
+                <a href="#payment-delivery">Оплата та доставка</a>
+                <a href="#works">Наші роботи</a>
+                <a href="#how-to-order">Як замовити</a> </nav>
+        </div>
+    </header>
+    <main>
+        <section class="innovative-solutions" id="innovative-solutions">
+            <div class="container">
+                <div class="innovative-solutions-image">
+                    <img src="images/IMG_20230618_210644.jpg" alt="Лазерне гравіювання">
+                    <img src="images/shop38-6.jpg" alt="Додаткове фото гравіювання" class="mobile-only-image">
+                </div>
+                <div class="innovative-solutions-content">
+                    <h1>Гравіювання на жетонах і брелоках</h1>
+                    <p>Ми створюємо унікальні вироби для кожного, ми не "штампуємо" замовлення клієнтів, а виконуємо їх з максимальною віддачею та увагою до деталей.</p>
+                    <a href="https://t.me/fifa_laser" class="cta-button" target="_blank">Варіанти гравіювання</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="about">
+            <div class="container">
+                <div class="about-content">
+                    <h2>Про нашу майстерню</h2>
+                    <p>Ми спеціалізуємося на лазерному гравіюванні з 2015 року. Наше обладнання дозволяє створювати чіткі та довговічні зображення на металі, дереві та інших матеріалах. Кожен виріб проходить багатоступінчастий контроль якості.</p>
+                    <p>Використовуємо тільки сертифіковані матеріали та сучасні технології гравіювання.</p>
+                </div>
+                <div class="about-image">
+                    <img src="images/shop38-6.jpg" alt="Наша майстерня">
+                </div>
+            </div>
+        </section>
+        
+        <section id="services">
+            <div class="container">
+                <h2 class="section-title">Наші Послуги</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <img class="service-card-image" src="images/service-1.jpg" alt="Гравіювання жетонів">
+                        <h3>Гравіювання жетонів</h3>
+                        <p>Точне гравіювання на металевих жетонах будь-якої форми та розміру.</p>
+                    </div>
+                    <div class="service-card">
+                        <img class="service-card-image" src="images/service-2.jpg" alt="Ювелірні вироби">
+                        <h3>Ювелірні вироби</h3>
+                        <p>Персоналізація кілець, підвісок та інших прикрас.</p>
+                    </div>
+                    <div class="service-card">
+                        <img class="service-card-image" src="images/service-3.jpg" alt="Корпоративні нагороди">
+                        <h3>Корпоративні нагороди</h3>
+                        <p>Виготовлення преміальних табличок та нагородних дощок.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="product-card-section" id="products">
+            <div class="container">
+                <h2 class="section-title">Популярні товари</h2>
+                <div class="product-cards-grid">
+                    <div class="product-card" data-images="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80, https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80, https://images.unsplash.com/photo-1515442261558-c9c064c9d7a6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fG1ldGFsJTIwZG9nJTIwdGFnfGVufDB8fDB8fHww">
+                        <div class="product-image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Жетон з гравіюванням">
+                        </div>
+                        <h2>Жетон круглий</h2>
+                        <div class="price">49.99 $</div>
+                        <div class="social-buttons">
+                            <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" class="social-button viber"><i class="fab fa-viber"></i> Замовити в Viber</a>
+                            <a href="https://t.me/fifa_laser" target="_blank" class="social-button telegram"><i class="fab fa-telegram-plane"></i> Замовити в Telegram</a>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card" data-images="https://images.unsplash.com/photo-1620164931988-758233f2c58a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bWV0YWwlMjBzaWdufGVufDB8fDB8fHww, https://images.unsplash.com/photo-1598284534898-e7a9b8f2d5f8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fG1ldGFsJTIwZG9nJTIwdGFnfGVufDB8fDB8fHww, https://images.unsplash.com/photo-1596791550997-6a1d9b3a0b3f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fG1ldGFsJTIwZG9nJTIwdGFnfGVufDB8fDB8fHww">
+                        <div class="product-image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Металева табличка">
+                        </div>
+                        <h2>Табличка</h2>
+                        <div class="price">29.99 $</div>
+                        <div class="social-buttons">
+                           <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" class="social-button viber"><i class="fab fa-viber"></i> Замовити в Viber</a>
+                           <a href="https://t.me/fifa_laser" target="_blank" class="social-button telegram"><i class="fab fa-telegram-plane"></i> Замовити в Telegram</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-images="images/IMG_20230330_183520.jpg, images/IMG_20230618_211239.jpg, images/IMG_20240407_134316.jpg">
+                            <div class="product-image-wrapper">
+                                <img src="images/IMG_20230330_183520.jpg" alt="Брелок з гравіюванням">
+                            </div>
+                            <h2>Брелок</h2>
+                            <div class="price">19.99 $</div>
+                            <div class="social-buttons">
+                                <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" class="social-button viber"><i class="fab fa-viber"></i> Замовити в Viber</a>
+                                <a href="https://t.me/fifa_laser" target="_blank" class="social-button telegram"><i class="fab fa-telegram-plane"></i> Замовити в Telegram</a>
+                            </div>
+                    </div>
+                    
+                    <div class="product-card" data-images="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80, https://images.unsplash.com/photo-1611591437281-462bf4d3ab45?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGVuZGFudHxlbnwwfHwwfHx8MA%3D%3D, https://images.unsplash.com/photo-1618689178933-a2411b4396b2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGVuZGFudHxlbnwwfHwwfHx8MA%3D%3D">
+                        <div class="product-image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Кулон з гравіюванням">
+                        </div>
+                        <h2>Кулон</h2>
+                        <div class="price">39.99 $</div>
+                        <div class="social-buttons">
+                                <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" class="social-button viber"><i class="fab fa-viber"></i> Замовити в Viber</a>
+                                <a href="https://t.me/fifa_laser" target="_blank" class="social-button telegram"><i class="fab fa-telegram-plane"></i> Замовити в Telegram</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="quick-order-button-wrapper">
+    <button id="showQuickOrderFormBtn" class="cta-button">Замовити швидко</button>
+</div>
+        </section>
+
+        <section id="extras">
+            <div class="container">
+                <h2 class="section-title">ДОДАТКОВО</h2>
+                <div class="extras-grid">
+                    <div class="extra-item">
+                        <div class="extra-circles">
+                            <div class="circle">
+                                <img src="images/IMG_20240407_134317.jpg" alt="Перкапчик">
+                            </div>
+                            <div class="circle">
+                                <img src="images/IMG_20240407_134316.jpg" alt="Ланцюжок">
+                            </div>
+                        </div>
+                        <p class="extra-price">БЕЗ ДОПЛАТ</p>
+                        <p>На вибір ви додатково отримуєте перкапчик, ланцюжок на шию і кліпсу або ланцюжок для брелоку.</p>
+                        <p style="margin-bottom: 5px;">(кількість обмежена)</p>
+                        <span class="extra-stock">залишок 8шт</span>
+                    </div>
+                    <div class="extra-item">
+                        <div class="extra-circles">
+                            <div class="circle">
+                                <img src="images/IMG_20231102_164306.jpg" alt="Силіконовий бампер">
+                            </div>
+                        </div>
+                        <p class="extra-price">+30 грн</p>
+                        <h3>Силіконовий бампер</h3>
+                        <p>(всі варіанти менеджер запропонує вам при оформленні замовлення)</p>
+                    </div>
+                    <div class="extra-item">
+                        <div class="extra-circles">
+                            <div class="circle">
+                                <img src="images/IMG_20230814_213855.jpg" alt="Посилений ланцюжок">
+                            </div>
+                        </div>
+                        <p class="extra-price">від 170грн</p>
+                        <h3>Посилений ланцюжок</h3>
+                        <a href="#products" class="cta-button">Варіанти гравіювання</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="payment-delivery" class="payment-delivery-section">
+            <div class="container">
+                <h2 class="section-title">Оплата та доставка</h2>
+                <div class="payment-delivery-container">
+                    <div class="payment-methods">
+                        <h3>Способи оплати</h3>
+                        <div class="method"><h4><i class="fas fa-money-bill-wave"></i> Готівковий розрахунок</h4><p>Оплата при отриманні товару в нашому офісі або кур'єру</p></div>
+                        <div class="method"><h4><i class="fas fa-credit-card"></i> Безготівковий розрахунок</h4><p>Переказ на банківську картку після підтвердження замовлення</p></div>
+                        <div class="method"><h4><i class="fab fa-cc-paypal"></i> Оплата онлайн</h4><p>Безпечна оплата через платіжні системи LiqPay або Portmone</p></div>
+                    </div>
+                    <div class="delivery-options">
+                        <h3>Варіанти доставки</h3>
+                        <div class="option"><h4><i class="fas fa-box"></i> Нова пошта</h4><p>Доставка по всій Україні. Оплата при отриманні або післяплатою</p></div>
+                        <div class="option"><h4><i class="fas fa-shipping-fast"></i> Укрпошта</h4><p>Економічна доставка в будь-яку точку України. Термін - 2-4 дні</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="tile-gallery-section" id="works">
+            <div class="container">
+                <h2 class="section-title">Наші роботи</h2>
+                <div class="tile-gallery-grid">
+                    <div class="tile-gallery-item" data-src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"><img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Робота 1"></div>
+                    <div class="tile-gallery-item" data-src="images/IMG_20240407_134317.jpg"><img src="images/IMG_20240407_134317.jpg" alt="Робота 2"></div>
+                    <div class="tile-gallery-item" data-src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"><img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Робота 3"></div>
+                    <div class="tile-gallery-item" data-src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"><img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Робота 4"></div>
+                    <div class="tile-gallery-item" data-src="images/IMG_20221112_160455.jpg"><img src="images/IMG_20221112_160455.jpg" alt="Робота 5"></div>
+                    <div class="tile-gallery-item" data-src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"><img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Робота 6"></div>
+                    <div class="tile-gallery-item" data-src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"><img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Робота 7"></div>
+                    <div class="tile-gallery-item" data-src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"><img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Робота 8"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="gallery" class="rectangular-gallery-section">
+            <div class="container">
+                <h2 class="section-title">Відгуки</h2>
+                <div class="dual-slider-wrapper">
+                    <div class="rectangular-gallery">
+                        <div class="gallery-container" id="galleryContainer1">
+                            <div class="gallery-item" data-src="images/Screenshot_2023-05-27-14-05-53-383_com.instagram.android.jpg"><img src="images/Screenshot_2023-05-27-14-05-53-383_com.instagram.android.jpg" alt="Приклад гравіювання 1"></div>
+                            <div class="gallery-item" data-src="images/Screenshot_2023-06-23-13-15-05-128_com.instagram.android.jpg"><img src="images/Screenshot_2023-06-23-13-15-05-128_com.instagram.android.jpg" alt="Приклад гравіювання 2"></div>
+                            <div class="gallery-item" data-src="images/Screenshot_2023-11-12-13-41-37-972_com.instagram.android.jpg"><img src="images/Screenshot_2023-11-12-13-41-37-972_com.instagram.android.jpg" alt="Приклад гравіювання 3"></div>
+                            <div class="gallery-item" data-src="images/IMG_20240407_134317.jpg"><img src="images/IMG_20240407_134317.jpg" alt="Приклад гравіювання 7"></div>
+                        </div>
+                        <button class="gallery-nav-button prev" id="prev1" aria-label="Попереднє зображення">&#10094;</button>
+                        <button class="gallery-nav-button next" id="next1" aria-label="Наступне зображення">&#10095;</button>
+                    </div>
+                    <div class="rectangular-gallery">
+                        <div class="gallery-container" id="galleryContainer2">
+                            <div class="gallery-item" data-src="images/Screenshot_2023-11-12-13-41-37-972_com.instagram.android.jpg"><img src="images/Screenshot_2023-11-12-13-41-37-972_com.instagram.android.jpg" alt="Приклад гравіювання 4"></div>
+                            <div class="gallery-item" data-src="images/Screenshot_2023-06-23-13-15-05-128_com.instagram.android.jpg"><img src="images/Screenshot_2023-06-23-13-15-05-128_com.instagram.android.jpg" alt="Приклад гравіювання 5"></div>
+                            <div class="gallery-item" data-src="images/Screenshot_2023-05-27-14-05-53-383_com.instagram.android.jpg"><img src="images/Screenshot_2023-05-27-14-05-53-383_com.instagram.android.jpg" alt="Приклад гравіювання 6"></div>
+                        </div>
+                        <button class="gallery-nav-button prev" id="prev2" aria-label="Попереднє зображення">&#10094;</button>
+                        <button class="gallery-nav-button next" id="next2" aria-label="Наступне зображення">&#10095;</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="special-offer">
+            <div class="container">
+                <div class="offer-content">
+                    <h2><i class="fas fa-fire"></i> Акція: Жетони з гравіюванням!</h2>
+                    <p>Не пропустіть шанс! Тільки до кінця акції при замовленні двох жетонів з будь-яким гравіюванням — третій ви отримуєте абсолютно безкоштовно. Ідеально для друзів або як подарунок.</p>
+                    <a href="#products" class="cta-button offer-button">Вибрати жетони</a>
+                </div>
+                <div class="offer-timer">
+                    <h3>До кінця акції залишилось:</h3>
+                    <div id="countdown" class="countdown-container">
+                        <div class="countdown-item">
+                            <span id="days">00</span>
+                            <p>днів</p>
+                        </div>
+                        <div class="countdown-item">
+                            <span id="hours">00</span>
+                            <p>годин</p>
+                        </div>
+                        <div class="countdown-item">
+                            <span id="minutes">00</span>
+                            <p>хвилин</p>
+                        </div>
+                        <div class="countdown-item">
+                            <span id="seconds">00</span>
+                            <p>секунд</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="how-to-order">
+            <div class="container">
+                <h2 class="section-title">Як зробити замовлення?</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-number">1</div>
+                        <div class="timeline-content">
+                            <h4>Оберіть товар</h4>
+                            <p>Визначтесь із жетоном, брелоком чи іншим виробом, який бажаєте персоналізувати.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item right">
+                        <div class="timeline-number">2</div>
+                        <div class="timeline-content">
+                            <h4>Зв'яжіться з нами</h4>
+                            <p>Напишіть менеджеру у Viber або Telegram для уточнення деталей та консультації.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-number">3</div>
+                        <div class="timeline-content">
+                            <h4>Узгодьте макет</h4>
+                            <p>Надішліть текст, фото чи ідею для гравіювання. Ми підготуємо та надішлемо вам макет.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item right">
+                        <div class="timeline-number">4</div>
+                        <div class="timeline-content">
+                            <h4>Затвердіть дизайн</h4>
+                            <p>Уважно перевірте макет. Якщо все влаштовує — підтвердіть його для початку роботи.</p>
+                        </div>
+                    </div>
+                     <div class="timeline-item">
+                        <div class="timeline-number">5</div>
+                        <div class="timeline-content">
+                            <h4>Внесіть оплату</h4>
+                            <p>Здійсніть оплату зручним для вас способом (повна або часткова передоплата).</p>
+                        </div>
+                    </div>
+                     <div class="timeline-item right">
+                        <div class="timeline-number">6</div>
+                        <div class="timeline-content">
+                            <h4>Очікуйте виготовлення</h4>
+                            <p>Ми з високою точністю та увагою до деталей створюємо ваше унікальне замовлення.</p>
+                        </div>
+                    </div>
+                     <div class="timeline-item">
+                        <div class="timeline-number">7</div>
+                        <div class="timeline-content">
+                            <h4>Отримайте замовлення</h4>
+                            <p>Ми надсилаємо готовий виріб обраним способом доставки. Радуйте себе та близьких!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <h3>Контакти та інформація</h3>
+            <div class="footer-contacts">
+                <p><i class="fas fa-envelope"></i> Email: info@lasergrav.com</p>
+                <p><i class="fas fa-phone"></i> Телефон: +380 (XX) XXX-XX-XX **(ЗАМІНІТЬ НА СВІЙ НОМЕР)**</p>
+                <p><i class="fas fa-clock"></i> Працюємо: Пн-Пт 9:00-18:00</p>
+            </div>
+            <div class="social-links">
+                <a href="https://www.facebook.com/yourpage" target="_blank" aria-label="Наша сторінка в Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/yourpage" target="_blank" aria-label="Наш Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://t.me/fifa_laser" target="_blank" aria-label="Наш Telegram"><i class="fab fa-telegram-plane"></i></a>
+                <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" aria-label="Наш Viber"><i class="fab fa-viber"></i></a>
+            </div>
+            <p>&copy; 2024 LaserGrav. Всі права захищені.</p>
+        </div>
+    </footer>
+
+    <div id="imageModal" class="modal">
+        <span class="close" id="closeModalButton">&times;</span>
+        <img class="modal-content" id="expandedImg">
+        <button class="modal-nav prev" id="modalPrev">&#10094;</button>
+        <button class="modal-nav next" id="modalNext">&#10095;</button>
+    </div>
+
+    <div class="quick-order-widget" id="quickOrderWidget">
+        <div class="order-trigger" id="orderTrigger">
+            <i class="fas fa-phone"></i>
+            <span></span>
+        </div>
+        <div class="order-popup">
+            <form id="quickOrderForm">
+                <button type="button" class="close-popup" id="closePopup">&times;</button>
+                <p>Введіть ваш номер, і ми зателефонуємо!</p>
+                <input type="tel" id="clientPhone" placeholder="+380 XX XXX XX XX" required>
+                <button type="submit">Чекаю на дзвінок</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    // --- Логіка для таймера зворотного відліку ---
+    const promotionEndDateString = "Jul 20, 2025 23:59:59";
+    const promotionEndDate = new Date(promotionEndDateString).getTime();
+
+    const countdownFunction = setInterval(() => {
+        const now = new Date().getTime();
+        const distance = promotionEndDate - now;
+
+        if (distance < 0) {
+            clearInterval(countdownFunction);
+            const countdownContainer = document.getElementById("countdown");
+            if (countdownContainer) {
+                countdownContainer.innerHTML = "<h3 style='color: #f39c12;'>Акція завершена!</h3>";
+            }
+            return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        const format = (num) => num < 10 ? '0' + num : num;
+        
+        const daysEl = document.getElementById("days");
+        if(daysEl) daysEl.innerText = format(days);
+        const hoursEl = document.getElementById("hours");
+        if(hoursEl) hoursEl.innerText = format(hours);
+        const minutesEl = document.getElementById("minutes");
+        if(minutesEl) minutesEl.innerText = format(minutes);
+        const secondsEl = document.getElementById("seconds");
+        if(secondsEl) secondsEl.innerText = format(seconds);
+
+    }, 1000);
+
+    // --- Мобільне меню ---
+    const menuToggle = document.getElementById('mobile-menu');
+    const navMenu = document.getElementById('nav-menu');
+    if (menuToggle && navMenu) {
+        menuToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
+    }
+
+    // --- Плавне прокручування ---
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            if (href === '#' || !document.querySelector(href)) return;
+
+            e.preventDefault();
+            const targetElement = document.querySelector(href);
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+            }
+            if (navMenu && navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+            }
+        });
+    });
+
+    // --- Слайдери в секції "Приклади робіт" ---
+    let sliderStates = [];
+    const galleryContainers = document.querySelectorAll('.rectangular-gallery .gallery-container');
+    galleryContainers.forEach((container, index) => {
+        sliderStates.push({
+            id: `slider${index + 1}`,
+            currentSlide: 0,
+            container: container,
+            totalSlides: container.children.length,
+            intervalId: null
+        });
+
+        const prevButton = document.getElementById(`prev${index + 1}`);
+        const nextButton = document.getElementById(`next${index + 1}`);
+
+        const startAutoPlay = () => {
+            if (sliderStates[index].intervalId) clearInterval(sliderStates[index].intervalId);
+            sliderStates[index].intervalId = setInterval(() => moveGallery(index, 1), 10000);
+        };
+        
+        const moveAndReset = (direction) => {
+            moveGallery(index, direction);
+            startAutoPlay();
+        };
+
+        if (prevButton) prevButton.onclick = () => moveAndReset(-1);
+        if (nextButton) nextButton.onclick = () => moveAndReset(1);
+        
+        startAutoPlay();
+    });
+
+    function moveGallery(sliderIndex, direction) {
+        let state = sliderStates[sliderIndex];
+        if (!state || state.totalSlides === 0) return;
+        state.currentSlide = (state.currentSlide + direction + state.totalSlides) % state.totalSlides;
+        state.container.style.transform = `translateX(-${state.currentSlide * 100}%)`;
+    }
+
+    // --- КОД МОДАЛЬНОГО ВІКНА ---
+    const modal = document.getElementById("imageModal");
+    const modalImg = document.getElementById("expandedImg");
+    const closeModalButton = document.getElementById("closeModalButton");
+    const modalPrevBtn = document.getElementById("modalPrev");
+    const modalNextBtn = document.getElementById("modalNext");
+    
+    if (!modal || !modalImg || !closeModalButton || !modalPrevBtn || !modalNextBtn) return;
+
+    let currentModalImages = [];
+    let currentImageIndex = 0;
+
+    function openModal(isGallery, imagesOrSrc, startIndex = 0) {
+        modal.style.display = "block";
+        currentModalImages = Array.isArray(imagesOrSrc) ? imagesOrSrc : [imagesOrSrc];
+        currentImageIndex = startIndex;
+        
+        const canNavigate = isGallery && currentModalImages.length > 1;
+        modalPrevBtn.style.display = canNavigate ? 'block' : 'none';
+        modalNextBtn.style.display = canNavigate ? 'block' : 'none';
+        
+        showImage(currentImageIndex);
+        
+        document.addEventListener('keydown', handleKeyDown);
+        if(canNavigate) {
+            modal.addEventListener('touchstart', handleTouchStart, { passive: true });
+            modal.addEventListener('touchmove', handleTouchMove, { passive: true });
+            modal.addEventListener('touchend', handleTouchEnd);
+        }
+        history.pushState({ modalOpen: true }, "");
+    }
+
+    function closeModalLogic() {
+        if (modal.style.display === "block") {
+            modal.style.display = "none";
+            document.removeEventListener('keydown', handleKeyDown);
+            modal.removeEventListener('touchstart', handleTouchStart);
+            modal.removeEventListener('touchmove', handleTouchMove);
+            modal.removeEventListener('touchend', handleTouchEnd);
+        }
+    }
+
+    window.addEventListener('popstate', closeModalLogic);
+    closeModalButton.addEventListener('click', () => history.back());
+    modal.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            history.back();
+        }
+    });
+
+    function showImage(index) {
+        if (!currentModalImages || currentModalImages.length === 0) return;
+        currentImageIndex = (index + currentModalImages.length) % currentModalImages.length;
+        modalImg.src = currentModalImages[currentImageIndex];
+    }
+
+    modalPrevBtn.addEventListener('click', (e) => { e.stopPropagation(); showImage(currentImageIndex - 1); });
+    modalNextBtn.addEventListener('click', (e) => { e.stopPropagation(); showImage(currentImageIndex + 1); });
+
+
+    document.querySelectorAll('.tile-gallery-item, .gallery-item').forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const galleryContainer = item.closest('.gallery-container');
+
+            if (galleryContainer) {
+                const allItems = Array.from(galleryContainer.children);
+                const images = allItems.map(galleryItem => galleryItem.dataset.src || galleryItem.querySelector('img').src);
+                const startIndex = allItems.indexOf(item);
+                openModal(true, images, startIndex);
+            } else {
+                const src = item.dataset.src || item.querySelector('img').src;
+                openModal(false, src);
+            }
+        });
+    });
+    
+    document.querySelectorAll('.product-card .product-image-wrapper').forEach(wrapper => {
+        wrapper.addEventListener('click', (e) => {
+            const card = e.currentTarget.closest('.product-card');
+            const imagesAttr = card.dataset.images;
+            if (!imagesAttr) return;
+            const images = imagesAttr.split(',').map(s => s.trim());
+            if (images.length > 0) {
+                openModal(true, images, 0);
+            }
+        });
+    });
+    
+    // --- Анімація похитування для блоку "Додатково" ---
+    const extrasBlock = document.getElementById('extras');
+    if (extrasBlock) {
+        const extrasGrid = extrasBlock.querySelector('.extras-grid');
+        let swayIntervalId = null;
+
+        const triggerSwayAnimation = () => {
+            if (extrasGrid && !extrasGrid.classList.contains('sway-animation')) {
+                extrasGrid.classList.add('sway-animation');
+                extrasGrid.addEventListener('animationend', () => {
+                    extrasGrid.classList.remove('sway-animation');
+                }, { once: true });
+            }
+        };
+        
+        const stopSwayingPermanently = () => {
+            clearInterval(swayIntervalId);
+            extrasGrid.removeEventListener('scroll', stopSwayingPermanently);
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (!swayIntervalId) {
+                        swayIntervalId = setInterval(triggerSwayAnimation, 3000);
+                        extrasGrid.addEventListener('scroll', stopSwayingPermanently, { once: true });
+                    }
+                } else {
+                    clearInterval(swayIntervalId);
+                    swayIntervalId = null;
+                }
+            });
+        }, { threshold: 0.5 });
+
+        observer.observe(extrasBlock);
+    }
+
+    function handleKeyDown(e) {
+        if (modal.style.display !== 'block') return;
+        if (e.key === "ArrowLeft" && modalPrevBtn.style.display !== 'none') showImage(currentImageIndex - 1);
+        else if (e.key === "ArrowRight" && modalNextBtn.style.display !== 'none') showImage(currentImageIndex + 1);
+        else if (e.key === "Escape") history.back();
+    }
+    
+    let touchStartX = 0;
+    let touchEndX = 0;
+    function handleTouchStart(e) { touchStartX = e.touches[0].clientX; }
+    function handleTouchMove(e) { touchEndX = e.touches[0].clientX; }
+    function handleTouchEnd() {
+        if (modalPrevBtn.style.display === 'none') return;
+        if (touchStartX - touchEndX > 50) showImage(currentImageIndex + 1);
+        if (touchStartX - touchEndX < -50) showImage(currentImageIndex - 1);
+    }
+
+    // --- Логіка для компактного віджета швидкого замовлення (з підтримкою кнопки "Назад") ---
+    const quickOrderWidget = document.getElementById('quickOrderWidget');
+    const orderTrigger = document.getElementById('orderTrigger');
+    const closePopup = document.getElementById('closePopup');
+    const quickOrderForm = document.getElementById('quickOrderForm');
+    
+    // 1. Знаходимо нову кнопку, яку ми додали в HTML
+    const showQuickOrderBtn = document.getElementById('showQuickOrderFormBtn');
+
+    if (quickOrderWidget && orderTrigger && closePopup && quickOrderForm) {
+
+        const openPopup = () => {
+            if (!quickOrderWidget.classList.contains('active')) {
+                quickOrderWidget.classList.add('active');
+                history.pushState({ quickOrderPopupOpen: true }, null, "");
+            }
+        };
+
+        const closePopupLogic = () => {
+            quickOrderWidget.classList.remove('active');
+        };
+
+        // Відкрити вікно по кліку на плаваючий віджет
+        orderTrigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            openPopup();
+        });
+
+        // 2. Додаємо обробник події для нової кнопки під товарами
+        if (showQuickOrderBtn) {
+            showQuickOrderBtn.addEventListener('click', openPopup);
+        }
+
+        // Закрити вікно по кліку на хрестик
+        closePopup.addEventListener('click', () => {
+            history.back();
+        });
+
+        // Закрити вікно по кліку поза ним
+        document.addEventListener('click', (e) => {
+            if (quickOrderWidget.classList.contains('active') && !quickOrderWidget.contains(e.target) && e.target !== showQuickOrderBtn) {
+                history.back();
+            }
+        });
+        
+        // Слухаємо системну кнопку "Назад"
+        window.addEventListener('popstate', (event) => {
+            if (quickOrderWidget.classList.contains('active')) {
+                 closePopupLogic();
+            }
+        });
+
+        // Логіка відправки форми
+        quickOrderForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const phoneInput = document.getElementById('clientPhone');
+            const phone = phoneInput.value;
+
+            // ---- ВСТАВТЕ ВАШІ ДАНІ СЮДИ ----
+            const TOKEN = "ВАШ_ТОКЕН_БОТА";
+            const CHAT_ID = "ВАШ_ID_ЧАТА";
+            // ------------------------------------
+
+            const message = `<b>Нове замовлення!</b>\nКлієнт залишив номер: ${phone}`;
+            const url = `https://api.telegram.org/bot${TOKEN}/sendMessage`;
+            const params = { chat_id: CHAT_ID, text: message, parse_mode: 'HTML' };
+
+            fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(params)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                    alert('Дякуємо! Ми скоро з вами зв\'яжемось.');
+                    phoneInput.value = '';
+                    history.back(); 
+                } else { throw new Error(data.description); }
+            })
+            .catch(error => {
+                console.error('Помилка відправки в Telegram:', error);
+                alert('Виникла помилка. Спробуйте ще раз або зв\'яжіться з нами напряму.');
+            });
+        });
+    }
+});
+</script>
+</body>
+</html>
