@@ -131,12 +131,14 @@
         .extra-item:first-child .circle:nth-child(2) {
             margin-left: -40px;
         }
-        .extra-price {
-            font-family: var(--font-main);
-            font-weight: bold;
-            font-size: 1.1em;
-            margin-bottom: 5px;
-        }
+        /* Замените старое правило .extra-price на это */
+#extras .extra-price {
+    font-family: var(--font-main);
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-bottom: 5px;
+    color: #006400;
+}
         .extra-item h3 {
             font-size: 1.5em;
             margin-bottom: 15px;
@@ -576,18 +578,6 @@
             </div>
         </section>
 
-        <section id="about">
-            <div class="container">
-                <div class="about-content">
-                    <h2>Про нашу майстерню</h2>
-                    <p>Ми спеціалізуємося на лазерному гравіюванні з 2015 року. Наше обладнання дозволяє створювати чіткі та довговічні зображення на металі, дереві та інших матеріалах. Кожен виріб проходить багатоступінчастий контроль якості.</p>
-                    <p>Використовуємо тільки сертифіковані матеріали та сучасні технології гравіювання.</p>
-                </div>
-                <div class="about-image">
-                    <img src="images/shop38-6.jpg" alt="Наша майстерня">
-                </div>
-            </div>
-        </section>
         
         <section id="services">
             <div class="container">
@@ -706,7 +696,7 @@
                         </div>
                         <p class="extra-price">від 170грн</p>
                         <h3>Посилений ланцюжок</h3>
-                        <p>&nbsp;</p> <div class="extra-action"> <a href="#products" class="cta-button">Варіанти гравіювання</a>
+                        <p>&nbsp;</p> <div class="extra-action"> 
                         </div>
                     </div>
         
@@ -719,7 +709,7 @@
                         <p class="extra-price">+100 грн</p>
                         <h3>Подарункова коробочка</h3>
                         <p>(деталі уточнюйте у менеджера)</p>
-                        <div class="extra-action"></div> </div>
+                        <div class="extra-action"> <a href="#products" class="cta-button">Варіанти гравіювання</a></div> </div>
                 </div>
             </div>
         </section>
@@ -870,6 +860,19 @@
                             <p>Ми надсилаємо готовий виріб обраним способом доставки. Радуйте себе та близьких!</p>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about">
+            <div class="container">
+                <div class="about-content">
+                    <h2>Про нашу майстерню</h2>
+                    <p>Ми спеціалізуємося на лазерному гравіюванні з 2015 року. Наше обладнання дозволяє створювати чіткі та довговічні зображення на металі, дереві та інших матеріалах. Кожен виріб проходить багатоступінчастий контроль якості.</p>
+                    <p>Використовуємо тільки сертифіковані матеріали та сучасні технології гравіювання.</p>
+                </div>
+                <div class="about-image">
+                    <img src="images/shop38-6.jpg" alt="Наша майстерня">
                 </div>
             </div>
         </section>
