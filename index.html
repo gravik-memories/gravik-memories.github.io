@@ -82,17 +82,17 @@
         .product-card .social-button.viber:hover { background-color: #604ED9; transform: translateY(-2px); }
         .product-card .social-button.telegram { background-color: #0088CC; }
         .product-card .social-button.telegram:hover { background-color: #006FB3; transform: translateY(-2px); }
-.quick-order-button-wrapper {
-    text-align: center; /* Центрує кнопку */
-    margin-top: 30px;   /* Невеликий відступ зверху */
-}
+        .quick-order-button-wrapper {
+            text-align: center; /* Центрує кнопку */
+            margin-top: 30px;   /* Невеликий відступ зверху */
+        }
         #extras {
             background-color: #fff;
             padding: 48px 0;
         }
         .extras-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 40px;
             text-align: center;
         }
@@ -100,6 +100,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            height: 100%;
         }
         .extra-circles {
             display: flex;
@@ -155,6 +156,10 @@
         .extra-item .cta-button {
              padding: 12px 25px;
              font-size: 1em;
+        }
+        
+        .extra-item .extra-action {
+            margin-top: auto;
         }
 
         .tile-gallery-section { padding: 30px 0; background-color: var(--secondary-color); }
@@ -552,7 +557,8 @@
                 <a href="#products">Товари</a>
                 <a href="#payment-delivery">Оплата та доставка</a>
                 <a href="#works">Наші роботи</a>
-                <a href="#how-to-order">Як замовити</a> </nav>
+                <a href="#how-to-order">Як замовити</a>
+            </nav>
         </div>
     </header>
     <main>
@@ -621,7 +627,6 @@
                             <a href="https://t.me/fifa_laser" target="_blank" class="social-button telegram"><i class="fab fa-telegram-plane"></i> Замовити в Telegram</a>
                         </div>
                     </div>
-                    
                     <div class="product-card" data-images="https://images.unsplash.com/photo-1620164931988-758233f2c58a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bWV0YWwlMjBzaWdufGVufDB8fDB8fHww, https://images.unsplash.com/photo-1598284534898-e7a9b8f2d5f8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fG1ldGFsJTIwZG9nJTIwdGFnfGVufDB8fDB8fHww, https://images.unsplash.com/photo-1596791550997-6a1d9b3a0b3f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fG1ldGFsJTIwZG9nJTIwdGFnfGVufDB8fDB8fHww">
                         <div class="product-image-wrapper">
                             <img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Металева табличка">
@@ -633,7 +638,6 @@
                            <a href="https://t.me/fifa_laser" target="_blank" class="social-button telegram"><i class="fab fa-telegram-plane"></i> Замовити в Telegram</a>
                         </div>
                     </div>
-
                     <div class="product-card" data-images="images/IMG_20230330_183520.jpg, images/IMG_20230618_211239.jpg, images/IMG_20240407_134316.jpg">
                             <div class="product-image-wrapper">
                                 <img src="images/IMG_20230330_183520.jpg" alt="Брелок з гравіюванням">
@@ -645,7 +649,6 @@
                                 <a href="https://t.me/fifa_laser" target="_blank" class="social-button telegram"><i class="fab fa-telegram-plane"></i> Замовити в Telegram</a>
                             </div>
                     </div>
-                    
                     <div class="product-card" data-images="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80, https://images.unsplash.com/photo-1611591437281-462bf4d3ab45?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGVuZGFudHxlbnwwfHwwfHx8MA%3D%3D, https://images.unsplash.com/photo-1618689178933-a2411b4396b2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGVuZGFudHxlbnwwfHwwfHx8MA%3D%3D">
                         <div class="product-image-wrapper">
                             <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Кулон з гравіюванням">
@@ -660,8 +663,8 @@
                 </div>
             </div>
             <div class="quick-order-button-wrapper">
-    <button id="showQuickOrderFormBtn" class="cta-button">Замовити швидко</button>
-</div>
+                <button id="showQuickOrderFormBtn" class="cta-button">Замовити швидко</button>
+            </div>
         </section>
 
         <section id="extras">
@@ -678,10 +681,12 @@
                             </div>
                         </div>
                         <p class="extra-price">БЕЗ ДОПЛАТ</p>
-                        <p>На вибір ви додатково отримуєте перкапчик, ланцюжок на шию і кліпсу або ланцюжок для брелоку.</p>
-                        <p style="margin-bottom: 5px;">(кількість обмежена)</p>
-                        <span class="extra-stock">залишок 8шт</span>
+                        <h3>Брелок або кулон</h3> <p>На вибір ви додатково отримуєте перкапчик, ланцюжок на шию і кліпсу або ланцюжок для брелоку.</p>
+                        <div class="extra-action"> <p style="margin-bottom: 5px;">(кількість обмежена)</p>
+                            <span class="extra-stock">залишок 8шт</span>
+                        </div>
                     </div>
+        
                     <div class="extra-item">
                         <div class="extra-circles">
                             <div class="circle">
@@ -691,7 +696,8 @@
                         <p class="extra-price">+30 грн</p>
                         <h3>Силіконовий бампер</h3>
                         <p>(всі варіанти менеджер запропонує вам при оформленні замовлення)</p>
-                    </div>
+                        <div class="extra-action"></div> </div>
+        
                     <div class="extra-item">
                         <div class="extra-circles">
                             <div class="circle">
@@ -700,8 +706,20 @@
                         </div>
                         <p class="extra-price">від 170грн</p>
                         <h3>Посилений ланцюжок</h3>
-                        <a href="#products" class="cta-button">Варіанти гравіювання</a>
+                        <p>&nbsp;</p> <div class="extra-action"> <a href="#products" class="cta-button">Варіанти гравіювання</a>
+                        </div>
                     </div>
+        
+                    <div class="extra-item">
+                        <div class="extra-circles">
+                            <div class="circle">
+                                <img src="https://images.unsplash.com/photo-1594553248233-a5a5c53b2767?w=500&auto=format&fit=crop" alt="Подарункова коробочка">
+                            </div>
+                        </div>
+                        <p class="extra-price">+100 грн</p>
+                        <h3>Подарункова коробочка</h3>
+                        <p>(деталі уточнюйте у менеджера)</p>
+                        <div class="extra-action"></div> </div>
                 </div>
             </div>
         </section>
@@ -900,27 +918,42 @@
 
     <script>
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Логіка для таймера зворотного відліку ---
-    const promotionEndDateString = "Jul 20, 2025 23:59:59";
-    const promotionEndDate = new Date(promotionEndDateString).getTime();
+    // --- Логіка для таймера зворотного відліку (ОНОВЛЕНО) ---
+    let promotionEndDate;
+
+    // Функція для запуску або перезапуску таймера
+    const startOrResetTimer = () => {
+        const twoDaysInMs = 2 * 24 * 60 * 60 * 1000;
+        promotionEndDate = new Date().getTime() + twoDaysInMs;
+        localStorage.setItem('promotionEndDate', promotionEndDate);
+    };
+
+    const storedEndDate = localStorage.getItem('promotionEndDate');
+
+    // Перевіряємо, чи є збережена дата і чи вона не минула
+    if (storedEndDate && new Date().getTime() < parseInt(storedEndDate)) {
+        promotionEndDate = parseInt(storedEndDate);
+    } else {
+        // Якщо дати немає або вона застаріла, запускаємо таймер наново
+        startOrResetTimer();
+    }
 
     const countdownFunction = setInterval(() => {
         const now = new Date().getTime();
         const distance = promotionEndDate - now;
 
+        // Якщо час вийшов, просто перезапускаємо таймер на 2 дні
         if (distance < 0) {
-            clearInterval(countdownFunction);
-            const countdownContainer = document.getElementById("countdown");
-            if (countdownContainer) {
-                countdownContainer.innerHTML = "<h3 style='color: #f39c12;'>Акція завершена!</h3>";
-            }
-            return;
+            startOrResetTimer();
+            // Ми не зупиняємо інтервал, він просто продовжить роботу з новою датою
         }
 
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        // Розраховуємо час, що залишився (використовуємо Math.max, щоб не показувати від'ємні значення)
+        const remainingDistance = Math.max(0, distance);
+        const days = Math.floor(remainingDistance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((remainingDistance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((remainingDistance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((remainingDistance % (1000 * 60)) / 1000);
 
         const format = (num) => num < 10 ? '0' + num : num;
         
