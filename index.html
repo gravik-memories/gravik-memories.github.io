@@ -72,21 +72,27 @@
         .product-card:hover { transform: translateY(-8px); box-shadow: 0 12px 25px rgba(0,0,0,0.15); }
         .product-card .product-image-wrapper { cursor: pointer; width: 100%; }
         .product-card img { width: 100%; height: 300px; object-fit: cover; border-radius: 8px; margin-bottom: 5px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
+        
+        /* === ИЗМЕНЕНИЕ 1: Убрана жирность с названия товара === */
         .product-card h2 {
-    font-size: 1.36em;
-    color: var(--accent-color);
-    margin-bottom: 5px;
-    font-family: var(--font-heading);
-    font-weight: normal; 
-}
+            font-size: 1.36em;
+            color: var(--accent-color);
+            margin-bottom: 5px;
+            font-family: var(--font-heading);
+            font-weight: normal; /* Убирает жирность */
+        }
+        
         .product-card p { display: none; }
-      .product-card .price {
-    font-size: 1.36em;
-    font-weight: normal; 
-    color: var(--primary-color);
-    margin-bottom: 10px;
-    font-family: var(--font-accent);
-}
+
+        /* === ИЗМЕНЕНИЕ 2: Убрана жирность с цены товара === */
+        .product-card .price {
+            font-size: 1.36em;
+            font-weight: normal; /* Убирает жирность */
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-family: var(--font-accent);
+        }
+
         .product-card .social-buttons { display: flex; flex-direction: column; gap: 8px; width: 100%; margin-top: 5px; }
         .product-card .social-button { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 8px 12px; border-radius: 5px; text-decoration: none; font-size: 0.9em; font-weight: bold; color: var(--light-text-color); transition: all 0.3s ease; flex-grow: 1; white-space: nowrap; font-family: var(--font-accent); }
         .product-card .social-button i { font-size: 1.0em; }
@@ -95,8 +101,8 @@
         .product-card .social-button.telegram { background-color: #0088CC; }
         .product-card .social-button.telegram:hover { background-color: #006FB3; transform: translateY(-2px); }
         .quick-order-button-wrapper {
-            text-align: center; /* Центрує кнопку */
-            margin-top: 30px;   /* Невеликий відступ зверху */
+            text-align: center;
+            margin-top: 30px;
         }
         #extras {
             background-color: #fff;
@@ -143,14 +149,13 @@
         .extra-item:first-child .circle:nth-child(2) {
             margin-left: -40px;
         }
-        /* Замените старое правило .extra-price на это */
-#extras .extra-price {
-    font-family: var(--font-main);
-    font-weight: bold;
-    font-size: 1.1em;
-    margin-bottom: 5px;
-    color: #006400;
-}
+        #extras .extra-price {
+            font-family: var(--font-main);
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+            color: #006400;
+        }
         .extra-item h3 {
             font-size: 1.5em;
             margin-bottom: 15px;
@@ -215,7 +220,6 @@
         .countdown-item span { display: block; font-size: 2.5em; font-family: var(--font-accent); font-weight: bold; line-height: 1.1; color: #fff; text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
         .countdown-item p { margin: 0; font-size: 0.8em; text-transform: uppercase; color: rgba(255, 255, 255, 0.8); }
 
-        /* --- НОВІ СТИЛІ: Секція "Як зробити замовлення" (Таймлайн) --- */
         #how-to-order {
             background-color: #fff;
             padding: 48px 0 64px 0;
@@ -323,6 +327,12 @@
         .modal-nav:hover { background-color: rgba(44, 62, 80, 0.8); }
         .modal-nav.prev { left: 20px; }
         .modal-nav.next { right: 20px; }
+
+        /* === ИЗМЕНЕНИЕ 3: Блокировка кликов на фоне открытого модального окна === */
+        body.modal-open main,
+        body.modal-open footer {
+            pointer-events: none;
+        }
         
         .quick-order-widget {
             position: fixed;
@@ -508,7 +518,6 @@
             .countdown-item { padding: 10px; min-width: 60px; }
             .countdown-item span { font-size: 2em; }
             
-            /* Адаптивність для таймлайну */
             .timeline::after {
                 left: 30px;
             }
@@ -613,7 +622,7 @@
                 </div>
             </div>
         </section>
-        
+ 
         <section class="product-card-section" id="products">
             <div class="container">
                 <h2 class="section-title">Виготовлення 1-3 дня</h2>
@@ -936,7 +945,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Логіка для таймера зворотного відліку (ОНОВЛЕНО) ---
     let promotionEndDate;
 
-    // Функція для запуску або перезапуску таймера
     const startOrResetTimer = () => {
         const twoDaysInMs = 2 * 24 * 60 * 60 * 1000;
         promotionEndDate = new Date().getTime() + twoDaysInMs;
@@ -945,11 +953,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const storedEndDate = localStorage.getItem('promotionEndDate');
 
-    // Перевіряємо, чи є збережена дата і чи вона не минула
     if (storedEndDate && new Date().getTime() < parseInt(storedEndDate)) {
         promotionEndDate = parseInt(storedEndDate);
     } else {
-        // Якщо дати немає або вона застаріла, запускаємо таймер наново
         startOrResetTimer();
     }
 
@@ -957,13 +963,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const now = new Date().getTime();
         const distance = promotionEndDate - now;
 
-        // Якщо час вийшов, просто перезапускаємо таймер на 2 дні
         if (distance < 0) {
             startOrResetTimer();
-            // Ми не зупиняємо інтервал, він просто продовжить роботу з новою датою
         }
 
-        // Розраховуємо час, що залишився (використовуємо Math.max, щоб не показувати від'ємні значення)
         const remainingDistance = Math.max(0, distance);
         const days = Math.floor(remainingDistance / (1000 * 60 * 60 * 24));
         const hours = Math.floor((remainingDistance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -1057,7 +1060,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentModalImages = [];
     let currentImageIndex = 0;
 
+    // === ИЗМЕНЕНИЕ 4: Добавлено управление классом 'modal-open' ===
     function openModal(isGallery, imagesOrSrc, startIndex = 0) {
+        document.body.classList.add('modal-open'); // Блокируем фон
         modal.style.display = "block";
         currentModalImages = Array.isArray(imagesOrSrc) ? imagesOrSrc : [imagesOrSrc];
         currentImageIndex = startIndex;
@@ -1077,8 +1082,10 @@ document.addEventListener('DOMContentLoaded', () => {
         history.pushState({ modalOpen: true }, "");
     }
 
+    // === ИЗМЕНЕНИЕ 5: Добавлено управление классом 'modal-open' ===
     function closeModalLogic() {
         if (modal.style.display === "block") {
+            document.body.classList.remove('modal-open'); // Разблокируем фон
             modal.style.display = "none";
             document.removeEventListener('keydown', handleKeyDown);
             modal.removeEventListener('touchstart', handleTouchStart);
@@ -1134,7 +1141,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
     
-    // --- Анімація похитування для блоку "Додатково" ---
     const extrasBlock = document.getElementById('extras');
     if (extrasBlock) {
         const extrasGrid = extrasBlock.querySelector('.extras-grid');
@@ -1188,13 +1194,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (touchStartX - touchEndX < -50) showImage(currentImageIndex - 1);
     }
 
-    // --- Логіка для компактного віджета швидкого замовлення (з підтримкою кнопки "Назад") ---
     const quickOrderWidget = document.getElementById('quickOrderWidget');
     const orderTrigger = document.getElementById('orderTrigger');
     const closePopup = document.getElementById('closePopup');
     const quickOrderForm = document.getElementById('quickOrderForm');
     
-    // 1. Знаходимо нову кнопку, яку ми додали в HTML
     const showQuickOrderBtn = document.getElementById('showQuickOrderFormBtn');
 
     if (quickOrderWidget && orderTrigger && closePopup && quickOrderForm) {
@@ -1210,37 +1214,31 @@ document.addEventListener('DOMContentLoaded', () => {
             quickOrderWidget.classList.remove('active');
         };
 
-        // Відкрити вікно по кліку на плаваючий віджет
         orderTrigger.addEventListener('click', (e) => {
             e.stopPropagation();
             openPopup();
         });
 
-        // 2. Додаємо обробник події для нової кнопки під товарами
         if (showQuickOrderBtn) {
             showQuickOrderBtn.addEventListener('click', openPopup);
         }
 
-        // Закрити вікно по кліку на хрестик
         closePopup.addEventListener('click', () => {
             history.back();
         });
 
-        // Закрити вікно по кліку поза ним
         document.addEventListener('click', (e) => {
             if (quickOrderWidget.classList.contains('active') && !quickOrderWidget.contains(e.target) && e.target !== showQuickOrderBtn) {
                 history.back();
             }
         });
         
-        // Слухаємо системну кнопку "Назад"
         window.addEventListener('popstate', (event) => {
             if (quickOrderWidget.classList.contains('active')) {
                  closePopupLogic();
             }
         });
 
-        // Логіка відправки форми
         quickOrderForm.addEventListener('submit', function(e) {
             e.preventDefault();
             e.stopPropagation();
