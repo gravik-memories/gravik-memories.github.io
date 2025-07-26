@@ -107,10 +107,46 @@ img { max-width: 100%; height: auto; }
 #services { background-color: var(--secondary-color); }
 .section-title { text-align: center; margin-bottom: 40px; }
 .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
-.service-card { background-color: #fff; padding: 30px; text-align: center; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); transition: all 0.3s ease; display: flex; flex-direction: column; align-items: center;}
-.service-card:hover { transform: translateY(-5px); box-shadow: 0 8px 16px rgba(0,0,0,0.1); }
-.service-card-image { width: 80px; height: 80px; object-fit: cover; border-radius: 8px; margin-bottom: 20px; }
-.service-card h3 { margin-bottom: 15px; font-family: var(--font-heading); }
+.service-card {
+    background-color: #fff; /* Оставим как запасной вариант, если фон не загрузится */
+    /* --- ДОБАВЛЕНО: Фоновое изображение --- */
+    background-image: url('images2/border7.jpg'); /* <-- УКАЖИТЕ ПРАВИЛЬНЫЙ ПУТЬ К ВАШЕМУ ФАЙЛУ */
+    background-size: cover;      /* Масштабирует фон для покрытия всего блока */
+    background-position: center; /* Центрирует фон */
+    
+    padding: 30px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    /* --- ДОБАВЛЕНО: Цвет текста по умолчанию --- */
+    color: var(--light-text-color); /* Белый цвет для параграфов */
+}
+.service-card:hover {
+    transform: translateY(-5px) scale(1.02); /* Немного увеличим эффект при наведении */
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+.service-card-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    
+    /* Тень с большим объемом и меньшей прозрачностью */
+    box-shadow: 0px 5px 18px rgba(255, 255, 255, 0.55);
+}
+.service-card h3 {
+    margin-bottom: 15px;
+    font-family: var(--font-heading);
+    
+    /* --- ИЗМЕНЕНО: Цвет заголовка --- */
+    color: var(--light-text-color); /* Белый цвет для заголовков */
+}
 .product-card-section { background-color: #f0f2f5; text-align: center; padding: 64px 0; }
 .product-cards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; max-width: 1200px; margin: 0 auto; padding: 0 var(--container-padding); }
 .product-card { background-color: #fff; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); padding: 20px; display: flex; flex-direction: column; align-items: center; gap: 10px; transition: all 0.3s ease; }
@@ -553,18 +589,18 @@ body.menu-open {
                 <h2 class="section-title">НАШІ ПЕРЕВАГИ</h2>
                 <div class="services-grid">
                     <div class="service-card">
-                        <img class="service-card-image" src="images/IMG_20230227_1400021.jpg" alt="Гравіювання жетонів">
-                        <h3>Не стирається більше 10 років</h3>
-                        <p>Наша технологія дає можливість робити гравіювання яке буде триматися десятиліттями.</p>
+                        <img class="service-card-image" src="images/IMG_20230227_14000212.png" alt="Гравіювання жетонів">
+                        <h3>Гравіювання тримається більше 10 років</h3>
+                        <p>Наша технологія дає можливість робити нанесення яке НЕ буде стиратися десятиліттями.</p>
                     </div>
                     <div class="service-card">
-                        <img class="service-card-image" src="images/service-2.jpg" alt="Ювелірні вироби">
-                        <h3>Нержавіючі матеріали AISI 304</h3>
+                        <img class="service-card-image" src="images/I2MG_20250726_192514.jpg" alt="Ювелірні вироби">
+                        <h3>Нержавіючі матеріали AISI 304 ГАРАНТІЯ</h3>
                         <p>За роки,ми методом тестування виділили найкращі позиції товарів такі як жетони,кліпси та різні види ланцюжків які не ржавіють і не темніють при контакті з водою або тілом людини.</p>
                     </div>
                     <div class="service-card">
-                        <img class="service-card-image" src="images/service-3.jpg" alt="Корпоративні нагороди">
-                        <h3>Спеціалізуємося на жетонах</h3>
+                        <img class="service-card-image" src="images/IMG_20250726_194209.jpg" alt="Корпоративні нагороди">
+                        <h3>Спеціалізуємося виключно на жетонах</h3>
                         <p>Ми концентруємо увагу саме на виробнитстві жетонів з індивідуальним гравіюванням,і це дає нам змогу робити найкращі жетони саме для Вас.</p>
                     </div>
                 </div>
