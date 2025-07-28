@@ -1456,22 +1456,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // --- Функции для плеера ---
 
+// --- Функции для плеера ---
+
 const videoWrapper = document.querySelector('.video-wrapper');
 const video = videoWrapper.querySelector('video');
 
-// Обработчик клика, который решает конфликт
+// --- ОБРАБОТЧИК ОДИНОЧНОГО КЛИКА (Play/Pause) ---
 videoWrapper.addEventListener('click', () => {
-    // ШАГ 1: Немедленно убираем стандартные контролы.
-    // Это лишает браузер возможности по-своему интерпретировать наш клик.
+    // Убираем стандартные контролы, чтобы избежать конфликта
     video.controls = false;
 
-    // ШАГ 2: Теперь безопасно выполняем нужное нам действие.
+    // Выполняем нужное действие
     if (video.paused || video.ended) {
         video.play();
     } else {
         video.pause();
     }
 });
+
+// --- НОВЫЙ ОБРАБОТЧИК ДВОЙНОГО КЛИКА (На весь экран) ---
+videoWrapper.addEventListener('dblclick', () => {
+    // Запрашиваем полноэкранный режим для всего контейнера видео
+    if (videoWrapper.requestFullscreen) {
+        videoWrapper.requestFullscreen();
+    } else if (videoWrapper.mozRequestFullScreen) { // Firefox
+        videoWrapper.mozRequestFullScreen();
+    } else if (videoWrapper.webkitRequestFullscreen) { // Chrome, Safari & Opera
+        videoWrapper.webkitRequestFullscreen();
+    } else if (videoWrapper.msRequestFullscreen) { // IE/Edge
+        videoWrapper.msRequestFullscreen();
+    }
+});
+
+
+// --- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ (остаются без изменений) ---
 
 // Синхронизируем состояние плеера (кнопка Play/панель управления) с состоянием видео
 video.addEventListener('play', () => {
