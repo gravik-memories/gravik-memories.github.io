@@ -1463,10 +1463,7 @@ const video = videoWrapper.querySelector('video');
 
 // --- ОБРАБОТЧИК ОДИНОЧНОГО КЛИКА (Play/Pause) ---
 videoWrapper.addEventListener('click', () => {
-    // Убираем стандартные контролы, чтобы избежать конфликта
     video.controls = false;
-
-    // Выполняем нужное действие
     if (video.paused || video.ended) {
         video.play();
     } else {
@@ -1474,8 +1471,11 @@ videoWrapper.addEventListener('click', () => {
     }
 });
 
-// --- НОВЫЙ ОБРАБОТЧИК ДВОЙНОГО КЛИКА (На весь экран) ---
+// --- ОБРАБОТЧИК ДВОЙНОГО КЛИКА (На весь экран) ---
 videoWrapper.addEventListener('dblclick', () => {
+    // ИЗМЕНЕНИЕ ЗДЕСЬ:
+    video.controls = true; // Принудительно включаем контролы перед переходом в полный экран
+
     // Запрашиваем полноэкранный режим для всего контейнера видео
     if (videoWrapper.requestFullscreen) {
         videoWrapper.requestFullscreen();
@@ -1489,9 +1489,7 @@ videoWrapper.addEventListener('dblclick', () => {
 });
 
 
-// --- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ (остаются без изменений) ---
-
-// Синхронизируем состояние плеера (кнопка Play/панель управления) с состоянием видео
+// --- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ---
 video.addEventListener('play', () => {
     videoWrapper.classList.add('playing');
 });
@@ -1504,8 +1502,7 @@ video.addEventListener('ended', () => {
     videoWrapper.classList.remove('playing');
 });
 
-// Возвращаем контролы при наведении мыши, если видео проигрывается
-videoWrapper.addEventListener('mouseenter', () => {
+video.addEventListener('mouseenter', () => {
     if (!video.paused) {
         video.controls = true;
     }
