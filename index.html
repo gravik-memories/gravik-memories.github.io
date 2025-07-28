@@ -628,6 +628,82 @@ body.menu-open {
         max-width: 320px; /* Но не будет слишком большой */
     }
 }
+
+/* стили плеера */
+ /* Общие стили для секции */
+.video-section {
+    padding: 48px 0;
+    text-align: center;
+    background-color: #f8f9fa;
+}
+.video-section .container {
+    max-width: 1333px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+.video-section .section-title {
+    margin-bottom: 40px;
+}
+
+/* --- Стили для видеоплеера --- */
+
+.video-wrapper {
+    position: relative;
+    margin: 0 auto;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    background-color: black;
+    max-width: 95%;
+    padding-top: 67.5%;
+    cursor: pointer;
+}
+
+.video-wrapper video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.play-button-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 5em;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.3);
+    transition: opacity 0.3s ease;
+    /* ИЗМЕНЕНИЕ: Убрали pointer-events отсюда. Теперь кнопка по умолчанию кликабельна. */
+}
+
+/* Когда видео проигрывается, кнопка исчезает И НЕ МЕШАЕТ КЛИКАМ */
+.video-wrapper.playing .play-button-overlay {
+    opacity: 0;
+    pointer-events: none; /* ИЗМЕНЕНИЕ: Добавили pointer-events сюда. */
+}
+
+.play-button-overlay::before {
+    content: "\25B6";
+    text-shadow: 0 0 15px rgba(0,0,0,0.5);
+}
+
+/* Стили для ПК */
+@media (min-width: 768px) {
+    .video-wrapper {
+        width: 700px;
+        height: 600px;
+        max-width: none;
+        padding-top: 0;
+    }
+}
     </style>
 </head>
 <body>
@@ -976,21 +1052,20 @@ body.menu-open {
             </div>
         </section>
 
-      <section id="video-section" style="padding: 48px 0; text-align: center; background-color: #f8f9fa;">
-    <div class="container">
-        <h2 class="section-title" style="margin-bottom: 40px;">Видео о нашей работе</h2>
-        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.1);">
-            <iframe
-                src="https://youtu.be/5IfuDxHEWr8?si=Nfs6kf5H_X1zW5H3"
-                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
-                title="YouTube video player"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen>
-            </iframe>
+ <section id="self-hosted-video" class="video-section">
+        <div class="container">
+            <h2 class="section-title">Видео о продукте</h2>
+
+            <div class="video-wrapper">
+                <video loop playsinline>
+                    <source src="/video/img-4316_gUQcYoyl.mp4" type="video/mp4">
+                    <source src="/video/img.webm" type="video/webm">
+                    Ваш браузер не поддерживает встроенное видео.
+                </video>
+                <div class="play-button-overlay"></div>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
         
     </main>
 
@@ -1376,6 +1451,45 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert('Виникла помилка. Спробуйте ще раз або зв\'яжіться з нами напряму.');
             });
         });
+    }
+});
+
+// --- Функции для плеера ---
+
+const videoWrapper = document.querySelector('.video-wrapper');
+const video = videoWrapper.querySelector('video');
+
+// Обработчик клика, который решает конфликт
+videoWrapper.addEventListener('click', () => {
+    // ШАГ 1: Немедленно убираем стандартные контролы.
+    // Это лишает браузер возможности по-своему интерпретировать наш клик.
+    video.controls = false;
+
+    // ШАГ 2: Теперь безопасно выполняем нужное нам действие.
+    if (video.paused || video.ended) {
+        video.play();
+    } else {
+        video.pause();
+    }
+});
+
+// Синхронизируем состояние плеера (кнопка Play/панель управления) с состоянием видео
+video.addEventListener('play', () => {
+    videoWrapper.classList.add('playing');
+});
+
+video.addEventListener('pause', () => {
+    videoWrapper.classList.remove('playing');
+});
+
+video.addEventListener('ended', () => {
+    videoWrapper.classList.remove('playing');
+});
+
+// Возвращаем контролы при наведении мыши, если видео проигрывается
+videoWrapper.addEventListener('mouseenter', () => {
+    if (!video.paused) {
+        video.controls = true;
     }
 });
     </script>
