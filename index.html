@@ -1456,8 +1456,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // --- Функции для плеера ---
 
-// --- Функции для плеера ---
-
 const videoWrapper = document.querySelector('.video-wrapper');
 const video = videoWrapper.querySelector('video');
 
@@ -1473,18 +1471,21 @@ videoWrapper.addEventListener('click', () => {
 
 // --- ОБРАБОТЧИК ДВОЙНОГО КЛИКА (На весь экран) ---
 videoWrapper.addEventListener('dblclick', () => {
-    // ИЗМЕНЕНИЕ ЗДЕСЬ:
-    video.controls = true; // Принудительно включаем контролы перед переходом в полный экран
+    // --- ИЗМЕНЕНИЕ ЗДЕСЬ ---
+    // Проверяем, что ширина экрана больше 768px (т.е. это не мобильное устройство)
+    if (window.matchMedia("(min-width: 768px)").matches) {
+        video.controls = true; // Принудительно включаем контролы перед переходом в полный экран
 
-    // Запрашиваем полноэкранный режим для всего контейнера видео
-    if (videoWrapper.requestFullscreen) {
-        videoWrapper.requestFullscreen();
-    } else if (videoWrapper.mozRequestFullScreen) { // Firefox
-        videoWrapper.mozRequestFullScreen();
-    } else if (videoWrapper.webkitRequestFullscreen) { // Chrome, Safari & Opera
-        videoWrapper.webkitRequestFullscreen();
-    } else if (videoWrapper.msRequestFullscreen) { // IE/Edge
-        videoWrapper.msRequestFullscreen();
+        // Запрашиваем полноэкранный режим для всего контейнера видео
+        if (videoWrapper.requestFullscreen) {
+            videoWrapper.requestFullscreen();
+        } else if (videoWrapper.mozRequestFullScreen) { // Firefox
+            videoWrapper.mozRequestFullScreen();
+        } else if (videoWrapper.webkitRequestFullscreen) { // Chrome, Safari & Opera
+            videoWrapper.webkitRequestFullscreen();
+        } else if (videoWrapper.msRequestFullscreen) { // IE/Edge
+            videoWrapper.msRequestFullscreen();
+        }
     }
 });
 
