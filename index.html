@@ -704,8 +704,41 @@ body.menu-open {
         padding-top: 0;
     }
 }
+
+  /* кнопка назад в плеере */
+.fullscreen-exit-btn {
+    /* Сначала кнопка спрятана */
+    display: none; 
+    
+    /* Расположение в левом верхнем углу */
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 2147483647;
+
+    /* Внешний вид */
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    
+    /* --- ИЗМЕНЕНИЯ ЗДЕСЬ --- */
+    padding: 14px 22px;     /* Увеличено (было 8px 16px) */
+    font-size: 20px;        /* Увеличено (было 16px) */
+    border-radius: 12px;    /* Слегка увеличено (было 8px) */
+}
+
+.fullscreen-exit-btn:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.video-wrapper:fullscreen .fullscreen-exit-btn {
+    display: block;
+}
     </style>
 </head>
+
 <body>
     <div class="overlay"></div>
     <header class="header">
@@ -1063,9 +1096,13 @@ body.menu-open {
                     Ваш браузер не поддерживает встроенное видео.
                 </video>
                 <div class="play-button-overlay"></div>
+                 <button class="fullscreen-exit-btn" aria-label="Выйти из полноэкранного режима">
+        ← Назад
+    </button>
             </div>
         </div>
     </section>
+
         
     </main>
 
@@ -1506,6 +1543,29 @@ video.addEventListener('ended', () => {
 video.addEventListener('mouseenter', () => {
     if (!video.paused) {
         video.controls = true;
+    }
+});
+
+// --- ДОБАВЛЯЕМ ЛОГИКУ ДЛЯ КНОПКИ "НАЗАД" ---
+
+// Находим нашу новую кнопку
+const exitFullscreenBtn = document.querySelector('.fullscreen-exit-btn');
+
+// Добавляем обработчик клика
+exitFullscreenBtn.addEventListener('click', (event) => {
+    // Останавливаем "всплытие" события, чтобы клик по кнопке
+    // не вызывал плей/паузу на самом видео.
+    event.stopPropagation();
+    
+    // Проверяем, существует ли метод для выхода из полного экрана
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.mozCancelFullScreen) { // Firefox
+        document.mozCancelFullScreen();
+    } else if (document.webkitExitFullscreen) { // Chrome, Safari
+        document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) { // IE/Edge
+        document.msExitFullscreen();
     }
 });
     </script>
