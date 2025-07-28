@@ -61,19 +61,18 @@ img { max-width: 100%; height: auto; }
     color: var(--accent-color); /* Золотой цвет при наведении */
 }
 .nav .nav-social {
-    display: flex;
+    display: grid; /* Включаем сеточную раскладку */
+    grid-template-columns: auto auto; /* Создаем две колонки */
+    gap: 8px 15px; /* Расстояние: 8px по вертикали, 15px по горизонтали */
     align-items: center;
-    gap: 20px; /* Расстояние между иконками */
-    border: none;
-    padding: 0;
-    margin: 0;
 }
+
 .nav .nav-social a {
-    font-size: 1.6em; /* Размер иконок */
-    color: var(--light-text-color); /* Белый цвет для иконок */
-    text-shadow: none;
-    padding: 0;
-    border: none;
+    font-size: 1.2em; /* Ключевое изменение: уменьшаем размер иконок */
+    color: var(--light-text-color);
+    line-height: 1; /* Убираем лишнюю высоту строки */
+    padding: 2px; /* Добавляем немного "воздуха" для удобства нажатия */
+    transition: all 0.2s ease; /* Наследуем плавность от других ссылок */
 }
 .nav .nav-social a:hover {
     color: var(--accent-color); /* Золотой цвет при наведении */
@@ -546,6 +545,89 @@ body.menu-open {
         display: block;
     }
 }
+/* --- Стили для блока акции с картинкой --- */
+
+/* Общая обертка для кнопки и картинки */
+/* Код на замену */
+
+/* --- Стили для блока акции с картинкой ПОД кнопкой --- */
+
+/* --- Финальные стили для блока акции --- */
+
+/* Контейнер секции */
+#special-offer .container {
+    display: flex;
+    gap: 30px;
+    /* На мобильных располагаем всё в колонку */
+    flex-direction: column;
+    text-align: center;
+}
+
+/* Левая колонка с текстом */
+#special-offer .offer-content {
+    flex-basis: 50%; /* Занимает половину ширины на ПК */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Правая колонка с таймером */
+#special-offer .offer-timer {
+    flex-basis: 40%; /* Занимает 40% ширины на ПК */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Общие стили для обертки изображения */
+.offer-image-wrapper {
+    margin-top: 20px;
+    width: 280px; /* Ширина на мобильных */
+}
+.offer-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+/* Прячем десктопную картинку на мобильных */
+.desktop-image {
+    display: none;
+}
+
+/* --- Стили для ПК (экран шире 992px) --- */
+@media (min-width: 992px) {
+    /* Возвращаем расположение в ряд */
+    #special-offer .container {
+        flex-direction: row;
+        text-align: left;
+    }
+
+    #special-offer .offer-content {
+    align-items: flex-start; /* Текст слева оставляем как есть */
+}
+   #special-offer .offer-timer {
+    align-items: center;    /* А вот таймер и фото центрируем */
+}
+
+    /* Прячем мобильную картинку на ПК */
+    .mobile-image {
+        display: none;
+    }
+
+    /* Показываем десктопную картинку на ПК */
+    .desktop-image {
+        display: block;
+    }
+
+    /* Настраиваем ширину картинки на ПК */
+    .desktop-image.offer-image-wrapper {
+        width: 100%; /* Картинка займет всю ширину правой колонки */
+        max-width: 320px; /* Но не будет слишком большой */
+    }
+}
     </style>
 </head>
 <body>
@@ -725,6 +807,7 @@ body.menu-open {
         <section id="payment-delivery" class="payment-delivery-section">
             <div class="container">
                 <h2 class="section-title">Оплата та доставка</h2>
+                <h3 class="section-title">Виготовлення 1-3 дня</h3>
                 <div class="payment-delivery-container">
                     <div class="payment-methods">
                         <h3>Способи оплати</h3>
@@ -796,35 +879,32 @@ body.menu-open {
         </section>
         
         <section id="special-offer">
-            <div class="container">
-                <div class="offer-content">
-                    <h2><i class="fas fa-fire"></i> Акція: Жетони з гравіюванням!</h2>
-                    <p>Не пропустіть шанс! Тільки до кінця акції при замовленні двох жетонів з будь-яким гравіюванням — третій ви отримуєте абсолютно безкоштовно. Ідеально для друзів або як подарунок.</p>
-                    <a href="#products" class="cta-button offer-button">Вибрати жетони</a>
-                </div>
-                <div class="offer-timer">
-                    <h3>До кінця акції залишилось:</h3>
-                    <div id="countdown" class="countdown-container">
-                        <div class="countdown-item">
-                            <span id="days">00</span>
-                            <p>днів</p>
-                        </div>
-                        <div class="countdown-item">
-                            <span id="hours">00</span>
-                            <p>годин</p>
-                        </div>
-                        <div class="countdown-item">
-                            <span id="minutes">00</span>
-                            <p>хвилин</p>
-                        </div>
-                        <div class="countdown-item">
-                            <span id="seconds">00</span>
-                            <p>секунд</p>
-                        </div>
-                    </div>
-                </div>
+    <div class="container">
+        <div class="offer-content">
+            <h2><i class="fas fa-fire"></i> Акція: Жетони з гравіюванням!</h2>
+            <p>Не пропустіть шанс! Тільки до кінця акції при замовленні двох жетонів з будь-яким гравіюванням — третій ви отримуєте абсолютно безкоштовно. Ідеально для друзів або як подарунок.</p>
+            <a href="#products" class="cta-button offer-button">Вибрати жетони</a>
+            
+            <div class="offer-image-wrapper mobile-image">
+                <img src="images2/I22MG_20250726_1925141.jpg" alt="Акционный жетон" class="offer-image">
             </div>
-        </section>
+        </div>
+
+        <div class="offer-timer">
+            <h3>До кінця акції залишилось:</h3>
+            <div id="countdown" class="countdown-container">
+                <div class="countdown-item"><span id="days">00</span><p>днів</p></div>
+                <div class="countdown-item"><span id="hours">00</span><p>годин</p></div>
+                <div class="countdown-item"><span id="minutes">00</span><p>хвилин</p></div>
+                <div class="countdown-item"><span id="seconds">00</span><p>секунд</p></div>
+            </div>
+
+            <div class="offer-image-wrapper desktop-image">
+                <img src="images2/I22MG_20250726_1925141.jpg" alt="Акционный жетон" class="offer-image">
+            </div>
+        </div>
+    </div>
+</section>
 
         <section id="how-to-order">
             <div class="container">
@@ -895,6 +975,22 @@ body.menu-open {
                 </div>
             </div>
         </section>
+
+      <section id="video-section" style="padding: 48px 0; text-align: center; background-color: #f8f9fa;">
+    <div class="container">
+        <h2 class="section-title" style="margin-bottom: 40px;">Видео о нашей работе</h2>
+        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.1);">
+            <iframe
+                src="https://youtu.be/5IfuDxHEWr8?si=Nfs6kf5H_X1zW5H3"
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+            </iframe>
+        </div>
+    </div>
+</section>
         
     </main>
 
