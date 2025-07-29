@@ -629,113 +629,118 @@ body.menu-open {
     }
 }
 
-/* стили плеера */
- /* Общие стили для секции */
+/* --- СТИЛІ ДЛЯ ВІДЕОПЛЕЄРА ТА ЙОГО СЕКЦІЇ --- */
+:root {
+    --player-color: #c19a6b; /* Використовуємо ваш фірмовий колір */
+}
+
 .video-section {
     padding: 48px 0;
-    text-align: center;
-    background-color: #f8f9fa;
+    background-color: #f8f9fa; /* Світлий фон, як у інших секцій */
 }
+
 .video-section .container {
-    max-width: 1333px;
-    margin: 0 auto;
-    padding: 0 15px;
-}
-.video-section .section-title {
-    margin-bottom: 40px;
-}
-
-/* --- Стили для видеоплеера --- */
-
-.video-wrapper {
-    position: relative;
-    margin: 0 auto;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    background-color: black;
-    max-width: 95%;
-    padding-top: 67.5%;
-    cursor: pointer;
-}
-
-.video-wrapper video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-.play-button-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 5em;
-    color: white;
-    background-color: rgba(0, 0, 0, 0.3);
-    transition: opacity 0.3s ease;
-    /* ИЗМЕНЕНИЕ: Убрали pointer-events отсюда. Теперь кнопка по умолчанию кликабельна. */
 }
 
-/* Когда видео проигрывается, кнопка исчезает И НЕ МЕШАЕТ КЛИКАМ */
-.video-wrapper.playing .play-button-overlay {
-    opacity: 0;
-    pointer-events: none; /* ИЗМЕНЕНИЕ: Добавили pointer-events сюда. */
+.player-wrapper {
+    position: relative;
+    /* Розміри, які ми налаштовували раніше */
+    width: 69vh;
+    height: 51vh;
+    max-width: 828px;
+    max-height: 612px;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.play-button-overlay::before {
-    content: "\25B6";
-    text-shadow: 0 0 15px rgba(0,0,0,0.5);
-}
-
-/* Стили для ПК */
-@media (min-width: 768px) {
-    .video-wrapper {
-        width: 700px;
-        height: 600px;
-        max-width: none;
-        padding-top: 0;
+/* Адаптивність плеєра для мобільних */
+@media (max-width: 768px) {
+    .player-wrapper {
+        width: 90vw; /* Ширина 90% від екрану */
+        height: 50.625vw; /* Висота для співвідношення 16:9 (90 * 9 / 16) */
     }
 }
 
-  /* кнопка назад в плеере */
-.fullscreen-exit-btn {
-    /* Сначала кнопка спрятана */
-    display: none; 
-    
-    /* Расположение в левом верхнем углу */
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    z-index: 2147483647;
-
-    /* Внешний вид */
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    
-    /* --- ИЗМЕНЕНИЯ ЗДЕСЬ --- */
-    padding: 14px 22px;     /* Увеличено (было 8px 16px) */
-    font-size: 20px;        /* Увеличено (было 16px) */
-    border-radius: 12px;    /* Слегка увеличено (было 8px) */
-}
-
-.fullscreen-exit-btn:hover {
-    background-color: rgba(0, 0, 0, 0.7);
-}
-
-.video-wrapper:fullscreen .fullscreen-exit-btn {
+.player {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
     display: block;
+    cursor: pointer;
 }
+
+.player-controls {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.5);
+    transform: translateY(100%) translateY(-5px);
+    transition: all 0.3s;
+    opacity: 0;
+    z-index: 2;
+}
+
+.player-wrapper:hover .player-controls {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.player-controls > * {
+    margin: 0 5px;
+}
+
+.control-btn {
+    background: none;
+    border: 0;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.toggle-play {
+    font-size: 20px;
+}
+
+.player-slider {
+    width: 80px;
+}
+
+.progress {
+    flex: 1;
+    position: relative;
+    display: flex;
+    flex-basis: 100%;
+    height: 15px;
+    cursor: pointer;
+    margin: 0 10px;
+    background: rgba(0,0,0,0.5);
+}
+
+.progress-filled {
+    width: 0%;
+    background: var(--player-color);
+    flex: 0;
+    flex-basis: 0%;
+}
+
+.fullscreen {
+    margin-left: auto;
+}
+
     </style>
 </head>
 
@@ -1085,23 +1090,29 @@ body.menu-open {
             </div>
         </section>
 
- <section id="self-hosted-video" class="video-section">
-        <div class="container">
-            <h2 class="section-title">Видео о продукте</h2>
-
-            <div class="video-wrapper">
-                <video loop playsinline>
-                    <source src="/video/img-4316_gUQcYoyl.mp4" type="video/mp4">
-                    <source src="/video/img-4316_gUQcYoyl.webm" type="video/webm">
-                    Ваш браузер не поддерживает встроенное видео.
-                </video>
-                <div class="play-button-overlay"></div>
-                 <button class="fullscreen-exit-btn" aria-label="Выйти из полноэкранного режима">
-        ← Назад
-    </button>
+        <section class="video-section">
+    <div class="container">
+        <h2 class="section-title">Подивіться, як ми працюємо</h2>
+        <div class="player-wrapper">
+            <video class="player" playsinline>
+              <source src="video/img-4316_gUQcYoyl.webm" type="video/webm">
+              <source src="video/img-4316_gUQcYoyl.mp4" type="video/mp4">
+              На жаль, ваш браузер не підтримує вбудоване відео.
+            </video>
+        
+            <div class="player-controls">
+                <div class="progress">
+                    <div class="progress-filled"></div>
+                </div>
+                <button class="control-btn toggle-play" title="Play/Pause">►</button>
+                <input type="range" name="volume" class="player-slider" min="0" max="1" step="0.05" value="1">
+                <button class="control-btn fullscreen" title="Fullscreen">⛶</button>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
+
 
         
     </main>
@@ -1491,83 +1502,89 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// --- Функции для плеера ---
+// --- ЛОГІКА ВІДЕОПЛЕЄРА ---
+const playerWrapper = document.querySelector('.player-wrapper');
 
-const videoWrapper = document.querySelector('.video-wrapper');
-const video = videoWrapper.querySelector('video');
+if (playerWrapper) {
+    const video = playerWrapper.querySelector('.player');
+    const playButton = playerWrapper.querySelector('.toggle-play');
+    const volumeSlider = playerWrapper.querySelector('input[name="volume"]');
+    const fullscreenButton = playerWrapper.querySelector('.fullscreen');
+    const progressBar = playerWrapper.querySelector('.progress');
+    const progressFilled = playerWrapper.querySelector('.progress-filled');
 
-// --- ОБРАБОТЧИК ОДИНОЧНОГО КЛИКА (Play/Pause) ---
-videoWrapper.addEventListener('click', () => {
-    video.controls = false;
-    if (video.paused || video.ended) {
-        video.play();
-    } else {
-        video.pause();
-    }
-});
-
-// --- ОБРАБОТЧИК ДВОЙНОГО КЛИКА (На весь экран) ---
-videoWrapper.addEventListener('dblclick', () => {
-    // --- ИЗМЕНЕНИЕ ЗДЕСЬ ---
-    // Проверяем, что ширина экрана больше 768px (т.е. это не мобильное устройство)
-    if (window.matchMedia("(min-width: 768px)").matches) {
-        video.controls = true; // Принудительно включаем контролы перед переходом в полный экран
-
-        // Запрашиваем полноэкранный режим для всего контейнера видео
-        if (videoWrapper.requestFullscreen) {
-            videoWrapper.requestFullscreen();
-        } else if (videoWrapper.mozRequestFullScreen) { // Firefox
-            videoWrapper.mozRequestFullScreen();
-        } else if (videoWrapper.webkitRequestFullscreen) { // Chrome, Safari & Opera
-            videoWrapper.webkitRequestFullscreen();
-        } else if (videoWrapper.msRequestFullscreen) { // IE/Edge
-            videoWrapper.msRequestFullscreen();
+    function togglePlay() {
+        if (video.paused) {
+            video.play();
+        } else {
+            video.pause();
         }
     }
-});
 
-
-// --- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ---
-video.addEventListener('play', () => {
-    videoWrapper.classList.add('playing');
-});
-
-video.addEventListener('pause', () => {
-    videoWrapper.classList.remove('playing');
-});
-
-video.addEventListener('ended', () => {
-    videoWrapper.classList.remove('playing');
-});
-
-video.addEventListener('mouseenter', () => {
-    if (!video.paused) {
-        video.controls = true;
+    function updateButton() {
+        const icon = video.paused ? '►' : '❚❚';
+        playButton.textContent = icon;
     }
-});
 
-// --- ДОБАВЛЯЕМ ЛОГИКУ ДЛЯ КНОПКИ "НАЗАД" ---
-
-// Находим нашу новую кнопку
-const exitFullscreenBtn = document.querySelector('.fullscreen-exit-btn');
-
-// Добавляем обработчик клика
-exitFullscreenBtn.addEventListener('click', (event) => {
-    // Останавливаем "всплытие" события, чтобы клик по кнопке
-    // не вызывал плей/паузу на самом видео.
-    event.stopPropagation();
-    
-    // Проверяем, существует ли метод для выхода из полного экрана
-    if (document.exitFullscreen) {
-        document.exitFullscreen();
-    } else if (document.mozCancelFullScreen) { // Firefox
-        document.mozCancelFullScreen();
-    } else if (document.webkitExitFullscreen) { // Chrome, Safari
-        document.webkitExitFullscreen();
-    } else if (document.msExitFullscreen) { // IE/Edge
-        document.msExitFullscreen();
+    function handleVolumeUpdate() {
+        video.volume = this.value;
     }
-});
+
+    function toggleFullscreen() {
+        if (!document.fullscreenElement) {
+            playerWrapper.requestFullscreen().catch(err => {
+                alert(`Помилка при переході в повноекранний режим: ${err.message}`);
+            });
+        } else {
+            document.exitFullscreen();
+        }
+    }
+
+    function handleProgress() {
+        const percent = (video.currentTime / video.duration) * 100;
+        progressFilled.style.flexBasis = `${percent}%`;
+    }
+
+    function scrub(e) {
+        const scrubTime = (e.offsetX / progressBar.offsetWidth) * video.duration;
+        video.currentTime = scrubTime;
+    }
+
+    video.addEventListener('click', togglePlay);
+    video.addEventListener('play', updateButton);
+    video.addEventListener('pause', updateButton);
+    video.addEventListener('timeupdate', handleProgress);
+
+    playButton.addEventListener('click', togglePlay);
+    volumeSlider.addEventListener('input', handleVolumeUpdate);
+    fullscreenButton.addEventListener('click', toggleFullscreen);
+
+    let mousedown = false;
+    progressBar.addEventListener('click', scrub);
+    progressBar.addEventListener('mousemove', (e) => mousedown && scrub(e));
+    progressBar.addEventListener('mousedown', () => mousedown = true);
+    progressBar.addEventListener('mouseup', () => mousedown = false);
+
+    window.addEventListener('keydown', (e) => {
+        if (e.code === 'Space' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+            e.preventDefault(); // Запобігаємо прокрутці сторінки
+            togglePlay();
+        }
+    });
+
+    // Пауза при прокручуванні
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting && !video.paused) {
+                video.pause();
+            }
+        });
+    }, { threshold: 0 });
+
+    observer.observe(playerWrapper);
+}
+// --- КІНЕЦЬ ЛОГІКИ ВІДЕОПЛЕЄРА ---
+
     </script>
 </body>
 </html>
