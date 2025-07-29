@@ -99,10 +99,6 @@ img { max-width: 100%; height: auto; }
 .cta-button:hover { background-color: #1a252f; transform: translateY(-2px); }
 
 /* --- ОСТАЛЬНЫЕ СТИЛИ (без изменений) --- */
-#about .container { display: flex; align-items: center; gap: 40px; }
-.about-content { flex: 1; }
-.about-image { flex: 1; text-align: center; }
-.about-image img { border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
 #services { background-color: var(--secondary-color); }
 .section-title { text-align: center; margin-bottom: 40px; }
 .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
@@ -312,7 +308,6 @@ body.menu-open {
 /* --- Адаптивність --- */
 @media (max-width: 992px) {
     .services-grid { grid-template-columns: repeat(2, 1fr); }
-    #about .container { flex-direction: column; }
     .innovative-solutions .container { gap: 20px; padding: 0 15px; }
     .innovative-solutions-image { width: 40%; max-width: 300px; }
     .innovative-solutions-content { min-width: unset; }
@@ -1073,19 +1068,6 @@ body.menu-open {
                             <p>Ми надсилаємо готовий виріб обраним способом доставки. Радуйте себе та близьких!</p>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="about">
-            <div class="container">
-                <div class="about-content">
-                    <h2>Про нашу майстерню</h2>
-                    <p>Ми спеціалізуємося на лазерному гравіюванні з 2015 року. Наше обладнання дозволяє створювати чіткі та довговічні зображення на металі, дереві та інших матеріалах. Кожен виріб проходить багатоступінчастий контроль якості.</p>
-                    <p>Використовуємо тільки сертифіковані матеріали та сучасні технології гравіювання.</p>
-                </div>
-                <div class="about-image">
-                    <img src="images/shop38-6.jpg" alt="Наша майстерня">
                 </div>
             </div>
         </section>
