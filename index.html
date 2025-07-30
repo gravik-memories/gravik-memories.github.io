@@ -1261,6 +1261,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Функция открытия модального окна
     function openModal(isGallery, imagesOrSrc, startIndex = 0) {
         if (!modal) return;
+        document.body.classList.add('menu-open'); // <-- ДОБАВЛЕНА ЭТА СТРОКА
         modal.style.display = "block";
         currentModalImages = Array.isArray(imagesOrSrc) ? imagesOrSrc : [imagesOrSrc];
         currentImageIndex = startIndex;
@@ -1305,6 +1306,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Функция закрытия модального окна
     function closeModalLogic() {
         if (modal && modal.style.display === "block") {
+        document.body.classList.remove('menu-open'); // <-- ДОБАВЛЕНА ЭТА СТРОКА
             modal.style.display = "none";
             document.removeEventListener('keydown', handleKeyDown);
             modal.removeEventListener('touchstart', handleTouchStart);
