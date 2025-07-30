@@ -207,7 +207,19 @@ img { max-width: 100%; height: auto; }
 .offer-timer { flex-basis: 40%; min-width: 280px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); }
 .offer-timer h3 { font-family: var(--font-main); font-weight: 500; font-size: 1.2em; margin-bottom: 15px; }
 .countdown-container { display: flex; justify-content: center; gap: 15px; }
-.countdown-item { background: rgba(255, 255, 255, 0.15); padding: 15px; border-radius: 10px; min-width: 80px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+.countdown-item {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 15px;
+    border-radius: 10px;
+    min-width: 80px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+
+    /* Добавленные строки для идеального центрирования */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 .countdown-item span { display: block; font-size: 2.5em; font-family: var(--font-accent); font-weight: bold; line-height: 1.1; color: #fff; text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
 .countdown-item p { margin: 0; font-size: 0.8em; text-transform: uppercase; color: rgba(255, 255, 255, 0.8); }
 #how-to-order { background-color: #fff; padding: 48px 0 64px 0; }
@@ -271,7 +283,13 @@ img { max-width: 100%; height: auto; }
 .order-trigger:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.25); background-color: #3e536c; }
 .order-trigger i { font-size: 1.2em; }
 .order-popup { display: none; position: absolute; bottom: calc(100% + 10px); right: 0; width: 280px; background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 5px 25px rgba(0,0,0,0.2); border: 1px solid #ddd; animation: fadeIn 0.3s ease-out; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes sway {
+    0% { transform: translateX(0); }
+    30% { transform: translateX(-40px); } /* Было -15px */
+    60% { transform: translateX(20px); }  /* Было 8px */
+    80% { transform: translateX(-10px); } /* Было -5px */
+    100% { transform: translateX(0); }
+}
 .quick-order-widget.active .order-popup { display: block; }
 .quick-order-widget.active .order-trigger { display: none; }
 #quickOrderForm { display: flex; flex-direction: column; gap: 15px; text-align: center; position: relative; }
@@ -736,6 +754,42 @@ body.menu-open {
     margin-left: auto;
 }
 
+/* --- КОД ДЛЯ СТРЕЛКИ-ИНДИКАТОРА (ВСТАВЬТЕ ВСЁ СЮДА) --- */
+
+/* 1. Делаем контейнер относительным */
+#extras .container {
+    position: relative;
+}
+
+/* 2. Стили самой стрелки */
+.scroll-indicator {
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    transform: translateY(-50%);
+    font-size: 2.5em;
+    color: var(--primary-color);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* 3. Анимация появления и исчезновения */
+@keyframes fadeInOut {
+    0%, 100% {
+        opacity: 0;
+    }
+    30%, 80% {
+        opacity: 1;
+    }
+}
+
+/* 4. Запускаем анимацию для стрелки */
+.extras-grid.sway-animation + .scroll-indicator {
+    animation: fadeInOut 1s ease-in-out;
+}
+/* --- КОНЕЦ КОДА ДЛЯ СТРЕЛКИ --- */
+
     </style>
 </head>
 
@@ -746,10 +800,11 @@ body.menu-open {
             <a href="#" class="logo">GRAVIK-MEMORIES</a>
             <div class="menu-toggle" id="mobile-menu"><span>&#9776;</span></div>
             <nav class="nav" id="nav-menu">
-                <a href="#services">Послуги</a>
+                <a href="#OFFERS"><span style="color: #c9f505;"><b>Знижки-%</b></span></a>
                 <a href="#products">Товари</a>
+                <a href="#gallery">Відгуки</a>
                 <a href="#payment-delivery">Оплата та доставка</a>
-                <a href="#works">Наші роботи</a>
+                <a href="#my-section">Контакти</a>
                 <a href="#how-to-order">Як замовити</a>
                 <div class="nav-social">
                     <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" aria-label="Написать в Viber"><i class="fab fa-viber"></i></a>
@@ -809,8 +864,8 @@ body.menu-open {
                         <h2>Ваш напис+фото</h2>
                         <div class="price">550 грн</div>
                         <div class="social-buttons">
-                            <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" class="social-button viber"><i class="fab fa-viber"></i> Замовити в Viber</a>
-                            <a href="https://t.me/fifa_laser" target="_blank" class="social-button telegram"><i class="fab fa-telegram-plane"></i> Замовити в Telegram</a>
+                            <a href="viber://chat?number=+380687805277" target="_blank" class="social-button viber"><i class="fab fa-viber"></i> Замовити в Viber</a>
+                            <a href="https://t.me/gravik_memories" target="_blank" class="social-button telegram"><i class="fab fa-telegram-plane"></i> Замовити в Telegram</a>
                         </div>
                     </div>
                     <div class="product-card" data-images="images/IMG_20230814_21385511.jpg ,images/IMG_20231003_005315.jpg ,images/IMG_20240429_154755.jpg ,images/IMG_20230429_214240.jpg">
@@ -820,8 +875,8 @@ body.menu-open {
                         <h2>Ваш напис дві сторони</h2>
                         <div class="price">450 грн</div>
                         <div class="social-buttons">
-                           <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" class="social-button viber"><i class="fab fa-viber"></i> Замовити в Viber</a>
-                           <a href="https://t.me/fifa_laser" target="_blank" class="social-button telegram"><i class="fab fa-telegram-plane"></i> Замовити в Telegram</a>
+                           <a href="viber://chat?number=+380687805277" target="_blank" class="social-button viber"><i class="fab fa-viber"></i> Замовити в Viber</a>
+                           <a href="https://t.me/gravik_memories" target="_blank" class="social-button telegram"><i class="fab fa-telegram-plane"></i> Замовити в Telegram</a>
                         </div>
                     </div>
                     <div class="product-card" data-images="images/no name-1.jpg, images/IMG_20221113_170651.jpg, images/IMG_20250721_173050.jpg ,images/IMG_20240429_154433.jpg ,images/IMG_20230316_185312.jpg">
@@ -831,7 +886,7 @@ body.menu-open {
                             <h2>Фото з двох сторін</h2>
                             <div class="price">670 грн</div>
                             <div class="social-buttons">
-                                <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" class="social-button viber"><i class="fab fa-viber"></i> Замовити в Viber</a>
+                                <a href="viber://chat?number=+380687805277" target="_blank" class="social-button viber"><i class="fab fa-viber"></i> Замовити в Viber</a>
                                 <a href="https://t.me/fifa_laser" target="_blank" class="social-button telegram"><i class="fab fa-telegram-plane"></i> Замовити в Telegram</a>
                             </div>
                     </div>
@@ -842,8 +897,8 @@ body.menu-open {
                         <h2>Напис одна сторона</h2>
                         <div class="price">350 грн</div>
                         <div class="social-buttons">
-                                <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" class="social-button viber"><i class="fab fa-viber"></i> Замовити в Viber</a>
-                                <a href="https://t.me/fifa_laser" target="_blank" class="social-button telegram"><i class="fab fa-telegram-plane"></i> Замовити в Telegram</a>
+                                <a href="viber://chat?number=+380687805277" target="_blank" class="social-button viber"><i class="fab fa-viber"></i> Замовити в Viber</a>
+                                <a href="https://t.me/gravik_memories" target="_blank" class="social-button telegram"><i class="fab fa-telegram-plane"></i> Замовити в Telegram</a>
                         </div>
                     </div>
                 </div>
@@ -853,65 +908,72 @@ body.menu-open {
             </div>
         </section>
 
-        <section id="extras">
-            <div class="container">
-                <h2 class="section-title">ДОДАТКОВІ ТОВАРИ</h2>
-                <div class="extras-grid">
-                    <div class="extra-item">
-                        <div class="extra-circles">
-                            <div class="circle">
-                                <img src="images2/IMG_20250726_191345.png" alt="Додатковий ланцюдок">
-                            </div>
-                            <div class="circle">
-                                <img src="images2/storage emulated 0 DCIM Camera IMG_20250726_191502.png" alt="Ланцюжок">
-                            </div>
-                        </div>
-                        <p class="extra-price">БЕЗ ДОПЛАТ</p>
-                        <h3>Брелок або кулон</h3> <p>На вибір ви додатково отримуєте НЕРЖАВІЮЧИЙ ланцюжок на шию і кліпсу або кріплення для брелоку.</p>
-                        <div class="extra-action"> <p style="margin-bottom: 5px;">(кількість обмежена)</p>
-                            <span class="extra-stock">залишилось 8шт</span>
-                        </div>
+       <section id="extras">
+    <div class="container">
+        <h2 class="section-title">ДОДАТКОВІ ТОВАРИ</h2>
+        <div class="extras-grid">
+            <div class="extra-item">
+                <div class="extra-circles">
+                    <div class="circle">
+                        <img src="images2/IMG_20250726_191345.png" alt="Додатковий ланцюжок">
                     </div>
-                
-                    <div class="extra-item">
-                        <div class="extra-circles">
-                            <div class="circle">
-                                <img src="images2/bmp-1-800x800.png" alt="Силіконовий бампер">
-                            </div>
-                        </div>
-                        <p class="extra-price">+30 грн</p>
-                        <h3>Силіконовий бампер</h3>
-                        <p>&nbsp;</p>
-                        <div class="extra-action"></div> </div>
-                
-                    <div class="extra-item">
-                        <div class="extra-circles">
-                            <div class="circle">
-                                <img src="images2/IMG_20250726_192325.png" alt="Посилений ланцюжок">
-                            </div>
-                        </div>
-                        <p class="extra-price">від 170грн</p>
-                        <h3>Посилений ланцюжок</h3>
-                        <p style="color: #e76293;"><b>(всі варіанти додаткових товарів менеджер запропонує вам при оформленні замовлення)</b></p> <div class="extra-action"> 
-                        </div>
+                    <div class="circle">
+                        <img src="images2/storage emulated 0 DCIM Camera IMG_20250726_191502.png" alt="Ланцюжок">
                     </div>
-                   <div class="extra-item">
-    <div class="extra-circles">
-        <div class="circle">
-            <img src="images2/Без имени-5.png" alt="Подарункова коробочка 1">
-        </div>
-        <div class="circle">
-            <img src="images2/IMG_20240407_134123.png" alt="Подарункова коробочка 2">
-        </div>
-        </div>
-    <p class="extra-price">+100 грн</p>
-    <h3>Подарункова коробочка</h3>
-    <p>&nbsp;</p>
-    <div class="extra-action"> 
-        <a href="#products" class="cta-button">Варіанти гравіювання</a>
-    </div>
-</div>
-        </section>
+                </div>
+                <p class="extra-price">БЕЗ ДОПЛАТ</p>
+                <h3>Брелок або кулон</h3>
+                <p>На вибір ви додатково отримуєте НЕРЖАВІЮЧИЙ ланцюжок на шию і кліпсу або кріплення для брелоку.</p>
+                <div class="extra-action">
+                    <p style="margin-bottom: 5px;">(кількість обмежена)</p>
+                    <span class="extra-stock">залишилось 8шт</span>
+                </div>
+            </div>
+
+            <div class="extra-item">
+                <div class="extra-circles">
+                    <div class="circle">
+                        <img src="images2/bmp-1-800x800.png" alt="Силіконовий бампер">
+                    </div>
+                </div>
+                <p class="extra-price">+30 грн</p>
+                <h3>Силіконовий бампер</h3>
+                <p style="color: #e76293;"><b>(всі варіанти додаткових товарів менеджер запропонує вам при оформленні замовлення)</b></p>
+             
+                <div class="extra-action"></div>
+            </div>
+
+            <div class="extra-item">
+                <div class="extra-circles">
+                    <div class="circle">
+                        <img src="images2/IMG_20250726_192325.png" alt="Посилений ланцюжок">
+                    </div>
+                </div>
+                <p class="extra-price">від 170грн</p>
+                <h3>Посилений ланцюжок</h3>
+                   <p>&nbsp;</p>
+                <div class="extra-action">
+                </div>
+            </div>
+            <div class="extra-item">
+                <div class="extra-circles">
+                    <div class="circle">
+                        <img src="images2/Без имени-5.png" alt="Подарункова коробочка 1">
+                    </div>
+                    <div class="circle">
+                        <img src="images2/IMG_20240407_134123.png" alt="Подарункова коробочка 2">
+                    </div>
+                </div>
+                <p class="extra-price">+100 грн</p>
+                <h3>Подарункова коробочка</h3>
+                <p>&nbsp;</p>
+                <div class="extra-action">
+                    <a href="#products" class="cta-button">Варіанти гравіювання</a>
+                </div>
+            </div>
+        </div> <div class="scroll-indicator">&#10148;</div>
+
+    </div> </section>
         
         <section id="payment-delivery" class="payment-delivery-section">
             <div class="container">
@@ -920,14 +982,14 @@ body.menu-open {
                 <div class="payment-delivery-container">
                     <div class="payment-methods">
                         <h3>Способи оплати</h3>
-                        <div class="method"><h4><i class="fas fa-money-bill-wave"></i> Готівковий розрахунок</h4><p>Оплата при отриманні товару в нашому офісі або кур'єру</p></div>
-                        <div class="method"><h4><i class="fas fa-credit-card"></i> Безготівковий розрахунок</h4><p>Переказ на банківську картку після підтвердження замовлення</p></div>
-                        <div class="method"><h4><i class="fab fa-cc-paypal"></i> Оплата онлайн</h4><p>Безпечна оплата через платіжні системи LiqPay або Portmone</p></div>
+                        <div class="method"><h4><i class="fas fa-money-bill-wave"></i> Оплата на пошті</h4><p>Ви розраховуєтесь за жетон приходячи на пошту</p></div>
+                        <div class="method"><h4><i class="fas fa-credit-card"></i>Оплата на карту</h4><p>Ви можете розрахуватись на звичайні карти "Monobank" або "ПриватБанк"</p></div>
+                        <div class="method"><h4><i class="fab fa-cc-paypal"></i> Оплата на рахунок ФОП</h4><p>Ми працюєме офіційно і ви можете отримати IBAN рахунок для оплати товару </p></div>
                     </div>
                     <div class="delivery-options">
                         <h3>Варіанти доставки</h3>
-                        <div class="option"><h4><i class="fas fa-box"></i> Нова пошта</h4><p>Доставка по всій Україні. Оплата при отриманні або післяплатою</p></div>
-                        <div class="option"><h4><i class="fas fa-shipping-fast"></i> Укрпошта</h4><p>Економічна доставка в будь-яку точку України. Термін - 2-4 дні</p></div>
+                        <div class="option"><h4><i class="fas fa-box"></i> Нова пошта</h4><p>Доставка по всій Україні 1-3дні. Коштує від 95грн</p></div>
+                        <div class="option"><h4><i class="fas fa-shipping-fast"></i> Укрпошта</h4><p>Економна доставка в будь-яку точку України. Термін - 2-4 дні від 50грн</p></div>
                     </div>
                 </div>
             </div>
@@ -985,6 +1047,7 @@ body.menu-open {
                     </div>
                 </div>
             </div>
+            <span id="OFFERS"></span>
         </section>
         
         <section id="special-offer">
@@ -1022,50 +1085,50 @@ body.menu-open {
                     <div class="timeline-item">
                         <div class="timeline-number">1</div>
                         <div class="timeline-content">
-                            <h4>Оберіть товар</h4>
-                            <p>Визначтесь із жетоном, брелоком чи іншим виробом, який бажаєте персоналізувати.</p>
+                            <h4>Оберіть Гравіювання</h4>
+                            <p>Під жетонами є можливість перейти у Вайбер або Телеграм і зробити замовлення,або обрати швидке замовлення по телефону</p>
                         </div>
                     </div>
                     <div class="timeline-item right">
                         <div class="timeline-number">2</div>
                         <div class="timeline-content">
-                            <h4>Зв'яжіться з нами</h4>
-                            <p>Напишіть менеджеру у Viber або Telegram для уточнення деталей та консультації.</p>
+                            <h4>Очікуйте на відповідь менеджера</h4>
+                            <p>Зазвичай менеджер відповідає зразу але можливо таке що відповідь буде до 30 хвилин.Вам запропонують всі додаткові товари та інше.</p>
                         </div>
                     </div>
                     <div class="timeline-item">
                         <div class="timeline-number">3</div>
                         <div class="timeline-content">
-                            <h4>Узгодьте макет</h4>
-                            <p>Надішліть текст, фото чи ідею для гравіювання. Ми підготуємо та надішлемо вам макет.</p>
+                            <h4>Узгодьте деталі замовлення</h4>
+                            <p>Скидайте свої фотографії і надписи,або консультант запропонує вам наші написи та картинки.</p>
                         </div>
                     </div>
                     <div class="timeline-item right">
                         <div class="timeline-number">4</div>
                         <div class="timeline-content">
-                            <h4>Затвердіть дизайн</h4>
-                            <p>Уважно перевірте макет. Якщо все влаштовує — підтвердіть його для початку роботи.</p>
+                            <h4>Очікуйте макет фото та напису</h4>
+                            <p>Наші майстри зроблять приблизний макет вашого замовлення і скинуть вам на узгодження.</p>
                         </div>
                     </div>
                     <div class="timeline-item">
                         <div class="timeline-number">5</div>
                         <div class="timeline-content">
-                            <h4>Внесіть оплату</h4>
-                            <p>Здійсніть оплату зручним для вас способом (повна або часткова передоплата).</p>
+                            <h4>Очікуйте на готовність жетону</h4>
+                            <p>Ми виконаємо ваше замовлення та скинемо Вам фото готової роботи.</p>
                         </div>
                     </div>
                     <div class="timeline-item right">
                         <div class="timeline-number">6</div>
                         <div class="timeline-content">
-                            <h4>Очікуйте виготовлення</h4>
-                            <p>Ми з високою точністю та увагою до деталей створюємо ваше унікальне замовлення.</p>
+                            <h4>Відправляємо ваш жетон</h4>
+                            <p>Передаємо Ваш жетон в компанії доставки які ви обрали</p>
                         </div>
                     </div>
                     <div class="timeline-item">
                         <div class="timeline-number">7</div>
                         <div class="timeline-content">
                             <h4>Отримайте замовлення</h4>
-                            <p>Ми надсилаємо готовий виріб обраним способом доставки. Радуйте себе та близьких!</p>
+                            <p>Зазвичай жетон виготвляється 1-3 дні,а доставка займає зазвичай 1-2 дня.Користуйтесь)</p>
                         </div>
                     </div>
                 </div>
@@ -1099,13 +1162,14 @@ body.menu-open {
         
     </main>
 
-    <footer class="footer">
+    <footer class="footer" id="my-section">
         <div class="container">
             <h3>Контакти та інформація</h3>
             <div class="footer-contacts">
-                <p><i class="fas fa-envelope"></i> Email: info@lasergrav.com</p>
-                <p><i class="fas fa-phone"></i> Телефон: +380 (XX) XXX-XX-XX **(ЗАМІНІТЬ НА СВІЙ НОМЕР)**</p>
-                <p><i class="fas fa-clock"></i> Працюємо: Пн-Пт 9:00-18:00</p>
+                <p><i class="fas fa-envelope"></i> Email: brelok2023@gmail.com</p>
+                <p><i class="fas fa-phone"></i> Телефон: +380 (68) 780-52-77 </p>
+                <p><i class="fas fa-clock"></i> Працюємо: Пн-Сб 9:00-20:00</p>
+                <p><i class="fas fa-clock"></i> Замовлення Онлайн: Пн-Нд <b>Цілодобово</b></p>
             </div>
             <div class="social-links">
                 <a href="https://www.facebook.com/yourpage" target="_blank" aria-label="Наша сторінка в Facebook"><i class="fab fa-facebook-f"></i></a>
@@ -1113,7 +1177,7 @@ body.menu-open {
                 <a href="https://t.me/fifa_laser" target="_blank" aria-label="Наш Telegram"><i class="fab fa-telegram-plane"></i></a>
                 <a href="viber://chat?number=+380XXXXXXXXX" target="_blank" aria-label="Наш Viber"><i class="fab fa-viber"></i></a>
             </div>
-            <p>&copy; 2024 LaserGrav. Всі права захищені.</p>
+            <p>&copy; 2024 GravikLaser. Всі права захищені.</p>
         </div>
     </footer>
 
