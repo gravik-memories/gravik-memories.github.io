@@ -780,3 +780,24 @@ body.menu-open {
     animation: fadeInOut 1s ease-in-out;
 }
 /* --- КОНЕЦ КОДА ДЛЯ СТРЕЛКИ --- */
+
+/* --- Стили для показа разных картинок на ПК и мобильных --- */
+
+/* По умолчанию (для мобильных) показываем мобильную картинку и прячем десктопную */
+.desktop-image {
+    display: none;
+}
+
+.mobile-image {
+    display: block;
+}
+
+/* Для экранов шире 768px делаем наоборот */
+@media (min-width: 768px) {
+    .mobile-image {
+        display: none;
+    }
+    .desktop-image {
+        display: block;
+    }
+}
