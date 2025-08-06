@@ -34,6 +34,12 @@ img { max-width: 100%; height: auto; }
 }
 .header .container { display: flex; justify-content: space-between; align-items: center; }
 .logo { font-family: var(--font-accent); font-size: 1.5em; font-weight: bold; letter-spacing: 1px; color: var(--light-text-color); text-decoration: none; text-transform: uppercase; }
+/* Стилі для логотипу-картинки */
+.logo img {
+    max-height: 40px; /* <-- ОСНОВНИЙ ПАРАМЕТР! Обмежує висоту логотипу. */
+    width: auto;      /* Ширина буде підлаштовуватися автоматично, зберігаючи пропорції. */
+    display: block;   /* Запобігає появі зайвих відступів під картинкою. */
+}
 
 /* === ИЗМЕНЕНИЯ ДЛЯ ПК НАВИГАЦИИ === */
 .nav {
