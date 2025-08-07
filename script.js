@@ -469,58 +469,75 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCart();
     };
 
-    if (orderForm) {
-        orderForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const clientName = document.getElementById('clientName').value;
-            const clientPhone = document.getElementById('clientPhoneCart').value;
-            if (cart.length === 0) {
-                alert('Ваша корзина порожня!');
-                return;
-            }
-            const TOKEN = "ВАШ_ТОКЕН_БОТА";
-            const CHAT_ID = "ВАШ_ID_ЧАТА";
-            if (TOKEN === "ВАШ_ТОКЕН_БОТА" || CHAT_ID === "ВАШ_ID_ЧАТА") {
-                alert("Помилка: Не налаштовано дані для відправки в Telegram. Зверніться до розробника.");
-                return;
-            }
-            let message = `<b>Нове замовлення з сайту!</b>\n\n`;
-            message += `<b>Ім'я:</b> ${clientName}\n`;
-            message += `<b>Телефон:</b> ${clientPhone}\n\n`;
-            message += `<b>Товари в замовленні:</b>\n`;
-            let totalPrice = 0;
-            cart.forEach(item => {
-                message += `— ${item.name} (x${item.quantity}) - ${item.price * item.quantity} грн\n`;
-                totalPrice += item.price * item.quantity;
-            });
-            message += `\n<b>Загальна сума: ${totalPrice.toFixed(2)} грн</b>`;
-            const url = `https://api.telegram.org/bot${TOKEN}/sendMessage`;
-            const params = { chat_id: CHAT_ID, text: message, parse_mode: 'HTML' };
-            fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(params)
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.ok) {
-                    if(successModal) successModal.style.display = 'flex';
-                    if(cartModal) cartModal.style.display = 'none';
-                    body.classList.remove('menu-open');
-                    cart = [];
-                    updateCart();
-                    orderForm.reset();
-                    setTimeout(() => {
-                        if(successModal) successModal.style.display = 'none';
-                    }, 4000);
-                } else { throw new Error(data.description); }
-            })
-            .catch(error => {
-                console.error('Помилка відправки в Telegram:', error);
-                alert('Виникла помилка при оформленні замовлення.');
-            });
+   if (orderForm) {
+    orderForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const clientName = document.getElementById('clientName').value;
+        const clientPhone = document.getElementById('clientPhoneCart').value;
+        // ПОЛУЧАЕМ ДАННЫЕ ИЗ НОВОГО ПОЛЯ
+        const clientViberTelegram = document.getElementById('clientViberTelegram').value;
+        
+        if (cart.length === 0) {
+            alert('Ваша корзина порожня!');
+            return;
+        }
+
+        const TOKEN = "ВАШ_ТОКЕН_БОТА";
+        const CHAT_ID = "ВАШ_ID_ЧАТА";
+        
+        if (TOKEN === "ВАШ_ТОКЕН_БОТА" || CHAT_ID === "ВАШ_ID_ЧАТА") {
+            alert("Помилка: Не налаштовано дані для відправки в Telegram. Зверніться до розробника.");
+            return;
+        }
+
+        let message = `<b>Нове замовлення з сайту!</b>\n\n`;
+        message += `<b>Ім'я:</b> ${clientName}\n`;
+        message += `<b>Телефон:</b> ${clientPhone}\n`;
+        
+        // ДОБАВЛЯЕМ VIBER/TELEGRAM В СООБЩЕНИЕ, ЕСЛИ ПОЛЕ ЗАПОЛНЕНО
+        if (clientViberTelegram) {
+            message += `<b>Viber/Telegram:</b> ${clientViberTelegram}\n`;
+        }
+
+        message += `\n<b>Товари в замовленні:</b>\n`;
+        
+        let totalPrice = 0;
+        cart.forEach(item => {
+            message += `— ${item.name} (x${item.quantity}) - ${item.price * item.quantity} грн\n`;
+            totalPrice += item.price * item.quantity;
         });
-    }
+        
+        message += `\n<b>Загальна сума: ${totalPrice.toFixed(2)} грн</b>`;
+
+        const url = `https://api.telegram.org/bot${TOKEN}/sendMessage`;
+        const params = { chat_id: CHAT_ID, text: message, parse_mode: 'HTML' };
+
+        fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(params)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.ok) {
+                if(successModal) successModal.style.display = 'flex';
+                if(cartModal) cartModal.style.display = 'none';
+                body.classList.remove('menu-open');
+                cart = [];
+                updateCart();
+                orderForm.reset();
+                setTimeout(() => {
+                    if(successModal) successModal.style.display = 'none';
+                }, 4000);
+            } else { throw new Error(data.description); }
+        })
+        .catch(error => {
+            console.error('Помилка відправки в Telegram:', error);
+            alert('Виникла помилка при оформленні замовлення.');
+        });
+    });
+}
     updateCart();
 });
 
