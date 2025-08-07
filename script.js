@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const prevButton = document.getElementById(`prev${index + 1}`);
         const nextButton = document.getElementById(`next${index + 1}`);
         const startAutoPlay = () => {
-            if (sliderStates[index].intervalId) clearInterval(sliderStates[index].intervalId);
+            if (sliderStates[index] && sliderStates[index].intervalId) clearInterval(sliderStates[index].intervalId);
             sliderStates[index].intervalId = setInterval(() => moveGallery(index, 1), 10000);
         };
         const moveAndReset = (direction) => {
@@ -106,9 +106,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- КОД МОДАЛЬНОГО ВІКНА ДЛЯ ИЗОБРАЖЕНИЙ ---
-    const modal = document.getElementById("imageModal");
+    const imageModal = document.getElementById("imageModal");
     const modalImg = document.getElementById("expandedImg");
-    const closeModalButton = document.getElementById("closeModalButton");
+    const closeImageModalButton = document.getElementById("closeModalButton");
     const modalPrevBtn = document.getElementById("modalPrev");
     const modalNextBtn = document.getElementById("modalNext");
     const dotsContainer = document.getElementById('modalDotsContainer');
@@ -116,9 +116,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentImageIndex = 0;
 
     function openImageModal(isGallery, imagesOrSrc, startIndex = 0) {
-        if (!modal) return;
+        if (!imageModal) return;
         body.classList.add('menu-open');
-        modal.style.display = "block";
+        imageModal.style.display = "block";
         currentModalImages = Array.isArray(imagesOrSrc) ? imagesOrSrc : [imagesOrSrc];
         currentImageIndex = startIndex;
         
@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
         modalNextBtn.classList.toggle('is-visible', hasMultipleImages);
         
         dotsContainer.innerHTML = '';
-        if (currentModalImages.length > 1) {
+        if (hasMultipleImages) {
             currentModalImages.forEach((_, index) => {
                 const dot = document.createElement('span');
                 dot.classList.add('dot');
@@ -140,9 +140,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         if (hasMultipleImages) {
-            modal.addEventListener('touchstart', handleTouchStart, { passive: true });
-            modal.addEventListener('touchmove', handleTouchMove, { passive: true });
-            modal.addEventListener('touchend', handleTouchEnd);
+            imageModal.addEventListener('touchstart', handleTouchStart, { passive: true });
+            imageModal.addEventListener('touchmove', handleTouchMove, { passive: true });
+            imageModal.addEventListener('touchend', handleTouchEnd);
         }
         
         showImage(currentImageIndex);
@@ -151,18 +151,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function closeImageModalLogic() {
-        if (modal && modal.style.display === "block") {
+        if (imageModal && imageModal.style.display === "block") {
             body.classList.remove('menu-open');
-            modal.style.display = "none";
+            imageModal.style.display = "none";
             document.removeEventListener('keydown', handleKeyDown);
-            modal.removeEventListener('touchstart', handleTouchStart);
-            modal.removeEventListener('touchmove', handleTouchMove);
-            modal.removeEventListener('touchend', handleTouchEnd);
+            imageModal.removeEventListener('touchstart', handleTouchStart);
+            imageModal.removeEventListener('touchmove', handleTouchMove);
+            imageModal.removeEventListener('touchend', handleTouchEnd);
             if (dotsContainer) dotsContainer.innerHTML = '';
         }
     }
 
-    if (modal) {
+    if (imageModal) {
         window.addEventListener('popstate', (e) => {
              if (e.state && e.state.modalOpen) {
                  closeImageModalLogic();
@@ -170,14 +170,14 @@ document.addEventListener('DOMContentLoaded', () => {
                  closeImageModalLogic();
              }
         });
-        closeModalButton.addEventListener('click', () => history.back());
-        modal.addEventListener('click', (event) => {
-            if (event.target === modal) {
+        if (closeImageModalButton) closeImageModalButton.addEventListener('click', () => history.back());
+        imageModal.addEventListener('click', (event) => {
+            if (event.target === imageModal) {
                 history.back();
             }
         });
-        modalPrevBtn.addEventListener('click', (e) => { e.stopPropagation(); showImage(currentImageIndex - 1); });
-        modalNextBtn.addEventListener('click', (e) => { e.stopPropagation(); showImage(currentImageIndex + 1); });
+        if (modalPrevBtn) modalPrevBtn.addEventListener('click', (e) => { e.stopPropagation(); showImage(currentImageIndex - 1); });
+        if (modalNextBtn) modalNextBtn.addEventListener('click', (e) => { e.stopPropagation(); showImage(currentImageIndex + 1); });
     }
 
     function showImage(index) {
@@ -221,7 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function handleKeyDown(e) {
-        if (!modal || modal.style.display !== 'block') return;
+        if (!imageModal || imageModal.style.display !== 'block') return;
         if (currentModalImages.length <= 1) return;
         if (e.key === "ArrowLeft") showImage(currentImageIndex - 1);
         else if (e.key === "ArrowRight") showImage(currentImageIndex + 1);
@@ -252,14 +252,14 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         const stopSwayingPermanently = () => {
             clearInterval(swayIntervalId);
-            extrasGrid.removeEventListener('scroll', stopSwayingPermanently);
+            if(extrasGrid) extrasGrid.removeEventListener('scroll', stopSwayingPermanently);
         };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     if (!swayIntervalId) {
                         swayIntervalId = setInterval(triggerSwayAnimation, 3000);
-                        extrasGrid.addEventListener('scroll', stopSwayingPermanently, { once: true });
+                        if(extrasGrid) extrasGrid.addEventListener('scroll', stopSwayingPermanently, { once: true });
                     }
                 } else {
                     clearInterval(swayIntervalId);
@@ -313,19 +313,54 @@ document.addEventListener('DOMContentLoaded', () => {
                 .then(response => response.json())
                 .then(data => {
                     if (data.ok) {
-                        alert('Дякуємо! Ми скоро з вами зв\'яжемось.');
+                        showCustomAlert('Дякуємо! Ми скоро з вами зв\'яжемось.');
                         phoneInput.value = '';
                         closePopupLogic();
                     } else { throw new Error(data.description || 'Неизвестная ошибка'); }
                 })
                 .catch(error => {
                     console.error('Помилка відправки через Worker:', error);
-                    alert('Виникла помилка. Спробуйте ще раз або зв\'яжіться з нами напряму.');
+                    showCustomAlert('Виникла помилка. Спробуйте ще раз або зв\'яжіться з нами напряму.');
                 });
             });
         }
     }
     
+    // =======================================================
+    // --- СИСТЕМА УВЕДОМЛЕНИЙ (CUSTOM ALERT) ---
+    // =======================================================
+    const customAlertModal = document.getElementById('customAlertModal');
+    if (customAlertModal) {
+        const customAlertMessage = customAlertModal.querySelector('.custom-alert-message');
+        const customAlertCloseBtn = customAlertModal.querySelector('.custom-alert-close-btn');
+        const customAlertOkBtn = customAlertModal.querySelector('.custom-alert-ok-btn');
+
+       window.showCustomAlert = function(message) {
+    if (customAlertMessage) {
+        customAlertMessage.textContent = message;
+        customAlertModal.style.display = 'block'; // <-- возвращаем block
+    }
+}
+
+        const closeCustomAlert = () => {
+            customAlertModal.style.display = "none";
+        }
+
+        if(customAlertCloseBtn) customAlertCloseBtn.onclick = closeCustomAlert;
+        if(customAlertOkBtn) customAlertOkBtn.onclick = closeCustomAlert;
+        
+        window.addEventListener('click', function(event) {
+            if (event.target == customAlertModal) {
+                closeCustomAlert();
+            }
+        });
+    } else {
+        // Запасной вариант, если HTML для модального окна не найден
+        window.showCustomAlert = function(message) {
+            alert(message);
+        }
+    }
+
     // =======================================================
     // --- ЛОГІКА КОРЗИНИ ---
     // =======================================================
@@ -357,7 +392,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-
+    
     document.querySelectorAll('.add-to-cart-btn').forEach(button => {
         button.addEventListener('click', (e) => {
             const card = e.target.closest('.product-card');
@@ -372,6 +407,67 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    document.querySelectorAll('.add-extra-to-cart').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const card = e.target.closest('.extra-item');
+            
+            if (card.dataset.id === 'extra1') {
+                const selectedOption = card.querySelector('input[name="option-type-extra1"]:checked');
+                const productName = selectedOption.dataset.name;
+                const productImage = (productName === 'Кулон') 
+                    ? card.dataset.imageKulon 
+                    : card.dataset.imageBrelok;
+
+                cart = cart.filter(item => item.id !== 'extra1-Брелок' && item.id !== 'extra1-Кулон');
+
+                const product = {
+                    id: 'extra1-' + productName,
+                    name: productName,
+                    price: parseFloat(card.dataset.price),
+                    image: productImage,
+                    quantity: 1
+                };
+                
+                cart.push(product);
+                updateCart();
+                animateButton(button);
+
+            } else {
+                const product = {
+                    id: card.dataset.id,
+                    name: card.dataset.name,
+                    price: parseFloat(card.dataset.price),
+                    image: card.dataset.imageBrelok || card.querySelector('img').src,
+                    quantity: 1
+                };
+                addToCart(product, button);
+            }
+        });
+    });
+
+    function animateButton(button) {
+        if (!button) return;
+        
+        button.classList.add('added');
+        button.disabled = true;
+
+        if (button.classList.contains('add-extra-to-cart')) {
+            button.innerHTML = '<i class="fas fa-check"></i>';
+            setTimeout(() => {
+                button.innerHTML = '+';
+                button.classList.remove('added');
+                button.disabled = false;
+            }, 2000);
+        } else {
+            button.innerHTML = '<i class="fas fa-check"></i> Додано!';
+            setTimeout(() => {
+                button.innerHTML = 'Замовити';
+                button.classList.remove('added');
+                button.disabled = false;
+            }, 2000);
+        }
+    }
+    
     function addToCart(product, button) {
         const existingProductIndex = cart.findIndex(item => item.id === product.id);
         if (existingProductIndex > -1) {
@@ -379,30 +475,22 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             cart.push(product);
         }
-    
-        if (button) {
-            button.innerHTML = '<i class="fas fa-check"></i> Додано!';
-            button.classList.add('added');
-            button.disabled = true;
-            setTimeout(() => {
-                button.innerHTML = 'Замовити';
-                button.classList.remove('added');
-                button.disabled = false;
-            }, 2000);
-        }
-        
+
+        animateButton(button);
         updateCart();
-    
-        if (cartModal) {
-            cartModal.style.display = 'block';
-            body.classList.add('menu-open');
+
+        if (button && button.classList.contains('add-to-cart-btn')) {
+             if (cartModal) {
+                cartModal.style.display = 'block';
+                body.classList.add('menu-open');
+            }
         }
     }
 
     function updateCart() {
-        renderCartItems();
-        renderCartSummary();
-        updateCartIcon();
+        if(cartItemsContainer) renderCartItems();
+        if(cartSummaryEl) renderCartSummary();
+        if(cartCountEl) updateCartIcon();
         localStorage.setItem('shoppingCart', JSON.stringify(cart));
     }
 
@@ -437,17 +525,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     function renderCartSummary() {
-        if (!cartSummaryEl) return;
+        const placeOrderBtn = document.querySelector('.place-order-btn');
+        if (!cartSummaryEl || !placeOrderBtn) return;
+
         const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        
         if (cart.length > 0) {
-             cartSummaryEl.innerHTML = `<h3>Загальна сума: ${totalPrice.toFixed(2)} грн</h3>`;
+            cartSummaryEl.innerHTML = `<h3>Загальна сума: ${totalPrice.toFixed(2)} грн</h3>`;
+            placeOrderBtn.disabled = false;
+            placeOrderBtn.style.opacity = '1';
+            placeOrderBtn.style.cursor = 'pointer';
         } else {
             cartSummaryEl.innerHTML = '';
+            placeOrderBtn.disabled = true;
+            placeOrderBtn.style.opacity = '0.5';
+            placeOrderBtn.style.cursor = 'not-allowed';
         }
     }
     
     function updateCartIcon() {
-        if (!cartCountEl) return;
         const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
         cartCountEl.textContent = totalItems;
         cartCountEl.classList.toggle('visible', totalItems > 0);
@@ -456,9 +552,15 @@ document.addEventListener('DOMContentLoaded', () => {
     window.changeQuantity = (productId, amount) => {
         const productIndex = cart.findIndex(item => item.id === productId);
         if (productIndex > -1) {
-            cart[productIndex].quantity += amount;
-            if (cart[productIndex].quantity <= 0) {
-                cart.splice(productIndex, 1);
+            if (cart[productIndex].id.startsWith('extra1-')) {
+                if (amount < 0) {
+                    cart.splice(productIndex, 1);
+                }
+            } else {
+                cart[productIndex].quantity += amount;
+                if (cart[productIndex].quantity <= 0) {
+                    cart.splice(productIndex, 1);
+                }
             }
             updateCart();
         }
@@ -469,75 +571,83 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCart();
     };
 
-   if (orderForm) {
-    orderForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const clientName = document.getElementById('clientName').value;
-        const clientPhone = document.getElementById('clientPhoneCart').value;
-        // ПОЛУЧАЕМ ДАННЫЕ ИЗ НОВОГО ПОЛЯ
-        const clientViberTelegram = document.getElementById('clientViberTelegram').value;
-        
-        if (cart.length === 0) {
-            alert('Ваша корзина порожня!');
-            return;
-        }
+    if (orderForm) {
+        orderForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const hasFreeItem = cart.some(item => item.id.startsWith('extra1-'));
+            const hasMainProduct = cart.some(item => item.id.startsWith('product'));
 
-        const TOKEN = "ВАШ_ТОКЕН_БОТА";
-        const CHAT_ID = "ВАШ_ID_ЧАТА";
-        
-        if (TOKEN === "ВАШ_ТОКЕН_БОТА" || CHAT_ID === "ВАШ_ID_ЧАТА") {
-            alert("Помилка: Не налаштовано дані для відправки в Telegram. Зверніться до розробника.");
-            return;
-        }
-
-        let message = `<b>Нове замовлення з сайту!</b>\n\n`;
-        message += `<b>Ім'я:</b> ${clientName}\n`;
-        message += `<b>Телефон:</b> ${clientPhone}\n`;
-        
-        // ДОБАВЛЯЕМ VIBER/TELEGRAM В СООБЩЕНИЕ, ЕСЛИ ПОЛЕ ЗАПОЛНЕНО
-        if (clientViberTelegram) {
-            message += `<b>Viber/Telegram:</b> ${clientViberTelegram}\n`;
-        }
-
-        message += `\n<b>Товари в замовленні:</b>\n`;
-        
-        let totalPrice = 0;
-        cart.forEach(item => {
-            message += `— ${item.name} (x${item.quantity}) - ${item.price * item.quantity} грн\n`;
-            totalPrice += item.price * item.quantity;
-        });
-        
-        message += `\n<b>Загальна сума: ${totalPrice.toFixed(2)} грн</b>`;
-
-        const url = `https://api.telegram.org/bot${TOKEN}/sendMessage`;
-        const params = { chat_id: CHAT_ID, text: message, parse_mode: 'HTML' };
-
-        fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(params)
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.ok) {
-                if(successModal) successModal.style.display = 'flex';
-                if(cartModal) cartModal.style.display = 'none';
-                body.classList.remove('menu-open');
-                cart = [];
+            if (hasFreeItem && !hasMainProduct) {
+                showCustomAlert('Вибачте, але безкоштовний ланцюжок можна замовити тільки якщо ви замовляєте будь-який жетон');
+                cart = cart.filter(item => !item.id.startsWith('extra1-'));
                 updateCart();
-                orderForm.reset();
-                setTimeout(() => {
-                    if(successModal) successModal.style.display = 'none';
-                }, 4000);
-            } else { throw new Error(data.description); }
-        })
-        .catch(error => {
-            console.error('Помилка відправки в Telegram:', error);
-            alert('Виникла помилка при оформленні замовлення.');
+                return;
+            }
+            
+            if (cart.length === 0) {
+                showCustomAlert('Ваша корзина порожня!');
+                return;
+            }
+
+            const clientName = document.getElementById('clientName').value;
+            const clientPhone = document.getElementById('clientPhoneCart').value;
+            const clientViberTelegram = document.getElementById('clientViberTelegram').value;
+            
+            const TOKEN = "ВАШ_ТОКЕН_БОТА";
+            const CHAT_ID = "ВАШ_ID_ЧАТА";
+            
+            if (TOKEN === "ВАШ_ТОКЕН_БОТА" || CHAT_ID === "ВАШ_ID_ЧАТА") {
+                showCustomAlert("Помилка: Не налаштовано дані для відправки в Telegram. Зверніться до розробника.");
+                return;
+            }
+
+            let message = `<b>Нове замовлення з сайту!</b>\n\n`;
+            message += `<b>Ім'я:</b> ${clientName}\n`;
+            message += `<b>Телефон:</b> ${clientPhone}\n`;
+            
+            if (clientViberTelegram) {
+                message += `<b>Viber/Telegram:</b> ${clientViberTelegram}\n`;
+            }
+
+            message += `\n<b>Товари в замовленні:</b>\n`;
+            
+            let totalPrice = 0;
+            cart.forEach(item => {
+                message += `— ${item.name} (x${item.quantity}) - ${item.price * item.quantity} грн\n`;
+                totalPrice += item.price * item.quantity;
+            });
+            
+            message += `\n<b>Загальна сума: ${totalPrice.toFixed(2)} грн</b>`;
+
+            const url = `https://api.telegram.org/bot${TOKEN}/sendMessage`;
+            const params = { chat_id: CHAT_ID, text: message, parse_mode: 'HTML' };
+
+            fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(params)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                    if(successModal) successModal.style.display = 'flex';
+                    if(cartModal) cartModal.style.display = 'none';
+                    body.classList.remove('menu-open');
+                    cart = [];
+                    updateCart();
+                    orderForm.reset();
+                    setTimeout(() => {
+                        if(successModal) successModal.style.display = 'none';
+                    }, 4000);
+                } else { throw new Error(data.description); }
+            })
+            .catch(error => {
+                console.error('Помилка відправки в Telegram:', error);
+                showCustomAlert('Виникла помилка при оформленні замовлення.');
+            });
         });
-    });
-}
+    }
     updateCart();
 });
 
@@ -561,26 +671,26 @@ if (playerWrapper) {
 
     function updateButton() {
         const icon = video.paused ? '►' : '❚❚';
-        playButton.textContent = icon;
+        if(playButton) playButton.textContent = icon;
     }
 
     function handleVolumeUpdate() {
-        video.volume = this.value;
+        if(video) video.volume = this.value;
     }
 
     function toggleFullscreen() {
         if (!document.fullscreenElement) {
-            playerWrapper.requestFullscreen().catch(err => {
-                alert(`Помилка при переході в повноекранний режим: ${err.message}`);
+            if(playerWrapper) playerWrapper.requestFullscreen().catch(err => {
+                showCustomAlert(`Помилка при переході в повноекранний режим: ${err.message}`);
             });
         } else {
-            document.exitFullscreen();
+            if(document.exitFullscreen) document.exitFullscreen();
         }
     }
 
     function handleProgress() {
         const percent = (video.currentTime / video.duration) * 100;
-        progressFilled.style.flexBasis = `${percent}%`;
+        if(progressFilled) progressFilled.style.flexBasis = `${percent}%`;
     }
 
     function scrub(e) {
@@ -588,23 +698,27 @@ if (playerWrapper) {
         video.currentTime = scrubTime;
     }
 
-    video.addEventListener('click', togglePlay);
-    video.addEventListener('play', updateButton);
-    video.addEventListener('pause', updateButton);
-    video.addEventListener('timeupdate', handleProgress);
-
-    playButton.addEventListener('click', togglePlay);
-    volumeSlider.addEventListener('input', handleVolumeUpdate);
-    fullscreenButton.addEventListener('click', toggleFullscreen);
+    if(video) {
+        video.addEventListener('click', togglePlay);
+        video.addEventListener('play', updateButton);
+        video.addEventListener('pause', updateButton);
+        video.addEventListener('timeupdate', handleProgress);
+    }
+    
+    if(playButton) playButton.addEventListener('click', togglePlay);
+    if(volumeSlider) volumeSlider.addEventListener('input', handleVolumeUpdate);
+    if(fullscreenButton) fullscreenButton.addEventListener('click', toggleFullscreen);
 
     let mousedown = false;
-    progressBar.addEventListener('click', scrub);
-    progressBar.addEventListener('mousemove', (e) => mousedown && scrub(e));
-    progressBar.addEventListener('mousedown', () => mousedown = true);
-    progressBar.addEventListener('mouseup', () => mousedown = false);
+    if(progressBar) {
+        progressBar.addEventListener('click', scrub);
+        progressBar.addEventListener('mousemove', (e) => mousedown && scrub(e));
+        progressBar.addEventListener('mousedown', () => mousedown = true);
+        progressBar.addEventListener('mouseup', () => mousedown = false);
+    }
 
     window.addEventListener('keydown', (e) => {
-        if (e.code === 'Space' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+        if (e.code === 'Space' && document.activeElement && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
             e.preventDefault(); 
             togglePlay();
         }
@@ -612,7 +726,7 @@ if (playerWrapper) {
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (!entry.isIntersecting && !video.paused) {
+            if (!entry.isIntersecting && video && !video.paused) {
                 video.pause();
             }
         });
@@ -620,4 +734,3 @@ if (playerWrapper) {
 
     observer.observe(playerWrapper);
 }
-// --- КОНЕЦ ЛОГИКИ ВИДЕОПЛЕЕРА ---
