@@ -1,4 +1,5 @@
 /* -- Загальні стилі -- */
+
 :root {
     --primary-color: #2c3e50;
     --secondary-color: #f8f9fa;
@@ -146,6 +147,12 @@ img { max-width: 100%; height: auto; }
 .circle { width: 130px; height: 130px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: #fff; overflow: hidden;  border: 1px solid #c19a6b;  box-sizing: border-box; }
 .circle img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
 .extra-item:first-child .circle:nth-child(2) { margin-left: -40px; }
+.extra-item:nth-child(4) .extra-circles {
+    margin-left: -20px;
+}
+.extra-item:nth-child(4) .circle:nth-child(2) {
+    margin-left: -40px;
+}
 #extras .extra-price { font-family: var(--font-main); font-weight: bold; font-size: 1.1em; margin-bottom: 5px; color: #006400; }
 .extra-item h3 { font-size: 1.5em; margin-bottom: 15px; }
 .extra-item p { font-size: 0.9em; color: #666; max-width: 280px; margin-bottom: 15px; }
@@ -448,6 +455,7 @@ body.menu-open {
     background-color: var(--success-color);
     cursor: default;
 }
+/* --- ОБНОВЛЕННЫЕ СТИЛИ ДЛЯ КОРЗИНЫ (НА ВЕСЬ ЭКРАН) --- */
 .cart-modal {
     display: none;
     position: fixed;
@@ -456,33 +464,41 @@ body.menu-open {
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto;
+    overflow: hidden; /* Убираем прокрутку у фона */
     background-color: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(5px);
 }
+
 .cart-modal-content {
     background-color: #fefefe;
-    margin: 5% auto;
-    padding: 30px;
+    margin: auto; /* Убираем старый отступ, центрируем */
+    padding: 15px 20px; /* << УМЕНЬШЕНЫ ОБЩИЕ ОТСТУПЫ */
     border-radius: 12px;
-    width: 90%;
+    width: 95%;
     max-width: 700px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     animation: slideDown 0.4s ease-out;
+
+    height: 90vh; /* << ЗАНИМАЕТ ПОЧТИ ВЕСЬ ЭКРАН ПО ВЫСОТЕ */
+    display: flex; /* << ВКЛЮЧАЕМ FLEXBOX */
+    flex-direction: column; /* << Элементы располагаются в колонку */
 }
-@keyframes slideDown {
-    from { transform: translateY(-50px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
+
 .cart-modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #ddd;
-    padding-bottom: 15px;
-    margin-bottom: 20px;
+    padding-bottom: 10px; /* << УМЕНЬШЕН ОТСТУП */
+    margin-bottom: 15px; /* << УМЕНЬШЕН ОТСТУП */
+    flex-shrink: 0; /* << Запрещаем этому блоку сжиматься */
 }
-.cart-modal-header h2 { margin: 0; }
+
+.cart-modal-header h2 {
+    margin: 0;
+    font-size: 1.3em; /* << Немного уменьшен шрифт */
+}
+
 .close-cart-btn {
     color: #aaa;
     font-size: 32px;
@@ -491,37 +507,47 @@ body.menu-open {
     transition: color 0.3s;
 }
 .close-cart-btn:hover { color: #333; }
+
 .cart-items-container {
-    max-height: 40vh;
-    overflow-y: auto;
+    flex-grow: 1; /* << ГЛАВНОЕ ИЗМЕНЕНИЕ: этот блок растягивается на всё свободное место */
+    overflow-y: auto; /* << Полоса прокрутки появится, только если товаров ОЧЕНЬ много */
+    max-height: none; /* << Убираем старое ограничение высоты */
     padding-right: 10px;
 }
+
 .cart-item {
     display: flex;
     align-items: center;
-    margin-bottom: 15px;
-    padding-bottom: 15px;
+    margin-bottom: 10px; /* << УМЕНЬШЕН ОТСТУП */
+    padding-bottom: 10px; /* << УМЕНЬШЕН ОТСТУП */
     border-bottom: 1px solid #eee;
 }
 .cart-item:last-child { border-bottom: none; }
+
 .cart-item-img {
-    width: 60px;
-    height: 60px;
+    width: 50px; /* << Уменьшены картинки */
+    height: 50px;
     object-fit: cover;
     border-radius: 8px;
     margin-right: 15px;
+    flex-shrink: 0;
 }
+
 .cart-item-details { flex-grow: 1; }
-.cart-item-details h4 { margin: 0 0 5px 0; font-size: 1em; }
+.cart-item-details h4 { 
+    margin: 0 0 4px 0; 
+    font-size: 0.95em; /* << УМЕНЬШЕН ШРИФТ */
+}
 .cart-item-details .price { font-weight: bold; color: var(--accent-color); }
-.cart-item-controls { display: flex; align-items: center; gap: 10px; }
+
+.cart-item-controls { display: flex; align-items: center; gap: 8px; }
 .quantity-btn {
     background: #eee;
     border: none;
-    width: 28px;
-    height: 28px;
+    width: 25px; /* << Уменьшены кнопки +/- */
+    height: 25px;
     border-radius: 50%;
-    font-size: 1.2em;
+    font-size: 1em;
     cursor: pointer;
 }
 .item-quantity { font-weight: bold; }
@@ -529,33 +555,45 @@ body.menu-open {
     background: none;
     border: none;
     color: var(--danger-color);
-    font-size: 1.2em;
+    font-size: 1.1em;
     cursor: pointer;
-    margin-left: 15px;
+    margin-left: 10px;
 }
+
 .cart-empty-message { text-align: center; padding: 40px; color: #777; }
+
 .cart-summary {
-    margin-top: 20px;
-    padding-top: 20px;
+    margin-top: 15px; /* << УМЕНЬШЕН ОТСТУП */
+    padding-top: 15px; /* << УМЕНЬШЕН ОТСТУП */
     border-top: 1px solid #ddd;
     text-align: right;
+    flex-shrink: 0; /* << Запрещаем этому блоку сжиматься */
 }
-.cart-summary h3 { font-size: 1.5em; }
-.cart-order-form { margin-top: 30px; }
-.form-group { margin-bottom: 15px; }
-.form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+
+.cart-summary h3 {
+    font-size: 1.2em; /* << УМЕНЬШЕН ШРИФТ */
+    margin: 0;
+}
+
+.cart-order-form {
+    margin-top: 15px; /* << УМЕНЬШЕН ОТСТУП */
+    flex-shrink: 0; /* << Запрещаем этому блоку сжиматься */
+}
+.form-group { margin-bottom: 10px; } /* << УМЕНЬШЕН ОТСТУП */
+.form-group label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.9em; }
 .form-group input {
     width: 100%;
-    padding: 12px;
+    padding: 10px; /* << Уменьшен отступ */
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 1em;
 }
+
 .place-order-btn {
     width: 100%;
-    padding: 15px;
-    font-size: 1.2em;
-    margin-top: 15px;
+    padding: 12px; /* << Уменьшен отступ */
+    font-size: 1.1em;
+    margin-top: 10px; /* << УМЕНЬШЕН ОТСТУП */
 }
 .success-modal {
     display: none;
@@ -605,7 +643,106 @@ body.menu-open {
 .success-modal h2 { color: var(--primary-color); margin-bottom: 10px; }
 .success-modal p { color: #555; font-size: 1.1em; }
 
+/* === СТИЛИ ДЛЯ ОБНОВЛЕННЫХ ДОП. ТОВАРОВ === */
 
+/* Для однакової висоти карток */
+.extra-item {
+    display: flex;
+    flex-direction: column; /* Выстраиваем элементы в колонку */
+}
+
+.extra-item h3 {
+    min-height: 44px; /* Задаем минимальную высоту для заголовка */
+}
+
+.extra-item p {
+    flex-grow: 1; /* Этот параграф будет растягиваться, чтобы заполнить место */
+}
+
+/* Нова обгортка для ціни та кнопки */
+.extra-action {
+    margin-top: auto; /* Прижимает этот блок к низу карточки */
+    display: flex;
+    justify-content: space-between; /* Размещает цену слева, а кнопку справа */
+    align-items: center; /* Выравнивает их по центру по вертикали */
+    padding-top: 15px;
+    border-top: 1px solid #ddd;
+}
+
+.extra-action .price {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: var(--primary-color);
+    font-family: var(--font-accent);
+}
+
+/* Стиль для самої кнопки "+" */
+.add-extra-to-cart {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1;
+}
+
+.add-extra-to-cart:hover {
+    background-color: #a8855a;
+    transform: scale(1.1);
+}
+
+.add-extra-to-cart.added {
+    background-color: var(--success-color);
+    font-size: 20px; /* Делаем галочку чуть меньше плюса */
+}
+
+/* === СТИЛИ ДЛЯ ПЕРЕКЛЮЧАТЕЛЯ В КАРТОЧКЕ === */
+
+.option-switcher {
+    display: flex;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+/* Прячем стандартные радио-кнопки */
+.option-switcher input[type="radio"] {
+    display: none;
+}
+
+/* Стилизуем метки (label), чтобы они выглядели как кнопки */
+.option-switcher label {
+    flex: 1; /* Растягиваем на всю доступную ширину */
+    padding: 8px 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    font-family: var(--font-main);
+    font-weight: 500;
+    color: #555;
+    background-color: #f0f2f5;
+}
+
+/* Стиль для ВЫБРАННОЙ опции */
+.option-switcher input[type="radio"]:checked + label {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: bold;
+}
+
+#extras-followup {
+    padding-top: 0 ;
+}
 /* --- Адаптивність --- */
 @media (max-width: 992px) {
     /* ... (ваши старые стили для адаптивности) ... */
@@ -877,4 +1014,73 @@ body.menu-open {
 .add-to-cart-btn {
     padding: 6px 12px; /* Уменьшаем вертикальные (6px) и горизонтальные (12px) отступы */
     font-size: 0.9em; /* Можно также немного уменьшить шрифт для компактности */
+}
+
+/* --- Стили для кастомного модального окна alert --- */
+.custom-alert-modal {
+    display: none;
+    position: fixed;
+    z-index: 3000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    backdrop-filter: blur(4px);
+}
+
+.custom-alert-content {
+    background-color: #fefefe;
+    padding: 24px;
+    border: none;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 12px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+    text-align: center;
+    
+    /* НОВЫЙ МЕТОД ЦЕНТРИРОВАНИЯ */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.custom-alert-close-btn {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.custom-alert-close-btn:hover,
+.custom-alert-close-btn:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.custom-alert-message {
+    padding: 10px 0;
+    font-size: 1.1em;
+    text-align: center;
+}
+
+.custom-alert-ok-btn {
+    background-color: #007bff; /* Пример цвета кнопки */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    display: block;
+    margin: 20px auto 0;
+}
+
+.custom-alert-ok-btn:hover {
+    background-color: #0056b3;
 }
