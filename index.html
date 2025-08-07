@@ -153,77 +153,188 @@
             </div>
         </section>
 
-        <section id="extras">
-            <div class="container">
-                <h2 class="section-title">ДОДАТКОВІ ТОВАРИ</h2>
-                <div class="extras-grid">
-                    <div class="extra-item">
-                        <div class="extra-circles">
-                            <div class="circle">
-                                <img src="images2/IMG_20250726_191345.png" alt="Додатковий ланцюжок">
-                            </div>
-                            <div class="circle">
-                                <img src="images2/storage emulated 0 DCIM Camera IMG_20250726_191502.png" alt="Ланцюжок">
-                            </div>
-                        </div>
-                        <p class="extra-price">БЕЗ ДОПЛАТ</p>
-                        <h3>Брелок або кулон</h3>
-                        <p>На вибір ви додатково отримуєте НЕРЖАВІЮЧИЙ ланцюжок на шию і кліпсу або кріплення для брелоку.</p>
-                        <div class="extra-action">
-                            <p style="margin-bottom: 5px;">(кількість обмежена)</p>
-                            <span class="extra-stock">залишилось 8шт</span>
-                        </div>
-                    </div>
+       <section id="extras">
+    <div class="container">
+        <h2 class="section-title">ДОДАТКОВІ ТОВАРИ</h2>
+        <div class="extras-grid">
 
-                    <div class="extra-item">
-                        <div class="extra-circles">
-                            <div class="circle">
-                                <img src="images2/bmp-1-800x800.png" alt="Силіконовий бампер">
-                            </div>
-                        </div>
-                        <p class="extra-price">+30 грн</p>
-                        <h3>Силіконовий бампер</h3>
-                        <p style="color: #e76293;"><b>(всі варіанти додаткових товарів менеджер запропонує вам при оформленні замовлення)</b></p>
-                       
-                        <div class="extra-action"></div>
+            <div class="extra-item" 
+                 data-id="extra1" 
+                 data-name="Брелок або кулон" 
+                 data-price="0" 
+                  data-image-brelok="images2/IMG_20250726_191345.png"
+                  data-image-kulon="images2/storage emulated 0 DCIM Camera IMG_20250726_191502.png">
+                <div class="extra-circles">
+                    <div class="circle">
+                        <img src="images2/IMG_20250726_191345.png" alt="Додатковий ланцюжок">
                     </div>
+                    <div class="circle">
+                        <img src="images2/storage emulated 0 DCIM Camera IMG_20250726_191502.png" alt="Ланцюжок">
+                    </div>
+                </div>
+                <h3>Брелок або кулон</h3>
+                    <div class="option-switcher">
+        <input type="radio" id="option-keychain" name="option-type-extra1" data-name="Брелок" checked>
+        <label for="option-keychain">Брелок</label>
 
-                    <div class="extra-item">
-                        <div class="extra-circles">
-                            <div class="circle">
-                                
-                            <img src="imagespc/IMG_20250726_192325.png" alt="Описание картинки" class="desktop-image">
-                            <img src="images2/IMG_20250726_192325.png" alt="Описание картинки" class="mobile-image">
-                                
-                            </div>
-                        </div>
-                        <p class="extra-price">від 170грн</p>
-                        <h3>Посилений ланцюжок</h3>
-                            <p>&nbsp;</p>
-                        <div class="extra-action">
-                        </div>
-                    </div>
-                    <div class="extra-item">
-                        <div class="extra-circles">
-                            <div class="circle">
-                                <img src="images2/Без имени-5.png" alt="Подарункова коробочка 1">
-                            </div>
-                            <div class="circle">
-                                <img src="images2/IMG_20240407_134123.png" alt="Подарункова коробочка 2">
-                            </div>
-                        </div>
-                        <p class="extra-price">+100 грн</p>
-                        <h3>Подарункова коробочка</h3>
-                        <p>&nbsp;</p>
-                        <div class="extra-action">
-                            <a href="#products" class="cta-button">Варіанти гравіювання</a>
-                        </div>
-                    </div>
-                </div> <div class="scroll-indicator">&#10148;</div>
+        <input type="radio" id="option-pendant" name="option-type-extra1" data-name="Кулон">
+        <label for="option-pendant">Кулон</label>
+    </div>
+                <p>На вибір ви отримуєте НЕРЖАВІЮЧИЙ ланцюжок на шию або кріплення для брелоку.</p>
+                <div class="extra-action">
+                    <div class="price">0 грн</div>
+                    <button class="add-extra-to-cart">+</button>
+                </div>
+            </div>
 
-            </div> 
-        </section>
-        
+            <div class="extra-item" 
+                 data-id="extra2" 
+                 data-name="Силіконовий бампер" 
+                 data-price="30" 
+                 data-image="images2/bmp-1-800x800.png">
+                <div class="extra-circles">
+                    <div class="circle">
+                        <img src="images2/bmp-1-800x800.png" alt="Силіконовий бампер">
+                    </div>
+                </div>
+                <h3>Силіконовий бампер</h3>
+                <p style="color: #e76293;"><b>(Менеджер запропонує вам при оформленні замовлення)</b></p>
+                <div class="extra-action">
+                    <div class="price">30 грн</div>
+                    <button class="add-extra-to-cart">+</button>
+                </div>
+            </div>
+
+            <div class="extra-item" 
+                 data-id="extra3" 
+                 data-name="Посилений ланцюжок" 
+                 data-price="170" 
+                 data-image="images2/IMG_20250726_192325.png">
+                <div class="extra-circles">
+                    <div class="circle">
+                        <img src="imagespc/IMG_20250726_192325.png" alt="Посилений ланцюжок" class="desktop-image">
+                        <img src="images2/IMG_20250726_192325.png" alt="Посилений ланцюжок" class="mobile-image">
+                    </div>
+                </div>
+                <h3>Посилений ланцюжок</h3>
+                <p>Міцний та надійний ланцюжок з нержавіючої сталі.</p>
+                <div class="extra-action">
+                    <div class="price">170 грн</div>
+                    <button class="add-extra-to-cart">+</button>
+                </div>
+            </div>
+
+            <div class="extra-item" 
+                 data-id="extra4" 
+                 data-name="Подарункова коробочка" 
+                 data-price="100" 
+                 data-image="images2/Без имени-5.png">
+                <div class="extra-circles">
+                    <div class="circle">
+                        <img src="images2/Без имени-5.png" alt="Подарункова коробочка 1">
+                    </div>
+                    <div class="circle">
+                        <img src="images2/IMG_20240407_134123.png" alt="Подарункова коробочка 2">
+                    </div>
+                </div>
+                <h3>Подарункова коробочка</h3>
+                <p>Ідеально підійде для оформлення вашого подарунка.</p>
+                <div class="extra-action">
+                    <div class="price">100 грн</div>
+                    <button class="add-extra-to-cart">+</button>
+                </div>
+            </div>
+
+        </div> 
+        <div class="scroll-indicator">&#10148;</div>
+    </div> 
+</section>
+
+
+<!-- Дубль верхнего блока -->
+  <section id="extras-followup">
+    <div class="container">
+        <div class="extras-grid">
+
+          <div class="extra-item" 
+     data-id="extra7" 
+     data-name="Силіконовий бампер" 
+     data-price="30" 
+     data-image="images2/bmp-1-800x800.png">
+    <div class="extra-circles">
+        <div class="circle">
+            <img src="images2/bmp-1-800x800.png" alt="Силіконовий бампер">
+        </div>
+    </div>
+    <h3>Силіконовий бампер</h3>
+    <p style="color: #e76293;"><b>(Менеджер запропонує вам при оформленні замовлення)</b></p>
+    <div class="extra-action">
+        <div class="price">30 грн</div>
+        <button class="add-extra-to-cart">+</button>
+    </div>
+</div>
+
+<div class="extra-item" 
+     data-id="extra8" 
+     data-name="Силіконовий бампер" 
+     data-price="30" 
+     data-image="images2/bmp-1-800x800.png">
+    <div class="extra-circles">
+        <div class="circle">
+            <img src="images2/bmp-1-800x800.png" alt="Силіконовий бампер">
+        </div>
+    </div>
+    <h3>Силіконовий бампер</h3>
+    <p style="color: #e76293;"><b>(Менеджер запропонує вам при оформленні замовлення)</b></p>
+    <div class="extra-action">
+        <div class="price">30 грн</div>
+        <button class="add-extra-to-cart">+</button>
+    </div>
+</div>
+
+<div class="extra-item" 
+     data-id="extra9" 
+     data-name="Силіконовий бампер" 
+     data-price="30" 
+     data-image="images2/bmp-1-800x800.png">
+    <div class="extra-circles">
+        <div class="circle">
+            <img src="images2/bmp-1-800x800.png" alt="Силіконовий бампер">
+        </div>
+    </div>
+    <h3>Силіконовий бампер</h3>
+    <p style="color: #e76293;"><b>(Менеджер запропонує вам при оформленні замовлення)</b></p>
+    <div class="extra-action">
+        <div class="price">30 грн</div>
+        <button class="add-extra-to-cart">+</button>
+    </div>
+</div>
+
+<div class="extra-item" 
+     data-id="extra10" 
+     data-name="Подарункова коробочка" 
+     data-price="100" 
+     data-image="images2/Без имени-5.png">
+    <div class="extra-circles">
+        <div class="circle">
+            <img src="images2/Без имени-5.png" alt="Подарункова коробочка 1">
+        </div>
+        <div class="circle">
+            <img src="images2/IMG_20240407_134123.png" alt="Подарункова коробочка 2">
+        </div>
+    </div>
+    <h3>Подарункова коробочка</h3>
+    <p>Ідеально підійде для оформлення вашого подарунка.</p>
+    <div class="extra-action">
+        <div class="price">100 грн</div>
+        <button class="add-extra-to-cart">+</button>
+    </div>
+</div>
+        </div> 
+        <div class="scroll-indicator">&#10148;</div>
+    </div> 
+</section>
+
         <section id="payment-delivery" class="payment-delivery-section">
             <div class="container">
                 <h2 class="section-title">Оплата та доставка</h2>
@@ -491,5 +602,13 @@
         </div>
     </div>
     <script src="script.js"></script>
+
+    <div id="customAlertModal" class="custom-alert-modal">
+    <div class="custom-alert-content">
+        <span class="custom-alert-close-btn">&times;</span>
+        <p class="custom-alert-message"></p>
+        <button class="custom-alert-ok-btn">OK</button>
+    </div>
+</div>
 </body>
 </html>
