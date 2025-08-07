@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
         state.container.style.transform = `translateX(-${state.currentSlide * 100}%)`;
     }
 
-    // --- КОД МОДАЛЬНОГО ВІКНА (ФИНАЛЬНАЯ ВЕРСИЯ) ---
+    // --- КОД МОДАЛЬНОГО ВІКНА ДЛЯ ИЗОБРАЖЕНИЙ ---
     const modal = document.getElementById("imageModal");
     const modalImg = document.getElementById("expandedImg");
     const closeModalButton = document.getElementById("closeModalButton");
@@ -115,25 +115,16 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentModalImages = [];
     let currentImageIndex = 0;
 
-    // Функция открытия модального окна
-    function openModal(isGallery, imagesOrSrc, startIndex = 0) {
+    function openImageModal(isGallery, imagesOrSrc, startIndex = 0) {
         if (!modal) return;
-        document.body.classList.add('menu-open'); // <-- ДОБАВЛЕНА ЭТА СТРОКА
+        body.classList.add('menu-open');
         modal.style.display = "block";
         currentModalImages = Array.isArray(imagesOrSrc) ? imagesOrSrc : [imagesOrSrc];
         currentImageIndex = startIndex;
         
-        // --- НАЧАЛО ИЗМЕНЕНИЙ (ЛОГИКА КЛАССОВ) ---
         const hasMultipleImages = currentModalImages.length > 1;
-
-        if (hasMultipleImages) {
-            modalPrevBtn.classList.add('is-visible');
-            modalNextBtn.classList.add('is-visible');
-        } else {
-            modalPrevBtn.classList.remove('is-visible');
-            modalNextBtn.classList.remove('is-visible');
-        }
-        // --- КОНЕЦ ИЗМЕНЕНИЙ ---
+        modalPrevBtn.classList.toggle('is-visible', hasMultipleImages);
+        modalNextBtn.classList.toggle('is-visible', hasMultipleImages);
         
         dotsContainer.innerHTML = '';
         if (currentModalImages.length > 1) {
@@ -148,8 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
         
-        const canNavigate = isGallery && currentModalImages.length > 1;
-        if (canNavigate) {
+        if (hasMultipleImages) {
             modal.addEventListener('touchstart', handleTouchStart, { passive: true });
             modal.addEventListener('touchmove', handleTouchMove, { passive: true });
             modal.addEventListener('touchend', handleTouchEnd);
@@ -160,10 +150,9 @@ document.addEventListener('DOMContentLoaded', () => {
         history.pushState({ modalOpen: true }, "");
     }
 
-    // Функция закрытия модального окна
-    function closeModalLogic() {
+    function closeImageModalLogic() {
         if (modal && modal.style.display === "block") {
-        document.body.classList.remove('menu-open'); // <-- ДОБАВЛЕНА ЭТА СТРОКА
+            body.classList.remove('menu-open');
             modal.style.display = "none";
             document.removeEventListener('keydown', handleKeyDown);
             modal.removeEventListener('touchstart', handleTouchStart);
@@ -174,7 +163,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (modal) {
-        window.addEventListener('popstate', closeModalLogic);
+        window.addEventListener('popstate', (e) => {
+             if (e.state && e.state.modalOpen) {
+                 closeImageModalLogic();
+             } else if (!e.state) {
+                 closeImageModalLogic();
+             }
+        });
         closeModalButton.addEventListener('click', () => history.back());
         modal.addEventListener('click', (event) => {
             if (event.target === modal) {
@@ -185,7 +180,6 @@ document.addEventListener('DOMContentLoaded', () => {
         modalNextBtn.addEventListener('click', (e) => { e.stopPropagation(); showImage(currentImageIndex + 1); });
     }
 
-    // Функция отображения изображения
     function showImage(index) {
         if (!currentModalImages || currentModalImages.length === 0) return;
         currentImageIndex = (index + currentModalImages.length) % currentModalImages.length;
@@ -206,10 +200,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const allItems = Array.from(galleryContainer.children);
                 const images = allItems.map(galleryItem => galleryItem.dataset.src || galleryItem.querySelector('img').src);
                 const startIndex = allItems.indexOf(item);
-                openModal(true, images, startIndex);
+                openImageModal(true, images, startIndex);
             } else {
                 const src = item.dataset.src || item.querySelector('img').src;
-                openModal(false, src);
+                openImageModal(false, src);
             }
         });
     });
@@ -221,11 +215,28 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!imagesAttr) return;
             const images = imagesAttr.split(',').map(s => s.trim());
             if (images.length > 0) {
-                openModal(true, images, 0);
+                openImageModal(true, images, 0);
             }
         });
     });
 
+    function handleKeyDown(e) {
+        if (!modal || modal.style.display !== 'block') return;
+        if (currentModalImages.length <= 1) return;
+        if (e.key === "ArrowLeft") showImage(currentImageIndex - 1);
+        else if (e.key === "ArrowRight") showImage(currentImageIndex + 1);
+        else if (e.key === "Escape") history.back();
+    }
+    let touchStartX = 0;
+    let touchEndX = 0;
+    function handleTouchStart(e) { touchStartX = e.touches[0].clientX; }
+    function handleTouchMove(e) { touchEndX = e.touches[0].clientX; }
+    function handleTouchEnd() {
+        if (currentModalImages.length <= 1) return;
+        if (touchStartX - touchEndX > 50) showImage(currentImageIndex + 1);
+        if (touchStartX - touchEndX < -50) showImage(currentImageIndex - 1);
+    }
+    
     // --- Анімація похитування для блоку "Додатково" ---
     const extrasBlock = document.getElementById('extras');
     if (extrasBlock) {
@@ -259,72 +270,233 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(extrasBlock);
     }
 
-    // --- Функции для управления модальным окном ---
-    function handleKeyDown(e) {
-        if (!modal || modal.style.display !== 'block') return;
-        if (currentModalImages.length <= 1) return;
-        if (e.key === "ArrowLeft") showImage(currentImageIndex - 1);
-        else if (e.key === "ArrowRight") showImage(currentImageIndex + 1);
-        else if (e.key === "Escape") history.back();
-    }
-    let touchStartX = 0;
-    let touchEndX = 0;
-    function handleTouchStart(e) { touchStartX = e.touches[0].clientX; }
-    function handleTouchMove(e) { touchEndX = e.touches[0].clientX; }
-    function handleTouchEnd() {
-        if (touchStartX - touchEndX > 50) showImage(currentImageIndex + 1);
-        if (touchStartX - touchEndX < -50) showImage(currentImageIndex - 1);
-    }
-
     // --- Логіка для віджета швидкого замовлення ---
     const quickOrderWidget = document.getElementById('quickOrderWidget');
-    const orderTrigger = document.getElementById('orderTrigger');
-    const closePopup = document.getElementById('closePopup');
-    const quickOrderForm = document.getElementById('quickOrderForm');
-    const showQuickOrderBtn = document.getElementById('showQuickOrderFormBtn');
+    if (quickOrderWidget) {
+        const orderTrigger = document.getElementById('orderTrigger');
+        const closePopup = document.getElementById('closePopup');
+        const quickOrderForm = document.getElementById('quickOrderForm');
+        const showQuickOrderBtn = document.getElementById('showQuickOrderFormBtn');
 
-    if (quickOrderWidget && orderTrigger && closePopup && quickOrderForm) {
         const openPopup = () => {
             if (!quickOrderWidget.classList.contains('active')) {
                 quickOrderWidget.classList.add('active');
-                history.pushState({ quickOrderPopupOpen: true }, null, "");
             }
         };
         const closePopupLogic = () => {
             quickOrderWidget.classList.remove('active');
         };
-        orderTrigger.addEventListener('click', (e) => {
-            e.stopPropagation();
-            openPopup();
-        });
-        if (showQuickOrderBtn) {
-            showQuickOrderBtn.addEventListener('click', openPopup);
-        }
-        closePopup.addEventListener('click', () => {
-            history.back();
-        });
+
+        if (orderTrigger) orderTrigger.addEventListener('click', (e) => { e.stopPropagation(); openPopup(); });
+        if (showQuickOrderBtn) showQuickOrderBtn.addEventListener('click', openPopup);
+        if (closePopup) closePopup.addEventListener('click', closePopupLogic);
+        
         document.addEventListener('click', (e) => {
             if (quickOrderWidget.classList.contains('active') && !quickOrderWidget.contains(e.target) && e.target !== showQuickOrderBtn) {
-                history.back();
-            }
-        });
-        window.addEventListener('popstate', (event) => {
-            if (!event.state || (!event.state.modalOpen && !event.state.quickOrderPopupOpen)) {
-                    closePopupLogic();
+                closePopupLogic();
             }
         });
         
-        // --- БЕЗОПАСНАЯ ОТПРАВКА ФОРМЫ ЧЕРЕЗ CLOUDFLARE WORKER ---
-        quickOrderForm.addEventListener('submit', function (e) {
+        if (quickOrderForm) {
+            quickOrderForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const phoneInput = document.getElementById('clientPhone');
+                const phone = phoneInput.value;
+                const workerUrl = 'https://telegram-sender.brelok2023.workers.dev/'; 
+                const params = { phone: phone };
+                
+                fetch(workerUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(params)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.ok) {
+                        alert('Дякуємо! Ми скоро з вами зв\'яжемось.');
+                        phoneInput.value = '';
+                        closePopupLogic();
+                    } else { throw new Error(data.description || 'Неизвестная ошибка'); }
+                })
+                .catch(error => {
+                    console.error('Помилка відправки через Worker:', error);
+                    alert('Виникла помилка. Спробуйте ще раз або зв\'яжіться з нами напряму.');
+                });
+            });
+        }
+    }
+    
+    // =======================================================
+    // --- ЛОГІКА КОРЗИНИ ---
+    // =======================================================
+    const cartIcon = document.getElementById('cart-icon');
+    const cartModal = document.getElementById('cartModal');
+    const closeCartBtn = document.getElementById('closeCartBtn');
+    const cartCountEl = document.getElementById('cart-count');
+    const cartItemsContainer = document.getElementById('cartItemsContainer');
+    const cartSummaryEl = document.getElementById('cartSummary');
+    const orderForm = document.getElementById('orderForm');
+    const successModal = document.getElementById('successModal');
+    const cartOrderFormContainer = document.getElementById('cartOrderFormContainer');
+    let cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
+
+    if (cartIcon && cartModal && closeCartBtn) {
+        cartIcon.addEventListener('click', () => {
+            cartModal.style.display = 'block';
+            body.classList.add('menu-open');
+            updateCart();
+        });
+        const closeCartModal = () => {
+            cartModal.style.display = 'none';
+            body.classList.remove('menu-open');
+        };
+        closeCartBtn.addEventListener('click', closeCartModal);
+        window.addEventListener('click', (event) => {
+            if (event.target == cartModal) {
+                closeCartModal();
+            }
+        });
+    }
+
+    document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const card = e.target.closest('.product-card');
+            const product = {
+                id: card.dataset.id,
+                name: card.dataset.name,
+                price: parseFloat(card.dataset.price),
+                image: card.dataset.image,
+                quantity: 1
+            };
+            addToCart(product, button);
+        });
+    });
+
+    function addToCart(product, button) {
+        const existingProductIndex = cart.findIndex(item => item.id === product.id);
+        if (existingProductIndex > -1) {
+            cart[existingProductIndex].quantity += 1;
+        } else {
+            cart.push(product);
+        }
+    
+        if (button) {
+            button.innerHTML = '<i class="fas fa-check"></i> Додано!';
+            button.classList.add('added');
+            button.disabled = true;
+            setTimeout(() => {
+                button.innerHTML = 'Замовити';
+                button.classList.remove('added');
+                button.disabled = false;
+            }, 2000);
+        }
+        
+        updateCart();
+    
+        if (cartModal) {
+            cartModal.style.display = 'block';
+            body.classList.add('menu-open');
+        }
+    }
+
+    function updateCart() {
+        renderCartItems();
+        renderCartSummary();
+        updateCartIcon();
+        localStorage.setItem('shoppingCart', JSON.stringify(cart));
+    }
+
+    function renderCartItems() {
+        if (!cartItemsContainer || !cartOrderFormContainer) return;
+        if (cart.length === 0) {
+            cartItemsContainer.innerHTML = '<p class="cart-empty-message">Ваша корзина порожня</p>';
+            cartOrderFormContainer.style.display = 'none';
+            cartSummaryEl.innerHTML = '';
+            return;
+        }
+        cartOrderFormContainer.style.display = 'block';
+        cartItemsContainer.innerHTML = '';
+        cart.forEach(item => {
+            const itemEl = document.createElement('div');
+            itemEl.classList.add('cart-item');
+            itemEl.innerHTML = `
+                <img src="${item.image}" alt="${item.name}" class="cart-item-img">
+                <div class="cart-item-details">
+                    <h4>${item.name}</h4>
+                    <p class="price">${item.price} грн</p>
+                </div>
+                <div class="cart-item-controls">
+                    <button class="quantity-btn" onclick="changeQuantity('${item.id}', -1)">-</button>
+                    <span class="item-quantity">${item.quantity}</span>
+                    <button class="quantity-btn" onclick="changeQuantity('${item.id}', 1)">+</button>
+                    <button class="remove-item-btn" onclick="removeItemFromCart('${item.id}')"><i class="fas fa-trash-alt"></i></button>
+                </div>
+            `;
+            cartItemsContainer.appendChild(itemEl);
+        });
+    }
+    
+    function renderCartSummary() {
+        if (!cartSummaryEl) return;
+        const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        if (cart.length > 0) {
+             cartSummaryEl.innerHTML = `<h3>Загальна сума: ${totalPrice.toFixed(2)} грн</h3>`;
+        } else {
+            cartSummaryEl.innerHTML = '';
+        }
+    }
+    
+    function updateCartIcon() {
+        if (!cartCountEl) return;
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        cartCountEl.textContent = totalItems;
+        cartCountEl.classList.toggle('visible', totalItems > 0);
+    }
+    
+    window.changeQuantity = (productId, amount) => {
+        const productIndex = cart.findIndex(item => item.id === productId);
+        if (productIndex > -1) {
+            cart[productIndex].quantity += amount;
+            if (cart[productIndex].quantity <= 0) {
+                cart.splice(productIndex, 1);
+            }
+            updateCart();
+        }
+    };
+
+    window.removeItemFromCart = (productId) => {
+        cart = cart.filter(item => item.id !== productId);
+        updateCart();
+    };
+
+    if (orderForm) {
+        orderForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            const phoneInput = document.getElementById('clientPhone');
-            const phone = phoneInput.value;
-        
-            // !!! ВАЖНО: Замените этот URL на URL вашего Cloudflare Worker'а !!!
-            const workerUrl = 'https://telegram-sender.brelok2023.workers.dev/'; 
-            const params = { phone: phone };
-        
-            fetch(workerUrl, {
+            const clientName = document.getElementById('clientName').value;
+            const clientPhone = document.getElementById('clientPhoneCart').value;
+            if (cart.length === 0) {
+                alert('Ваша корзина порожня!');
+                return;
+            }
+            const TOKEN = "ВАШ_ТОКЕН_БОТА";
+            const CHAT_ID = "ВАШ_ID_ЧАТА";
+            if (TOKEN === "ВАШ_ТОКЕН_БОТА" || CHAT_ID === "ВАШ_ID_ЧАТА") {
+                alert("Помилка: Не налаштовано дані для відправки в Telegram. Зверніться до розробника.");
+                return;
+            }
+            let message = `<b>Нове замовлення з сайту!</b>\n\n`;
+            message += `<b>Ім'я:</b> ${clientName}\n`;
+            message += `<b>Телефон:</b> ${clientPhone}\n\n`;
+            message += `<b>Товари в замовленні:</b>\n`;
+            let totalPrice = 0;
+            cart.forEach(item => {
+                message += `— ${item.name} (x${item.quantity}) - ${item.price * item.quantity} грн\n`;
+                totalPrice += item.price * item.quantity;
+            });
+            message += `\n<b>Загальна сума: ${totalPrice.toFixed(2)} грн</b>`;
+            const url = `https://api.telegram.org/bot${TOKEN}/sendMessage`;
+            const params = { chat_id: CHAT_ID, text: message, parse_mode: 'HTML' };
+            fetch(url, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(params)
@@ -332,22 +504,28 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(response => response.json())
             .then(data => {
                 if (data.ok) {
-                    alert('Дякуємо! Ми скоро з вами зв\'яжемось.');
-                    phoneInput.value = '';
-                    history.back();
-                } else { throw new Error(data.description || 'Неизвестная ошибка'); }
+                    if(successModal) successModal.style.display = 'flex';
+                    if(cartModal) cartModal.style.display = 'none';
+                    body.classList.remove('menu-open');
+                    cart = [];
+                    updateCart();
+                    orderForm.reset();
+                    setTimeout(() => {
+                        if(successModal) successModal.style.display = 'none';
+                    }, 4000);
+                } else { throw new Error(data.description); }
             })
             .catch(error => {
-                console.error('Помилка відправки через Worker:', error);
-                alert('Виникла помилка. Спробуйте ще раз або зв\'яжіться з нами напряму.');
+                console.error('Помилка відправки в Telegram:', error);
+                alert('Виникла помилка при оформленні замовлення.');
             });
         });
     }
+    updateCart();
 });
 
-// --- ЛОГІКА ВІДЕОПЛЕЄРА ---
+// --- ЛОГІКА ВІДЕОПЛЕЄРА (ПОЛНАЯ ВЕРСИЯ) ---
 const playerWrapper = document.querySelector('.player-wrapper');
-
 if (playerWrapper) {
     const video = playerWrapper.querySelector('.player');
     const playButton = playerWrapper.querySelector('.toggle-play');
@@ -410,12 +588,11 @@ if (playerWrapper) {
 
     window.addEventListener('keydown', (e) => {
         if (e.code === 'Space' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
-            e.preventDefault(); // Запобігаємо прокрутці сторінки
+            e.preventDefault(); 
             togglePlay();
         }
     });
 
-    // Пауза при прокручуванні
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (!entry.isIntersecting && !video.paused) {
@@ -426,4 +603,4 @@ if (playerWrapper) {
 
     observer.observe(playerWrapper);
 }
-// --- КІНЕЦЬ ЛОГІКИ ВІДЕОПЛЕЄРА ---
+// --- КОНЕЦ ЛОГИКИ ВИДЕОПЛЕЕРА ---
