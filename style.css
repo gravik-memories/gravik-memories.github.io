@@ -33,50 +33,50 @@ img { max-width: 100%; height: auto; }
     z-index: 1000;
 }
 .header .container { display: flex; justify-content: space-between; align-items: center; }
-.logo { font-family: var(--font-accent); font-size: 1.5em; font-weight: bold; letter-spacing: 1px; color: var(--light-text-color); text-decoration: none; text-transform: uppercase; }
-/* Стилі для логотипу-картинки */
 .logo img {
-    max-height: 40px; /* <-- ОСНОВНИЙ ПАРАМЕТР! Обмежує висоту логотипу. */
-    width: auto;      /* Ширина буде підлаштовуватися автоматично, зберігаючи пропорції. */
-    display: block;   /* Запобігає появі зайвих відступів під картинкою. */
+    max-height: 40px;
+    width: auto;
+    display: block;
 }
 
-/* === ИЗМЕНЕНИЯ ДЛЯ ПК НАВИГАЦИИ === */
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 25px; /* Gap between nav and cart icon */
+}
+
 .nav {
     display: flex;
     align-items: center;
-    gap: 25px; /* Расстояние между ссылками и иконками */
+    gap: 25px; 
 }
 .nav a {
     font-family: var(--font-main);
-    color: var(--light-text-color); /* Белый цвет по умолчанию */
+    color: var(--light-text-color);
     text-decoration: none;
     font-weight: 500;
     transition: color 0.3s ease;
 }
 .nav a:hover {
-    color: var(--accent-color); /* Золотой цвет при наведении */
+    color: var(--accent-color);
 }
 .nav .nav-social {
-    display: grid; /* Включаем сеточную раскладку */
-    grid-template-columns: auto auto; /* Создаем две колонки */
-    gap: 8px 15px; /* Расстояние: 8px по вертикали, 15px по горизонтали */
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 8px 15px;
     align-items: center;
 }
-
 .nav .nav-social a {
-    font-size: 1.2em; /* Ключевое изменение: уменьшаем размер иконок */
+    font-size: 1.2em;
     color: var(--light-text-color);
-    line-height: 1; /* Убираем лишнюю высоту строки */
-    padding: 2px; /* Добавляем немного "воздуха" для удобства нажатия */
-    transition: all 0.2s ease; /* Наследуем плавность от других ссылок */
+    line-height: 1;
+    padding: 2px;
+    transition: all 0.2s ease;
 }
 .nav .nav-social a:hover {
-    color: var(--accent-color); /* Золотой цвет при наведении */
+    color: var(--accent-color);
     transform: scale(1.1);
 }
-/* ==================================== */
-
 .menu-toggle { display: none; cursor: pointer; font-size: 24px; color: var(--light-text-color); }
 
 /* --- СТИЛЬ ДЛЯ ПЕРВОГО БЛОКА --- */
@@ -95,17 +95,14 @@ img { max-width: 100%; height: auto; }
 .cta-button { display: inline-block; background-color: var(--primary-color); color: var(--light-text-color); padding: 15px 30px; border-radius: 5px; text-decoration: none; font-family: var(--font-accent); font-size: 1.1em; font-weight: bold; letter-spacing: 1px; transition: all 0.3s ease; }
 .cta-button:hover { background-color: #1a252f; transform: translateY(-2px); }
 
-/* --- ОСТАЛЬНЫЕ СТИЛИ (без изменений) --- */
+/* ... (здесь идут все ваши старые стили до медиа-запросов) ... */
 #services { background-color: var(--secondary-color); }
 .section-title { text-align: center; margin-bottom: 40px; }
 .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
 .service-card {
-    background-color: #fff; /* Оставим как запасной вариант, если фон не загрузится */
-    /* --- ДОБАВЛЕНО: Фоновое изображение --- */
-    background-image: url('images2/border7.jpg'); /* <-- УКАЖИТЕ ПРАВИЛЬНЫЙ ПУТЬ К ВАШЕМУ ФАЙЛУ */
-    background-size: cover;     /* Масштабирует фон для покрытия всего блока */
-    background-position: center; /* Центрирует фон */
-    
+    background-image: url('images2/border7.jpg');
+    background-size: cover;
+    background-position: center;
     padding: 30px;
     text-align: center;
     border-radius: 8px;
@@ -114,12 +111,10 @@ img { max-width: 100%; height: auto; }
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    /* --- ДОБАВЛЕНО: Цвет текста по умолчанию --- */
-    color: var(--light-text-color); /* Белый цвет для параграфов */
+    color: var(--light-text-color);
 }
 .service-card:hover {
-    transform: translateY(-5px) scale(1.02); /* Немного увеличим эффект при наведении */
+    transform: translateY(-5px) scale(1.02);
     box-shadow: 0 8px 16px rgba(0,0,0,0.1);
 }
 .service-card-image {
@@ -128,33 +123,20 @@ img { max-width: 100%; height: auto; }
     object-fit: cover;
     border-radius: 8px;
     margin-bottom: 20px;
-    
-    /* Тень с большим объемом и меньшей прозрачностью */
     box-shadow: 0px 5px 18px rgba(255, 255, 255, 0.55);
 }
 .service-card h3 {
     margin-bottom: 15px;
     font-family: var(--font-heading);
-    
-    /* --- ИЗМЕНЕНО: Цвет заголовка --- */
-    color: var(--light-text-color); /* Белый цвет для заголовков */
+    color: var(--light-text-color);
 }
 .product-card-section { background-color: #f0f2f5; text-align: center; padding: 64px 0; }
 .product-cards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; max-width: 1200px; margin: 0 auto; padding: 0 var(--container-padding); }
-.product-card { background-color: #fff; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); padding: 20px; display: flex; flex-direction: column; align-items: center; gap: 10px; transition: all 0.3s ease; }
+.product-card { background-color: #fff; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); padding: 20px; display: flex; flex-direction: column; align-items: center; transition: all 0.3s ease; }
 .product-card:hover { transform: translateY(-8px); box-shadow: 0 12px 25px rgba(0,0,0,0.15); }
 .product-card .product-image-wrapper { cursor: pointer; width: 100%; }
 .product-card img { width: 100%; height: 300px; object-fit: cover; border-radius: 8px; margin-bottom: 5px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
-.product-card h2 { font-size: 1.36em; color: var(--accent-color); margin-bottom: 5px; font-family: var(--font-heading); font-weight: normal; }
-.product-card p { display: none; }
-.product-card .price { font-size: 1.36em; font-weight: normal; color: var(--primary-color); margin-bottom: 10px; font-family: var(--font-accent); }
-.product-card .social-buttons { display: flex; flex-direction: column; gap: 8px; width: 100%; margin-top: 5px; }
-.product-card .social-button { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 8px 12px; border-radius: 5px; text-decoration: none; font-size: 0.9em; font-weight: bold; color: var(--light-text-color); transition: all 0.3s ease; flex-grow: 1; white-space: nowrap; font-family: var(--font-accent); }
-.product-card .social-button i { font-size: 1.0em; }
-.product-card .social-button.viber { background-color: #7360F2; }
-.product-card .social-button.viber:hover { background-color: #604ED9; transform: translateY(-2px); }
-.product-card .social-button.telegram { background-color: #0088CC; }
-.product-card .social-button.telegram:hover { background-color: #006FB3; transform: translateY(-2px); }
+
 .quick-order-button-wrapper { text-align: center; margin-top: 30px; }
 #extras { background-color: #fff; padding: 48px 0; }
 .extras-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; text-align: center; }
@@ -210,8 +192,6 @@ img { max-width: 100%; height: auto; }
     border-radius: 10px;
     min-width: 80px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-
-    /* Добавленные строки для идеального центрирования */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -246,8 +226,6 @@ img { max-width: 100%; height: auto; }
 .modal-content { margin: auto; display: block; max-width: 80%; max-height: 80vh; border-radius: 8px; }
 .close { position: absolute; top: 20px; right: 35px; color: #f1f1f1; font-size: 40px; font-weight: bold; transition: 0.3s; cursor: pointer; }
 .close:hover { color: #bbb; }
-
-/* === ИЗМЕНЕННЫЕ СТИЛИ СТРЕЛОК === */
 .modal-nav {
     position: absolute;
     top: 50%;
@@ -262,19 +240,17 @@ img { max-width: 100%; height: auto; }
     border-radius: 5px;
     transition: background-color 0.3s ease;
     user-select: none;
-    display: none; /* Скрыты по умолчанию */
+    display: none;
 }
 .modal-nav:hover {
     background-color: rgba(44, 62, 80, 0.8);
 }
 .modal-nav.prev {
-    left: 29%; /* Изменено для ПК: ближе к фото */
+    left: 29%;
 }
 .modal-nav.next {
-    right: 29%; /* Изменено для ПК: ближе к фото */
+    right: 29%;
 }
-/* ================================== */
-
 .quick-order-widget { position: fixed; bottom: 20px; right: 20px; z-index: 1001; }
 .order-trigger { display: flex; align-items: center; gap: 10px; background-color: var(--primary-color); color: var(--light-text-color); padding: 12px 18px; border-radius: 50px; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.3s ease; font-family: var(--font-main); font-weight: 500; }
 .order-trigger:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.25); background-color: #3e536c; }
@@ -282,9 +258,9 @@ img { max-width: 100%; height: auto; }
 .order-popup { display: none; position: absolute; bottom: calc(100% + 10px); right: 0; width: 280px; background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 5px 25px rgba(0,0,0,0.2); border: 1px solid #ddd; animation: fadeIn 0.3s ease-out; }
 @keyframes sway {
     0% { transform: translateX(0); }
-    30% { transform: translateX(-40px); } /* Было -15px */
-    60% { transform: translateX(20px); }  /* Было 8px */
-    80% { transform: translateX(-10px); } /* Было -5px */
+    30% { transform: translateX(-40px); }
+    60% { transform: translateX(20px); }
+    80% { transform: translateX(-10px); }
     100% { transform: translateX(0); }
 }
 .quick-order-widget.active .order-popup { display: block; }
@@ -296,8 +272,6 @@ img { max-width: 100%; height: auto; }
 #quickOrderForm button[type="submit"]:hover { background-color: #a8855a; }
 .close-popup { position: absolute; top: -15px; right: -10px; background: none; border: none; font-size: 2em; color: #aaa; cursor: pointer; padding: 0; line-height: 1; }
 .close-popup:hover { color: #333; }
-
-/* --- НОВЫЕ СТИЛИ ДЛЯ ОВЕРЛЕЯ И МОБИЛЬНОГО МЕНЮ --- */
 .overlay {
     position: fixed;
     top: 0;
@@ -319,10 +293,323 @@ img { max-width: 100%; height: auto; }
 body.menu-open {
     overflow: hidden;
 }
+.video-section {
+    padding: 48px 0;
+    background-color: #f8f9fa;
+}
+.video-section .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.player-wrapper {
+    position: relative;
+    width: 69vh;
+    height: 51vh;
+    max-width: 828px;
+    max-height: 612px;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.player {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    display: block;
+    cursor: pointer;
+}
+.player-controls {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.5);
+    transform: translateY(100%) translateY(-5px);
+    transition: all 0.3s;
+    opacity: 0;
+    z-index: 2;
+}
+.player-wrapper:hover .player-controls {
+    transform: translateY(0);
+    opacity: 1;
+}
+.player-controls > * { margin: 0 5px; }
+.control-btn { background: none; border: 0; color: white; font-size: 16px; cursor: pointer; padding: 10px; }
+.toggle-play { font-size: 20px; }
+.player-slider { width: 80px; }
+.progress { flex: 1; position: relative; display: flex; flex-basis: 100%; height: 15px; cursor: pointer; margin: 0 10px; background: rgba(0,0,0,0.5); }
+.progress-filled { width: 0%; background: #c19a6b; flex: 0; flex-basis: 0%; }
+.fullscreen { margin-left: auto; }
+#extras .container {
+    position: relative;
+}
+.scroll-indicator {
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    transform: translateY(-50%);
+    font-size: 2.5em;
+    color: var(--primary-color);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 10;
+}
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0; }
+    30%, 80% { opacity: 1; }
+}
+.extras-grid.sway-animation + .scroll-indicator {
+    animation: fadeInOut 1s ease-in-out;
+}
+.desktop-image { display: none; }
+.mobile-image { display: block; }
+
+/* === НОВІ СТИЛІ ДЛЯ КОРЗИНИ ТА КАРТОК === */
+:root {
+    --success-color: #2ecc71;
+    --danger-color: #e74c3c;
+}
+.cart-icon-wrapper {
+    position: relative;
+    cursor: pointer;
+    font-size: 1.5em; /* Adjusted size */
+    color: var(--light-text-color); /* White icon */
+    padding: 5px; /* Clickable area */
+}
+.cart-item-count {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: var(--danger-color);
+    color: white;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    font-size: 0.6em;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--font-main);
+    transform: scale(0);
+    transition: transform 0.2s ease-out;
+}
+.cart-item-count.visible {
+    transform: scale(1);
+}
+.product-card { gap: 15px; } 
+.product-card h2 {
+    font-size: 1.2em;
+    color: var(--primary-color);
+    margin: 0;
+    font-family: var(--font-heading);
+    font-weight: 700;  
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.product-card .price {
+    font-size: 1.5em;
+    font-weight: bold;  
+    color: var(--accent-color);
+    margin: 0;
+    font-family: var(--font-accent);
+}
+.add-to-cart-btn {
+    background-color: var(--accent-color);
+    color: var(--light-text-color);
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-family: var(--font-accent);
+    font-size: 1em;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    width: 100%;
+    border: none;
+    cursor: pointer;
+}
+.add-to-cart-btn:hover {
+    background-color: #a8855a;
+    transform: scale(1.05);
+}
+.add-to-cart-btn.added {
+    background-color: var(--success-color);
+    cursor: default;
+}
+.cart-modal {
+    display: none;
+    position: fixed;
+    z-index: 2001;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+}
+.cart-modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 700px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    animation: slideDown 0.4s ease-out;
+}
+@keyframes slideDown {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+.cart-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+.cart-modal-header h2 { margin: 0; }
+.close-cart-btn {
+    color: #aaa;
+    font-size: 32px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+.close-cart-btn:hover { color: #333; }
+.cart-items-container {
+    max-height: 40vh;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+.cart-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+.cart-item:last-child { border-bottom: none; }
+.cart-item-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 15px;
+}
+.cart-item-details { flex-grow: 1; }
+.cart-item-details h4 { margin: 0 0 5px 0; font-size: 1em; }
+.cart-item-details .price { font-weight: bold; color: var(--accent-color); }
+.cart-item-controls { display: flex; align-items: center; gap: 10px; }
+.quantity-btn {
+    background: #eee;
+    border: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    font-size: 1.2em;
+    cursor: pointer;
+}
+.item-quantity { font-weight: bold; }
+.remove-item-btn {
+    background: none;
+    border: none;
+    color: var(--danger-color);
+    font-size: 1.2em;
+    cursor: pointer;
+    margin-left: 15px;
+}
+.cart-empty-message { text-align: center; padding: 40px; color: #777; }
+.cart-summary {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+    text-align: right;
+}
+.cart-summary h3 { font-size: 1.5em; }
+.cart-order-form { margin-top: 30px; }
+.form-group { margin-bottom: 15px; }
+.form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+.place-order-btn {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.2em;
+    margin-top: 15px;
+}
+.success-modal {
+    display: none;
+    position: fixed;
+    z-index: 3000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    justify-content: center;
+    align-items: center;
+}
+.success-modal-content {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    animation: zoomIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    max-width: 400px;
+}
+@keyframes zoomIn {
+    from { transform: scale(0.5); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+.success-icon {
+    width: 80px;
+    height: 80px;
+    border: 4px solid var(--success-color);
+    border-radius: 50%;
+    margin: 0 auto 20px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.success-icon i {
+    color: var(--success-color);
+    font-size: 3em;
+    animation: tick 0.4s ease-out 0.5s both;
+}
+@keyframes tick {
+    from { transform: scale(0); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+.success-modal h2 { color: var(--primary-color); margin-bottom: 10px; }
+.success-modal p { color: #555; font-size: 1.1em; }
+
 
 /* --- Адаптивність --- */
 @media (max-width: 992px) {
-    .services-grid { grid-template-columns: repeat(2, 1fr); }
+    /* ... (ваши старые стили для адаптивности) ... */
+     .services-grid { grid-template-columns: repeat(2, 1fr); }
     .innovative-solutions .container { gap: 20px; padding: 0 15px; }
     .innovative-solutions-image { width: 40%; max-width: 300px; }
     .innovative-solutions-content { min-width: unset; }
@@ -371,13 +658,12 @@ body.menu-open {
 }
 @media (max-width: 768px) {
     h1 { font-size: 2.2em; }
-
-    /* --- ФИНАЛЬНЫЕ СТИЛИ МОБИЛЬНОГО МЕНЮ --- */
+    .header-controls { gap: 15px; } /* Adjust gap for mobile */
     .nav {
         display: flex;
         flex-direction: column;
         position: absolute;
-        top: 60px;
+        top: 70px; /* Adjusted top position */
         left: 0;
         width: 100%;
         height: auto;
@@ -393,9 +679,8 @@ body.menu-open {
         transform: translateY(-10px);
         visibility: hidden;
         transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
-        gap: 0; /* Обнуляем gap для мобильной версии */
+        gap: 0;
     }
-
     .nav.active {
         opacity: 1;
         transform: translateY(0);
@@ -417,35 +702,31 @@ body.menu-open {
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 30px; /* Расстояние между иконками */
+        gap: 30px;
         padding: 20px 0;
-        margin-top: auto; /* Прижимает блок к низу, если меню на всю высоту */
-        border-top: 1px solid rgba(255, 255, 255, 0.15); /* Линия-разделитель сверху */
+        margin-top: auto;
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
     }
-
     .nav .nav-social a {
         color: rgba(255, 255, 255, 0.8);
-        font-size: 1.8em; /* Размер иконок */
+        font-size: 1.8em;
         text-decoration: none;
         transition: transform 0.3s ease, color 0.3s ease;
     }
-
     .nav .nav-social a:hover {
-        color: #fff; /* Яркий белый при наведении */
-        transform: scale(1.15) translateY(-2px); /* Эффект приподнимания */
+        color: #fff;
+        transform: scale(1.15) translateY(-2px);
     }
-
     .menu-toggle { display: block; position: relative;}
     .menu-toggle::after {
-    content: '';
-    position: absolute;
-    /* Создаем невидимые отступы по 10px с каждой стороны */
-    top: -10px;
-    left: -10px;
-    right: -10px;
-    bottom: -10px;
-}
-    .innovative-solutions .container { display: grid; grid-template-columns: 120px 1fr; grid-template-areas: "image content"; gap: 15px; align-items: start; }
+        content: '';
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        right: -10px;
+        bottom: -10px;
+    }
+     .innovative-solutions .container { display: grid; grid-template-columns: 120px 1fr; grid-template-areas: "image content"; gap: 15px; align-items: start; }
     .innovative-solutions-image { grid-area: image; width: 100%; max-width: 100%; margin-right: 0; display: flex; flex-direction: column; gap: 15px; }
     .mobile-only-image { display: block; }
     .innovative-solutions-content { grid-area: content; width: 100%; padding-top: 0; }
@@ -459,28 +740,17 @@ body.menu-open {
     .dual-slider-wrapper { flex-direction: column; gap: 0; max-width: 336px; }
     .rectangular-gallery:nth-child(2) { display: none; }
     .rectangular-gallery:first-child { margin: 0 auto; }
-    
-    /* --- ИСПРАВЛЕННЫЕ СТИЛИ ДЛЯ МОБИЛЬНОГО СЛАЙДЕРА --- */
     .rectangular-gallery {
-    /* Создаём ещё больше места по бокам */
-    padding-left: 45px;
-    padding-right: 45px;
-    /* Компенсируем увеличение отступов, чтобы фото не сузилось */
-    max-width: 330px; 
-}
-.gallery-nav-button {
-    background-color: rgba(44, 62, 80, 0.8);
-    /* Увеличиваем горизонтальный отступ примерно на 30-40% */
-    padding: 12px 14px; 
-}
-    .gallery-nav-button.prev {
-        left: 0; 
+        padding-left: 45px;
+        padding-right: 45px;
+        max-width: 330px; 
     }
-    .gallery-nav-button.next {
-        right: 0;
+    .gallery-nav-button {
+        background-color: rgba(44, 62, 80, 0.8);
+        padding: 12px 14px; 
     }
-    /* -------------------------------------------------- */
-
+    .gallery-nav-button.prev { left: 0; }
+    .gallery-nav-button.next { right: 0; }
     .gallery-item img { height: auto; aspect-ratio: 3 / 5; transform: scale(1.2); transition: transform 0.3s ease; }
     .tile-gallery-grid { grid-template-columns: repeat(2, 1fr); }
     #special-offer .container { flex-direction: column; }
@@ -494,8 +764,13 @@ body.menu-open {
     .timeline-item:not(.right), .timeline-item.right { left: 0; }
     .timeline-item::after, .timeline-item.right::after { left: 20px; }
     .timeline-item .timeline-number, .timeline-item.right .timeline-number { left: 10px; }
+    .player-wrapper {
+        width: 90vw;
+        height: 50.625vw;
+    }
 }
 @media (max-width: 480px) {
+    /* ... (ваши старые стили для самых маленьких экранов) ... */
     .innovative-solutions .container { grid-template-columns: 100px 1fr; }
     .innovative-solutions-content h1 { font-size: 1.265em; }
     .product-card { padding: 8px; gap: 5px; }
@@ -504,7 +779,6 @@ body.menu-open {
     .tile-gallery-grid { grid-template-columns: repeat(2, 1fr); }
     .tile-gallery-item { height: 150px; }
     .modal-nav {
-        /* Для маленьких мобильных экранов можно сделать отступ поменьше */
         left: 5%;
         right: 5%;
         padding: 10px;
@@ -521,17 +795,15 @@ body.menu-open {
     .quick-order-widget { right: 10px; bottom: 10px; }
     .order-popup { width: calc(100vw - 20px); right: -10px; }
 }
-/* --- СТИЛИ ДЛЯ ТОЧЕК-ИНДИКАТОРОВ В МОДАЛЬНОМ ОКНЕ --- */
 .modal-dots {
     position: absolute;
     bottom: 25px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 12px; /* Расстояние между точками */
+    gap: 12px;
     z-index: 2002;
 }
-
 .modal-dots .dot {
     width: 12px;
     height: 12px;
@@ -540,59 +812,38 @@ body.menu-open {
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
-
 .modal-dots .dot:hover {
     background-color: rgba(255, 255, 255, 0.7);
 }
-
 .modal-dots .dot.active {
     background-color: #ffffff;
 }
-
-/* === НОВОЕ ПРАВИЛО ДЛЯ ПОКАЗА СТРЕЛОК НА ПК === */
 @media (min-width: 769px) {
     .modal-nav.is-visible {
         display: block;
     }
 }
-/* --- Стили для блока акции с картинкой --- */
-
-/* Общая обертка для кнопки и картинки */
-/* Код на замену */
-
-/* --- Стили для блока акции с картинкой ПОД кнопкой --- */
-
-/* --- Финальные стили для блока акции --- */
-
-/* Контейнер секции */
 #special-offer .container {
     display: flex;
     gap: 30px;
-    /* На мобильных располагаем всё в колонку */
     flex-direction: column;
     text-align: center;
 }
-
-/* Левая колонка с текстом */
 #special-offer .offer-content {
-    flex-basis: 50%; /* Занимает половину ширины на ПК */
+    flex-basis: 50%;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-
-/* Правая колонка с таймером */
 #special-offer .offer-timer {
-    flex-basis: 40%; /* Занимает 40% ширины на ПК */
+    flex-basis: 40%;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-
-/* Общие стили для обертки изображения */
 .offer-image-wrapper {
     margin-top: 20px;
-    width: 280px; /* Ширина на мобильных */
+    width: 280px;
 }
 .offer-image {
     display: block;
@@ -601,209 +852,29 @@ body.menu-open {
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
 }
-
-/* Прячем десктопную картинку на мобильных */
-.desktop-image {
-    display: none;
-}
-
-/* --- Стили для ПК (экран шире 992px) --- */
 @media (min-width: 992px) {
-    /* Возвращаем расположение в ряд */
     #special-offer .container {
         flex-direction: row;
         text-align: left;
     }
-
     #special-offer .offer-content {
-    align-items: flex-start; /* Текст слева оставляем как есть */
-}
+        align-items: flex-start;
+    }
     #special-offer .offer-timer {
-    align-items: center;      /* А вот таймер и фото центрируем */
-}
-
-    /* Прячем мобильную картинку на ПК */
-    .mobile-image {
-        display: none;
+        align-items: center;
     }
-
-    /* Показываем десктопную картинку на ПК */
-    .desktop-image {
-        display: block;
-    }
-
-    /* Настраиваем ширину картинки на ПК */
     .desktop-image.offer-image-wrapper {
-        width: 100%; /* Картинка займет всю ширину правой колонки */
-        max-width: 320px; /* Но не будет слишком большой */
+        width: 100%;
+        max-width: 320px;
     }
 }
-
-/* --- СТИЛІ ДЛЯ ВІДЕОПЛЕЄРА ТА ЙОГО СЕКЦІЇ --- */
-:root {
-    --player-color: #c19a6b; /* Використовуємо ваш фірмовий колір */
-}
-
-.video-section {
-    padding: 48px 0;
-    background-color: #f8f9fa; /* Світлий фон, як у інших секцій */
-}
-
-.video-section .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.player-wrapper {
-    position: relative;
-    /* Розміри, які ми налаштовували раніше */
-    width: 69vh;
-    height: 51vh;
-    max-width: 828px;
-    max-height: 612px;
-    overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-    background: #000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Адаптивність плеєра для мобільних */
-@media (max-width: 768px) {
-    .player-wrapper {
-        width: 90vw; /* Ширина 90% від екрану */
-        height: 50.625vw; /* Висота для співвідношення 16:9 (90 * 9 / 16) */
-    }
-}
-
-.player {
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    height: auto;
-    display: block;
-    cursor: pointer;
-}
-
-.player-controls {
-    display: flex;
-    align-items: center;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: rgba(0,0,0,0.5);
-    transform: translateY(100%) translateY(-5px);
-    transition: all 0.3s;
-    opacity: 0;
-    z-index: 2;
-}
-
-.player-wrapper:hover .player-controls {
-    transform: translateY(0);
-    opacity: 1;
-}
-
-.player-controls > * {
-    margin: 0 5px;
-}
-
-.control-btn {
-    background: none;
-    border: 0;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    padding: 10px;
-}
-
-.toggle-play {
-    font-size: 20px;
-}
-
-.player-slider {
-    width: 80px;
-}
-
-.progress {
-    flex: 1;
-    position: relative;
-    display: flex;
-    flex-basis: 100%;
-    height: 15px;
-    cursor: pointer;
-    margin: 0 10px;
-    background: rgba(0,0,0,0.5);
-}
-
-.progress-filled {
-    width: 0%;
-    background: var(--player-color);
-    flex: 0;
-    flex-basis: 0%;
-}
-
-.fullscreen {
-    margin-left: auto;
-}
-
-/* --- КОД ДЛЯ СТРЕЛКИ-ИНДИКАТОРА (ВСТАВЬТЕ ВСЁ СЮДА) --- */
-
-/* 1. Делаем контейнер относительным */
-#extras .container {
-    position: relative;
-}
-
-/* 2. Стили самой стрелки */
-.scroll-indicator {
-    position: absolute;
-    top: 50%;
-    right: 5px;
-    transform: translateY(-50%);
-    font-size: 2.5em;
-    color: var(--primary-color);
-    opacity: 0;
-    pointer-events: none;
-    z-index: 10;
-}
-
-/* 3. Анимация появления и исчезновения */
-@keyframes fadeInOut {
-    0%, 100% {
-        opacity: 0;
-    }
-    30%, 80% {
-        opacity: 1;
-    }
-}
-
-/* 4. Запускаем анимацию для стрелки */
-.extras-grid.sway-animation + .scroll-indicator {
-    animation: fadeInOut 1s ease-in-out;
-}
-/* --- КОНЕЦ КОДА ДЛЯ СТРЕЛКИ --- */
-
-/* --- Стили для показа разных картинок на ПК и мобильных --- */
-
-/* По умолчанию (для мобильных) показываем мобильную картинку и прячем десктопную */
-.desktop-image {
-    display: none;
-}
-
-.mobile-image {
-    display: block;
-}
-
-/* Для экранов шире 768px делаем наоборот */
 @media (min-width: 768px) {
-    .mobile-image {
-        display: none;
-    }
-    .desktop-image {
-        display: block;
-    }
+    .mobile-image { display: none; }
+    .desktop-image { display: block; }
+}
+/* Добавьте этот код внутрь блока @media (max-width: 768px) */
+
+.add-to-cart-btn {
+    padding: 6px 12px; /* Уменьшаем вертикальные (6px) и горизонтальные (12px) отступы */
+    font-size: 0.9em; /* Можно также немного уменьшить шрифт для компактности */
 }
