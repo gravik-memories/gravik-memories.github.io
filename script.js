@@ -1,597 +1,532 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // =======================================================
-    // --- ОБЩИЕ ПЕРЕМЕННЫЕ И ФУНКЦИИ ---
-    // =======================================================
-    const body = document.body;
-    const overlay = document.querySelector('.overlay');
-
-    // --- Модальное окно для изображений ---
-    const imageModal = document.getElementById("imageModal");
-    const modalImg = document.getElementById("expandedImg");
-    const closeImageModalButton = document.getElementById("closeModalButton");
-
-    const closeImageModalLogic = () => {
-        if (imageModal && imageModal.style.display === "block") {
-            body.classList.remove('menu-open');
-            imageModal.style.display = "none";
-        }
-    };
-
-    // --- Корзина ---
-    const cartModal = document.getElementById('cartModal');
-    const closeCartBtn = document.getElementById('closeCartBtn');
-
-    const closeCartModal = () => {
-        if (cartModal && cartModal.style.display === 'block') {
-            cartModal.style.display = 'none';
-            body.classList.remove('menu-open');
-        }
-    };
-
-    // =======================================================
-    // --- ГЛАВНЫЙ ОБРАБОТЧИК КНОПКИ "НАЗАД" (POPSTATE) ---
-    // =======================================================
-    // Он должен быть здесь, в общей области видимости, чтобы работать всегда
-    window.addEventListener('popstate', function(event) {
-        // Эта функция теперь правильно закроет любое открытое модальное окно
-        closeCartModal();
-        closeImageModalLogic();
-    });
-
-    // =======================================================
-    // --- МОБИЛЬНОЕ МЕНЮ ---
-    // =======================================================
-    const menuToggle = document.getElementById('mobile-menu');
-    const navMenu = document.getElementById('nav-menu');
-    const closeMenu = () => {
-        navMenu.classList.remove('active');
-        overlay.classList.remove('active');
-        body.classList.remove('menu-open');
-    };
-    if (menuToggle && navMenu && overlay) {
-        menuToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-            overlay.classList.toggle('active');
-            body.classList.toggle('menu-open');
-        });
-        overlay.addEventListener('click', closeMenu);
-    }
-
-    // =======================================================
-    // --- ЛОГИКА КОРЗИНЫ ---
-    // =======================================================
-    const cartIcon = document.getElementById('cart-icon');
-    const cartCountEl = document.getElementById('cart-count');
-    const cartItemsContainer = document.getElementById('cartItemsContainer');
-    const cartSummaryEl = document.getElementById('cartSummary');
-    const orderForm = document.getElementById('orderForm');
-    const successModal = document.getElementById('successModal');
-    const cartModalContent = cartModal ? cartModal.querySelector('.cart-modal-content') : null;
-    let cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
-
-    function showCartView() {
-        if (cartModalContent) {
-            cartModalContent.classList.remove('checkout-view');
-        }
-    }
-
-    function showCheckoutView() {
-        if (cartModalContent) {
-            cartModalContent.classList.add('checkout-view');
-        }
-    }
-
-    if (cartIcon && cartModal && closeCartBtn) {
-        cartIcon.addEventListener('click', () => {
-            cartModal.style.display = 'block';
-            body.classList.add('menu-open');
-            showCartView();
-            updateCart();
-            history.pushState({ modal: 'cart' }, 'Корзина', '#cart');
-        });
-        
-        closeCartBtn.addEventListener('click', () => history.back());
-
-        cartModal.addEventListener('click', (event) => {
-            if (event.target.id === 'chooseExtrasBtn') {
-                const extrasSection = document.getElementById('extras');
-                if (extrasSection) {
-                    history.back(); // Закрываем корзину через историю
-                    extrasSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            } else if (event.target.id === 'checkoutBtn') {
-                showCheckoutView();
-            } else if (event.target.id === 'backToCartBtn') {
-                event.preventDefault();
-                showCartView();
-            } else if (event.target == cartModal) {
-                history.back();
-            }
-        });
-    }
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-KFR5JRHC');</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Гравіювання на жетонах Gravochka</title>
+    <link rel="icon" type="image/png" href="images2/flavicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Roboto:wght@400;500&family=Oswald:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KFR5JRHC"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div class="overlay"></div>
     
-    // (далее идет весь остальной ваш код для корзины без изменений: 
-    // updateCart, renderCartItems, addToCart и т.д.)
-    function updateCart() {
-        if(cartItemsContainer) renderCartItems();
-        if(cartSummaryEl) renderCartSummary();
-        if(cartCountEl) updateCartIcon();
-        localStorage.setItem('shoppingCart', JSON.stringify(cart));
-    }
+    <header class="header">
+        <div class="container">
+            <a href="#" class="logo">
+                <img src="images/gravochka.png" alt="Gravik Memories Logo">
+            </a>
+            <div class="header-controls">
+                <nav class="nav" id="nav-menu">
+                    <a href="#OFFERS"><span style="color: #e0eea1;"><b>Знижки-%</b></span></a>
+                    <a href="#products">Товари</a>
+                    <a href="#gallery">Відгуки</a>
+                    <a href="#payment-delivery">Оплата та доставка</a>
+                    <a href="#my-section">Контакти</a>
+                    <a href="#how-to-order">Як замовити</a>
+                    <div class="nav-social">
+                        <a href="viber://chat?number=+380687805277" target="_blank" aria-label="Написать в Viber"><i class="fab fa-viber"></i></a>
+                        <a href="https://t.me/gravik_memories" target="_blank" aria-label="Написать в Telegram"><i class="fab fa-telegram-plane"></i></a>
+                        <a href="https://www.instagram.com/gravik_ua" target="_blank" aria-label="Наш Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="tel:+380687805277" aria-label="Позвонить нам"><i class="fas fa-phone-alt"></i></a>
+                    </div>
+                </nav>
+                <div class="cart-icon-wrapper" id="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-item-count" id="cart-count">0</span>
+                </div>
+                <div class="menu-toggle" id="mobile-menu"><span>&#9776;</span></div>
+            </div>
+        </div>
+    </header>
 
-    function renderCartSummary() {
-        if (!cartSummaryEl) return;
-        const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-        if (cart.length > 0) {
-            cartSummaryEl.innerHTML = `
-                <h3>Загальна сума: ${totalPrice.toFixed(2)} грн</h3>
-                <button id="chooseExtrasBtn" class="cta-button secondary-btn">Обрати додаткові товари</button>
-                <button id="checkoutBtn" class="cta-button">Оформити замовлення</button>
-            `;
-        } else {
-            cartSummaryEl.innerHTML = '';
-        }
-    }
+    <main>
+        <section class="innovative-solutions" id="innovative-solutions">
+            <div class="container">
+                <div class="innovative-solutions-image">
+                    <img src="images/IMG_20230618_210644.jpg" alt="Лазерне гравіювання">
+                    <img src="images/IMG_20230424_200609.jpg" alt="Додаткове фото гравіювання" class="mobile-only-image">
+                </div>
+                <div class="innovative-solutions-content">
+                    <h1>Гравіювання на жетонах і брелоках</h1>
+                    <p>Ми створюємо унікальні вироби для кожного, ми не "штампуємо" замовлення клієнтів, а виконуємо їх з максимальною віддачею та увагою до деталей.</p>
+                    <a href="#products" class="cta-button">Варіанти гравіювання</a>
+                </div>
+            </div>
+        </section>
 
-    // ... и так далее, весь остальной код, который я не стал сюда копировать,
-    // чтобы не делать ответ гигантским. Вставьте ВЕСЬ ОСТАЛЬНОЙ КОД ОТСЮДА
-
-    // --- Логика для таймера зворотного відліку ---
-    let promotionEndDate;
-    const startOrResetTimer = () => {
-        const twoDaysInMs = 2 * 24 * 60 * 60 * 1000;
-        promotionEndDate = new Date().getTime() + twoDaysInMs;
-        localStorage.setItem('promotionEndDate', promotionEndDate);
-    };
-    const storedEndDate = localStorage.getItem('promotionEndDate');
-    if (storedEndDate && new Date().getTime() < parseInt(storedEndDate)) {
-        promotionEndDate = parseInt(storedEndDate);
-    } else {
-        startOrResetTimer();
-    }
-    const countdownFunction = setInterval(() => {
-        const now = new Date().getTime();
-        const distance = promotionEndDate - now;
-        if (distance < 0) {
-            startOrResetTimer();
-        }
-        const remainingDistance = Math.max(0, distance);
-        const days = Math.floor(remainingDistance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((remainingDistance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((remainingDistance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((remainingDistance % (1000 * 60)) / 1000);
-        const format = (num) => num < 10 ? '0' + num : num;
-        const daysEl = document.getElementById("days");
-        if (daysEl) daysEl.innerText = format(days);
-        const hoursEl = document.getElementById("hours");
-        if (hoursEl) hoursEl.innerText = format(hours);
-        const minutesEl = document.getElementById("minutes");
-        if (minutesEl) minutesEl.innerText = format(minutes);
-        const secondsEl = document.getElementById("seconds");
-        if (secondsEl) secondsEl.innerText = format(seconds);
-    }, 1000);
-
-    // --- Плавне прокручування ---
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            const href = this.getAttribute('href');
-            if (href === '#') return;
-            const targetElement = document.querySelector(href);
-            if (targetElement) {
-                e.preventDefault();
-                targetElement.scrollIntoView({ behavior: 'smooth' });
-                if (navMenu && navMenu.classList.contains('active')) {
-                    closeMenu();
-                }
-            }
-        });
-    });
-
-    // --- Слайдери в секції "Приклади робіт" ---
-    let sliderStates = [];
-    const galleryContainers = document.querySelectorAll('.rectangular-gallery .gallery-container');
-    galleryContainers.forEach((container, index) => {
-        sliderStates.push({
-            id: `slider${index + 1}`,
-            currentSlide: 0,
-            container: container,
-            totalSlides: container.children.length,
-            intervalId: null
-        });
-        const prevButton = document.getElementById(`prev${index + 1}`);
-        const nextButton = document.getElementById(`next${index + 1}`);
-        const startAutoPlay = () => {
-            if (sliderStates[index] && sliderStates[index].intervalId) clearInterval(sliderStates[index].intervalId);
-            sliderStates[index].intervalId = setInterval(() => moveGallery(index, 1), 10000);
-        };
-        const moveAndReset = (direction) => {
-            moveGallery(index, direction);
-            startAutoPlay();
-        };
-        if (prevButton) prevButton.onclick = () => moveAndReset(-1);
-        if (nextButton) nextButton.onclick = () => moveAndReset(1);
-        startAutoPlay();
-    });
-
-    function moveGallery(sliderIndex, direction) {
-        let state = sliderStates[sliderIndex];
-        if (!state || state.totalSlides === 0) return;
-        state.currentSlide = (state.currentSlide + direction + state.totalSlides) % state.totalSlides;
-        state.container.style.transform = `translateX(-${state.currentSlide * 100}%)`;
-    }
-
-    // --- КОД МОДАЛЬНОГО ВІКНА ДЛЯ ИЗОБРАЖЕНИЙ (продолжение) ---
-    const modalPrevBtn = document.getElementById("modalPrev");
-    const modalNextBtn = document.getElementById("modalNext");
-    const dotsContainer = document.getElementById('modalDotsContainer');
-    let currentModalImages = [];
-    let currentImageIndex = 0;
-
-    function openImageModal(isGallery, imagesOrSrc, startIndex = 0) {
-        if (!imageModal) return;
-        body.classList.add('menu-open');
-        imageModal.style.display = "block";
-        currentModalImages = Array.isArray(imagesOrSrc) ? imagesOrSrc : [imagesOrSrc];
-        currentImageIndex = startIndex;
-        const hasMultipleImages = currentModalImages.length > 1;
-        modalPrevBtn.classList.toggle('is-visible', hasMultipleImages);
-        modalNextBtn.classList.toggle('is-visible', hasMultipleImages);
-        dotsContainer.innerHTML = '';
-        if (hasMultipleImages) {
-            currentModalImages.forEach((_, index) => {
-                const dot = document.createElement('span');
-                dot.classList.add('dot');
-                dot.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    showImage(index);
-                });
-                dotsContainer.appendChild(dot);
-            });
-        }
-        if (hasMultipleImages) {
-            imageModal.addEventListener('touchstart', handleTouchStart, { passive: true });
-            imageModal.addEventListener('touchmove', handleTouchMove, { passive: true });
-            imageModal.addEventListener('touchend', handleTouchEnd);
-        }
-        showImage(currentImageIndex);
-        document.addEventListener('keydown', handleKeyDown);
-        history.pushState({ modalOpen: true }, "", "#gallery");
-    }
-
-    if (imageModal) {
-        if (closeImageModalButton) closeImageModalButton.addEventListener('click', () => history.back());
-        imageModal.addEventListener('click', (event) => {
-            if (event.target === imageModal) {
-                history.back();
-            }
-        });
-        if (modalPrevBtn) modalPrevBtn.addEventListener('click', (e) => { e.stopPropagation(); showImage(currentImageIndex - 1); });
-        if (modalNextBtn) modalNextBtn.addEventListener('click', (e) => { e.stopPropagation(); showImage(currentImageIndex + 1); });
-    }
-
-    // ... остальной код (showImage, handleKeyDown и т.д.)
-    function renderCartItems() {
-        if (!cartItemsContainer) return;
-        if (cart.length === 0) {
-            cartItemsContainer.innerHTML = '<p class="cart-empty-message">Ваша корзина порожня</p>';
-            cartSummaryEl.innerHTML = '';
-            return;
-        }
-        
-        cartItemsContainer.innerHTML = '';
-        cart.forEach(item => {
-            const itemEl = document.createElement('div');
-            itemEl.classList.add('cart-item');
-            itemEl.innerHTML = `
-                <img src="${item.image}" alt="${item.name}" class="cart-item-img">
-                <div class="cart-item-details">
-                    <h4>${item.name}</h4>
-                    <p class="price">${item.price} грн</p>
-                </div>
-                <div class="cart-item-controls">
-                    <button class="quantity-btn" onclick="changeQuantity('${item.id}', -1)">-</button>
-                    <span class="item-quantity">${item.quantity}</span>
-                    <button class="quantity-btn" onclick="changeQuantity('${item.id}', 1)">+</button>
-                    <button class="remove-item-btn" onclick="removeItemFromCart('${item.id}')"><i class="fas fa-trash-alt"></i></button>
-                </div>
-            `;
-            cartItemsContainer.appendChild(itemEl);
-        });
-    }
-
-    function showImage(index) {
-        if (!currentModalImages || currentModalImages.length === 0) return;
-        currentImageIndex = (index + currentModalImages.length) % currentModalImages.length;
-        modalImg.src = currentModalImages[currentImageIndex];
-
-        const allDots = dotsContainer.querySelectorAll('.dot');
-        if (allDots.length > 0) {
-            allDots.forEach(dot => dot.classList.remove('active'));
-            allDots[currentImageIndex].classList.add('active');
-        }
-    }
-    
-    document.querySelectorAll('.tile-gallery-item, .gallery-item').forEach(item => {
-        item.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const galleryContainer = item.closest('.gallery-container');
-            if (galleryContainer) {
-                const allItems = Array.from(galleryContainer.children);
-                const images = allItems.map(galleryItem => galleryItem.dataset.src || galleryItem.querySelector('img').src);
-                const startIndex = allItems.indexOf(item);
-                openImageModal(true, images, startIndex);
-            } else {
-                const src = item.dataset.src || item.querySelector('img').src;
-                openImageModal(false, src);
-            }
-        });
-    });
-
-    document.querySelectorAll('.product-card .product-image-wrapper').forEach(wrapper => {
-        wrapper.addEventListener('click', (e) => {
-            const card = e.currentTarget.closest('.product-card');
-            const imagesAttr = card.dataset.images;
-            if (!imagesAttr) return;
-            const images = imagesAttr.split(',').map(s => s.trim());
-            if (images.length > 0) {
-                openImageModal(true, images, 0);
-            }
-        });
-    });
-
-    function handleKeyDown(e) {
-        if (!imageModal || imageModal.style.display !== 'block') return;
-        if (currentModalImages.length <= 1) return;
-        if (e.key === "ArrowLeft") showImage(currentImageIndex - 1);
-        else if (e.key === "ArrowRight") showImage(currentImageIndex + 1);
-        else if (e.key === "Escape") history.back();
-    }
-    let touchStartX = 0;
-    let touchEndX = 0;
-    function handleTouchStart(e) { touchStartX = e.touches[0].clientX; }
-    function handleTouchMove(e) { touchEndX = e.touches[0].clientX; }
-    function handleTouchEnd() {
-        if (currentModalImages.length <= 1) return;
-        if (touchStartX - touchEndX > 50) showImage(currentImageIndex + 1);
-        if (touchStartX - touchEndX < -50) showImage(currentImageIndex - 1);
-    }
-    
-    // --- Анімація похитування для блоку "Додатково" ---
-    const extrasBlock = document.getElementById('extras');
-    if (extrasBlock) {
-        const extrasGrid = extrasBlock.querySelector('.extras-grid');
-        let swayIntervalId = null;
-        const triggerSwayAnimation = () => {
-            if (extrasGrid && !extrasGrid.classList.contains('sway-animation')) {
-                extrasGrid.classList.add('sway-animation');
-                extrasGrid.addEventListener('animationend', () => {
-                    extrasGrid.classList.remove('sway-animation');
-                }, { once: true });
-            }
-        };
-        const stopSwayingPermanently = () => {
-            clearInterval(swayIntervalId);
-            if(extrasGrid) extrasGrid.removeEventListener('scroll', stopSwayingPermanently);
-        };
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    if (!swayIntervalId) {
-                        swayIntervalId = setInterval(triggerSwayAnimation, 3000);
-                        if(extrasGrid) extrasGrid.addEventListener('scroll', stopSwayingPermanently, { once: true });
-                    }
-                } else {
-                    clearInterval(swayIntervalId);
-                    swayIntervalId = null;
-                }
-            });
-        }, { threshold: 0.5 });
-        observer.observe(extrasBlock);
-    }
-
-    // --- Логіка для віджета швидкого замовлення ---
-    const quickOrderWidget = document.getElementById('quickOrderWidget');
-    if (quickOrderWidget) {
-        const orderTrigger = document.getElementById('orderTrigger');
-        const closePopup = document.getElementById('closePopup');
-        const quickOrderForm = document.getElementById('quickOrderForm');
-        const showQuickOrderBtn = document.getElementById('showQuickOrderFormBtn');
-
-        const openPopup = () => {
-            if (!quickOrderWidget.classList.contains('active')) {
-                quickOrderWidget.classList.add('active');
-            }
-        };
-        const closePopupLogic = () => {
-            quickOrderWidget.classList.remove('active');
-        };
-
-        if (orderTrigger) orderTrigger.addEventListener('click', (e) => { e.stopPropagation(); openPopup(); });
-        if (showQuickOrderBtn) showQuickOrderBtn.addEventListener('click', openPopup);
-        if (closePopup) closePopup.addEventListener('click', closePopupLogic);
+        <section id="services">
+            <div class="container">
+                <h2 class="section-title">НАШІ ПЕРЕВАГИ</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <img class="service-card-image" src="images/IMG_20230227_14000212.png" alt="Гравіювання жетонів">
+                        <h3>Гравіювання тримається більше 10 років</h3>
+                        <p>Наша технологія дає можливість робити нанесення яке НЕ буде стиратися десятиліттями.</p>
+                    </div>
+                    <div class="service-card">
+                        <img class="service-card-image" src="images/I2MG_20250726_192514.jpg" alt="Ювелірні вироби">
+                        <h3>Нержавіючі матеріали AISI 304 ГАРАНТІЯ</h3>
+                        <p>За роки,ми методом тестування виділили найкращі позиції товарів такі як жетони,кліпси та різні види ланцюжків які не ржавіють і не темніють при контакті з водою або тілом людини.</p>
+                    </div>
+                    <div class="service-card">
+                        <img class="service-card-image" src="images/IMG_20250726_194209.jpg" alt="Корпоративні нагороди">
+                        <h3>Спеціалізуємося виключно на жетонах</h3>
+                        <p>Ми концентруємо увагу саме на виробнитстві жетонів з індивідуальним гравіюванням,і це дає нам змогу робити найкращі жетони саме для Вас.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
         
-        document.addEventListener('click', (e) => {
-            if (quickOrderWidget.classList.contains('active') && !quickOrderWidget.contains(e.target) && e.target !== showQuickOrderBtn) {
-                closePopupLogic();
-            }
-        });
+        <section class="product-card-section" id="products">
+            <div class="container">
+                <h2 class="section-title">Виготовлення 1-3 дня</h2>
+                <div class="product-cards-grid">
+                    <div class="product-card" 
+                         data-id="product1" 
+                         data-name="Ваш напис + фото" 
+                         data-price="550" 
+                         data-image="imagespc/name-2112.jpg"
+                         data-images="images/name-2112.jpg,images/IMG_20240617_181834.jpg,images/IMG_20250721_173050.jpg">
+                        <div class="product-image-wrapper">
+                            <img src="imagespc/name-2112.jpg" alt="Жетон з гравіюванням" class="desktop-image">
+                            <img src="images/name-2112.jpg" alt="Жетон з гравіюванням" class="mobile-image">
+                        </div>
+                        <h2>Ваш напис + фото</h2>
+                        <div class="price">550 грн</div>
+                        <button class="add-to-cart-btn"><i class="fas fa-cart-plus"></i>Замовити</button>
+                    </div>
+                    <div class="product-card" 
+                         data-id="product2" 
+                         data-name="Ваш напис дві сторони" 
+                         data-price="450" 
+                         data-image="imagespc/IMG_20230814_21385511.jpg"
+                         data-images="images/IMG_20230814_21385511.jpg,images/IMG_20231003_005315.jpg,images/IMG_20240429_154755.jpg,images/IMG_20230429_214240.jpg">
+                        <div class="product-image-wrapper">
+                            <img src="imagespc/IMG_20230814_21385511.jpg" alt="Металева табличка" class="desktop-image">
+                            <img src="images/IMG_20230814_21385511.jpg" alt="Металева табличка" class="mobile-image">
+                        </div>
+                        <h2>Ваш напис дві сторони</h2>
+                        <div class="price">450 грн</div>
+                        <button class="add-to-cart-btn"><i class="fas fa-cart-plus"></i>Замовити</button>
+                    </div>
+                    <div class="product-card" 
+                         data-id="product3" 
+                         data-name="Фото з двох сторін" 
+                         data-price="670" 
+                         data-image="imagespc/no name-1.jpg"
+                         data-images="images/no name-1.jpg,images/IMG_20221113_170651.jpg,images/IMG_20250721_173050.jpg,images/IMG_20240429_154433.jpg,images/IMG_20230316_185312.jpg">
+                        <div class="product-image-wrapper">
+                            <img src="imagespc/no name-1.jpg" alt="Брелок з гравіюванням" class="desktop-image">
+                             <img src="images/no name-1.jpg" alt="Брелок з гравіюванням" class="mobile-image">
+                        </div>
+                        <h2>Фото з двох сторін</h2>
+                        <div class="price">670 грн</div>
+                        <button class="add-to-cart-btn"><i class="fas fa-cart-plus"></i>Замовити</button>
+                    </div>
+                    <div class="product-card" 
+                         data-id="product4" 
+                         data-name="Напис одна сторона" 
+                         data-price="350" 
+                         data-image="imagespc/IMG_20250721_173050.jpg"
+                         data-images="images/IMG_20250721_173050.jpg,images/IMG_20220928_165511.jpg,images/IMG_20221104_155942.jpg,images/IMG_20230330_183520.jpg">
+                        <div class="product-image-wrapper">
+                            <img src="imagespc/IMG_20250721_173050.jpg" alt="Кулон з гравіюванням" class="desktop-image">
+                            <img src="images/IMG_20250721_173050.jpg" alt="Кулон з гравіюванням" class="mobile-image">
+                        </div>
+                        <h2>Напис одна сторона</h2>
+                        <div class="price">350 грн</div>
+                        <button class="add-to-cart-btn"><i class="fas fa-cart-plus"></i>Замовити</button>
+                    </div>
+                </div>
+                <div class="quick-order-button-wrapper">
+                    <button id="showQuickOrderFormBtn" class="cta-button">Замовити швидко</button>
+                </div>
+            </div>
+        </section>
+
+       <section id="extras">
+    <div class="container">
+        <h2 class="section-title">ДОДАТКОВІ ТОВАРИ</h2>
+        <div class="extras-grid">
+
+            <div class="extra-item" 
+                 id="extra-item-switcher" data-id="extra1" 
+                 data-name="Брелок або кулон" 
+                 data-price="0" 
+                  data-image-brelok="images2/IMG_20250726_191345.png"
+                  data-image-kulon="images2/storage emulated 0 DCIM Camera IMG_20250726_191502.png">
+                <div class="extra-circles">
+                    <div class="circle">
+                        <img src="images2/IMG_20250726_191345.png" alt="Додатковий ланцюжок">
+                    </div>
+                    <div class="circle">
+                        <img src="images2/storage emulated 0 DCIM Camera IMG_20250726_191502.png" alt="Ланцюжок">
+                    </div>
+                </div>
+                <h3>Брелок або кулон</h3>
+                    <div class="option-switcher">
+        <input type="radio" id="option-keychain" name="option-type-extra1" data-name="Брелок" checked>
+        <label for="option-keychain">Брелок</label>
+
+        <input type="radio" id="option-pendant" name="option-type-extra1" data-name="Кулон">
+        <label for="option-pendant">Кулон</label>
+    </div>
+                <p>На вибір ви отримуєте НЕРЖАВІЮЧИЙ ланцюжок на шию або кріплення для брелоку.</p>
+                <div class="extra-action">
+                    <div class="price">0 грн</div>
+                    <button class="add-extra-to-cart">+</button>
+                </div>
+            </div>
+
+            <div class="extra-item" 
+                 data-id="extra2" 
+                 data-name="Силіконовий бампер" 
+                 data-price="30" 
+                 data-image="images2/bmp-1-800x800.png">
+                <div class="extra-circles">
+                    <div class="circle">
+                        <img src="images2/bmp-1-800x800.png" alt="Силіконовий бампер">
+                    </div>
+                </div>
+                <h3>Силіконовий бампер</h3>
+                <p style="color: #e76293;"><b>(Менеджер запропонує вам при оформленні замовлення)</b></p>
+                <div class="extra-action">
+                    <div class="price">30 грн</div>
+                    <button class="add-extra-to-cart">+</button>
+                </div>
+            </div>
+
+            <div class="extra-item" 
+                 data-id="extra3" 
+                 data-name="Посилений ланцюжок" 
+                 data-price="170" 
+                 data-image="images2/IMG_20250726_192325.png">
+                <div class="extra-circles">
+                    <div class="circle">
+                        <img src="imagespc/IMG_20250726_192325.png" alt="Посилений ланцюжок" class="desktop-image">
+                        <img src="images2/IMG_20250726_192325.png" alt="Посилений ланцюжок" class="mobile-image">
+                    </div>
+                </div>
+                <h3>Посилений ланцюжок</h3>
+                <p>Міцний та надійний ланцюжок з нержавіючої сталі.</p>
+                <div class="extra-action">
+                    <div class="price">170 грн</div>
+                    <button class="add-extra-to-cart">+</button>
+                </div>
+            </div>
+
+            <div class="extra-item" 
+                 data-id="extra4" 
+                 data-name="Подарункова коробочка" 
+                 data-price="100" 
+                 data-image="images2/Без имени-5.png">
+                <div class="extra-circles">
+                    <div class="circle">
+                        <img src="images2/Без имени-5.png" alt="Подарункова коробочка 1">
+                    </div>
+                    <div class="circle">
+                        <img src="images2/IMG_20240407_134123.png" alt="Подарункова коробочка 2">
+                    </div>
+                </div>
+                <h3>Подарункова коробочка</h3>
+                <p>Ідеально підійде для оформлення вашого подарунка.</p>
+                <div class="extra-action">
+                    <div class="price">100 грн</div>
+                    <button class="add-extra-to-cart">+</button>
+                </div>
+            </div>
+
+        </div> 
+        <div class="scroll-indicator">&#10148;</div>
+    </div> 
+</section>
+
+
+
+        <section id="payment-delivery" class="payment-delivery-section">
+            <div class="container">
+                <h2 class="section-title">Оплата та доставка</h2>
+                <h3 class="section-title">Виготовлення 1-3 дня</h3>
+                <div class="payment-delivery-container">
+                    <div class="payment-methods">
+                        <h3>Способи оплати</h3>
+                        <div class="method"><h4><i class="fas fa-money-bill-wave"></i> Оплата на пошті</h4><p>Ви розраховуєтесь за жетон приходячи на пошту</p></div>
+                        <div class="method"><h4><i class="fas fa-credit-card"></i>Оплата на карту</h4><p>Ви можете розрахуватись на звичайні карти "Monobank" або "ПриватБанк"</p></div>
+                        <div class="method"><h4><i class="fab fa-cc-paypal"></i> Оплата на рахунок ФОП</h4><p>Ми працюєме офіційно і ви можете отримати IBAN рахунок для оплати товару </p></div>
+                    </div>
+                    <div class="delivery-options">
+                        <h3>Варіанти доставки</h3>
+                        <div class="option"><h4><i class="fas fa-box"></i> Нова пошта</h4><p>Доставка по всій Україні 1-3дні. Коштує від 95грн</p></div>
+                        <div class="option"><h4><i class="fas fa-shipping-fast"></i> Укрпошта</h4><p>Економна доставка в будь-яку точку України. Термін - 2-4 дні від 50грн</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="tile-gallery-section" id="works">
+            <div class="container">
+                <h2 class="section-title">Наші роботи</h2>
+                <div class="tile-gallery-grid">
+                    <div class="tile-gallery-item" data-src="images/IMG_20240407_134123.jpg"><img src="images/IMG_20240407_134123.jpg" alt="Робота 1" class="mobile-image"><img src="imagespc/IMG_20240407_134123.jpg" alt="Описание картинки" class="desktop-image"></div>
+                    <div class="tile-gallery-item" data-src="images/IMG_20250715_152343.jpg"><img src="images/IMG_20250715_152343.jpg" alt="Робота 2" class="mobile-image"><img src="imagespc/IMG_20250715_152343.jpg" alt="Описание картинки" class="desktop-image"></div>
+                    <div class="tile-gallery-item" data-src="images/IMG_20230618_211413.jpg"><img src="images/IMG_20230618_211413.jpg" alt="Робота 3" class="mobile-image"><img src="imagespc/IMG_20230618_211413.jpg" alt="Описание картинки" class="desktop-image"></div>
+                    <div class="tile-gallery-item" data-src="images/IMG_20230402_001439.jpg"><img src="images/IMG_20230402_001439.jpg" alt="Робота 4" class="mobile-image"><img src="imagespc/IMG_20230402_001439.jpg" alt="Описание картинки" class="desktop-image"></div>
+                    <div class="tile-gallery-item" data-src="images/IMG_20231003_005401.jpg"><img src="images/IMG_20231003_005401.jpg" alt="Робота 5" class="mobile-image"><img src="imagespc/IMG_20231003_005401.jpg" alt="Описание картинки" class="desktop-image"></div>
+                    <div class="tile-gallery-item" data-src="images/IMG_20240429_154433.jpg"><img src="images/IMG_20240429_154433.jpg" alt="Робота 6" class="mobile-image"><img src="imagespc/IMG_20240429_154433.jpg" alt="Описание картинки" class="desktop-image"></div>
+                    <div class="tile-gallery-item" data-src="images/IMG_20230402_001531.jpg"><img src="images/IMG_20230402_001531.jpg" alt="Робота 7" class="mobile-image"><img src="imagespc/IMG_20230402_001531.jpg" alt="Описание картинки" class="desktop-image"></div>
+                    <div class="tile-gallery-item" data-src="images/IMG_20230316_185312.jpg"><img src="images/IMG_20230316_185312.jpg" alt="Робота 8" class="mobile-image"><img src="imagespc/IMG_20230316_185312.jpg" alt="Описание картинки" class="desktop-image"></div>
+                    <div class="tile-gallery-item" data-src="images/IMG_20240924_174755.jpg"><img src="images/IMG_20240924_174755.jpg" alt="Робота 9" class="mobile-image"><img src="imagespc/IMG_20240924_174755.jpg" alt="Описание картинки" class="desktop-image"></div>
+                    <div class="tile-gallery-item" data-src="images/IMG_20250707_190515.jpg"><img src="images/IMG_20250707_190515.jpg" alt="Робота 10" class="mobile-image"><img src="imagespc/IMG_20250707_190515.jpg" alt="Описание картинки" class="desktop-image"></div>
+                    <div class="tile-gallery-item" data-src="images/IMG_20240924_165746.jpg"><img src="images/IMG_20240924_165746.jpg" alt="Робота 11" class="mobile-image"><img src="imagespc/IMG_20240924_165746.jpg" alt="Описание картинки" class="desktop-image"></div>
+                    <div class="tile-gallery-item" data-src="images/IMG_20250715_152337.jpg"><img src="images/IMG_20250715_152337.jpg" alt="Робота 12" class="mobile-image"><img src="imagespc/IMG_20250715_152337.jpg" alt="Описание картинки" class="desktop-image"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="gallery" class="rectangular-gallery-section">
+            <div class="container">
+                <h2 class="section-title">Відгуки</h2>
+                <div class="dual-slider-wrapper">
+                    <div class="rectangular-gallery">
+                        <div class="gallery-container" id="galleryContainer1">
+                            <div class="gallery-item" data-src="images2/Screenshot1 (11).jpg"><img src="images2/Screenshot1 (11).jpg" alt="Приклад гравіювання 1"></div>
+                            <div class="gallery-item" data-src="images2/Screenshot1 (14).jpg"><img src="images2/Screenshot1 (14).jpg" alt="Приклад гравіювання 2"></div>
+                            <div class="gallery-item" data-src="images2/Screenshot1 (1).jpg"><img src="images2/Screenshot1 (1).jpg" alt="Приклад гравіювання 3"></div>
+                            <div class="gallery-item" data-src="images2/Screenshot1 (2).jpg"><img src="images2/Screenshot1 (2).jpg" alt="Приклад гравіювання 4"></div>
+                                <div class="gallery-item" data-src="images2/Screenshot1 (3).jpg"><img src="images2/Screenshot1 (3).jpg" alt="Приклад гравіювання 5"></div>
+                                    <div class="gallery-item" data-src="images2/Screenshot1 (4).jpg"><img src="images2/Screenshot1 (4).jpg" alt="Приклад гравіювання 6"></div>
+                                        <div class="gallery-item" data-src="images2/Screenshot1 (5).jpg"><img src="images2/Screenshot1 (5).jpg" alt="Приклад гравіювання 7"></div>
+                                            <div class="gallery-item" data-src="images2/Screenshot1 (6).jpg"><img src="images2/Screenshot1 (6).jpg" alt="Приклад гравіювання 8"></div>
+                        </div>
+                        <button class="gallery-nav-button prev" id="prev1" aria-label="Попереднє зображення">&#10094;</button>
+                        <button class="gallery-nav-button next" id="next1" aria-label="Наступне зображення">&#10095;</button>
+                    </div>
+                    <div class="rectangular-gallery">
+                        <div class="gallery-container" id="galleryContainer2">
+                            <div class="gallery-item" data-src="images2/Screenshot1 (7).jpg"><img src="images2/Screenshot1 (7).jpg" alt="Приклад гравіювання 9"></div>
+                            <div class="gallery-item" data-src="images2/Screenshot1 (8).jpg"><img src="images2/Screenshot1 (8).jpg" alt="Приклад гравіювання 10"></div>
+                            <div class="gallery-item" data-src="images2/Screenshot1 (9).jpg"><img src="images2/Screenshot1 (9).jpg" alt="Приклад гравіювання 11"></div>
+                            <div class="gallery-item" data-src="images2/Screenshot1 (10).jpg"><img src="images2/Screenshot1 (10).jpg" alt="Приклад гравіювання 12"></div>
+                            <div class="gallery-item" data-src="images2/Screenshot1 (12).jpg"><img src="images2/Screenshot1 (12).jpg" alt="Приклад гравіювання 12"></div>
+                            <div class="gallery-item" data-src="images2/Screenshot1 (13).jpg"><img src="images2/Screenshot1 (13).jpg" alt="Приклад гравіювання 12"></div>
+                        </div>
+                        <button class="gallery-nav-button prev" id="prev2" aria-label="Попереднє зображення">&#10094;</button>
+                        <button class="gallery-nav-button next" id="next2" aria-label="Наступне зображення">&#10095;</button>
+                    </div>
+                </div>
+            </div>
+            <span id="OFFERS"></span>
+        </section>
         
-        if (quickOrderForm) {
-            quickOrderForm.addEventListener('submit', function (e) {
-                e.preventDefault();
-                const phoneInput = document.getElementById('clientPhone');
-                const phone = phoneInput.value;
-                const workerUrl = 'https://telegram-sender.brelok2023.workers.dev/'; 
-                const params = { phone: phone };
+        <section id="special-offer">
+            <div class="container">
+                <div class="offer-content">
+                    <h2><i class="fas fa-fire"></i> Вигідна ПРОПОЗИЦІЯ: Брелок за 1 гривню!</h2>
+                    <p>Не пропустіть можливість! Тільки до кінця пропозиції при замовленні жетону або брелоку з будь-яким гравіюванням — ви отримуєте можливість придбати ще один такий самий брелок за 1грн. Ідеально на прозапас або як подарунок.</p>
+                    <a href="#products" class="cta-button offer-button">Вибрати жетони</a>
+                    
+                    <div class="offer-image-wrapper mobile-image">
+                        <img src="images2/I22MG_20250726_1925141.jpg" alt="Акционный жетон" class="offer-image">
+                    </div>
+                </div>
+
+                <div class="offer-timer">
+                    <h3>До кінця акції залишилось:</h3>
+                    <div id="countdown" class="countdown-container">
+                        <div class="countdown-item"><span id="days">00</span><p>днів</p></div>
+                        <div class="countdown-item"><span id="hours">00</span><p>годин</p></div>
+                        <div class="countdown-item"><span id="minutes">00</span><p>хвилин</p></div>
+                        <div class="countdown-item"><span id="seconds">00</span><p>секунд</p></div>
+                    </div>
+
+                    <div class="offer-image-wrapper desktop-image">
+                        <img src="images2/I22MG_20250726_1925141.jpg" alt="Акционный жетон" class="offer-image">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="how-to-order">
+            <div class="container">
+                <h2 class="section-title">Як зробити замовлення?</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-number">1</div>
+                        <div class="timeline-content">
+                            <h4>Оберіть Гравіювання</h4>
+                            <p>Під жетонами є можливість перейти у Вайбер або Телеграм і зробити замовлення,або обрати швидке замовлення по телефону</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item right">
+                        <div class="timeline-number">2</div>
+                        <div class="timeline-content">
+                            <h4>Очікуйте на відповідь менеджера</h4>
+                            <p>Зазвичай менеджер відповідає зразу але можливо таке що відповідь буде до 30 хвилин.Вам запропонують всі додаткові товари та інше.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-number">3</div>
+                        <div class="timeline-content">
+                            <h4>Узгодьте деталі замовлення</h4>
+                            <p>Скидайте свої фотографії і надписи,або консультант запропонує вам наші написи та картинки.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item right">
+                        <div class="timeline-number">4</div>
+                        <div class="timeline-content">
+                            <h4>Очікуйте макет фото та напису</h4>
+                            <p>Наші майстри зроблять приблизний макет вашого замовлення і скинуть вам на узгодження.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-number">5</div>
+                        <div class="timeline-content">
+                            <h4>Очікуйте на готовність жетону</h4>
+                            <p>Ми виконаємо ваше замовлення та скинемо Вам фото готової роботи.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item right">
+                        <div class="timeline-number">6</div>
+                        <div class="timeline-content">
+                            <h4>Відправляємо ваш жетон</h4>
+                            <p>Передаємо Ваш жетон в компанії доставки які ви обрали</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-number">7</div>
+                        <div class="timeline-content">
+                            <h4>Отримайте замовлення</h4>
+                            <p>Зазвичай жетон виготвляється 1-3 дні,а доставка займає зазвичай 1-2 дня.Користуйтесь)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="video-section">
+            <div class="container">
+                <h2 class="section-title">Відео, нашої роботи</h2>
+                <div class="player-wrapper">
+                    <video class="player" playsinline>
+                        <source src="video/img-4316_gUQcYoyl.webm" type="video/webm">
+                        <source src="video/img-4316_gUQcYoyl.mp4" type="video/mp4">
+                        На жаль, ваш браузер не підтримує вбудоване відео.
+                    </video>
                 
-                fetch(workerUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(params)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.ok) {
-                        showCustomAlert('Дякуємо! Ми скоро з вами зв\'яжемось.');
-                        phoneInput.value = '';
-                        closePopupLogic();
-                    } else { throw new Error(data.description || 'Неизвестная ошибка'); }
-                })
-                .catch(error => {
-                    console.error('Помилка відправки через Worker:', error);
-                    showCustomAlert('Виникла помилка. Спробуйте ще раз або зв\'яжіться з нами напряму.');
-                });
-            });
-        }
-    }
-    
-    // =======================================================
-    // --- СИСТЕМА УВЕДОМЛЕНИЙ (CUSTOM ALERT) ---
-    // =======================================================
-    const customAlertModal = document.getElementById('customAlertModal');
-    if (customAlertModal) {
-        const customAlertMessage = customAlertModal.querySelector('.custom-alert-message');
-        const customAlertCloseBtn = customAlertModal.querySelector('.custom-alert-close-btn');
-        const customAlertOkBtn = customAlertModal.querySelector('.custom-alert-ok-btn');
-
-       window.showCustomAlert = function(message) {
-            if (customAlertMessage) {
-                customAlertMessage.textContent = message;
-                customAlertModal.style.display = 'block';
-            }
-        }
-
-        const closeCustomAlert = () => {
-            customAlertModal.style.display = "none";
-        }
-
-        if(customAlertCloseBtn) customAlertCloseBtn.onclick = closeCustomAlert;
-        if(customAlertOkBtn) customAlertOkBtn.onclick = closeCustomAlert;
+                    <div class="player-controls">
+                        <div class="progress">
+                            <div class="progress-filled"></div>
+                        </div>
+                        <button class="control-btn toggle-play" title="Play/Pause">►</button>
+                        <input type="range" name="volume" class="player-slider" min="0" max="1" step="0.05" value="1">
+                        <button class="control-btn fullscreen" title="Fullscreen">⛶</button>
+                    </div>
+                </div>
+            </div>
+        </section>
         
-        window.addEventListener('click', function(event) {
-            if (event.target == customAlertModal) {
-                closeCustomAlert();
-            }
-        });
-    } else {
-        window.showCustomAlert = function(message) {
-            alert(message);
-        }
-    }
-    
-    // --- ЛОГІКА КОРЗИНИ (продолжение) ---
-    function updateCartIcon() {
-        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-        cartCountEl.textContent = totalItems;
-        cartCountEl.classList.toggle('visible', totalItems > 0);
-    }
-    
-    window.changeQuantity = (productId, amount) => {
-        const productIndex = cart.findIndex(item => item.id === productId);
-        if (productIndex > -1) {
-            if (cart[productIndex].id.startsWith('extra1-')) {
-                if (amount < 0) {
-                    cart.splice(productIndex, 1);
-                }
-            } else {
-                cart[productIndex].quantity += amount;
-                if (cart[productIndex].quantity <= 0) {
-                    cart.splice(productIndex, 1);
-                }
-            }
-            updateCart();
-        }
-    };
+    </main>
 
-    window.removeItemFromCart = (productId) => {
-        cart = cart.filter(item => item.id !== productId);
-        showCartView();
-        updateCart();
-    };
+    <footer class="footer" id="my-section">
+        <div class="container">
+            <h3>Контакти та інформація</h3>
+            <div class="footer-contacts">
+                <p><i class="fas fa-envelope"></i> Email: brelok2023@gmail.com</p>
+                <p><i class="fas fa-phone"></i> Телефон: +380 (68) 780-52-77 </p>
+                <p><i class="fas fa-clock"></i> Працюємо: Пн-Сб 9:00-20:00</p>
+                <p><i class="fas fa-clock"></i> Замовлення Онлайн: Пн-Нд <b>Цілодобово</b></p>
+            </div>
+            <div class="social-links">
+                <a href="https://www.facebook.com/profile.php?id=61553947448459" target="_blank" aria-label="Наша сторінка в Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/gravik_ua" target="_blank" aria-label="Наш Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://t.me/gravik_memories" target="_blank" aria-label="Наш Telegram"><i class="fab fa-telegram-plane"></i></a>
+                <a href="viber://chat?number=+380687805277" target="_blank" aria-label="Наш Viber"><i class="fab fa-viber"></i></a>
+            </div>
+            <p>&copy; 2024 GravikMemories. Всі права захищені.</p>
+        </div>
+    </footer>
 
-    if (orderForm) {
-        orderForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const hasFreeItem = cart.some(item => item.id.startsWith('extra1-'));
-            const hasMainProduct = cart.some(item => item.id.startsWith('product'));
+    <div id="imageModal" class="modal">
+        <span class="close" id="closeModalButton">&times;</span>
+        <img class="modal-content" id="expandedImg">
+        <button class="modal-nav prev" id="modalPrev">&#10094;</button>
+        <button class="modal-nav next" id="modalNext">&#10095;</button>
+        <div class="modal-dots" id="modalDotsContainer"></div>
+    </div>
 
-            if (hasFreeItem && !hasMainProduct) {
-                showCustomAlert('Вибачте, але безкоштовний ланцюжок можна замовити тільки якщо ви замовляєте будь-який жетон');
-                cart = cart.filter(item => !item.id.startsWith('extra1-'));
-                showCartView();
-                updateCart();
-                return;
-            }
-            
-            if (cart.length === 0) {
-                showCustomAlert('Ваша корзина порожня!');
-                return;
-            }
+    <div class="quick-order-widget" id="quickOrderWidget">
+        <div class="order-trigger" id="orderTrigger">
+            <i class="fas fa-phone"></i>
+            <span></span>
+        </div>
+        <div class="order-popup">
+            <form id="quickOrderForm">
+                <button type="button" class="close-popup" id="closePopup">&times;</button>
+                <p>Введіть ваш номер, і ми скоро зателефонуємо.</p>
+                <input type="tel" id="clientPhone" placeholder="+380 XX XXX XX XX" required>
+                <button type="submit">Чекаю на дзвінок</button>
+            </form>
+        </div>
+    </div>
 
-            const clientName = document.getElementById('clientName').value;
-            const clientPhone = document.getElementById('clientPhoneCart').value;
-            const clientViberTelegram = document.getElementById('clientViberTelegram').value;
-            
-            const TOKEN = "ВАШ_ТОКЕН_БОТА";
-            const CHAT_ID = "ВАШ_ID_ЧАТА";
-            
-            if (TOKEN === "ВАШ_ТОКЕН_БОТА" || CHAT_ID === "ВАШ_ID_ЧАТА") {
-                showCustomAlert("Помилка: Не налаштовано дані для відправки в Telegram. Зверніться до розробника.");
-                return;
-            }
+    <div id="cartModal" class="cart-modal">
+        <div class="cart-modal-content">
+            <div class="cart-modal-header">
+                <h2><i class="fas fa-shopping-cart"></i> Ваша корзина</h2>
+                <span class="close-cart-btn" id="closeCartBtn">&times;</span>
+            </div>
+            <div id="cartItemsContainer" class="cart-items-container">
+                </div>
+            <div id="cartSummary" class="cart-summary">
+                </div>
+            <div id="cartOrderFormContainer" class="cart-order-form">
+                <a href="#" id="backToCartBtn" class="back-to-cart-link"><i class="fas fa-arrow-left"></i> Повернутися до товарів</a>
+                <h3>Оформлення замовлення</h3>
+                <form id="orderForm">
+                    <div class="form-group">
+                        <label for="clientName">Ваше ім'я:</label>
+                        <input type="text" id="clientName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="clientPhoneCart">Ваш телефон:</label>
+                        <input type="tel" id="clientPhoneCart" placeholder="+380 XX XXX XX XX" required>
+                    </div>
+                    <div class="form-group">
+        <label for="clientViberTelegram">Ваш Viber або Telegram:</label>
+        <input type="text" id="clientViberTelegram" placeholder="Введіть номер або @username">
+    </div>
+                    <button type="submit" class="cta-button place-order-btn">Замовити</button>
+                </form>
+            </div>
+        </div>
+    </div>
 
-            let message = `<b>Нове замовлення з сайту!</b>\n\n`;
-            message += `<b>Ім'я:</b> ${clientName}\n`;
-            message += `<b>Телефон:</b> ${clientPhone}\n`;
-            
-            if (clientViberTelegram) {
-                message += `<b>Viber/Telegram:</b> ${clientViberTelegram}\n`;
-            }
+    <div id="successModal" class="success-modal">
+        <div class="success-modal-content">
+            <div class="success-icon">
+                <i class="fas fa-check"></i>
+            </div>
+            <h2>Замовлення прийнято!</h2>
+            <p>Дякуємо! Ми зв'яжемося з вами найближчим часом для уточнення деталей.</p>
+        </div>
+    </div>
+    <script src="script.js"></script>
 
-            message += `\n<b>Товари в замовленні:</b>\n`;
-            
-            let totalPrice = 0;
-            cart.forEach(item => {
-                message += `— ${item.name} (x${item.quantity}) - ${item.price * item.quantity} грн\n`;
-                totalPrice += item.price * item.quantity;
-            });
-            
-            message += `\n<b>Загальна сума: ${totalPrice.toFixed(2)} грн</b>`;
-
-            const url = `https://api.telegram.org/bot${TOKEN}/sendMessage`;
-            const params = { chat_id: CHAT_ID, text: message, parse_mode: 'HTML' };
-
-            fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(params)
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.ok) {
-                    if(successModal) successModal.style.display = 'flex';
-                    if(cartModal) cartModal.style.display = 'none';
-                    body.classList.remove('menu-open');
-                    cart = [];
-                    updateCart();
-                    orderForm.reset();
-                    setTimeout(() => {
-                        if(successModal) successModal.style.display = 'none';
-                    }, 4000);
-                } else { throw new Error(data.description); }
-            })
-            .catch(error => {
-                console.error('Помилка відправки в Telegram:', error);
-                showCustomAlert('Виникла помилка при оформленні замовлення.');
-            });
-        });
-    }
-    updateCart();
-
-    // --- ЛОГІКА ВІДЕОПЛЕЄРА (ПОЛНАЯ ВЕРСИЯ) ---
-    const playerWrapper = document.querySelector('.player-wrapper');
-    if (playerWrapper) {
-        // ... (весь код видеоплеера)
-    }
-});
+    <div id="customAlertModal" class="custom-alert-modal">
+    <div class="custom-alert-content">
+        <span class="custom-alert-close-btn">&times;</span>
+        <p class="custom-alert-message"></p>
+        <button class="custom-alert-ok-btn">OK</button>
+    </div>
+</div>
+</body>
+</html>
