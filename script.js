@@ -336,11 +336,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const customAlertOkBtn = customAlertModal.querySelector('.custom-alert-ok-btn');
 
        window.showCustomAlert = function(message) {
-    if (customAlertMessage) {
-        customAlertMessage.textContent = message;
-        customAlertModal.style.display = 'block'; // <-- возвращаем block
-    }
-}
+		   if (customAlertMessage) {
+			   customAlertMessage.textContent = message;
+			   customAlertModal.style.display = 'block';
+		   }
+		}
 
         const closeCustomAlert = () => {
             customAlertModal.style.display = "none";
@@ -355,14 +355,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     } else {
-        // Запасной вариант, если HTML для модального окна не найден
         window.showCustomAlert = function(message) {
             alert(message);
         }
     }
 
     // =======================================================
-    // --- ЛОГІКА КОРЗИНИ ---
+    // --- ЛОГІКА КОРЗИНИ (ОБНОВЛЕНА ВЕРСІЯ) ---
     // =======================================================
     const cartIcon = document.getElementById('cart-icon');
     const cartModal = document.getElementById('cartModal');
@@ -372,25 +371,65 @@ document.addEventListener('DOMContentLoaded', () => {
     const cartSummaryEl = document.getElementById('cartSummary');
     const orderForm = document.getElementById('orderForm');
     const successModal = document.getElementById('successModal');
-    const cartOrderFormContainer = document.getElementById('cartOrderFormContainer');
+    // Получаем главный контейнер контента модального окна
+    const cartModalContent = cartModal ? cartModal.querySelector('.cart-modal-content') : null;
     let cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
+
+    // --- Переключение вида в корзине ---
+    function showCartView() {
+        if (cartModalContent) {
+            cartModalContent.classList.remove('checkout-view');
+        }
+    }
+
+    function showCheckoutView() {
+        if (cartModalContent) {
+            cartModalContent.classList.add('checkout-view');
+        }
+    }
 
     if (cartIcon && cartModal && closeCartBtn) {
         cartIcon.addEventListener('click', () => {
             cartModal.style.display = 'block';
             body.classList.add('menu-open');
+            // При каждом открытии показываем список товаров
+            showCartView();
             updateCart();
+            // ↓↓↓ ДОБАВЛЕНА ЭТА СТРОКА ↓↓↓
+    history.pushState({ modal: 'cart' }, 'Корзина', '#cart');
+            
         });
         const closeCartModal = () => {
             cartModal.style.display = 'none';
             body.classList.remove('menu-open');
         };
         closeCartBtn.addEventListener('click', closeCartModal);
-        window.addEventListener('click', (event) => {
-            if (event.target == cartModal) {
-                closeCartModal();
-            }
-        });
+
+        // Делегирование событий для кнопок "Оформить", "Назад" и "Доп. товары"
+cartModal.addEventListener('click', (event) => {
+    // Если нажали на новую кнопку "Обрати додаткові товари"
+    if (event.target.id === 'chooseExtrasBtn') {
+        const extrasSection = document.getElementById('extras');
+        if (extrasSection) {
+            closeCartModal(); // Закрываем корзину
+            // Плавно прокручиваем к секции с доп. товарами
+            extrasSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    } 
+    // Если нажали "Оформить заказ"
+    else if (event.target.id === 'checkoutBtn') {
+        showCheckoutView();
+    } 
+    // Если нажали "Назад к товарам"
+    else if (event.target.id === 'backToCartBtn') {
+        event.preventDefault();
+        showCartView();
+    } 
+    // Если кликнули на фон для закрытия
+    else if (event.target == cartModal) {
+        closeCartModal();
+    }
+});
     }
     
     document.querySelectorAll('.add-to-cart-btn').forEach(button => {
@@ -459,9 +498,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 button.disabled = false;
             }, 2000);
         } else {
+            // Исправлено: иконка должна быть внутри тега <i>
             button.innerHTML = '<i class="fas fa-check"></i> Додано!';
             setTimeout(() => {
-                button.innerHTML = 'Замовити';
+                // Исправлено: текст кнопки при возвращении
+                button.innerHTML = '<i class="fas fa-cart-plus"></i>Замовити';
                 button.classList.remove('added');
                 button.disabled = false;
             }, 2000);
@@ -481,9 +522,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (button && button.classList.contains('add-to-cart-btn')) {
              if (cartModal) {
-                cartModal.style.display = 'block';
-                body.classList.add('menu-open');
-            }
+                 cartModal.style.display = 'block';
+                 body.classList.add('menu-open');
+                 // Убедимся, что при добавлении товара показывается список
+                 showCartView();
+             }
         }
     }
 
@@ -495,14 +538,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderCartItems() {
-        if (!cartItemsContainer || !cartOrderFormContainer) return;
+        if (!cartItemsContainer) return;
         if (cart.length === 0) {
             cartItemsContainer.innerHTML = '<p class="cart-empty-message">Ваша корзина порожня</p>';
-            cartOrderFormContainer.style.display = 'none';
             cartSummaryEl.innerHTML = '';
             return;
         }
-        cartOrderFormContainer.style.display = 'block';
+        
         cartItemsContainer.innerHTML = '';
         cart.forEach(item => {
             const itemEl = document.createElement('div');
@@ -525,23 +567,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     function renderCartSummary() {
-        const placeOrderBtn = document.querySelector('.place-order-btn');
-        if (!cartSummaryEl || !placeOrderBtn) return;
+    if (!cartSummaryEl) return;
+    const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    
+    if (cart.length > 0) {
+        // Теперь здесь рендерится и кнопка "Оформить заказ"
+        cartSummaryEl.innerHTML = `
+            <h3>Загальна сума: ${totalPrice.toFixed(2)} грн</h3>
+            
+            <button id="chooseExtrasBtn" class="cta-button secondary-btn">Обрати додаткові товари</button>
 
-        const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-        
-        if (cart.length > 0) {
-            cartSummaryEl.innerHTML = `<h3>Загальна сума: ${totalPrice.toFixed(2)} грн</h3>`;
-            placeOrderBtn.disabled = false;
-            placeOrderBtn.style.opacity = '1';
-            placeOrderBtn.style.cursor = 'pointer';
-        } else {
-            cartSummaryEl.innerHTML = '';
-            placeOrderBtn.disabled = true;
-            placeOrderBtn.style.opacity = '0.5';
-            placeOrderBtn.style.cursor = 'not-allowed';
-        }
+            <button id="checkoutBtn" class="cta-button">Оформити замовлення</button>
+        `;
+    } else {
+        cartSummaryEl.innerHTML = '';
     }
+}
     
     function updateCartIcon() {
         const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -568,6 +609,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.removeItemFromCart = (productId) => {
         cart = cart.filter(item => item.id !== productId);
+        // При удалении товара всегда возвращаемся к списку
+        showCartView();
         updateCart();
     };
 
@@ -581,6 +624,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (hasFreeItem && !hasMainProduct) {
                 showCustomAlert('Вибачте, але безкоштовний ланцюжок можна замовити тільки якщо ви замовляєте будь-який жетон');
                 cart = cart.filter(item => !item.id.startsWith('extra1-'));
+                showCartView();
                 updateCart();
                 return;
             }
@@ -734,3 +778,35 @@ if (playerWrapper) {
 
     observer.observe(playerWrapper);
 }
+
+// --- Анимация переключателя "Брелок/Кулон" при каждом появлении на экране ---
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Находим наш блок по ID
+    const switcherCard = document.getElementById('extra-item-switcher');
+
+    if (!switcherCard) return;
+
+    // 2. Создаем "наблюдателя"
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const inactiveLabel = switcherCard.querySelector('input:not(:checked) + label');
+            if (!inactiveLabel) return;
+
+            if (entry.isIntersecting) {
+                // Код, когда элемент ВИДЕН на экране:
+                // Добавляем класс, чтобы запустить анимацию
+                inactiveLabel.classList.add('start-jiggling');
+
+            } else {
+                // НОВЫЙ КОД: когда элемент ИСЧЕЗАЕТ с экрана:
+                // Убираем класс, чтобы "сбросить" анимацию для следующего раза
+                inactiveLabel.classList.remove('start-jiggling');
+            }
+        });
+    }, {
+        threshold: 0.5 // Порог срабатывания 50%
+    });
+
+    // 3. Говорим "наблюдателю" следить за нашим блоком
+    observer.observe(switcherCard);
+});
