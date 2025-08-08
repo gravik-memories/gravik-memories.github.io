@@ -740,9 +740,7 @@ body.menu-open {
     font-weight: bold;
 }
 
-#extras-followup {
-    padding-top: 0 ;
-}
+
 /* --- Адаптивність --- */
 @media (max-width: 992px) {
     /* ... (ваши старые стили для адаптивности) ... */
@@ -1083,4 +1081,163 @@ body.menu-open {
 
 .custom-alert-ok-btn:hover {
     background-color: #0056b3;
+}
+
+/* --- СТИЛИ ДЛЯ ДВУХШАГОВОЙ КОРЗИНЫ --- */
+
+/* 1. По умолчанию скрываем контейнер с формой заказа */
+#cartOrderFormContainer {
+    display: none;
+}
+
+/* 2. Стили для ссылки "Назад к товарам" */
+.back-to-cart-link {
+    display: block;
+    margin-bottom: 15px;
+    color: #2ecc71;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9em;
+    transition: color 0.3s;
+}
+
+.back-to-cart-link:hover {
+    color: var(--accent-color);
+}
+
+.back-to-cart-link i {
+    margin-right: 8px;
+}
+
+/* 3. Кнопка "Оформить заказ" под списком товаров */
+#checkoutBtn {
+    width: 100%;
+    margin-top: 15px;
+    padding: 12px;
+    font-size: 1.1em;
+}
+
+/* 4. Логика переключения вида с помощью класса 'checkout-view' */
+
+/* Когда добавляется класс 'checkout-view', мы скрываем товары и итоги */
+.cart-modal-content.checkout-view .cart-items-container,
+.cart-modal-content.checkout-view .cart-summary {
+    display: none;
+}
+
+/* И одновременно показываем контейнер с формой */
+.cart-modal-content.checkout-view #cartOrderFormContainer {
+    display: block;
+}
+
+/* --- СТИЛЬ ДЛЯ КНОПКИ ДОП. ТОВАРОВ --- */
+
+/* Стиль для кнопки "Обрати додаткові товари", чтобы она не была такой яркой */
+.secondary-btn {
+    background-color: #f0f2f5; /* Светлый фон */
+    color: var(--primary-color); /* Темный текст */
+    border: 2px solid #c19a6b; /* Светлая рамка */
+}
+
+.secondary-btn:hover {
+    background-color: #e2e6ea; /* Немного темнее при наведении */
+    color: var(--primary-color);
+}
+
+/* Добавим отступ между кнопками в корзине */
+#chooseExtrasBtn {
+    margin-bottom: 10px;
+}
+
+/* 1. Сама анимация (остается без изменений) */
+@keyframes jiggle {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(3px); }
+  50% { transform: translateX(3px); }
+  75% { transform: translateX(-2px); }
+}
+@keyframes flash {
+  0%, 100% {
+    background-color: transparent; /* Початковий прозорий фон */
+    color: inherit; /* Успадковуємо колір тексту */
+  }
+  50% {
+    background-color: rgba(193, 154, 107, 0.5); /* Напівпрозорий акцентний колір */
+    color: #222; /* Темний колір тексту для кращої видимості */
+  }
+}
+
+/* 2. Класс, который будет ЗАПУСКАТЬ анимацию. 
+   Мы будем добавлять его через JavaScript */
+.start-jiggling {
+  /* Название анимации */
+  animation-name: flash;
+  /* Длительность одного цикла */
+  animation-duration: 0.7s;
+  /* Сколько раз повторить */
+  animation-iteration-count: 2; /* <-- Вот ваши 3 повторения! */
+  /* Плавность */
+  animation-timing-function: ease-in-out;
+}
+
+
+/* --- АНИМАЦИЯ ЗВЕЗДОЧКИ ДЛЯ КНОПОК "+" --- */
+
+/* 1. Создаем саму анимацию "сверкания" */
+@keyframes sparkle {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5) rotate(270deg);
+    opacity: 0;
+  }
+}
+
+/* --- АНИМАЦИЯ СВЕЧЕНИЯ ДЛЯ КНОПОК "+" (НАДЕЖНЫЙ МЕТОД) --- */
+
+/* 1. Создаем ключевые кадры для анимации свечения */
+@keyframes final-glow {
+  /* Большая часть времени анимация невидима, это создает интервал в 10 секунд */
+  0%, 20%, 100% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  /* Короткий "всплеск" свечения */
+  10% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+}
+
+/* 2. Делаем кнопку контейнером для псевдоэлемента */
+.add-extra-to-cart {
+  position: relative;
+  /* Важно, чтобы свечение было видно за пределами кнопки */
+  overflow: visible; 
+}
+
+/* 3. Создаем само свечение с помощью псевдоэлемента ::before */
+.add-extra-to-cart::before {
+  content: ''; /* Обязательно для псевдоэлемента */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  /* Создаем круглое свечение с помощью радиального градиента */
+  background: radial-gradient(circle, white 0%, rgba(255, 255, 255, 0) 70%);
+  
+  border-radius: 50%; /* Форма свечения - круг */
+  
+  /* По умолчанию свечение невидимо */
+  opacity: 0;
+
+  /* Применяем нашу 10-секундную бесконечную анимацию */
+  animation: final-glow 10s infinite;
 }
