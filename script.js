@@ -1,303 +1,184 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // =======================================================
-    // --- ОБЩИЕ ПЕРЕМЕННЫЕ И ФУНКЦИИ ---
-    // =======================================================
-    const body = document.body;
-    const overlay = document.querySelector('.overlay');
-
-    // --- Модальное окно для изображений ---
-    const imageModal = document.getElementById("imageModal");
-    const modalImg = document.getElementById("expandedImg");
-    const closeImageModalButton = document.getElementById("closeModalButton");
-
-    const closeImageModalLogic = () => {
-        if (imageModal && imageModal.style.display === "block") {
-            body.classList.remove('menu-open');
-            imageModal.style.display = "none";
-        }
-    };
-
-    // --- Корзина ---
-    const cartModal = document.getElementById('cartModal');
-    const closeCartBtn = document.getElementById('closeCartBtn');
-
-    const closeCartModal = () => {
-        if (cartModal && cartModal.style.display === 'block') {
-            cartModal.style.display = 'none';
-            body.classList.remove('menu-open');
-        }
-    };
-
-    // =======================================================
-    // --- ГЛАВНЫЙ ОБРАБОТЧИК КНОПКИ "НАЗАД" (POPSTATE) ---
-    // =======================================================
-    // Он должен быть здесь, в общей области видимости, чтобы работать всегда
-    window.addEventListener('popstate', function(event) {
-        // Эта функция теперь правильно закроет любое открытое модальное окно
-        closeCartModal();
-        closeImageModalLogic();
-    });
-
-    // =======================================================
-    // --- МОБИЛЬНОЕ МЕНЮ ---
-    // =======================================================
+    // --- Мобильное меню (ФИНАЛЬНАЯ ВЕРСИЯ) ---
     const menuToggle = document.getElementById('mobile-menu');
     const navMenu = document.getElementById('nav-menu');
+    const overlay = document.querySelector('.overlay');
+    const body = document.body;
+
     const closeMenu = () => {
         navMenu.classList.remove('active');
         overlay.classList.remove('active');
         body.classList.remove('menu-open');
     };
+
     if (menuToggle && navMenu && overlay) {
         menuToggle.addEventListener('click', () => {
             navMenu.classList.toggle('active');
             overlay.classList.toggle('active');
             body.classList.toggle('menu-open');
         });
+
         overlay.addEventListener('click', closeMenu);
     }
 
-    // =======================================================
-    // --- ЛОГИКА КОРЗИНЫ ---
-    // =======================================================
-    const cartIcon = document.getElementById('cart-icon');
-    const cartCountEl = document.getElementById('cart-count');
-    const cartItemsContainer = document.getElementById('cartItemsContainer');
-    const cartSummaryEl = document.getElementById('cartSummary');
-    const orderForm = document.getElementById('orderForm');
-    const successModal = document.getElementById('successModal');
-    const cartModalContent = cartModal ? cartModal.querySelector('.cart-modal-content') : null;
-    let cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
-
-    function showCartView() {
-        if (cartModalContent) {
-            cartModalContent.classList.remove('checkout-view');
-        }
+    // --- Логика для таймера зворотного відліку ---
+    let promotionEndDate;
+    const startOrResetTimer = () => {
+        const twoDaysInMs = 2 * 24 * 60 * 60 * 1000;
+        promotionEndDate = new Date().getTime() + twoDaysInMs;
+        localStorage.setItem('promotionEndDate', promotionEndDate);
+    };
+    const storedEndDate = localStorage.getItem('promotionEndDate');
+    if (storedEndDate && new Date().getTime() < parseInt(storedEndDate)) {
+        promotionEndDate = parseInt(storedEndDate);
+    } else {
+        startOrResetTimer();
     }
-
-    function showCheckoutView() {
-        if (cartModalContent) {
-            cartModalContent.classList.add('checkout-view');
+    const countdownFunction = setInterval(() => {
+        const now = new Date().getTime();
+        const distance = promotionEndDate - now;
+        if (distance < 0) {
+            startOrResetTimer();
         }
-    }
+        const remainingDistance = Math.max(0, distance);
+        const days = Math.floor(remainingDistance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((remainingDistance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((remainingDistance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((remainingDistance % (1000 * 60)) / 1000);
+        const format = (num) => num < 10 ? '0' + num : num;
+        const daysEl = document.getElementById("days");
+        if (daysEl) daysEl.innerText = format(days);
+        const hoursEl = document.getElementById("hours");
+        if (hoursEl) hoursEl.innerText = format(hours);
+        const minutesEl = document.getElementById("minutes");
+        if (minutesEl) minutesEl.innerText = format(minutes);
+        const secondsEl = document.getElementById("seconds");
+        if (secondsEl) secondsEl.innerText = format(seconds);
+    }, 1000);
 
-    if (cartIcon && cartModal && closeCartBtn) {
-        cartIcon.addEventListener('click', () => {
-            cartModal.style.display = 'block';
-            body.classList.add('menu-open');
-            showCartView();
-            updateCart();
-            history.pushState({ modal: 'cart' }, 'Корзина', '#cart');
-        });
-        
-        closeCartBtn.addEventListener('click', () => history.back());
-
-        cartModal.addEventListener('click', (event) => {
-            if (event.target.id === 'chooseExtrasBtn') {
-                const extrasSection = document.getElementById('extras');
-                if (extrasSection) {
-                    history.back(); // Закрываем корзину через историю
-                    extrasSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // --- Плавне прокручування ---
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            if (href === '#') return;
+            const targetElement = document.querySelector(href);
+            if (targetElement) {
+                e.preventDefault();
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+                if (navMenu && navMenu.classList.contains('active')) {
+                    closeMenu();
                 }
-            } else if (event.target.id === 'checkoutBtn') {
-                showCheckoutView();
-            } else if (event.target.id === 'backToCartBtn') {
-                event.preventDefault();
-                showCartView();
-            } else if (event.target == cartModal) {
+            }
+        });
+    });
+
+    // --- Слайдери в секції "Приклади робіт" ---
+    let sliderStates = [];
+    const galleryContainers = document.querySelectorAll('.rectangular-gallery .gallery-container');
+    galleryContainers.forEach((container, index) => {
+        sliderStates.push({
+            id: `slider${index + 1}`,
+            currentSlide: 0,
+            container: container,
+            totalSlides: container.children.length,
+            intervalId: null
+        });
+        const prevButton = document.getElementById(`prev${index + 1}`);
+        const nextButton = document.getElementById(`next${index + 1}`);
+        const startAutoPlay = () => {
+            if (sliderStates[index] && sliderStates[index].intervalId) clearInterval(sliderStates[index].intervalId);
+            sliderStates[index].intervalId = setInterval(() => moveGallery(index, 1), 10000);
+        };
+        const moveAndReset = (direction) => {
+            moveGallery(index, direction);
+            startAutoPlay();
+        };
+        if (prevButton) prevButton.onclick = () => moveAndReset(-1);
+        if (nextButton) nextButton.onclick = () => moveAndReset(1);
+        startAutoPlay();
+    });
+
+    function moveGallery(sliderIndex, direction) {
+        let state = sliderStates[sliderIndex];
+        if (!state || state.totalSlides === 0) return;
+        state.currentSlide = (state.currentSlide + direction + state.totalSlides) % state.totalSlides;
+        state.container.style.transform = `translateX(-${state.currentSlide * 100}%)`;
+    }
+
+    // --- КОД МОДАЛЬНОГО ВІКНА ДЛЯ ИЗОБРАЖЕНИЙ ---
+    const imageModal = document.getElementById("imageModal");
+    const modalImg = document.getElementById("expandedImg");
+    const closeImageModalButton = document.getElementById("closeModalButton");
+    const modalPrevBtn = document.getElementById("modalPrev");
+    const modalNextBtn = document.getElementById("modalNext");
+    const dotsContainer = document.getElementById('modalDotsContainer');
+    let currentModalImages = [];
+    let currentImageIndex = 0;
+
+    function openImageModal(isGallery, imagesOrSrc, startIndex = 0) {
+        if (!imageModal) return;
+        body.classList.add('menu-open');
+        imageModal.style.display = "block";
+        currentModalImages = Array.isArray(imagesOrSrc) ? imagesOrSrc : [imagesOrSrc];
+        currentImageIndex = startIndex;
+        
+        const hasMultipleImages = currentModalImages.length > 1;
+        modalPrevBtn.classList.toggle('is-visible', hasMultipleImages);
+        modalNextBtn.classList.toggle('is-visible', hasMultipleImages);
+        
+        dotsContainer.innerHTML = '';
+        if (hasMultipleImages) {
+            currentModalImages.forEach((_, index) => {
+                const dot = document.createElement('span');
+                dot.classList.add('dot');
+                dot.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    showImage(index);
+                });
+                dotsContainer.appendChild(dot);
+            });
+        }
+        
+        if (hasMultipleImages) {
+            imageModal.addEventListener('touchstart', handleTouchStart, { passive: true });
+            imageModal.addEventListener('touchmove', handleTouchMove, { passive: true });
+            imageModal.addEventListener('touchend', handleTouchEnd);
+        }
+        
+        showImage(currentImageIndex);
+        document.addEventListener('keydown', handleKeyDown);
+        history.pushState({ modalOpen: true }, "");
+    }
+
+    function closeImageModalLogic() {
+        if (imageModal && imageModal.style.display === "block") {
+            body.classList.remove('menu-open');
+            imageModal.style.display = "none";
+            document.removeEventListener('keydown', handleKeyDown);
+            imageModal.removeEventListener('touchstart', handleTouchStart);
+            imageModal.removeEventListener('touchmove', handleTouchMove);
+            imageModal.removeEventListener('touchend', handleTouchEnd);
+            if (dotsContainer) dotsContainer.innerHTML = '';
+        }
+    }
+
+    if (imageModal) {
+        window.addEventListener('popstate', (e) => {
+             if (e.state && e.state.modalOpen) {
+                 closeImageModalLogic();
+             } else if (!e.state) {
+                 closeImageModalLogic();
+             }
+        });
+        if (closeImageModalButton) closeImageModalButton.addEventListener('click', () => history.back());
+        imageModal.addEventListener('click', (event) => {
+            if (event.target === imageModal) {
                 history.back();
             }
         });
+        if (modalPrevBtn) modalPrevBtn.addEventListener('click', (e) => { e.stopPropagation(); showImage(currentImageIndex - 1); });
+        if (modalNextBtn) modalNextBtn.addEventListener('click', (e) => { e.stopPropagation(); showImage(currentImageIndex + 1); });
     }
-    
-    // (далее идет весь остальной ваш код для корзины без изменений: 
-    // updateCart, renderCartItems, addToCart и т.д.)
-    function updateCart() {
-        if(cartItemsContainer) renderCartItems();
-        if(cartSummaryEl) renderCartSummary();
-        if(cartCountEl) updateCartIcon();
-        localStorage.setItem('shoppingCart', JSON.stringify(cart));
-    }
-
-    function renderCartSummary() {
-        if (!cartSummaryEl) return;
-        const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-        if (cart.length > 0) {
-            cartSummaryEl.innerHTML = `
-                <h3>Загальна сума: ${totalPrice.toFixed(2)} грн</h3>
-                <button id="chooseExtrasBtn" class="cta-button secondary-btn">Обрати додаткові товари</button>
-                <button id="checkoutBtn" class="cta-button">Оформити замовлення</button>
-            `;
-        } else {
-            cartSummaryEl.innerHTML = '';
-        }
-    }
-
-    // ... и так далее, весь остальной код, который я не стал сюда копировать,
-    // чтобы не делать ответ гигантским. Вставьте ВЕСЬ ОСТАЛЬНОЙ КОД ОТСЮДА
-
-    // --- Логика для таймера зворотного відліку ---
-    let promotionEndDate;
-    const startOrResetTimer = () => {
-        const twoDaysInMs = 2 * 24 * 60 * 60 * 1000;
-        promotionEndDate = new Date().getTime() + twoDaysInMs;
-        localStorage.setItem('promotionEndDate', promotionEndDate);
-    };
-    const storedEndDate = localStorage.getItem('promotionEndDate');
-    if (storedEndDate && new Date().getTime() < parseInt(storedEndDate)) {
-        promotionEndDate = parseInt(storedEndDate);
-    } else {
-        startOrResetTimer();
-    }
-    const countdownFunction = setInterval(() => {
-        const now = new Date().getTime();
-        const distance = promotionEndDate - now;
-        if (distance < 0) {
-            startOrResetTimer();
-        }
-        const remainingDistance = Math.max(0, distance);
-        const days = Math.floor(remainingDistance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((remainingDistance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((remainingDistance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((remainingDistance % (1000 * 60)) / 1000);
-        const format = (num) => num < 10 ? '0' + num : num;
-        const daysEl = document.getElementById("days");
-        if (daysEl) daysEl.innerText = format(days);
-        const hoursEl = document.getElementById("hours");
-        if (hoursEl) hoursEl.innerText = format(hours);
-        const minutesEl = document.getElementById("minutes");
-        if (minutesEl) minutesEl.innerText = format(minutes);
-        const secondsEl = document.getElementById("seconds");
-        if (secondsEl) secondsEl.innerText = format(seconds);
-    }, 1000);
-
-    // --- Плавне прокручування ---
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            const href = this.getAttribute('href');
-            if (href === '#') return;
-            const targetElement = document.querySelector(href);
-            if (targetElement) {
-                e.preventDefault();
-                targetElement.scrollIntoView({ behavior: 'smooth' });
-                if (navMenu && navMenu.classList.contains('active')) {
-                    closeMenu();
-                }
-            }
-        });
-    });
-
-    // --- Слайдери в секції "Приклади робіт" ---
-    let sliderStates = [];
-    const galleryContainers = document.querySelectorAll('.rectangular-gallery .gallery-container');
-    galleryContainers.forEach((container, index) => {
-        sliderStates.push({
-            id: `slider${index + 1}`,
-            currentSlide: 0,
-            container: container,
-            totalSlides: container.children.length,
-            intervalId: null
-        });
-        const prevButton = document.getElementById(`prev${index + 1}`);
-        const nextButton = document.getElementById(`next${index + 1}`);
-        const startAutoPlay = () => {
-            if (sliderStates[index] && sliderStates[index].intervalId) clearInterval(sliderStates[index].intervalId);
-            sliderStates[index].intervalId = setInterval(() => moveGallery(index, 1), 10000);
-        };
-        const moveAndReset = (direction) => {
-            moveGallery(index, direction);
-            startAutoPlay();
-        };
-        if (prevButton) prevButton.onclick = () => moveAndReset(-1);
-        if (nextButton) nextButton.onclick = () => moveAndReset(1);
-        startAutoPlay();
-    });
-
-    function moveGallery(sliderIndex, direction) {
-        let state = sliderStates[sliderIndex];
-        if (!state || state.totalSlides === 0) return;
-        state.currentSlide = (state.currentSlide + direction + state.totalSlides) % state.totalSlides;
-        state.container.style.transform = `translateX(-${state.currentSlide * 100}%)`;
-    }
-
-    // --- КОД МОДАЛЬНОГО ВІКНА ДЛЯ ИЗОБРАЖЕНИЙ (продолжение) ---
-    const modalPrevBtn = document.getElementById("modalPrev");
-    const modalNextBtn = document.getElementById("modalNext");
-    const dotsContainer = document.getElementById('modalDotsContainer');
-    let currentModalImages = [];
-    let currentImageIndex = 0;
-
-    function openImageModal(isGallery, imagesOrSrc, startIndex = 0) {
-        if (!imageModal) return;
-        body.classList.add('menu-open');
-        imageModal.style.display = "block";
-        currentModalImages = Array.isArray(imagesOrSrc) ? imagesOrSrc : [imagesOrSrc];
-        currentImageIndex = startIndex;
-        const hasMultipleImages = currentModalImages.length > 1;
-        modalPrevBtn.classList.toggle('is-visible', hasMultipleImages);
-        modalNextBtn.classList.toggle('is-visible', hasMultipleImages);
-        dotsContainer.innerHTML = '';
-        if (hasMultipleImages) {
-            currentModalImages.forEach((_, index) => {
-                const dot = document.createElement('span');
-                dot.classList.add('dot');
-                dot.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    showImage(index);
-                });
-                dotsContainer.appendChild(dot);
-            });
-        }
-        if (hasMultipleImages) {
-            imageModal.addEventListener('touchstart', handleTouchStart, { passive: true });
-            imageModal.addEventListener('touchmove', handleTouchMove, { passive: true });
-            imageModal.addEventListener('touchend', handleTouchEnd);
-        }
-        showImage(currentImageIndex);
-        document.addEventListener('keydown', handleKeyDown);
-        history.pushState({ modalOpen: true }, "", "#gallery");
-    }
-
-    if (imageModal) {
-        if (closeImageModalButton) closeImageModalButton.addEventListener('click', () => history.back());
-        imageModal.addEventListener('click', (event) => {
-            if (event.target === imageModal) {
-                history.back();
-            }
-        });
-        if (modalPrevBtn) modalPrevBtn.addEventListener('click', (e) => { e.stopPropagation(); showImage(currentImageIndex - 1); });
-        if (modalNextBtn) modalNextBtn.addEventListener('click', (e) => { e.stopPropagation(); showImage(currentImageIndex + 1); });
-    }
-
-    // ... остальной код (showImage, handleKeyDown и т.д.)
-    function renderCartItems() {
-        if (!cartItemsContainer) return;
-        if (cart.length === 0) {
-            cartItemsContainer.innerHTML = '<p class="cart-empty-message">Ваша корзина порожня</p>';
-            cartSummaryEl.innerHTML = '';
-            return;
-        }
-        
-        cartItemsContainer.innerHTML = '';
-        cart.forEach(item => {
-            const itemEl = document.createElement('div');
-            itemEl.classList.add('cart-item');
-            itemEl.innerHTML = `
-                <img src="${item.image}" alt="${item.name}" class="cart-item-img">
-                <div class="cart-item-details">
-                    <h4>${item.name}</h4>
-                    <p class="price">${item.price} грн</p>
-                </div>
-                <div class="cart-item-controls">
-                    <button class="quantity-btn" onclick="changeQuantity('${item.id}', -1)">-</button>
-                    <span class="item-quantity">${item.quantity}</span>
-                    <button class="quantity-btn" onclick="changeQuantity('${item.id}', 1)">+</button>
-                    <button class="remove-item-btn" onclick="removeItemFromCart('${item.id}')"><i class="fas fa-trash-alt"></i></button>
-                </div>
-            `;
-            cartItemsContainer.appendChild(itemEl);
-        });
-    }
 
     function showImage(index) {
         if (!currentModalImages || currentModalImages.length === 0) return;
@@ -455,11 +336,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const customAlertOkBtn = customAlertModal.querySelector('.custom-alert-ok-btn');
 
        window.showCustomAlert = function(message) {
-            if (customAlertMessage) {
-                customAlertMessage.textContent = message;
-                customAlertModal.style.display = 'block';
-            }
-        }
+		   if (customAlertMessage) {
+			   customAlertMessage.textContent = message;
+			   customAlertModal.style.display = 'block';
+		   }
+		}
 
         const closeCustomAlert = () => {
             customAlertModal.style.display = "none";
@@ -478,8 +359,231 @@ document.addEventListener('DOMContentLoaded', () => {
             alert(message);
         }
     }
+
+    // =======================================================
+    // --- ЛОГІКА КОРЗИНИ (ОБНОВЛЕНА ВЕРСІЯ) ---
+    // =======================================================
+    const cartIcon = document.getElementById('cart-icon');
+    const cartModal = document.getElementById('cartModal');
+    const closeCartBtn = document.getElementById('closeCartBtn');
+    const cartCountEl = document.getElementById('cart-count');
+    const cartItemsContainer = document.getElementById('cartItemsContainer');
+    const cartSummaryEl = document.getElementById('cartSummary');
+    const orderForm = document.getElementById('orderForm');
+    const successModal = document.getElementById('successModal');
+    // Получаем главный контейнер контента модального окна
+    const cartModalContent = cartModal ? cartModal.querySelector('.cart-modal-content') : null;
+    let cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
+
+    // --- Переключение вида в корзине ---
+    function showCartView() {
+        if (cartModalContent) {
+            cartModalContent.classList.remove('checkout-view');
+        }
+    }
+
+    function showCheckoutView() {
+        if (cartModalContent) {
+            cartModalContent.classList.add('checkout-view');
+        }
+    }
+
+    if (cartIcon && cartModal && closeCartBtn) {
+        cartIcon.addEventListener('click', () => {
+            cartModal.style.display = 'block';
+            body.classList.add('menu-open');
+            // При каждом открытии показываем список товаров
+            showCartView();
+            updateCart();
+            // ↓↓↓ ДОБАВЛЕНА ЭТА СТРОКА ↓↓↓
+    history.pushState({ modal: 'cart' }, 'Корзина', '#cart');
+            
+        });
+        const closeCartModal = () => {
+            cartModal.style.display = 'none';
+            body.classList.remove('menu-open');
+        };
+        closeCartBtn.addEventListener('click', closeCartModal);
+
+        // Делегирование событий для кнопок "Оформить", "Назад" и "Доп. товары"
+cartModal.addEventListener('click', (event) => {
+    // Если нажали на новую кнопку "Обрати додаткові товари"
+    if (event.target.id === 'chooseExtrasBtn') {
+        const extrasSection = document.getElementById('extras');
+        if (extrasSection) {
+            closeCartModal(); // Закрываем корзину
+            // Плавно прокручиваем к секции с доп. товарами
+            extrasSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    } 
+    // Если нажали "Оформить заказ"
+    else if (event.target.id === 'checkoutBtn') {
+        showCheckoutView();
+    } 
+    // Если нажали "Назад к товарам"
+    else if (event.target.id === 'backToCartBtn') {
+        event.preventDefault();
+        showCartView();
+    } 
+    // Если кликнули на фон для закрытия
+    else if (event.target == cartModal) {
+        closeCartModal();
+    }
+});
+    }
     
-    // --- ЛОГІКА КОРЗИНИ (продолжение) ---
+    document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const card = e.target.closest('.product-card');
+            const product = {
+                id: card.dataset.id,
+                name: card.dataset.name,
+                price: parseFloat(card.dataset.price),
+                image: card.dataset.image,
+                quantity: 1
+            };
+            addToCart(product, button);
+        });
+    });
+
+    document.querySelectorAll('.add-extra-to-cart').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const card = e.target.closest('.extra-item');
+            
+            if (card.dataset.id === 'extra1') {
+                const selectedOption = card.querySelector('input[name="option-type-extra1"]:checked');
+                const productName = selectedOption.dataset.name;
+                const productImage = (productName === 'Кулон') 
+                    ? card.dataset.imageKulon 
+                    : card.dataset.imageBrelok;
+
+                cart = cart.filter(item => item.id !== 'extra1-Брелок' && item.id !== 'extra1-Кулон');
+
+                const product = {
+                    id: 'extra1-' + productName,
+                    name: productName,
+                    price: parseFloat(card.dataset.price),
+                    image: productImage,
+                    quantity: 1
+                };
+                
+                cart.push(product);
+                updateCart();
+                animateButton(button);
+
+            } else {
+                const product = {
+                    id: card.dataset.id,
+                    name: card.dataset.name,
+                    price: parseFloat(card.dataset.price),
+                    image: card.dataset.imageBrelok || card.querySelector('img').src,
+                    quantity: 1
+                };
+                addToCart(product, button);
+            }
+        });
+    });
+
+    function animateButton(button) {
+        if (!button) return;
+        
+        button.classList.add('added');
+        button.disabled = true;
+
+        if (button.classList.contains('add-extra-to-cart')) {
+            button.innerHTML = '<i class="fas fa-check"></i>';
+            setTimeout(() => {
+                button.innerHTML = '+';
+                button.classList.remove('added');
+                button.disabled = false;
+            }, 2000);
+        } else {
+            // Исправлено: иконка должна быть внутри тега <i>
+            button.innerHTML = '<i class="fas fa-check"></i> Додано!';
+            setTimeout(() => {
+                // Исправлено: текст кнопки при возвращении
+                button.innerHTML = '<i class="fas fa-cart-plus"></i>Замовити';
+                button.classList.remove('added');
+                button.disabled = false;
+            }, 2000);
+        }
+    }
+    
+    function addToCart(product, button) {
+        const existingProductIndex = cart.findIndex(item => item.id === product.id);
+        if (existingProductIndex > -1) {
+            cart[existingProductIndex].quantity += 1;
+        } else {
+            cart.push(product);
+        }
+
+        animateButton(button);
+        updateCart();
+
+        if (button && button.classList.contains('add-to-cart-btn')) {
+             if (cartModal) {
+                 cartModal.style.display = 'block';
+                 body.classList.add('menu-open');
+                 // Убедимся, что при добавлении товара показывается список
+                 showCartView();
+             }
+        }
+    }
+
+    function updateCart() {
+        if(cartItemsContainer) renderCartItems();
+        if(cartSummaryEl) renderCartSummary();
+        if(cartCountEl) updateCartIcon();
+        localStorage.setItem('shoppingCart', JSON.stringify(cart));
+    }
+
+    function renderCartItems() {
+        if (!cartItemsContainer) return;
+        if (cart.length === 0) {
+            cartItemsContainer.innerHTML = '<p class="cart-empty-message">Ваша корзина порожня</p>';
+            cartSummaryEl.innerHTML = '';
+            return;
+        }
+        
+        cartItemsContainer.innerHTML = '';
+        cart.forEach(item => {
+            const itemEl = document.createElement('div');
+            itemEl.classList.add('cart-item');
+            itemEl.innerHTML = `
+                <img src="${item.image}" alt="${item.name}" class="cart-item-img">
+                <div class="cart-item-details">
+                    <h4>${item.name}</h4>
+                    <p class="price">${item.price} грн</p>
+                </div>
+                <div class="cart-item-controls">
+                    <button class="quantity-btn" onclick="changeQuantity('${item.id}', -1)">-</button>
+                    <span class="item-quantity">${item.quantity}</span>
+                    <button class="quantity-btn" onclick="changeQuantity('${item.id}', 1)">+</button>
+                    <button class="remove-item-btn" onclick="removeItemFromCart('${item.id}')"><i class="fas fa-trash-alt"></i></button>
+                </div>
+            `;
+            cartItemsContainer.appendChild(itemEl);
+        });
+    }
+    
+    function renderCartSummary() {
+    if (!cartSummaryEl) return;
+    const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    
+    if (cart.length > 0) {
+        // Теперь здесь рендерится и кнопка "Оформить заказ"
+        cartSummaryEl.innerHTML = `
+            <h3>Загальна сума: ${totalPrice.toFixed(2)} грн</h3>
+            
+            <button id="chooseExtrasBtn" class="cta-button secondary-btn">Обрати додаткові товари</button>
+
+            <button id="checkoutBtn" class="cta-button">Оформити замовлення</button>
+        `;
+    } else {
+        cartSummaryEl.innerHTML = '';
+    }
+}
+    
     function updateCartIcon() {
         const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
         cartCountEl.textContent = totalItems;
@@ -505,6 +609,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.removeItemFromCart = (productId) => {
         cart = cart.filter(item => item.id !== productId);
+        // При удалении товара всегда возвращаемся к списку
         showCartView();
         updateCart();
     };
@@ -588,10 +693,121 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     updateCart();
-
-    // --- ЛОГІКА ВІДЕОПЛЕЄРА (ПОЛНАЯ ВЕРСИЯ) ---
-    const playerWrapper = document.querySelector('.player-wrapper');
-    if (playerWrapper) {
-        // ... (весь код видеоплеера)
-    }
 });
+
+// --- ЛОГІКА ВІДЕОПЛЕЄРА (ПОЛНАЯ ВЕРСИЯ) ---
+const playerWrapper = document.querySelector('.player-wrapper');
+if (playerWrapper) {
+    const video = playerWrapper.querySelector('.player');
+    const playButton = playerWrapper.querySelector('.toggle-play');
+    const volumeSlider = playerWrapper.querySelector('input[name="volume"]');
+    const fullscreenButton = playerWrapper.querySelector('.fullscreen');
+    const progressBar = playerWrapper.querySelector('.progress');
+    const progressFilled = playerWrapper.querySelector('.progress-filled');
+
+    function togglePlay() {
+        if (video.paused) {
+            video.play();
+        } else {
+            video.pause();
+        }
+    }
+
+    function updateButton() {
+        const icon = video.paused ? '►' : '❚❚';
+        if(playButton) playButton.textContent = icon;
+    }
+
+    function handleVolumeUpdate() {
+        if(video) video.volume = this.value;
+    }
+
+    function toggleFullscreen() {
+        if (!document.fullscreenElement) {
+            if(playerWrapper) playerWrapper.requestFullscreen().catch(err => {
+                showCustomAlert(`Помилка при переході в повноекранний режим: ${err.message}`);
+            });
+        } else {
+            if(document.exitFullscreen) document.exitFullscreen();
+        }
+    }
+
+    function handleProgress() {
+        const percent = (video.currentTime / video.duration) * 100;
+        if(progressFilled) progressFilled.style.flexBasis = `${percent}%`;
+    }
+
+    function scrub(e) {
+        const scrubTime = (e.offsetX / progressBar.offsetWidth) * video.duration;
+        video.currentTime = scrubTime;
+    }
+
+    if(video) {
+        video.addEventListener('click', togglePlay);
+        video.addEventListener('play', updateButton);
+        video.addEventListener('pause', updateButton);
+        video.addEventListener('timeupdate', handleProgress);
+    }
+    
+    if(playButton) playButton.addEventListener('click', togglePlay);
+    if(volumeSlider) volumeSlider.addEventListener('input', handleVolumeUpdate);
+    if(fullscreenButton) fullscreenButton.addEventListener('click', toggleFullscreen);
+
+    let mousedown = false;
+    if(progressBar) {
+        progressBar.addEventListener('click', scrub);
+        progressBar.addEventListener('mousemove', (e) => mousedown && scrub(e));
+        progressBar.addEventListener('mousedown', () => mousedown = true);
+        progressBar.addEventListener('mouseup', () => mousedown = false);
+    }
+
+    window.addEventListener('keydown', (e) => {
+        if (e.code === 'Space' && document.activeElement && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+            e.preventDefault(); 
+            togglePlay();
+        }
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting && video && !video.paused) {
+                video.pause();
+            }
+        });
+    }, { threshold: 0 });
+
+    observer.observe(playerWrapper);
+}
+
+// --- Анимация переключателя "Брелок/Кулон" при каждом появлении на экране ---
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Находим наш блок по ID
+    const switcherCard = document.getElementById('extra-item-switcher');
+
+    if (!switcherCard) return;
+
+    // 2. Создаем "наблюдателя"
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const inactiveLabel = switcherCard.querySelector('input:not(:checked) + label');
+            if (!inactiveLabel) return;
+
+            if (entry.isIntersecting) {
+                // Код, когда элемент ВИДЕН на экране:
+                // Добавляем класс, чтобы запустить анимацию
+                inactiveLabel.classList.add('start-jiggling');
+
+            } else {
+                // НОВЫЙ КОД: когда элемент ИСЧЕЗАЕТ с экрана:
+                // Убираем класс, чтобы "сбросить" анимацию для следующего раза
+                inactiveLabel.classList.remove('start-jiggling');
+            }
+        });
+    }, {
+        threshold: 0.5 // Порог срабатывания 50%
+    });
+
+    // 3. Говорим "наблюдателю" следить за нашим блоком
+    observer.observe(switcherCard);
+});
+
