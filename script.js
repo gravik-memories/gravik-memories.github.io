@@ -311,24 +311,29 @@ document.addEventListener('DOMContentLoaded', () => {
     function showCartView() { if (cartModalContent) cartModalContent.classList.remove('checkout-view'); }
     function showCheckoutView() { if (cartModalContent) cartModalContent.classList.add('checkout-view'); }
 
-    if (cartIcon && cartModal && closeCartBtn) {
-        cartIcon.addEventListener('click', openCartModal);
-        closeCartBtn.addEventListener('click', () => history.back());
-        cartModal.addEventListener('click', (event) => {
-            if (event.target.id === 'chooseExtrasBtn') {
-                history.back();
+   if (cartIcon && cartModal && closeCartBtn) {
+    cartIcon.addEventListener('click', openCartModal);
+    closeCartBtn.addEventListener('click', () => history.back());
+    cartModal.addEventListener('click', (event) => {
+        if (event.target.id === 'chooseExtrasBtn') {
+            history.back();
+            // Добавляем задержку, чтобы прокрутка сработала ПОСЛЕ закрытия окна
+            setTimeout(() => {
                 const extrasSection = document.getElementById('extras');
-                if (extrasSection) extrasSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            } else if (event.target.id === 'checkoutBtn') {
-                showCheckoutView();
-            } else if (event.target.id === 'backToCartBtn') {
-                event.preventDefault();
-                showCartView();
-            } else if (event.target === cartModal) {
-                history.back();
-            }
-        });
-    }
+                if (extrasSection) {
+                    extrasSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 100); // Задержки в 100 мс будет достаточно
+        } else if (event.target.id === 'checkoutBtn') {
+            showCheckoutView();
+        } else if (event.target.id === 'backToCartBtn') {
+            event.preventDefault();
+            showCartView();
+        } else if (event.target === cartModal) {
+            history.back();
+        }
+    });
+}
     
     if (window.location.hash === '#cart') {
         openCartModal();
@@ -661,3 +666,4 @@ window.addEventListener('popstate', () => {
         closeCartModal();
     }
 });
+
