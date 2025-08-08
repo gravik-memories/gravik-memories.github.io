@@ -117,7 +117,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentModalImages = [];
     let currentImageIndex = 0;
     
-    // Функции для модального окна изображений
     window.openImageModal = function(isGallery, imagesOrSrc, startIndex = 0) {
         if (!imageModal) return;
         body.classList.add('menu-open');
@@ -528,10 +527,61 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     updateCart();
+
+    // --- Анімація похитування для блоку "Додатково" ---
+    const extrasBlock = document.getElementById('extras');
+    if (extrasBlock) {
+        const extrasGrid = extrasBlock.querySelector('.extras-grid');
+        let swayIntervalId = null;
+        const triggerSwayAnimation = () => {
+            if (extrasGrid && !extrasGrid.classList.contains('sway-animation')) {
+                extrasGrid.classList.add('sway-animation');
+                extrasGrid.addEventListener('animationend', () => {
+                    extrasGrid.classList.remove('sway-animation');
+                }, { once: true });
+            }
+        };
+        const stopSwayingPermanently = () => {
+            clearInterval(swayIntervalId);
+            if(extrasGrid) extrasGrid.removeEventListener('scroll', stopSwayingPermanently);
+        };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (!swayIntervalId) {
+                        swayIntervalId = setInterval(triggerSwayAnimation, 3000);
+                        if(extrasGrid) extrasGrid.addEventListener('scroll', stopSwayingPermanently, { once: true });
+                    }
+                } else {
+                    clearInterval(swayIntervalId);
+                    swayIntervalId = null;
+                }
+            });
+        }, { threshold: 0.5 });
+        observer.observe(extrasBlock);
+    }
+    
+    // --- Анимация переключателя "Брелок/Кулон" ---
+    const switcherCard = document.getElementById('extra-item-switcher');
+    if (switcherCard) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const inactiveLabel = switcherCard.querySelector('input:not(:checked) + label');
+                if (!inactiveLabel) return;
+                if (entry.isIntersecting) {
+                    inactiveLabel.classList.add('start-jiggling');
+                } else {
+                    inactiveLabel.classList.remove('start-jiggling');
+                }
+            });
+        }, { threshold: 0.5 });
+        observer.observe(switcherCard);
+    }
+
 }); // <-- ЗДЕСЬ ЗАКРЫВАЕТСЯ ГЛАВНЫЙ DOMCONTENTLOADED
 
 // =======================================================
-// КОД НИЖЕ ТЕПЕРЬ НАХОДИТСЯ СНАРУЖИ, ЧТОБЫ ГАРАНТИРОВАТЬ ПРАВИЛЬНУЮ РАБОТУ
+// КОД НИЖЕ НАХОДИТСЯ СНАРУЖИ ДЛЯ ПРАВИЛЬНОЙ РАБОТЫ
 // =======================================================
 
 // --- ЛОГИКА ВИДЕОПЛЕЕРА ---
@@ -556,7 +606,7 @@ if (playerWrapper) {
     function toggleFullscreen() {
         if (!document.fullscreenElement) {
             if(playerWrapper) playerWrapper.requestFullscreen().catch(err => {
-                showCustomAlert(`Помилка: ${err.message}`);
+                if(window.showCustomAlert) showCustomAlert(`Помилка: ${err.message}`);
             });
         } else {
             if(document.exitFullscreen) document.exitFullscreen();
@@ -604,11 +654,9 @@ if (playerWrapper) {
 
 // --- ЕДИНЫЙ ОБРАБОТЧИК ДЛЯ КНОПКИ "НАЗАД" ---
 window.addEventListener('popstate', () => {
-    // Логика для закрытия модального окна с картинкой
     if (typeof closeImageModalLogic === 'function') {
         closeImageModalLogic();
     }
-    // Логика для закрытия корзины
     if (window.location.hash !== '#cart' && typeof closeCartModal === 'function') {
         closeCartModal();
     }
