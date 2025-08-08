@@ -163,13 +163,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (imageModal) {
-        window.addEventListener('popstate', (e) => {
-             if (e.state && e.state.modalOpen) {
-                 closeImageModalLogic();
-             } else if (!e.state) {
-                 closeImageModalLogic();
-             }
-        });
+        window.addEventListener('popstate', function(event) {
+    // Эта функция срабатывает при нажатии системной кнопки "Назад"
+
+    // Просто пытаемся закрыть все известные модальные окна.
+    // Если окно открыто, оно закроется. Если закрыто, ничего не произойдет.
+    closeCartModal();
+    closeImageModalLogic(); 
+});
         if (closeImageModalButton) closeImageModalButton.addEventListener('click', () => history.back());
         imageModal.addEventListener('click', (event) => {
             if (event.target === imageModal) {
@@ -403,7 +404,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cartModal.style.display = 'none';
             body.classList.remove('menu-open');
         };
-        closeCartBtn.addEventListener('click', closeCartModal);
+        closeCartBtn.addEventListener('click', () => history.back());
 
         // Делегирование событий для кнопок "Оформить", "Назад" и "Доп. товары"
 cartModal.addEventListener('click', (event) => {
@@ -427,8 +428,8 @@ cartModal.addEventListener('click', (event) => {
     } 
     // Если кликнули на фон для закрытия
     else if (event.target == cartModal) {
-        closeCartModal();
-    }
+    history.back();
+}
 });
     }
     
