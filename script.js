@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentImageIndex = 0;
     
     // Функции для модального окна изображений
-    function openImageModal(isGallery, imagesOrSrc, startIndex = 0) {
+    window.openImageModal = function(isGallery, imagesOrSrc, startIndex = 0) {
         if (!imageModal) return;
         body.classList.add('menu-open');
         imageModal.style.display = "block";
@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
         history.pushState({ modal: 'image' }, "Image");
     }
 
-    function closeImageModalLogic() {
+    window.closeImageModalLogic = function() {
         if (imageModal && imageModal.style.display === "block") {
             body.classList.remove('menu-open');
             imageModal.style.display = "none";
@@ -292,7 +292,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const cartModalContent = cartModal ? cartModal.querySelector('.cart-modal-content') : null;
     let cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
 
-    const openCartModal = () => {
+    window.openCartModal = () => {
         if (!cartModal || cartModal.style.display === 'block') return;
         cartModal.style.display = 'block';
         body.classList.add('menu-open');
@@ -303,7 +303,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    const closeCartModal = () => {
+    window.closeCartModal = () => {
         if (!cartModal || cartModal.style.display !== 'block') return;
         cartModal.style.display = 'none';
         body.classList.remove('menu-open');
@@ -331,7 +331,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    // При загрузке страницы проверяем, не нужно ли открыть корзину
     if (window.location.hash === '#cart') {
         openCartModal();
     }
@@ -528,35 +527,89 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
-    updateCart(); // Первоначальный рендер корзины при загрузке страницы
-});
+    updateCart();
+}); // <-- ЗДЕСЬ ЗАКРЫВАЕТСЯ ГЛАВНЫЙ DOMCONTENTLOADED
 
-// --- ЕДИНЫЙ ОБРАБОТЧИК ДЛЯ КНОПКИ "НАЗАД" ---
-// Он обрабатывает закрытие и модального окна с картинкой, и корзины
-window.addEventListener('popstate', (event) => {
-    // Получаем текущее состояние модальных окон
-    const imageModal = document.getElementById('imageModal');
-    const cartModal = document.getElementById('cartModal');
+// =======================================================
+// КОД НИЖЕ ТЕПЕРЬ НАХОДИТСЯ СНАРУЖИ, ЧТОБЫ ГАРАНТИРОВАТЬ ПРАВИЛЬНУЮ РАБОТУ
+// =======================================================
 
-    // Логика для закрытия модального окна с картинкой
-    if (imageModal && imageModal.style.display === 'block') {
-         // Находим функцию для закрытия этого окна в глобальной области
-        if (typeof closeImageModalLogic === 'function') {
-            closeImageModalLogic();
+// --- ЛОГИКА ВИДЕОПЛЕЕРА ---
+const playerWrapper = document.querySelector('.player-wrapper');
+if (playerWrapper) {
+    const video = playerWrapper.querySelector('.player');
+    const playButton = playerWrapper.querySelector('.toggle-play');
+    const volumeSlider = playerWrapper.querySelector('input[name="volume"]');
+    const fullscreenButton = playerWrapper.querySelector('.fullscreen');
+    const progressBar = playerWrapper.querySelector('.progress');
+    const progressFilled = playerWrapper.querySelector('.progress-filled');
+
+    function togglePlay() {
+        if (video.paused) video.play();
+        else video.pause();
+    }
+    function updateButton() {
+        const icon = video.paused ? '►' : '❚❚';
+        if (playButton) playButton.textContent = icon;
+    }
+    function handleVolumeUpdate() { if(video) video.volume = this.value; }
+    function toggleFullscreen() {
+        if (!document.fullscreenElement) {
+            if(playerWrapper) playerWrapper.requestFullscreen().catch(err => {
+                showCustomAlert(`Помилка: ${err.message}`);
+            });
         } else {
-             imageModal.style.display = 'none'; // Резервный вариант закрытия
-             document.body.classList.remove('menu-open');
+            if(document.exitFullscreen) document.exitFullscreen();
         }
     }
-    
-    // Логика для закрытия корзины
-    if (cartModal && cartModal.style.display === 'block' && window.location.hash !== '#cart') {
-        // Находим функцию для закрытия корзины в глобальной области
-        if (typeof closeCartModal === 'function') {
-            closeCartModal();
-        } else {
-            cartModal.style.display = 'none'; // Резервный вариант закрытия
-            document.body.classList.remove('menu-open');
+    function handleProgress() {
+        const percent = (video.currentTime / video.duration) * 100;
+        if (progressFilled) progressFilled.style.flexBasis = `${percent}%`;
+    }
+    function scrub(e) {
+        const scrubTime = (e.offsetX / progressBar.offsetWidth) * video.duration;
+        video.currentTime = scrubTime;
+    }
+
+    if (video) {
+        video.addEventListener('click', togglePlay);
+        video.addEventListener('play', updateButton);
+        video.addEventListener('pause', updateButton);
+        video.addEventListener('timeupdate', handleProgress);
+    }
+    if (playButton) playButton.addEventListener('click', togglePlay);
+    if (volumeSlider) volumeSlider.addEventListener('input', handleVolumeUpdate);
+    if (fullscreenButton) fullscreenButton.addEventListener('click', toggleFullscreen);
+
+    let mousedown = false;
+    if (progressBar) {
+        progressBar.addEventListener('click', scrub);
+        progressBar.addEventListener('mousemove', (e) => mousedown && scrub(e));
+        progressBar.addEventListener('mousedown', () => mousedown = true);
+        progressBar.addEventListener('mouseup', () => mousedown = false);
+    }
+    window.addEventListener('keydown', (e) => {
+        if (e.code === 'Space' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+            e.preventDefault(); 
+            togglePlay();
         }
+    });
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting && video && !video.paused) video.pause();
+        });
+    }, { threshold: 0 });
+    observer.observe(playerWrapper);
+}
+
+// --- ЕДИНЫЙ ОБРАБОТЧИК ДЛЯ КНОПКИ "НАЗАД" ---
+window.addEventListener('popstate', () => {
+    // Логика для закрытия модального окна с картинкой
+    if (typeof closeImageModalLogic === 'function') {
+        closeImageModalLogic();
+    }
+    // Логика для закрытия корзины
+    if (window.location.hash !== '#cart' && typeof closeCartModal === 'function') {
+        closeCartModal();
     }
 });
